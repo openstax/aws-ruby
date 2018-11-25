@@ -2,8 +2,7 @@ RSpec.describe OpenStax::Aws::DeploymentBase do
 
   context "#subdomain_with_trailing_dot" do
     let(:instance) {
-      described_class.new(is_sandbox: true, # doesn't matter here
-                          env_name: env_name,
+      described_class.new(env_name: env_name,
                           region: 'whatever',
                           name: 'a_name')
     }

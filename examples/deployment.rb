@@ -3,8 +3,8 @@ require 'byebug'
 module OpenStax::Aws::SomeApp
   class Deployment < OpenStax::Aws::DeploymentBase
 
-    def initialize(env_name:, region:, is_sandbox: true)
-      super(is_sandbox: is_sandbox, env_name: env_name, region: region, name: "some_name")
+    def initialize(env_name:, region:)
+      super(env_name: env_name, region: region, name: "some_name")
     end
 
     def create(app_image_id:, sha: nil)
@@ -69,12 +69,12 @@ module OpenStax::Aws::SomeApp
           network_stack_name: network_stack_name,
           env_name: env_name,
           branch_name_or_sha: "",
-          hosted_zone_name: hosted_zone_name,
+          hosted_zone_name: "something.domain.com",
           domain: domain,
           web_server_image_id: app_image_id,
           web_server_desired_capacity: '1',
           parameter_namespace: parameter_namespace,
-          key_name: default_key_name
+          key_name: "some-aws-keypair-name"
         )
       )
     end
@@ -100,12 +100,12 @@ module OpenStax::Aws::SomeApp
           network_stack_name: network_stack_name,
           env_name: env_name,
           branch_name_or_sha: "",
-          hosted_zone_name: hosted_zone_name,
+          hosted_zone_name: "something.domain.com",
           domain: domain,
           web_server_image_id: new_app_image_id,
           web_server_desired_capacity: asg.desired_capacity.to_s,
           parameter_namespace: parameter_namespace,
-          key_name: default_key_name
+          key_name: "some-aws-keypair-name"
         ),
         change_set_name: "update-app-image-#{Time.now.utc.strftime("%Y%m%d-%H%M%S")}-#{new_app_image_id}"
       })

@@ -1,37 +1,39 @@
 module OpenStax::Aws
   class DeploymentBase
 
-    attr_reader :is_sandbox, :env_name, :region, :name
+    attr_reader :env_name, :region, :name
 
     RESERVED_ENV_NAMES = [
       "external", # used to namespace external secrets in the parameter store
     ]
 
-    def initialize(is_sandbox:, env_name:, region:, name:)
+    def initialize(env_name: nil, region:, name:)
       if RESERVED_ENV_NAMES.include?(env_name)
         raise "#{env_name} is a reserved word and cannot be used as an environment name"
       end
 
-      @is_sandbox = is_sandbox
-      @env_name = env_name
+      # Allow a blank env_name but normalize it to `nil`
+      @env_name = env_name.blank? ? nil : env_name
       @region = region
       @name = name
     end
 
+    def name!
+      raise "`name` is blank" if name.blank?
+      name
+    end
+
+    def env_name!
+      raise "`env_name` is blank" if env_name.blank?
+      env_name
+    end
+
     protected
-
-    def hosted_zone_prefix
-      is_sandbox ? "dev." : ""
-    end
-
-    def hosted_zone_name
-      "#{hosted_zone_prefix}a15k.org"
-    end
 
     def subdomain_with_trailing_dot(site_name:)
       parts = []
       parts.push(site_name) if !site_name.blank?
-      parts.push(env_name) if env_name != "production" # production env_name is hidden
+      parts.push(env_name!) if env_name! != "production" # production env_name is hidden
 
       subdomain = parts.join("-")
       subdomain.blank? ? "" : subdomain + "."
@@ -41,8 +43,8 @@ module OpenStax::Aws
       "#{subdomain_with_trailing_dot(site_name: site_name)}#{hosted_zone_name}"
     end
 
-    def default_key_name
-      is_sandbox ? "a15k-dev-kp" : "a15k-kp"
+    def hosted_zone_name
+      OpenStax::Aws.configuration.hosted_zone_name
     end
 
     def stack_output_value(stack:, key:)
@@ -123,15 +125,11 @@ module OpenStax::Aws
       ::Aws::AutoScaling::AutoScalingGroup.new(name: name, client: auto_scaling_client)
     end
 
-    def cf_template_bucket
-      @cf_template_bucket ||= begin
+    def cfn_template_bucket
+      @cfn_template_bucket ||= begin
         s3 = ::Aws::S3::Resource.new(region: region)
-        s3.bucket(cf_template_bucket_name)
+        s3.bucket(OpenStax::Aws.configuration.cfn_template_bucket_name)
       end
-    end
-
-    def cf_template_bucket_name
-      is_sandbox ? "a15k-dev-cf-templates" : "a15k-cf-templates"
     end
 
     def wait_for_tag_change(resource:, key:, polling_seconds: 10, timeout_seconds: nil)
@@ -157,22 +155,22 @@ module OpenStax::Aws
 
     def upload_template(absolute_file_path:)
       file_name = File.basename(absolute_file_path)
-      cf_template_bucket.object("#{template_path(file_name: file_name)}").upload_file(absolute_file_path)
+      cfn_template_bucket.object("#{template_path(file_name: file_name)}").upload_file(absolute_file_path)
     end
 
     def template_url(file_name:)
-      "https://s3.amazonaws.com/#{cf_template_bucket_name}/#{template_path(file_name: file_name)}"
+      "https://s3.amazonaws.com/#{OpenStax::Aws.configuration.cfn_template_bucket_name}/#{template_path(file_name: file_name)}"
     end
 
     def template_path(file_name:)
       # e.g. "may5/interactions/app.yml"
-      "#{env_name}/#{name}/#{file_name}"
+      ["cfn_templates", env_name, name!, file_name].compact.join("/")
     end
 
     def parameters
       @parameters ||= OpenStax::Aws::Parameters.new(
         region: region,
-        env_name: env_name,
+        env_name: env_name!,
         parameter_namespace: parameter_namespace
       )
     end
@@ -198,6 +196,14 @@ module OpenStax::Aws
 
     def stack(stack_name:)
       ::Aws::CloudFormation::Stack.new(name: stack_name, client: client)
+    end
+
+    protected
+
+    def parameter_namespace
+      raise "Override this method in your deployment class and provide a namespace " \
+            "for data in the AWS Parameter Store.  The parameter key will be this namespace " \
+            "prefixed by the environment name and suffixed with the parameter name."
     end
 
   end
