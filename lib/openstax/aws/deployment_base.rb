@@ -125,13 +125,6 @@ module OpenStax::Aws
       ::Aws::AutoScaling::AutoScalingGroup.new(name: name, client: auto_scaling_client)
     end
 
-    def cfn_template_bucket
-      @cfn_template_bucket ||= begin
-        s3 = ::Aws::S3::Resource.new(region: region)
-        s3.bucket(OpenStax::Aws.configuration.cfn_template_bucket_name)
-      end
-    end
-
     def wait_for_tag_change(resource:, key:, polling_seconds: 10, timeout_seconds: nil)
       keep_polling = true
       started_at = Time.now
@@ -151,20 +144,6 @@ module OpenStax::Aws
       rescue NoMethodError => ee
         nil
       end
-    end
-
-    def upload_template(absolute_file_path:)
-      file_name = File.basename(absolute_file_path)
-      cfn_template_bucket.object("#{template_path(file_name: file_name)}").upload_file(absolute_file_path)
-    end
-
-    def template_url(file_name:)
-      "https://s3.amazonaws.com/#{OpenStax::Aws.configuration.cfn_template_bucket_name}/#{template_path(file_name: file_name)}"
-    end
-
-    def template_path(file_name:)
-      # e.g. "may5/interactions/app.yml"
-      ["cfn_templates", env_name, name!, file_name].compact.join("/")
     end
 
     def parameters
