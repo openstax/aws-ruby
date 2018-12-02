@@ -108,8 +108,13 @@ module OpenStax::Aws
       params.map do |key, value|
         {
           parameter_key: key.to_s.split('_').collect(&:capitalize).join,
-          parameter_value: value
-        }
+        }.tap do |hash|
+          if value == :use_previous_value
+            hash[:use_previous_value] = true
+          else
+            hash[:parameter_value] = value
+          end
+        end
       end
     end
 
