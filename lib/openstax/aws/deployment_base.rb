@@ -79,11 +79,19 @@ module OpenStax::Aws
     end
 
     def wait_for_change_set_ready(change_set_name_or_id:)
-      client.wait_until(:change_set_create_complete, change_set_name: change_set_name_or_id) do |w|
-        w.delay = 10
-        w.before_attempt do |attempts, response|
-          puts "Waiting for Change Set #{change_set_name_or_id} to be ready...\n"
+      begin
+        client.wait_until(:change_set_create_complete, change_set_name: change_set_name_or_id) do |w|
+          w.delay = 10
+          w.before_attempt do |attempts, response|
+            puts "Waiting for Change Set #{change_set_name_or_id} to be ready...\n"
+          end
         end
+      rescue Aws::Waiters::Errors::FailureStateError => ee
+        puts ee.response.status_reason
+        raise
+      rescue Aws::Waiters::Errors::WaiterFailed => ee
+        puts "An error occurred: #{ee.message}"
+        raise
       end
     end
 
