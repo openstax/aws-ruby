@@ -47,6 +47,10 @@ module OpenStax::Aws
       OpenStax::Aws.configuration.hosted_zone_name
     end
 
+    def log_bucket_name
+      OpenStax::Aws.configuration.log_bucket_name
+    end
+
     def stack_output_value(stack:, key:)
       output = stack.outputs.find {|output| output.output_key == key}
       raise "No output with key #{key} in stack #{stack}" if output.nil?
