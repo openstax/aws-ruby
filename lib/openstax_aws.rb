@@ -29,6 +29,7 @@ module OpenStax
     class Configuration
       attr_writer :hosted_zone_name
       attr_writer :cfn_template_bucket_name
+      attr_writer :log_bucket_name
 
       def hosted_zone_name
         raise "hosted_zone_name isn't set!" if @hosted_zone_name.blank?
@@ -44,6 +45,11 @@ module OpenStax
         @cfn_template_bucket_region ||= ::Aws::S3::Client.new(region: "us-east-1") # could be any region
           .get_bucket_location(bucket: cfn_template_bucket_name)
           .location_constraint
+      end
+
+      def log_bucket_name
+        raise "log_bucket_name isn't set!" if @log_bucket_name.blank?
+        @log_bucket_name
       end
     end
 
