@@ -30,10 +30,14 @@ module OpenStax::Aws
 
     protected
 
+    def is_production?
+      env_name == "production"
+    end
+
     def subdomain_with_trailing_dot(site_name:)
       parts = []
       parts.push(site_name) if !site_name.blank?
-      parts.push(env_name!) if env_name! != "production" # production env_name is hidden
+      parts.push(env_name!) unless is_production?
 
       subdomain = parts.join("-")
       subdomain.blank? ? "" : subdomain + "."
@@ -110,6 +114,15 @@ module OpenStax::Aws
         puts "Executing Change Set\n"
         out = client.execute_change_set(change_set_name: create_change_set_output.id)
       end
+    end
+
+    def create_stack(params={})
+      # Default termination protection to on for production
+      if is_production? && !params.has_key?(:enable_termination_protection)
+        params[:enable_termination_protection] = true
+      end
+
+      client.create_stack(params)
     end
 
     def client
