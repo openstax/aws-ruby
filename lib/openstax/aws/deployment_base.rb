@@ -56,6 +56,8 @@ module OpenStax::Aws
     end
 
     def stack_output_value(stack:, key:)
+      stack = stack(stack_name: stack) if stack.is_a?(String)
+
       output = stack.outputs.find {|output| output.output_key == key}
       raise "No output with key #{key} in stack #{stack}" if output.nil?
       output.output_value
@@ -101,6 +103,12 @@ module OpenStax::Aws
         puts "An error occurred: #{ee.message}"
         raise
       end
+    end
+
+    def wait_for_stack_update(stack_name:)
+      wait_for_stack_event(stack_name: stack_name,
+                           waiter_class: Aws::CloudFormation::Waiters::StackUpdateComplete,
+                           word: "updated")
     end
 
     def apply_change_set(params:, dry_run: true)
@@ -153,6 +161,10 @@ module OpenStax::Aws
 
     def auto_scaling_group(name:)
       ::Aws::AutoScaling::AutoScalingGroup.new(name: name, client: auto_scaling_client)
+    end
+
+    def cloudfront_client
+      @cloudfront_client ||= ::Aws::CloudFront::Client.new(region: region)
     end
 
     def wait_for_tag_change(resource:, key:, polling_seconds: 10, timeout_seconds: nil)
