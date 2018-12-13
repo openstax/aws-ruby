@@ -1,5 +1,6 @@
 require "aws-sdk"
 
+require "pp"
 require "openstax/aws/extensions"
 require "openstax/aws/version"
 require "openstax/aws/git_helper"
