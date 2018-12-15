@@ -1,5 +1,7 @@
 # aws-ruby
 
+[![Build Status](https://travis-ci.org/openstax/aws-ruby.svg?branch=master)](https://travis-ci.org/openstax/aws-ruby)
+
 
 ### client_params
 

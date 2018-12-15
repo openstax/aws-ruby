@@ -1,5 +1,7 @@
 require "bundler/setup"
-require "openstax_aws"
+require "byebug"
+
+require_relative "../lib/openstax_aws"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

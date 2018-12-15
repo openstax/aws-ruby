@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 RSpec.describe OpenStax::Aws::DeploymentBase do
 
   context "#subdomain_with_trailing_dot" do

@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 RSpec.describe OpenStax::Aws::Parameters do
 
   let(:instance) {
