@@ -112,16 +112,26 @@ module OpenStax::Aws
     end
 
     def apply_change_set(params:, dry_run: true)
-      create_change_set_output = client.create_change_set(params)
+      puts "**** DRY RUN ****\n\n" if dry_run
 
+      create_change_set_output = client.create_change_set(params)
       wait_for_change_set_ready(change_set_name_or_id: create_change_set_output.id)
 
+      change_set_description = OpenStax::Aws::ChangeSetDescription.new(
+        client.describe_change_set(change_set_name: create_change_set_output.id)
+      )
+
       if dry_run
-        pp client.describe_change_set(change_set_name: create_change_set_output.id)
+        puts "Deleting Change Set (because this is a dry run)\n"
+        client.delete_change_set(change_set_name: create_change_set_output.id) # cleanup
       else
         puts "Executing Change Set\n"
-        out = client.execute_change_set(change_set_name: create_change_set_output.id)
+        client.execute_change_set(change_set_name: create_change_set_output.id)
       end
+
+      puts change_set_description.change_summaries.join("\n")
+
+      change_set_description
     end
 
     def create_stack(params={})
