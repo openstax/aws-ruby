@@ -55,6 +55,10 @@ module OpenStax::Aws
       OpenStax::Aws.configuration.log_bucket_name
     end
 
+    def logger
+      OpenStax::Aws.configuration.logger
+    end
+
     def stack_output_value(stack:, key:)
       stack = stack(stack_name: stack) if stack.is_a?(String)
 
@@ -64,16 +68,20 @@ module OpenStax::Aws
     end
 
     def wait_for_stack_event(stack_name:, waiter_class:, word:)
+      wait_message = OpenStax::Aws::WaitMessage.new(
+        message: "Waiting for #{stack_name} stack to be #{word}"
+      )
+
       begin
         waiter_class.new(
           client: client,
-          before_attempt: ->(*) { puts "Waiting for #{stack_name} stack to be #{word}...\n"}
+          before_attempt: ->(*) { wait_message.say_it }
         ).wait(stack_name: stack_name)
       rescue Aws::Waiters::Errors::WaiterFailed => error
-        "Waiting failed: #{error.message}"
+        logger.error("Waiting failed: #{error.message}")
         raise
       end
-      puts "#{stack_name} has been #{word}!"
+      logger.info "#{stack_name} has been #{word}!"
     end
 
     def wait_for_stack_creation(stack_name:)
@@ -89,18 +97,22 @@ module OpenStax::Aws
     end
 
     def wait_for_change_set_ready(change_set_name_or_id:)
+      wait_message = OpenStax::Aws::WaitMessage.new(
+        message: "Waiting for change set #{change_set_name_or_id} to be ready"
+      )
+
       begin
         client.wait_until(:change_set_create_complete, change_set_name: change_set_name_or_id) do |w|
           w.delay = 10
           w.before_attempt do |attempts, response|
-            puts "Waiting for Change Set #{change_set_name_or_id} to be ready...\n"
+            wait_message.say_it
           end
         end
       rescue Aws::Waiters::Errors::FailureStateError => ee
-        puts ee.response.status_reason
+        logger.error(ee.response.status_reason)
         raise
       rescue Aws::Waiters::Errors::WaiterFailed => ee
-        puts "An error occurred: #{ee.message}"
+        logger.error("An error occurred: #{ee.message}")
         raise
       end
     end
@@ -112,7 +124,7 @@ module OpenStax::Aws
     end
 
     def apply_change_set(params:, dry_run: true)
-      puts "**** DRY RUN ****\n\n" if dry_run
+      logger.info("\n**** DRY RUN ****\n") if dry_run
 
       create_change_set_output = client.create_change_set(params)
       wait_for_change_set_ready(change_set_name_or_id: create_change_set_output.id)
@@ -122,25 +134,33 @@ module OpenStax::Aws
       )
 
       if dry_run
-        puts "Deleting Change Set (because this is a dry run)\n"
+        logger.info("Deleting Change Set (because this is a dry run)")
         client.delete_change_set(change_set_name: create_change_set_output.id) # cleanup
       else
-        puts "Executing Change Set\n"
+        logger.info("Executing Change Set")
         client.execute_change_set(change_set_name: create_change_set_output.id)
       end
 
-      puts change_set_description.change_summaries.join("\n")
+      logger.info(change_set_description.change_summaries.join("\n"))
 
       change_set_description
     end
 
     def create_stack(params={})
+      logger.info("Creating #{params[:stack_name]} stack...")
+
       # Default termination protection to on for production
       if is_production? && !params.has_key?(:enable_termination_protection)
         params[:enable_termination_protection] = true
       end
 
       client.create_stack(params)
+    end
+
+    def delete_stack(stack_name:)
+      logger.info("Deleting #{stack_name} stack...")
+
+      client.delete_stack(stack_name: stack_name)
     end
 
     def client
@@ -223,10 +243,6 @@ module OpenStax::Aws
     # Returns the SHA on an AMI
     def image_sha(image_id)
       get_image_tag(image_id: image_id, key: "sha")
-    end
-
-    def delete_stack(stack_name:)
-      client.delete_stack(stack_name: stack_name)
     end
 
     def stack(stack_name:)

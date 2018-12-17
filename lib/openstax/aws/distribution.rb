@@ -27,19 +27,23 @@ module OpenStax::Aws
 
       logger.info("Created invalidation #{invalidation_id} for paths #{paths.join(', ')}.")
 
+      wait_message = OpenStax::Aws::WaitMessage.new(
+        message: "Waiting for invalidation #{invalidation_id} to be completed"
+      )
+
       begin
         Aws::CloudFront::Waiters::InvalidationCompleted.new(
           client: client,
-          before_attempt: ->(*) { logger.info("Waiting for invalidation #{invalidation_id} to be completed...\n") }
+          before_attempt: ->(*) { wait_message.say_it }
         ).wait(
           distribution_id: id,
           id: invalidation_id
         )
       rescue Aws::Waiters::Errors::WaiterFailed => error
-        "Waiting failed: #{error.message}"
+        logger.error "Waiting failed: #{error.message}"
         raise
       end
-      puts "Invalidation #{invalidation_id} has been completed!"
+      logger.info "Invalidation #{invalidation_id} has been completed!"
     end
 
     protected
