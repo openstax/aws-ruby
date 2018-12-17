@@ -177,6 +177,10 @@ module OpenStax::Aws
       @cloudfront_client ||= ::Aws::CloudFront::Client.new(region: region)
     end
 
+    def s3_client
+      @s3_client ||= Aws::S3::Client.new(region: region)
+    end
+
     def wait_for_tag_change(resource:, key:, polling_seconds: 10, timeout_seconds: nil)
       keep_polling = true
       started_at = Time.now
