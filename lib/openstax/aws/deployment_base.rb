@@ -124,7 +124,7 @@ module OpenStax::Aws
     end
 
     def apply_change_set(params:, dry_run: true)
-      logger.info("\n**** DRY RUN ****\n") if dry_run
+      logger.info("**** DRY RUN ****") if dry_run
 
       create_change_set_output = client.create_change_set(params)
       wait_for_change_set_ready(change_set_name_or_id: create_change_set_output.id)
@@ -146,7 +146,9 @@ module OpenStax::Aws
       change_set_description
     end
 
-    def create_stack(params={})
+    def create_stack(dry_run: true, params:)
+      logger.info("**** DRY RUN ****") if dry_run
+
       logger.info("Creating #{params[:stack_name]} stack...")
 
       # Default termination protection to on for production
@@ -154,13 +156,15 @@ module OpenStax::Aws
         params[:enable_termination_protection] = true
       end
 
-      client.create_stack(params)
+      client.create_stack(params) if !dry_run
     end
 
-    def delete_stack(stack_name:)
+    def delete_stack(dry_run: true, stack_name:)
+      logger.info("**** DRY RUN ****") if dry_run
+
       logger.info("Deleting #{stack_name} stack...")
 
-      client.delete_stack(stack_name: stack_name)
+      client.delete_stack(stack_name: stack_name) if !dry_run
     end
 
     def client
@@ -199,6 +203,15 @@ module OpenStax::Aws
 
     def s3_client
       @s3_client ||= Aws::S3::Client.new(region: region)
+    end
+
+    def s3_key_exists?(bucket:, key:)
+      begin
+        s3_client.get_object(bucket: bucket, key: key)
+        true
+      rescue Aws::S3::Errors::NoSuchKey
+        false
+      end
     end
 
     def wait_for_tag_change(resource:, key:, polling_seconds: 10, timeout_seconds: nil)
