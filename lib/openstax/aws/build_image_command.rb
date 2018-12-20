@@ -1,14 +1,21 @@
+require 'open3'
+
 module OpenStax::Aws
   class BuildImageCommand
 
-    def initialize(ami_name_base:, region:, branch: nil, sha: nil, verbose: false, debug: false, repo:,
+    def initialize(ami_name_base:, region:, verbose: false, very_verbose: false, debug: false,
+                   github_org: "openstax", repo:, branch: nil, sha: nil,
                    packer_absolute_file_path: , playbook_absolute_file_path:)
+
+      @logger = OpenStax::Aws.configuration.logger
+      @verbose = verbose
+      @very_verbose = very_verbose
 
       if sha.nil?
         branch ||= 'master'
 
         sha = OpenStax::Aws::GitHelper.sha_for_branch_name(
-                org_slash_repo: "a15k/#{repo}",
+                org_slash_repo: "#{github_org}/#{repo}",
                 branch: branch
               )
       end
@@ -22,14 +29,29 @@ module OpenStax::Aws
       @cmd = "#{@cmd} --var 'sha=#{sha}'"
       @cmd = "#{@cmd} --var 'playbook_file=#{playbook_absolute_file_path}'"
 
-      @cmd = "PACKER_LOG=1 #{@cmd}" if verbose
+      @cmd = "PACKER_LOG=1 #{@cmd}" if verbose || very_verbose
       @cmd = "#{@cmd} --debug" if debug
 
       @cmd = "#{@cmd} #{packer_absolute_file_path}"
     end
 
-    def run
-      `#{@cmd}`
+    def run(dry_run: true)
+      @logger.info("**** DRY RUN ****") if dry_run
+      @logger.info("Running: #{@cmd}")
+
+      if !dry_run
+        if @verbose && !@very_verbose
+          @logger.info("Just printing stderr for desired verbosity")
+
+          Open3.popen2e(@cmd) do |stdin, stdout_err, wait_thr|
+            while line=stdout_err.gets do
+              puts(line) if line =~ / ui\: /
+            end
+          end
+        else
+          `#{@cmd}`
+        end
+      end
     end
 
     def to_s
