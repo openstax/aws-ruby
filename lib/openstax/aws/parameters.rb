@@ -10,16 +10,21 @@ module OpenStax::Aws
       @client = Aws::SSM::Client.new(region: region)
     end
 
-    def create(specification:, substitutions: {})
+    def create(dry_run: true, specification:, substitutions: {})
       raise "Cannot create parameters already in existence!" if !data.empty?
 
       # Build all parameters first so we hit any errors before we send any to AWS
       built_parameters = build_parameters(specification: specification, substitutions: substitutions)
 
-      # Ship 'em
+      OpenStax::Aws.logger.info("**** DRY RUN ****") if dry_run
 
-      built_parameters.each do |built_parameter|
-        client.put_parameter(built_parameter)
+      OpenStax::Aws.logger.info("Creating the following parameters in the AWS parameter store: #{built_parameters}")
+
+      # Ship 'em
+      if !dry_run
+        built_parameters.each do |built_parameter|
+          client.put_parameter(built_parameter)
+        end
       end
     end
 
@@ -80,16 +85,22 @@ module OpenStax::Aws
       end
     end
 
-    def delete
+    def delete(dry_run: true)
       parameter_names = data!.keys
       return if parameter_names.empty?
 
-      # Can send max 10 parameter names at a time
-      parameter_names.each_slice(10) do |some_parameter_names|
-        response = client.delete_parameters({names: some_parameter_names})
+      OpenStax::Aws.logger.info("**** DRY RUN ****") if dry_run
 
-        if response.invalid_parameters.any?
-          raise "Some parameters were not deleted: #{response.invalid_parameters}"
+      OpenStax::Aws.logger.info("Deleting the following parameters in the AWS parameter store: #{parameter_names}")
+
+      if !dry_run
+        # Can send max 10 parameter names at a time
+        parameter_names.each_slice(10) do |some_parameter_names|
+          response = client.delete_parameters({names: some_parameter_names})
+
+          if response.invalid_parameters.any?
+            raise "Some parameters were not deleted: #{response.invalid_parameters}"
+          end
         end
       end
     end

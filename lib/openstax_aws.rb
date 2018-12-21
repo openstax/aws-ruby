@@ -30,6 +30,10 @@ module OpenStax
       @configuration ||= Configuration.new
     end
 
+    def self.logger
+      configuration.logger
+    end
+
     class Configuration
       attr_writer :hosted_zone_name
       attr_writer :cfn_template_bucket_name
