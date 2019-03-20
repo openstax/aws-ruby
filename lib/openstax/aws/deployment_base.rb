@@ -59,6 +59,10 @@ module OpenStax::Aws
       OpenStax::Aws.configuration.logger
     end
 
+    def key_pair_name
+      OpenStax::Aws.configuration.key_pair_name
+    end
+
     def stack_output_value(stack:, key:)
       stack = stack(stack_name: stack) if stack.is_a?(String)
 

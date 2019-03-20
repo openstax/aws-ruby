@@ -39,6 +39,7 @@ module OpenStax
       attr_writer :cfn_template_bucket_name
       attr_writer :log_bucket_name
       attr_writer :logger
+      attr_writer :key_pair_name
 
       def hosted_zone_name
         raise "hosted_zone_name isn't set!" if @hosted_zone_name.blank?
@@ -59,6 +60,11 @@ module OpenStax
       def log_bucket_name
         raise "log_bucket_name isn't set!" if @log_bucket_name.blank?
         @log_bucket_name
+      end
+
+      def key_pair_name
+        raise "key_pair_name isn't set!" if @key_pair_name.blank?
+        @key_pair_name
       end
 
       def logger
