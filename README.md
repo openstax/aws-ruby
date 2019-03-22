@@ -19,3 +19,7 @@ client_params(
 
 Note that when this helper is used in a call to update a stack, you can use the special `:use_previous_value` value
 and AWS will reuse the parameter value used in the last create or update stack call.
+
+### README Todos
+
+1. Discuss use of multiple parameters objects
