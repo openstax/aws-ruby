@@ -239,11 +239,13 @@ module OpenStax::Aws
       end
     end
 
-    def parameters
-      @parameters ||= OpenStax::Aws::Parameters.new(
+    def parameters(id: 'default')
+      id = id.to_s
+      @parameters ||= {}
+      @parameters[id] ||= OpenStax::Aws::Parameters.new(
         region: region,
         env_name: env_name!,
-        parameter_namespace: parameter_namespace
+        parameter_namespace: parameter_namespace(id: id)
       )
     end
 
@@ -268,7 +270,7 @@ module OpenStax::Aws
 
     protected
 
-    def parameter_namespace
+    def parameter_namespace(id: 'default')
       raise "Override this method in your deployment class and provide a namespace " \
             "for data in the AWS Parameter Store.  The parameter key will be this namespace " \
             "prefixed by the environment name and suffixed with the parameter name."
