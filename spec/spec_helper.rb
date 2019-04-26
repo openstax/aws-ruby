@@ -1,4 +1,5 @@
 require "bundler/setup"
+require 'dotenv/load'
 require "byebug"
 
 require_relative "../lib/openstax_aws"
@@ -13,4 +14,10 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.before(:each, :vcr) do
+    switch_to_temporary_aws_credentials
+  end
 end
+
+Dir[File.join(__dir__, 'support', '**', '*.rb')].each { |f| require f }

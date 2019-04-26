@@ -1,5 +1,8 @@
 require "aws-sdk"
 
+require 'active_support'
+require 'active_support/core_ext'
+
 require "pp"
 require "openstax/aws/extensions"
 require "openstax/aws/version"
@@ -10,6 +13,7 @@ require "openstax/aws/distribution"
 require "openstax/aws/change_set_description"
 require "openstax/aws/parameters_specification"
 require "openstax/aws/parameters"
+require "openstax/aws/stack"
 require "openstax/aws/deployment_base"
 require "openstax/aws/build_image_command"
 
@@ -40,6 +44,11 @@ module OpenStax
       attr_writer :log_bucket_name
       attr_writer :logger
       attr_writer :key_pair_name
+      attr_accessor :stack_waiter_delay
+
+      def initialize
+        @stack_waiter_delay = 30
+      end
 
       def hosted_zone_name
         raise "hosted_zone_name isn't set!" if @hosted_zone_name.blank?

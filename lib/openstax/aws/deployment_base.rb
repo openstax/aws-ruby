@@ -1,13 +1,13 @@
 module OpenStax::Aws
   class DeploymentBase
 
-    attr_reader :env_name, :region, :name
+    attr_reader :env_name, :region, :name, :dry_run
 
     RESERVED_ENV_NAMES = [
       "external", # used to namespace external secrets in the parameter store
     ]
 
-    def initialize(env_name: nil, region:, name:)
+    def initialize(env_name: nil, region:, name:, dry_run:)
       if RESERVED_ENV_NAMES.include?(env_name)
         raise "#{env_name} is a reserved word and cannot be used as an environment name"
       end
@@ -16,6 +16,7 @@ module OpenStax::Aws
       @env_name = env_name.blank? ? nil : env_name
       @region = region
       @name = name
+      @dry_run = dry_run
     end
 
     def name!
@@ -26,6 +27,26 @@ module OpenStax::Aws
     def env_name!
       raise "`env_name` is blank" if env_name.blank?
       env_name
+    end
+
+    def new_stack(name_suffix:, template_path:, capabilities: nil)
+      raise "Must set a template directory first" if @template_directory.blank?
+
+      absolute_template_path = File.join(@template_directory, template_path)
+
+      OpenStax::Aws::Stack.new(
+        name: "#{env_name}-#{name_suffix}",
+        env_name: env_name,
+        is_production: is_production?,
+        template_namespace: @name,
+        absolute_template_path: absolute_template_path,
+        capabilities: capabilities,
+        dry_run: dry_run
+      )
+    end
+
+    def set_template_directory(*directory_parts)
+      @template_directory = File.join(directory_parts)
     end
 
     protected
@@ -63,130 +84,9 @@ module OpenStax::Aws
       OpenStax::Aws.configuration.key_pair_name
     end
 
-    def stack_output_value(stack:, key:)
-      stack = stack(stack_name: stack) if stack.is_a?(String)
-
-      output = stack.outputs.find {|output| output.output_key == key}
-      raise "No output with key #{key} in stack #{stack}" if output.nil?
-      output.output_value
-    end
-
-    def wait_for_stack_event(stack_name:, waiter_class:, word:)
-      wait_message = OpenStax::Aws::WaitMessage.new(
-        message: "Waiting for #{stack_name} stack to be #{word}"
-      )
-
-      begin
-        waiter_class.new(
-          client: client,
-          before_attempt: ->(*) { wait_message.say_it }
-        ).wait(stack_name: stack_name)
-      rescue Aws::Waiters::Errors::WaiterFailed => error
-        logger.error("Waiting failed: #{error.message}")
-        raise
-      end
-      logger.info "#{stack_name} has been #{word}!"
-    end
-
-    def wait_for_stack_creation(stack_name:)
-      wait_for_stack_event(stack_name: stack_name,
-                           waiter_class: Aws::CloudFormation::Waiters::StackCreateComplete,
-                           word: "created")
-    end
-
-    def wait_for_stack_deletion(stack_name:)
-      wait_for_stack_event(stack_name: stack_name,
-                           waiter_class: Aws::CloudFormation::Waiters::StackDeleteComplete,
-                           word: "deleted")
-    end
-
-    def wait_for_change_set_ready(change_set_name_or_id:)
-      wait_message = OpenStax::Aws::WaitMessage.new(
-        message: "Waiting for change set #{change_set_name_or_id} to be ready"
-      )
-
-      begin
-        client.wait_until(:change_set_create_complete, change_set_name: change_set_name_or_id) do |w|
-          w.delay = 10
-          w.before_attempt do |attempts, response|
-            wait_message.say_it
-          end
-        end
-      rescue Aws::Waiters::Errors::FailureStateError => ee
-        logger.error(ee.response.status_reason)
-        raise
-      rescue Aws::Waiters::Errors::WaiterFailed => ee
-        logger.error("An error occurred: #{ee.message}")
-        raise
-      end
-    end
-
-    def wait_for_stack_update(stack_name:)
-      wait_for_stack_event(stack_name: stack_name,
-                           waiter_class: Aws::CloudFormation::Waiters::StackUpdateComplete,
-                           word: "updated")
-    end
-
-    def apply_change_set(params:, dry_run: true)
-      logger.info("**** DRY RUN ****") if dry_run
-
-      create_change_set_output = client.create_change_set(params)
-      wait_for_change_set_ready(change_set_name_or_id: create_change_set_output.id)
-
-      change_set_description = OpenStax::Aws::ChangeSetDescription.new(
-        client.describe_change_set(change_set_name: create_change_set_output.id)
-      )
-
-      if dry_run
-        logger.info("Deleting Change Set (because this is a dry run)")
-        client.delete_change_set(change_set_name: create_change_set_output.id) # cleanup
-      else
-        logger.info("Executing Change Set")
-        client.execute_change_set(change_set_name: create_change_set_output.id)
-      end
-
-      logger.info(change_set_description.change_summaries.join("\n"))
-
-      change_set_description
-    end
-
-    def create_stack(dry_run: true, params:)
-      logger.info("**** DRY RUN ****") if dry_run
-
-      logger.info("Creating #{params[:stack_name]} stack...")
-
-      # Default termination protection to on for production
-      if is_production? && !params.has_key?(:enable_termination_protection)
-        params[:enable_termination_protection] = true
-      end
-
-      client.create_stack(params) if !dry_run
-    end
-
-    def delete_stack(dry_run: true, stack_name:)
-      logger.info("**** DRY RUN ****") if dry_run
-
-      logger.info("Deleting #{stack_name} stack...")
-
-      client.delete_stack(stack_name: stack_name) if !dry_run
-    end
 
     def client
       @client ||= ::Aws::CloudFormation::Client.new(region: region)
-    end
-
-    def client_params(params={})
-      params.map do |key, value|
-        {
-          parameter_key: key.to_s.split('_').collect(&:capitalize).join,
-        }.tap do |hash|
-          if value == :use_previous_value
-            hash[:use_previous_value] = true
-          else
-            hash[:parameter_value] = value
-          end
-        end
-      end
     end
 
     def auto_scaling_client
@@ -262,10 +162,6 @@ module OpenStax::Aws
     # Returns the SHA on an AMI
     def image_sha(image_id)
       get_image_tag(image_id: image_id, key: "sha")
-    end
-
-    def stack(stack_name:)
-      ::Aws::CloudFormation::Stack.new(name: stack_name, client: client)
     end
 
     protected
