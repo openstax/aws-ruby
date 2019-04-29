@@ -12,17 +12,11 @@ module OpenStax::Aws
       end
     end
 
-    attr_reader :absolute_file_path, :env_name, :namespace
+    attr_reader :absolute_file_path
 
-    def initialize(absolute_file_path:, namespace:, env_name: nil)
+    def initialize(absolute_file_path:)
+      raise "Template path cannot be blank" if absolute_file_path.blank?
       @absolute_file_path = absolute_file_path
-      @namespace = namespace
-      @env_name = env_name
-
-      raise "`namespace` cannot be blank" if namespace.blank?
-
-      validate
-      upload
     end
 
     def basename
@@ -31,6 +25,10 @@ module OpenStax::Aws
 
     def body
       @body ||= File.read(absolute_file_path)
+    end
+
+    def hash
+      json_hash || yml_hash || raise("Cannot read template #{absolute_file_path}")
     end
 
     def valid?
@@ -43,13 +41,45 @@ module OpenStax::Aws
       true
     end
 
+    def parameter_names
+      hash["Parameters"].try(:keys) || []
+    end
+
+    def required_capabilities
+      has_an_iam_resource = hash["Resources"].any? do |resource_id, resource_body|
+        resource_body["Type"].starts_with?("AWS::IAM::")
+      end
+
+      # A bit of a cop out to claim named_iam since we haven't checked
+      # to see if any of the IAM resources have custom names, but it will
+      # work
+      has_an_iam_resource ? [:named_iam] : []
+    end
+
     def s3_key
-      # e.g. "may5/interactions/app.yml"
-      ["cfn_templates", env_name, namespace, basename].compact.join("/")
+      [
+        OpenStax::Aws.configuration.cfn_template_bucket_folder,
+        s3_folder,
+        basename
+      ].compact.join("/")
+    end
+
+    def s3_folder
+      @unique_s3_folder ||= Time.now.utc.strftime("%Y%m%d_%H%M%S_#{SecureRandom.hex(4)}")
     end
 
     def s3_url
+      upload_once
       "https://s3.amazonaws.com/#{OpenStax::Aws.configuration.cfn_template_bucket_name}/#{s3_key}"
+    end
+
+    def upload_once
+      return if @uploaded
+
+      validate
+      upload
+
+      @uploaded = true
     end
 
   protected
@@ -70,6 +100,14 @@ module OpenStax::Aws
         bucket: OpenStax::Aws.configuration.cfn_template_bucket_name,
         key: s3_key
       })
+    end
+
+    def json_hash
+      JSON.parse(body) rescue nil
+    end
+
+    def yml_hash
+      YAML.load(body) rescue nil
     end
 
   end

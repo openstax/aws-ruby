@@ -1,0 +1,155 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://cloudformation.us-west-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=ValidateTemplate&TemplateBody=Description%3A%20%3E%0A%20%20Test%20template%20one%0A%0AParameters%3A%0A%0A%20%20BucketName%3A%0A%20%20%20%20Type%3A%20String%0A%0A%20%20TagValue%3A%0A%20%20%20%20Type%3A%20String%0A%0AResources%3A%0A%0A%20%20S3Bucket%3A%0A%20%20%20%20Type%3A%20AWS%3A%3AS3%3A%3ABucket%0A%20%20%20%20Properties%3A%0A%20%20%20%20%20%20BucketName%3A%20%21Ref%20%27BucketName%27%0A%20%20%20%20%20%20Tags%3A%0A%20%20%20%20%20%20%20%20-%20Key%3A%20Tag1%0A%20%20%20%20%20%20%20%20%20%20Value%3A%20%21Ref%20%27TagValue%27%0A%0AOutputs%3A%0A%0A%20%20BucketArn%3A%0A%20%20%20%20Value%3A%20%21GetAtt%20%27S3Bucket.Arn%27%0A%20%20%20%20Export%3A%0A%20%20%20%20%20%20Name%3A%20%21Sub%20%27%24%7BAWS%3A%3AStackName%7D-BucketArn%27%0A&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.48.2 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.17.0
+      Host:
+      - cloudformation.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20190429T000133Z
+      X-Amz-Security-Token:
+      - AWS_SESSION_TOKEN
+      X-Amz-Content-Sha256:
+      - 4c4130d6d8ee21d1264dded763ed8d1415f408345990e0ea0c57bac79465bafc
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190429/us-west-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,
+        Signature=<SignatureValue>
+      Content-Length:
+      - '759'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - f2f966e6-6a11-11e9-8524-5f73be06e712
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '580'
+      Date:
+      - Mon, 29 Apr 2019 00:01:32 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <ValidateTemplateResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <ValidateTemplateResult>
+            <Description>Test template one
+        </Description>
+            <Parameters>
+              <member>
+                <ParameterKey>BucketName</ParameterKey>
+                <NoEcho>false</NoEcho>
+              </member>
+              <member>
+                <ParameterKey>TagValue</ParameterKey>
+                <NoEcho>false</NoEcho>
+              </member>
+            </Parameters>
+          </ValidateTemplateResult>
+          <ResponseMetadata>
+            <RequestId>f2f966e6-6a11-11e9-8524-5f73be06e712</RequestId>
+          </ResponseMetadata>
+        </ValidateTemplateResponse>
+    http_version: 
+  recorded_at: Mon, 29 Apr 2019 00:01:33 GMT
+- request:
+    method: put
+    uri: https://openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com/cfn_templates/spec-templates/template_one.yml
+    body:
+      encoding: UTF-8
+      string: |
+        Description: >
+          Test template one
+
+        Parameters:
+
+          BucketName:
+            Type: String
+
+          TagValue:
+            Type: String
+
+        Resources:
+
+          S3Bucket:
+            Type: AWS::S3::Bucket
+            Properties:
+              BucketName: !Ref 'BucketName'
+              Tags:
+                - Key: Tag1
+                  Value: !Ref 'TagValue'
+
+        Outputs:
+
+          BucketArn:
+            Value: !GetAtt 'S3Bucket.Arn'
+            Export:
+              Name: !Sub '${AWS::StackName}-BucketArn'
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.48.2 ruby/2.5.0 x86_64-darwin17 aws-sdk-s3/1.34.0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - iwRQXuudefxiuYnuy/AKYA==
+      Host:
+      - openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20190429T000133Z
+      X-Amz-Security-Token:
+      - AWS_SESSION_TOKEN
+      X-Amz-Content-Sha256:
+      - 44820f5081bfdd4c387cf15b34f8f70367dbba4e87e0c51380353e1b3b436eab
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190429/us-west-2/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date;x-amz-security-token,
+        Signature=<SignatureValue>
+      Content-Length:
+      - '395'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - SNt7GlH8w5O1rc2CoP9M3DwAbEdLHa05/R81HyfaycNsvyl8Vqls4SzJfG83rG+Dman0i6k53DY=
+      X-Amz-Request-Id:
+      - 15E56EEE010B7DC8
+      Date:
+      - Mon, 29 Apr 2019 00:01:34 GMT
+      X-Amz-Version-Id:
+      - ehyIzHctbiDdUZK0FCuDHVHrvsNRaydB
+      X-Amz-Server-Side-Encryption:
+      - AES256
+      Etag:
+      - '"8b04505eeb9d79fc62b989eecbf00a60"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 29 Apr 2019 00:01:34 GMT
+recorded_with: VCR 4.0.0
