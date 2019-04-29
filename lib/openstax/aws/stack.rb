@@ -2,11 +2,13 @@ module OpenStax::Aws
   class Stack
 
     attr_reader :name, :template, :dry_run, :capabilities,
-                :enable_termination_protection, :region, :parameter_defaults
+                :enable_termination_protection, :region, :parameter_defaults,
+                :volatile_parameters
 
     def initialize(name:, region:, enable_termination_protection: false,
                    absolute_template_path: nil,
                    capabilities: nil, parameter_defaults: {},
+                   volatile_parameters: nil,
                    dry_run: true)
       @name = name
       @region = region || raise("region is not set for stack #{name}")
@@ -16,6 +18,7 @@ module OpenStax::Aws
 
       set_capabilities(capabilities)
       @parameter_defaults = parameter_defaults.dup.freeze
+      @volatile_parameters = volatile_parameters
 
       @dry_run = dry_run
     end
@@ -39,8 +42,56 @@ module OpenStax::Aws
       wait_for_creation if wait
     end
 
+    def parameters_for_update(overrides: {})
+      parameters = {}
+
+      # Find parameters in the template we'll use for the update and for any
+      # that
+
+      # Start populating the parameters hash by using `:use_previous_value` for any
+      # parameter that is currently in the template that is also currently on the stack,
+      # and using the defined default value for any other parameter.
+
+      existing_parameter_keys = existing_parameters.keys.map(&:to_sym)
+      update_parameter_keys = template.parameter_names.map(&:underscore).map(&:to_sym)
+
+      update_parameter_keys.each do |update_parameter_key|
+        parameters[update_parameter_key] =
+          if existing_parameter_keys.include?(update_parameter_key)
+            :use_previous_value
+          else
+            parameter_defaults[update_parameter_key]
+          end
+      end
+
+      # Volatile parameters can be changed outside of cloudformation updates.  Here
+      # we get their current values by executing the block in the context of this
+      # stack, and then we merge them in (overwriting any values already in the
+      # parameters hash).
+
+      realized_volatile_parameters = instance_eval(&volatile_parameters)
+      parameters.merge!(realized_volatile_parameters)
+
+      # Lastly, we merge in the overrides hash (e.g. things purposefully set
+      # by an outside caller) -- they take precendence over all previous values.
+
+      parameters.merge!(overrides)
+
+      # Leave out nil-valued parameters as they are not valid (and likely not
+      # intentional)
+      parameters.compact
+    end
+
+    def existing_parameters
+      aws_stack.parameters.each_with_object({}) do |parameter, hash|
+        hash[parameter.parameter_key.underscore.to_s] = parameter.parameter_value
+      end
+    end
+
     def apply_change_set(params: {}, wait: false)
       logger.info("**** DRY RUN ****") if dry_run
+
+      params = parameters_for_update(overrides: params)
 
       options = {
         stack_name: name,

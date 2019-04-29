@@ -117,6 +117,56 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     expect(@logger).to have_received(:info).with(/Deleting #{name} stack.../)
   end
 
+  context "#parameters_for_update" do
+    it "uses defaults, volatile, use_previous_value" do
+      stack = new_stack(name: "spec-aws-ruby-stack-param-update",
+                        filename: "updating_parameters/orig.yml",
+                        overrides: {
+                          parameter_defaults: {
+                            will_go_away: "value1",
+                            sticks_around: "value2",
+                            volatile_value: "gonna_change"
+                          },
+                          volatile_parameters: Proc.new do
+                            {
+                              volatile_value: name # the stack's name
+                            }
+                          end
+                        })
+      stack.create(params: { sticks_around_no_default: "value3" }, wait: true)
+
+      stack = new_stack(name: "spec-aws-ruby-stack-param-update",
+                        filename: "updating_parameters/mod.yml",
+                        overrides: {
+                          parameter_defaults: {
+                            will_go_away: "value1",
+                            sticks_around: "value2",
+                            added: "added value",
+                            volatile_value: "gonna_change"
+                          },
+                          volatile_parameters: Proc.new do
+                            {
+                              volatile_value: name # the stack's name
+                            }
+                          end
+                        })
+
+      # Here is where volatile_value could be changed manually on the tag value
+      # so we don't want to just "use_previous_value" b/c that would be "gonna_change"
+
+      parameters = stack.parameters_for_update(overrides: {sticks_around: "override"})
+
+      expect(parameters).to eq({
+        sticks_around: "override",
+        added: "added value",
+        sticks_around_no_default: :use_previous_value,
+        volatile_value: "spec-aws-ruby-stack-param-update"
+      })
+
+      stack.delete
+    end
+  end
+
   def iam_client
     Aws::IAM::Client.new(region: region)
   end
@@ -130,14 +180,14 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
   end
 
   def new_template_one_stack(name:, overrides: {})
-    new_template_stack(name: name, filename: "template_one.yml", overrides: overrides)
+    new_stack(name: name, filename: "template_one.yml", overrides: overrides)
   end
 
   def new_template_one_mod_stack(name:, overrides: {})
-    new_template_stack(name: name, filename: "template_one_mod.yml", overrides: overrides)
+    new_stack(name: name, filename: "template_one_mod.yml", overrides: overrides)
   end
 
-  def new_template_stack(name:, filename:, overrides: {})
+  def new_stack(name:, filename:, overrides: {})
     allow_any_instance_of(OpenStax::Aws::Template).to receive(:s3_folder) { "spec-templates" }
 
     described_class.new(
