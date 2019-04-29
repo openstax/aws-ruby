@@ -1,0 +1,23 @@
+Description: >
+  for DeploymentBase#stack spec
+
+Parameters:
+
+  TagValue:
+    Type: String
+
+  EnvName:
+    Type: String
+
+  NetworkStackName:
+    Type: String
+
+  KeyName:
+    Type: String
+
+Resources:
+
+  MyGroup:
+    Type: AWS::IAM::Group
+    Properties:
+      Blah: "blah"

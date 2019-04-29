@@ -1,0 +1,15 @@
+Description: >
+  One IAM resource
+
+Parameters:
+
+  TagValue:
+    Type: String
+
+Resources:
+
+  MyGroup:
+    Type: AWS::IAM::Group
+    Properties:
+      Blah: "blah"
+

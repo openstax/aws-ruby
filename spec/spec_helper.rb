@@ -21,3 +21,7 @@ RSpec.configure do |config|
 end
 
 Dir[File.join(__dir__, 'support', '**', '*.rb')].each { |f| require f }
+
+OpenStax::Aws.configure do |config|
+  config.key_pair_name = "dummy-kp"
+end

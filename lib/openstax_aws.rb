@@ -4,18 +4,6 @@ require 'active_support'
 require 'active_support/core_ext'
 
 require "pp"
-require "openstax/aws/extensions"
-require "openstax/aws/version"
-require "openstax/aws/wait_message"
-require "openstax/aws/git_helper"
-require "openstax/aws/template"
-require "openstax/aws/distribution"
-require "openstax/aws/change_set_description"
-require "openstax/aws/parameters_specification"
-require "openstax/aws/parameters"
-require "openstax/aws/stack"
-require "openstax/aws/deployment_base"
-require "openstax/aws/build_image_command"
 
 module OpenStax
   module Aws
@@ -45,9 +33,17 @@ module OpenStax
       attr_writer :logger
       attr_writer :key_pair_name
       attr_accessor :stack_waiter_delay
+      attr_accessor :cfn_template_bucket_folder
+      attr_accessor :infer_stack_capabilities
+      attr_accessor :infer_parameter_defaults
+      attr_accessor :production_env_name
 
       def initialize
         @stack_waiter_delay = 30
+        @cfn_template_bucket_folder = "cfn_templates"
+        @infer_stack_capabilities = true
+        @infer_parameter_defaults = true
+        @production_env_name = "production"
       end
 
       def hosted_zone_name
@@ -83,3 +79,17 @@ module OpenStax
 
   end
 end
+
+require "openstax/aws/extensions"
+require "openstax/aws/version"
+require "openstax/aws/wait_message"
+require "openstax/aws/git_helper"
+require "openstax/aws/template"
+require "openstax/aws/distribution"
+require "openstax/aws/change_set_description"
+require "openstax/aws/parameters_specification"
+require "openstax/aws/parameters"
+require "openstax/aws/stack"
+require "openstax/aws/stack_factory"
+require "openstax/aws/deployment_base"
+require "openstax/aws/build_image_command"

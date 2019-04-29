@@ -1,0 +1,9 @@
+Description: >
+  for DeploymentBase#stack spec (network)
+
+Resources:
+
+  MyGroup:
+    Type: AWS::IAM::Group
+    Properties:
+      Blah: "blah"

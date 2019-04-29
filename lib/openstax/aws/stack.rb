@@ -2,50 +2,36 @@ module OpenStax::Aws
   class Stack
 
     attr_reader :name, :template, :dry_run, :capabilities,
-                :is_production, :region, :default_parameters
+                :enable_termination_protection, :region, :parameter_defaults
 
-    SHORT_CAPABILITIES = {
-      iam: "CAPABILITY_IAM",
-      named_iam: "CAPABILITY_NAMED_IAM",
-      auto_expand: "CAPABILITY_AUTO_EXPAND"
-    }.freeze
-
-    def initialize(name:, region:, is_production: false,
-                   template_namespace:, absolute_template_path:, capabilities: [],
-                   dry_run: true, default_parameters: {})
-      @region = region
-      @is_production = is_production
+    def initialize(name:, region:, enable_termination_protection: false,
+                   absolute_template_path: nil,
+                   capabilities: nil, parameter_defaults: {},
+                   dry_run: true)
       @name = name
-      @template = OpenStax::Aws::Template.new(
-        absolute_file_path: absolute_template_path,
-        namespace: template_namespace
-      )
+      @region = region || raise("region is not set for stack #{name}")
+      @enable_termination_protection = enable_termination_protection
+
+      @template = OpenStax::Aws::Template.new(absolute_file_path: absolute_template_path)
+
+      set_capabilities(capabilities)
+      @parameter_defaults = parameter_defaults.dup.freeze
+
       @dry_run = dry_run
-      @capabilities = [capabilities].flatten.compact.map do |entry|
-        SHORT_CAPABILITIES.keys.include?(entry) ? SHORT_CAPABILITIES[entry] : entry
-      end.freeze
-      @default_parameters = default_parameters.dup.freeze
     end
 
-    def create(params: {}, enable_termination_protection: nil, wait: false)
+    def create(params: {}, wait: false)
       logger.info("**** DRY RUN ****") if dry_run
 
-      params = default_parameters.merge(params)
+      params = parameter_defaults.merge(params)
 
       options = {
         stack_name: name,
         template_url: template.s3_url,
         capabilities: capabilities,
         parameters: self.class.format_hash_as_stack_parameters(params),
+        enable_termination_protection: enable_termination_protection
       }
-
-      # Default termination protection to on for production unless otherwise specified
-      options[:enable_termination_protection] =
-        if enable_termination_protection.nil?
-          is_production
-        else
-          enable_termination_protection
-        end
 
       logger.info("Creating #{name} stack...")
       client.create_stack(options) if !dry_run
@@ -174,6 +160,36 @@ module OpenStax::Aws
         logger.error("An error occurred: #{ee.message}")
         raise
       end
+    end
+
+    SHORT_CAPABILITIES = {
+      iam: "CAPABILITY_IAM",
+      named_iam: "CAPABILITY_NAMED_IAM",
+      auto_expand: "CAPABILITY_AUTO_EXPAND"
+    }.freeze
+
+    def set_capabilities(capabilities)
+      capabilities ||= begin
+        if OpenStax::Aws.configuration.infer_stack_capabilities
+          template.required_capabilities
+        else
+          []
+        end
+      end
+
+      capabilities = [capabilities].flatten.compact
+
+      valid_capabilities = SHORT_CAPABILITIES.keys + SHORT_CAPABILITIES.values
+
+      capabilities.each do |capability|
+        if !valid_capabilities.include?(capability)
+          raise "Capabilities must be in #{valid_capabilities}"
+        end
+      end
+
+      @capabilities = capabilities.map do |capability|
+        SHORT_CAPABILITIES[capability] || capability
+      end.freeze
     end
 
     def logger

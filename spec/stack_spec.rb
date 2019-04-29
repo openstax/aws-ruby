@@ -40,11 +40,11 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     }.to raise_error(Aws::CloudFormation::Errors::ValidationError, /does not exist/)
   end
 
-  it "uses default parameters" do
-    name = "spec-aws-ruby-stack-default-parameters"
+  it "uses parameter defaults" do
+    name = "spec-aws-ruby-stack-parameter-defaults"
 
     stack = new_template_one_stack(name: name, overrides: {
-      default_parameters: {
+      parameter_defaults: {
         bucket_name: bucket_name,
         tag_value: "howdy"
       }
@@ -130,28 +130,21 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
   end
 
   def new_template_one_stack(name:, overrides: {})
-    described_class.new(
-      {
-        name: name,
-        region: region,
-        is_production: false,
-        template_namespace: "spec",
-        absolute_template_path: File.join(__dir__, 'support/template_one.yml'),
-        capabilities: [:iam, :named_iam],
-        dry_run: false,
-      }.merge(overrides)
-    )
+    new_template_stack(name: name, filename: "template_one.yml", overrides: overrides)
   end
 
   def new_template_one_mod_stack(name:, overrides: {})
+    new_template_stack(name: name, filename: "template_one_mod.yml", overrides: overrides)
+  end
+
+  def new_template_stack(name:, filename:, overrides: {})
+    allow_any_instance_of(OpenStax::Aws::Template).to receive(:s3_folder) { "spec-templates" }
+
     described_class.new(
       {
         name: name,
         region: region,
-        is_production: false,
-        template_namespace: "spec",
-        absolute_template_path: File.join(__dir__, 'support/template_one_mod.yml'),
-        capabilities: [:iam, :named_iam],
+        absolute_template_path: File.join(__dir__, "support/templates/#{filename}"),
         dry_run: false,
       }.merge(overrides)
     )

@@ -1,13 +1,15 @@
 module OpenStax::Aws
   class DeploymentBase
 
+    # work on README
+
     attr_reader :env_name, :region, :name, :dry_run
 
     RESERVED_ENV_NAMES = [
       "external", # used to namespace external secrets in the parameter store
     ]
 
-    def initialize(env_name: nil, region:, name:, dry_run:)
+    def initialize(env_name: nil, region:, name:, dry_run: true)
       if RESERVED_ENV_NAMES.include?(env_name)
         raise "#{env_name} is a reserved word and cannot be used as an environment name"
       end
@@ -29,30 +31,87 @@ module OpenStax::Aws
       env_name
     end
 
-    def new_stack(name_suffix:, template_path:, capabilities: nil)
-      raise "Must set a template directory first" if @template_directory.blank?
+    class << self
 
-      absolute_template_path = File.join(@template_directory, template_path)
+      def template_directory(*directory_parts)
+        if method_defined?("template_directory")
+          raise "Can only set template_directory once per class definition"
+        end
 
-      OpenStax::Aws::Stack.new(
-        name: "#{env_name}-#{name_suffix}",
-        env_name: env_name,
-        is_production: is_production?,
-        template_namespace: @name,
-        absolute_template_path: absolute_template_path,
-        capabilities: capabilities,
-        dry_run: dry_run
-      )
-    end
+        define_method "template_directory" do
+          File.join(*directory_parts)
+        end
+      end
 
-    def set_template_directory(*directory_parts)
-      @template_directory = File.join(directory_parts)
+      def stack(id, &block)
+        if !id.to_s.match(/^[a-zA-Z][a-zA-Z0-9_]*$/)
+          raise "The first argument to `stack` must consist only of letters, numbers, and underscores, " \
+                "and must start with a letter."
+        end
+
+        define_method("#{id}_stack") do
+          instance_variable_get("@#{id}_stack") || begin
+            stack_factory = StackFactory.new(id: id, parameter_context: self)
+            stack_factory.instance_eval(&block) if block_given?
+
+            # Fill in missing attributes using deployment variables and conventions
+
+            if stack_factory.name.blank?
+              stack_factory.name("#{env_name}-#{name}-#{id}")
+            end
+
+            if stack_factory.region.blank?
+              stack_factory.region(region)
+            end
+
+            if stack_factory.dry_run.nil?
+              stack_factory.dry_run(dry_run)
+            end
+
+            if stack_factory.enable_termination_protection.nil?
+              stack_factory.enable_termination_protection(is_production?)
+            end
+
+            if stack_factory.absolute_template_path.blank?
+              stack_factory.autoset_absolute_template_path(defined?(:template_directory) ? template_directory : "")
+            end
+
+            # Populate parameter defaults that match convention names
+
+            if OpenStax::Aws.configuration.infer_parameter_defaults
+              template = OpenStax::Aws::Template.new(absolute_file_path: stack_factory.absolute_template_path)
+              template.parameter_names.each do |parameter_name|
+                value =
+                  case parameter_name
+                  when "EnvName"
+                    env_name
+                  when "KeyName", "KeyPairName"
+                    OpenStax::Aws.configuration.key_pair_name
+                  when /(.+)StackName$/
+                    begin
+                      send("#{$1}Stack".underscore).name
+                    rescue
+                      next
+                    end
+                  end
+
+                stack_factory.parameter_defaults[parameter_name.underscore.to_sym] ||= value
+              end
+            end
+
+            stack_factory.build.tap do |stack|
+              instance_variable_set("@#{id}_stack", stack)
+            end
+          end
+        end
+      end
+
     end
 
     protected
 
     def is_production?
-      env_name == "production"
+      env_name == OpenStax::Aws.configuration.production_env_name
     end
 
     def subdomain_with_trailing_dot(site_name:)
@@ -68,22 +127,11 @@ module OpenStax::Aws
       "#{subdomain_with_trailing_dot(site_name: site_name)}#{hosted_zone_name}"
     end
 
-    def hosted_zone_name
-      OpenStax::Aws.configuration.hosted_zone_name
-    end
+    delegate :hosted_zone_name, :log_bucket_name, :logger, :key_pair_name, to: :configuration
 
-    def log_bucket_name
-      OpenStax::Aws.configuration.log_bucket_name
+    def configuration
+      OpenStax::Aws.configuration
     end
-
-    def logger
-      OpenStax::Aws.configuration.logger
-    end
-
-    def key_pair_name
-      OpenStax::Aws.configuration.key_pair_name
-    end
-
 
     def client
       @client ||= ::Aws::CloudFormation::Client.new(region: region)
