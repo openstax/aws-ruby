@@ -39,6 +39,7 @@ VCR.configure do |c|
   c.ignore_request do |request|
     'true' == ENV['VCR_IGNORE_REQUESTS_TEMPORARILY']
   end
+
 end
 
 VCR_OPTS = {

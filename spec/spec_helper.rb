@@ -16,6 +16,10 @@ RSpec.configure do |config|
   end
 
   config.before(:each, :vcr) do
+    # Values don't matter in playback, but the code objects if they are missing
+    ENV['AWS_ACCESS_KEY_ID'] ||= 'foo'
+    ENV['AWS_SECRET_ACCESS_KEY'] ||= 'bar'
+
     switch_to_temporary_aws_credentials
   end
 end
