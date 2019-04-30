@@ -29,6 +29,7 @@ module OpenStax
     class Configuration
       attr_writer :hosted_zone_name
       attr_writer :cfn_template_bucket_name
+      attr_writer :cfn_template_bucket_region
       attr_writer :log_bucket_name
       attr_writer :logger
       attr_writer :key_pair_name
@@ -52,14 +53,21 @@ module OpenStax
       end
 
       def cfn_template_bucket_name
-        raise "template_bucket_name isn't set!" if @cfn_template_bucket_name.blank?
+        raise "cfn_template_bucket_name isn't set!" if @cfn_template_bucket_name.blank?
         @cfn_template_bucket_name
       end
 
       def cfn_template_bucket_region
-        @cfn_template_bucket_region ||= ::Aws::S3::Client.new(region: "us-east-1") # could be any region
-          .get_bucket_location(bucket: cfn_template_bucket_name)
-          .location_constraint
+        raise "cfn_template_bucket_region isn't set!" if @cfn_template_bucket_region.blank?
+        @cfn_template_bucket_region
+
+        # We used to find the region automagically with the following, but this played some havoc
+        # with recorded test interactions (as it only ran in some tests since memoized).  Just
+        # require manual setting now.
+        #
+        # @cfn_template_bucket_region ||= ::Aws::S3::Client.new(region: "us-east-1") # could be any region
+        #   .get_bucket_location(bucket: cfn_template_bucket_name)
+        #   .location_constraint
       end
 
       def log_bucket_name

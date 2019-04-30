@@ -90,7 +90,7 @@ module OpenStax::Aws
     def initialize(absolute_file_path: nil, body: nil)
       raise "One of `absolute_file_path` or `body` must be set" if absolute_file_path.blank? && body.nil?
       @absolute_file_path = absolute_file_path
-      @body = body.dup
+      @body = body.try(:dup)
     end
 
     def validate

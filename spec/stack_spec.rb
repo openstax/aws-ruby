@@ -11,6 +11,7 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     OpenStax::Aws.configure do |config|
       config.hosted_zone_name = "sandbox.openstax.org"
       config.cfn_template_bucket_name = "openstax-sandbox-cfn-templates"
+      config.cfn_template_bucket_region = "us-west-2"
       config.log_bucket_name = "openstax-sandbox-logs"
       config.key_pair_name = "openstax-sandbox-kp"
       config.stack_waiter_delay = vcr_recording? ? 5 : 0
@@ -165,6 +166,19 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
 
   it "can be created without an absolute_template_path" do
     expect{OpenStax::Aws::Stack.new(name: "foo", region: "us-east-2")}.not_to raise_error
+  end
+
+  it "can get a existing stack's template without specifying a file" do
+    name = "spec-aws-ruby-stack-existing-template"
+
+    stack = new_template_one_stack(name: name)
+    file_template_contents = stack.template.body
+    stack.create(params: {bucket_name: bucket_name, tag_value: "howdy"}, wait: true)
+
+    stack = described_class.new(name: name, region: region, dry_run: false)
+    expect(stack.template.body).to eq file_template_contents
+
+    stack.delete
   end
 
   def iam_client

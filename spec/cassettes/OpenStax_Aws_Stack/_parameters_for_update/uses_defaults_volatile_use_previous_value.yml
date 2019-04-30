@@ -16,7 +16,7 @@ http_interactions:
       Host:
       - cloudformation.us-west-2.amazonaws.com
       X-Amz-Date:
-      - 20190430T185820Z
+      - 20190430T212709Z
       X-Amz-Security-Token:
       - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
@@ -35,13 +35,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - ec4b1841-6b79-11e9-9af1-03f2ef879862
+      - b61777e7-6b8e-11e9-846a-e1b2f5c89285
       Content-Type:
       - text/xml
       Content-Length:
       - '852'
       Date:
-      - Tue, 30 Apr 2019 18:58:20 GMT
+      - Tue, 30 Apr 2019 21:27:08 GMT
     body:
       encoding: UTF-8
       string: |
@@ -69,11 +69,11 @@ http_interactions:
             </Parameters>
           </ValidateTemplateResult>
           <ResponseMetadata>
-            <RequestId>ec4b1841-6b79-11e9-9af1-03f2ef879862</RequestId>
+            <RequestId>b61777e7-6b8e-11e9-846a-e1b2f5c89285</RequestId>
           </ResponseMetadata>
         </ValidateTemplateResponse>
     http_version: 
-  recorded_at: Tue, 30 Apr 2019 18:58:21 GMT
+  recorded_at: Tue, 30 Apr 2019 21:27:09 GMT
 - request:
     method: put
     uri: https://openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com/cfn_templates/spec-templates/orig.yml
@@ -120,7 +120,7 @@ http_interactions:
       Host:
       - openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com
       X-Amz-Date:
-      - 20190430T185821Z
+      - 20190430T212709Z
       X-Amz-Security-Token:
       - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
@@ -139,13 +139,13 @@ http_interactions:
       message: OK
     headers:
       X-Amz-Id-2:
-      - S8UGvLGqYeXwrmR/9tTNADJLlVxVWvR3WQQrUeWXzw/ir00useB8nb9IFA51og8pxhwzF0MJbDQ=
+      - 6pVbtlO/1R6G9IOr/1ILanucpnCc4BdFAbJVnN5JBZ0wIpzgtOSXiEr6ITRYe4qOS7yz3Px1YBg=
       X-Amz-Request-Id:
-      - AACD87D907A61769
+      - D1BA906425FB17E8
       Date:
-      - Tue, 30 Apr 2019 18:58:22 GMT
+      - Tue, 30 Apr 2019 21:27:10 GMT
       X-Amz-Version-Id:
-      - NnEzhOVXiWpSV1CDjyHChOaq_.eTYhdj
+      - O3TsNVJyg82L6o00u1njYFbV6x56ADf_
       X-Amz-Server-Side-Encryption:
       - AES256
       Etag:
@@ -158,7 +158,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Tue, 30 Apr 2019 18:58:21 GMT
+  recorded_at: Tue, 30 Apr 2019 21:27:10 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -175,7 +175,7 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190430T185821Z
+      - 20190430T212710Z
       X-Amz-Security-Token:
       - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
@@ -194,26 +194,26 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - ecbee8e1-6b79-11e9-be80-4570ec3c718b
+      - b68a5de4-6b8e-11e9-867e-b70b94709249
       Content-Type:
       - text/xml
       Content-Length:
       - '404'
       Date:
-      - Tue, 30 Apr 2019 18:58:22 GMT
+      - Tue, 30 Apr 2019 21:27:10 GMT
     body:
       encoding: UTF-8
       string: |
         <CreateStackResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
           <CreateStackResult>
-            <StackId>arn:aws:cloudformation:us-east-2:AWS_ACCOUNT_ID:stack/spec-aws-ruby-stack-param-update/eccc0800-6b79-11e9-a906-062853107e54</StackId>
+            <StackId>arn:aws:cloudformation:us-east-2:AWS_ACCOUNT_ID:stack/spec-aws-ruby-stack-param-update/b6927390-6b8e-11e9-b632-0a84bc2bb20a</StackId>
           </CreateStackResult>
           <ResponseMetadata>
-            <RequestId>ecbee8e1-6b79-11e9-be80-4570ec3c718b</RequestId>
+            <RequestId>b68a5de4-6b8e-11e9-867e-b70b94709249</RequestId>
           </ResponseMetadata>
         </CreateStackResponse>
     http_version: 
-  recorded_at: Tue, 30 Apr 2019 18:58:22 GMT
+  recorded_at: Tue, 30 Apr 2019 21:27:11 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -230,7 +230,7 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190430T185822Z
+      - 20190430T212711Z
       X-Amz-Security-Token:
       - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
@@ -249,13 +249,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - ed73b9c6-6b79-11e9-8e62-3bfc8c496e54
+      - b741786e-6b8e-11e9-8e62-3bfc8c496e54
       Content-Type:
       - text/xml
       Content-Length:
       - '1758'
       Date:
-      - Tue, 30 Apr 2019 18:58:22 GMT
+      - Tue, 30 Apr 2019 21:27:11 GMT
     body:
       encoding: UTF-8
       string: |
@@ -263,9 +263,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2019-04-30T18:58:22.605Z</CreationTime>
+                <CreationTime>2019-04-30T21:27:11.095Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:AWS_ACCOUNT_ID:stack/spec-aws-ruby-stack-param-update/eccc0800-6b79-11e9-a906-062853107e54</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:AWS_ACCOUNT_ID:stack/spec-aws-ruby-stack-param-update/b6927390-6b8e-11e9-b632-0a84bc2bb20a</StackId>
                 <StackName>spec-aws-ruby-stack-param-update</StackName>
                 <Description>aws-ruby spec template - updating_parameters - orig
         </Description>
@@ -300,11 +300,11 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>ed73b9c6-6b79-11e9-8e62-3bfc8c496e54</RequestId>
+            <RequestId>b741786e-6b8e-11e9-8e62-3bfc8c496e54</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
     http_version: 
-  recorded_at: Tue, 30 Apr 2019 18:58:23 GMT
+  recorded_at: Tue, 30 Apr 2019 21:27:11 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -321,7 +321,7 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190430T185828Z
+      - 20190430T212716Z
       X-Amz-Security-Token:
       - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
@@ -340,13 +340,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - f0a71fb3-6b79-11e9-be80-4570ec3c718b
+      - ba75a229-6b8e-11e9-867e-b70b94709249
       Content-Type:
       - text/xml
       Content-Length:
       - '1696'
       Date:
-      - Tue, 30 Apr 2019 18:58:28 GMT
+      - Tue, 30 Apr 2019 21:27:16 GMT
     body:
       encoding: UTF-8
       string: |
@@ -354,9 +354,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2019-04-30T18:58:22.605Z</CreationTime>
+                <CreationTime>2019-04-30T21:27:11.095Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:AWS_ACCOUNT_ID:stack/spec-aws-ruby-stack-param-update/eccc0800-6b79-11e9-a906-062853107e54</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:AWS_ACCOUNT_ID:stack/spec-aws-ruby-stack-param-update/b6927390-6b8e-11e9-b632-0a84bc2bb20a</StackId>
                 <StackName>spec-aws-ruby-stack-param-update</StackName>
                 <Description>aws-ruby spec template - updating_parameters - orig
         </Description>
@@ -390,11 +390,11 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>f0a71fb3-6b79-11e9-be80-4570ec3c718b</RequestId>
+            <RequestId>ba75a229-6b8e-11e9-867e-b70b94709249</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
     http_version: 
-  recorded_at: Tue, 30 Apr 2019 18:58:28 GMT
+  recorded_at: Tue, 30 Apr 2019 21:27:17 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -411,7 +411,7 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190430T185833Z
+      - 20190430T212722Z
       X-Amz-Security-Token:
       - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
@@ -430,13 +430,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - f3d8fea8-6b79-11e9-be80-4570ec3c718b
+      - bda8446c-6b8e-11e9-8e62-3bfc8c496e54
       Content-Type:
       - text/xml
       Content-Length:
       - '1696'
       Date:
-      - Tue, 30 Apr 2019 18:58:33 GMT
+      - Tue, 30 Apr 2019 21:27:21 GMT
     body:
       encoding: UTF-8
       string: |
@@ -444,9 +444,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2019-04-30T18:58:22.605Z</CreationTime>
+                <CreationTime>2019-04-30T21:27:11.095Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:AWS_ACCOUNT_ID:stack/spec-aws-ruby-stack-param-update/eccc0800-6b79-11e9-a906-062853107e54</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:AWS_ACCOUNT_ID:stack/spec-aws-ruby-stack-param-update/b6927390-6b8e-11e9-b632-0a84bc2bb20a</StackId>
                 <StackName>spec-aws-ruby-stack-param-update</StackName>
                 <Description>aws-ruby spec template - updating_parameters - orig
         </Description>
@@ -480,11 +480,11 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>f3d8fea8-6b79-11e9-be80-4570ec3c718b</RequestId>
+            <RequestId>bda8446c-6b8e-11e9-8e62-3bfc8c496e54</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
     http_version: 
-  recorded_at: Tue, 30 Apr 2019 18:58:33 GMT
+  recorded_at: Tue, 30 Apr 2019 21:27:22 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -501,7 +501,7 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190430T185838Z
+      - 20190430T212727Z
       X-Amz-Security-Token:
       - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
@@ -520,13 +520,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - f70c640d-6b79-11e9-be80-4570ec3c718b
+      - c0ddf310-6b8e-11e9-9113-7d20611743b8
       Content-Type:
       - text/xml
       Content-Length:
       - '1696'
       Date:
-      - Tue, 30 Apr 2019 18:58:38 GMT
+      - Tue, 30 Apr 2019 21:27:27 GMT
     body:
       encoding: UTF-8
       string: |
@@ -534,9 +534,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2019-04-30T18:58:22.605Z</CreationTime>
+                <CreationTime>2019-04-30T21:27:11.095Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:AWS_ACCOUNT_ID:stack/spec-aws-ruby-stack-param-update/eccc0800-6b79-11e9-a906-062853107e54</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:AWS_ACCOUNT_ID:stack/spec-aws-ruby-stack-param-update/b6927390-6b8e-11e9-b632-0a84bc2bb20a</StackId>
                 <StackName>spec-aws-ruby-stack-param-update</StackName>
                 <Description>aws-ruby spec template - updating_parameters - orig
         </Description>
@@ -570,11 +570,11 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>f70c640d-6b79-11e9-be80-4570ec3c718b</RequestId>
+            <RequestId>c0ddf310-6b8e-11e9-9113-7d20611743b8</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
     http_version: 
-  recorded_at: Tue, 30 Apr 2019 18:58:39 GMT
+  recorded_at: Tue, 30 Apr 2019 21:27:27 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -591,7 +591,7 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190430T185844Z
+      - 20190430T212732Z
       X-Amz-Security-Token:
       - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
@@ -610,13 +610,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - fa4150e6-6b79-11e9-8e62-3bfc8c496e54
+      - c41158ee-6b8e-11e9-a983-f1283c0a0141
       Content-Type:
       - text/xml
       Content-Length:
       - '1696'
       Date:
-      - Tue, 30 Apr 2019 18:58:43 GMT
+      - Tue, 30 Apr 2019 21:27:32 GMT
     body:
       encoding: UTF-8
       string: |
@@ -624,9 +624,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2019-04-30T18:58:22.605Z</CreationTime>
+                <CreationTime>2019-04-30T21:27:11.095Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:AWS_ACCOUNT_ID:stack/spec-aws-ruby-stack-param-update/eccc0800-6b79-11e9-a906-062853107e54</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:AWS_ACCOUNT_ID:stack/spec-aws-ruby-stack-param-update/b6927390-6b8e-11e9-b632-0a84bc2bb20a</StackId>
                 <StackName>spec-aws-ruby-stack-param-update</StackName>
                 <Description>aws-ruby spec template - updating_parameters - orig
         </Description>
@@ -660,11 +660,11 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>fa4150e6-6b79-11e9-8e62-3bfc8c496e54</RequestId>
+            <RequestId>c41158ee-6b8e-11e9-a983-f1283c0a0141</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
     http_version: 
-  recorded_at: Tue, 30 Apr 2019 18:58:44 GMT
+  recorded_at: Tue, 30 Apr 2019 21:27:33 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -681,7 +681,7 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190430T185849Z
+      - 20190430T212738Z
       X-Amz-Security-Token:
       - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
@@ -700,13 +700,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - fd7b93b4-6b79-11e9-b777-05d87f38dffc
+      - c74645d3-6b8e-11e9-a983-f1283c0a0141
       Content-Type:
       - text/xml
       Content-Length:
       - '1696'
       Date:
-      - Tue, 30 Apr 2019 18:58:49 GMT
+      - Tue, 30 Apr 2019 21:27:37 GMT
     body:
       encoding: UTF-8
       string: |
@@ -714,9 +714,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2019-04-30T18:58:22.605Z</CreationTime>
+                <CreationTime>2019-04-30T21:27:11.095Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:AWS_ACCOUNT_ID:stack/spec-aws-ruby-stack-param-update/eccc0800-6b79-11e9-a906-062853107e54</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:AWS_ACCOUNT_ID:stack/spec-aws-ruby-stack-param-update/b6927390-6b8e-11e9-b632-0a84bc2bb20a</StackId>
                 <StackName>spec-aws-ruby-stack-param-update</StackName>
                 <Description>aws-ruby spec template - updating_parameters - orig
         </Description>
@@ -750,11 +750,11 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>fd7b93b4-6b79-11e9-b777-05d87f38dffc</RequestId>
+            <RequestId>c74645d3-6b8e-11e9-a983-f1283c0a0141</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
     http_version: 
-  recorded_at: Tue, 30 Apr 2019 18:58:50 GMT
+  recorded_at: Tue, 30 Apr 2019 21:27:38 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -771,7 +771,7 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190430T185855Z
+      - 20190430T212743Z
       X-Amz-Security-Token:
       - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
@@ -790,13 +790,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 00afbd18-6b7a-11e9-a94d-433b755443a7
+      - ca7b314c-6b8e-11e9-be80-4570ec3c718b
       Content-Type:
       - text/xml
       Content-Length:
       - '1693'
       Date:
-      - Tue, 30 Apr 2019 18:58:55 GMT
+      - Tue, 30 Apr 2019 21:27:43 GMT
     body:
       encoding: UTF-8
       string: |
@@ -804,9 +804,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2019-04-30T18:58:22.605Z</CreationTime>
+                <CreationTime>2019-04-30T21:27:11.095Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:AWS_ACCOUNT_ID:stack/spec-aws-ruby-stack-param-update/eccc0800-6b79-11e9-a906-062853107e54</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:AWS_ACCOUNT_ID:stack/spec-aws-ruby-stack-param-update/b6927390-6b8e-11e9-b632-0a84bc2bb20a</StackId>
                 <StackName>spec-aws-ruby-stack-param-update</StackName>
                 <Description>aws-ruby spec template - updating_parameters - orig
         </Description>
@@ -840,11 +840,11 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>00afbd18-6b7a-11e9-a94d-433b755443a7</RequestId>
+            <RequestId>ca7b314c-6b8e-11e9-be80-4570ec3c718b</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
     http_version: 
-  recorded_at: Tue, 30 Apr 2019 18:58:55 GMT
+  recorded_at: Tue, 30 Apr 2019 21:27:43 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -861,7 +861,7 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190430T185855Z
+      - 20190430T212743Z
       X-Amz-Security-Token:
       - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
@@ -880,13 +880,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 00e8f598-6b7a-11e9-a94d-433b755443a7
+      - cab2e32d-6b8e-11e9-867e-b70b94709249
       Content-Type:
       - text/xml
       Content-Length:
       - '1693'
       Date:
-      - Tue, 30 Apr 2019 18:58:55 GMT
+      - Tue, 30 Apr 2019 21:27:44 GMT
     body:
       encoding: UTF-8
       string: |
@@ -894,9 +894,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2019-04-30T18:58:22.605Z</CreationTime>
+                <CreationTime>2019-04-30T21:27:11.095Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:AWS_ACCOUNT_ID:stack/spec-aws-ruby-stack-param-update/eccc0800-6b79-11e9-a906-062853107e54</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:AWS_ACCOUNT_ID:stack/spec-aws-ruby-stack-param-update/b6927390-6b8e-11e9-b632-0a84bc2bb20a</StackId>
                 <StackName>spec-aws-ruby-stack-param-update</StackName>
                 <Description>aws-ruby spec template - updating_parameters - orig
         </Description>
@@ -930,11 +930,11 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>00e8f598-6b7a-11e9-a94d-433b755443a7</RequestId>
+            <RequestId>cab2e32d-6b8e-11e9-867e-b70b94709249</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
     http_version: 
-  recorded_at: Tue, 30 Apr 2019 18:58:55 GMT
+  recorded_at: Tue, 30 Apr 2019 21:27:44 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -951,7 +951,7 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190430T185855Z
+      - 20190430T212744Z
       X-Amz-Security-Token:
       - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
@@ -970,21 +970,21 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 01222e53-6b7a-11e9-93a2-3bada1285395
+      - caea94f2-6b8e-11e9-8e62-3bfc8c496e54
       Content-Type:
       - text/xml
       Content-Length:
       - '212'
       Date:
-      - Tue, 30 Apr 2019 18:58:56 GMT
+      - Tue, 30 Apr 2019 21:27:43 GMT
     body:
       encoding: UTF-8
       string: |
         <DeleteStackResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
           <ResponseMetadata>
-            <RequestId>01222e53-6b7a-11e9-93a2-3bada1285395</RequestId>
+            <RequestId>caea94f2-6b8e-11e9-8e62-3bfc8c496e54</RequestId>
           </ResponseMetadata>
         </DeleteStackResponse>
     http_version: 
-  recorded_at: Tue, 30 Apr 2019 18:58:56 GMT
+  recorded_at: Tue, 30 Apr 2019 21:27:44 GMT
 recorded_with: VCR 4.0.0

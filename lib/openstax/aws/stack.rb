@@ -31,7 +31,7 @@ module OpenStax::Aws
         if !absolute_template_path.blank?
           OpenStax::Aws::Template.from_absolute_file_path(absolute_template_path)
         else
-          body = client.get_template({stack_name: name})
+          body = client.get_template({stack_name: name}).template_body
           OpenStax::Aws::Template.from_body(body)
         end
       end
