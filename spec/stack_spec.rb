@@ -127,10 +127,8 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
                             sticks_around: "value2",
                             volatile_value: "gonna_change"
                           },
-                          volatile_parameters: Proc.new do
-                            {
-                              volatile_value: name # the stack's name
-                            }
+                          volatile_parameters_block: Proc.new do
+                            volatile_value { name } # the stack's name as a placeholder for stack-specific data
                           end
                         })
       stack.create(params: { sticks_around_no_default: "value3" }, wait: true)
@@ -144,10 +142,8 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
                             added: "added value",
                             volatile_value: "gonna_change"
                           },
-                          volatile_parameters: Proc.new do
-                            {
-                              volatile_value: name # the stack's name
-                            }
+                          volatile_parameters_block: Proc.new do
+                            volatile_value { name } # the stack's name
                           end
                         })
 
@@ -165,6 +161,10 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
 
       stack.delete
     end
+  end
+
+  it "can be created without an absolute_template_path" do
+    expect{OpenStax::Aws::Stack.new(name: "foo", region: "us-east-2")}.not_to raise_error
   end
 
   def iam_client

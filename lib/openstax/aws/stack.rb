@@ -1,26 +1,40 @@
 module OpenStax::Aws
   class Stack
 
-    attr_reader :name, :template, :dry_run, :capabilities,
+    attr_reader :name, :absolute_template_path, :dry_run,
                 :enable_termination_protection, :region, :parameter_defaults,
-                :volatile_parameters
+                :volatile_parameters_block
 
     def initialize(name:, region:, enable_termination_protection: false,
                    absolute_template_path: nil,
                    capabilities: nil, parameter_defaults: {},
-                   volatile_parameters: nil,
+                   volatile_parameters_block: nil,
                    dry_run: true)
+
+      raise "Stack name must not be blank" if name.blank?
       @name = name
+
       @region = region || raise("region is not set for stack #{name}")
       @enable_termination_protection = enable_termination_protection
 
-      @template = OpenStax::Aws::Template.new(absolute_file_path: absolute_template_path)
+      @absolute_template_path = absolute_template_path
 
       set_capabilities(capabilities)
       @parameter_defaults = parameter_defaults.dup.freeze
-      @volatile_parameters = volatile_parameters
+      @volatile_parameters_block = volatile_parameters_block
 
       @dry_run = dry_run
+    end
+
+    def template
+      @template ||= begin
+        if !absolute_template_path.blank?
+          OpenStax::Aws::Template.from_absolute_file_path(absolute_template_path)
+        else
+          body = client.get_template({stack_name: name})
+          OpenStax::Aws::Template.from_body(body)
+        end
+      end
     end
 
     def create(params: {}, wait: false)
@@ -69,8 +83,12 @@ module OpenStax::Aws
       # stack, and then we merge them in (overwriting any values already in the
       # parameters hash).
 
-      realized_volatile_parameters = instance_eval(&volatile_parameters)
-      parameters.merge!(realized_volatile_parameters)
+      if volatile_parameters_block
+        volatile_parameters_factory = StackFactory::VolatileParametersFactory.new(self)
+        volatile_parameters_factory.instance_eval(&volatile_parameters_block)
+        realized_volatile_parameters = volatile_parameters_factory.attributes
+        parameters.merge!(realized_volatile_parameters)
+      end
 
       # Lastly, we merge in the overrides hash (e.g. things purposefully set
       # by an outside caller) -- they take precendence over all previous values.
@@ -158,6 +176,29 @@ module OpenStax::Aws
                            word: "deleted") if !dry_run
     end
 
+    def resource(logical_id)
+      stack_resource = aws_stack.resource(logical_id)
+
+      case stack_resource.resource_type
+      when "AWS::AutoScaling::AutoScalingGroup"
+        name = stack_resource.physical_resource_id
+        client = Aws::AutoScaling::Client.new(region: region)
+        Aws::AutoScaling::AutoScalingGroup.new(name: name, client: client)
+      else
+        raise "'#{stack_resource.resource_type}' is not yet implemented in `Stack#resource`"
+      end
+    end
+
+    def capabilities
+      @capabilities ||= set_capabilities(
+        if OpenStax::Aws.configuration.infer_stack_capabilities
+          set_capabilities(template.required_capabilities)
+        else
+          []
+        end
+      )
+    end
+
     def self.format_hash_as_stack_parameters(params={})
       params.map do |key, value|
         {
@@ -166,7 +207,7 @@ module OpenStax::Aws
           if value == :use_previous_value
             hash[:use_previous_value] = true
           else
-            hash[:parameter_value] = value
+            hash[:parameter_value] = value.to_s
           end
         end
       end
@@ -220,13 +261,7 @@ module OpenStax::Aws
     }.freeze
 
     def set_capabilities(capabilities)
-      capabilities ||= begin
-        if OpenStax::Aws.configuration.infer_stack_capabilities
-          template.required_capabilities
-        else
-          []
-        end
-      end
+      return if capabilities.nil?
 
       capabilities = [capabilities].flatten.compact
 

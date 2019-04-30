@@ -79,7 +79,7 @@ module OpenStax::Aws
             # Populate parameter defaults that match convention names
 
             if OpenStax::Aws.configuration.infer_parameter_defaults
-              template = OpenStax::Aws::Template.new(absolute_file_path: stack_factory.absolute_template_path)
+              template = OpenStax::Aws::Template.from_absolute_file_path(stack_factory.absolute_template_path)
               template.parameter_names.each do |parameter_name|
                 value =
                   case parameter_name

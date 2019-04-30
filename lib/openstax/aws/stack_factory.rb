@@ -24,6 +24,15 @@ module OpenStax::Aws
       end
     end
 
+    def template_directory(*directory_parts)
+      if directory_parts.empty? && !block_given?
+        attributes[:template_directory]
+      else
+        directory_parts = yield if directory_parts.empty?
+        attributes[:template_directory] = File.join(*directory_parts)
+      end
+    end
+
     def autoset_absolute_template_path(fallback_base_directory)
       base_directory = template_directory || fallback_base_directory
 
@@ -54,7 +63,13 @@ module OpenStax::Aws
       attributes[:parameter_defaults].merge!(factory.attributes)
     end
 
+    def volatile_parameters(&block)
+      attributes[:volatile_parameters_block] = block
+    end
+
     def build
+      autoset_absolute_template_path(nil) if absolute_template_path.blank?
+
       Stack.new(
         name: attributes[:name],
         region: attributes[:region],
@@ -62,6 +77,7 @@ module OpenStax::Aws
         absolute_template_path: attributes[:absolute_template_path],
         capabilities: attributes[:capabilities],
         parameter_defaults: attributes[:parameter_defaults],
+        volatile_parameters_block: attributes[:volatile_parameters_block],
         dry_run: attributes[:dry_run]
       )
     end
@@ -76,6 +92,22 @@ module OpenStax::Aws
 
       def method_missing(name, *args, &block)
         attributes[name.to_sym] = args[0] || @context.instance_eval(&block)
+      end
+    end
+
+    class VolatileParametersFactory
+      attr_reader :attributes
+
+      def initialize(context)
+        raise "context cannot be nil" if context.nil?
+        @context = context
+        @attributes = {}
+      end
+
+      def method_missing(name, *args, &block)
+        raise "Volatile parameter `#{name}` cannot be called with arguments, only a block" if !args.empty?
+        raise "Volatile parameter `#{name}` must be called with a block to set the parameter value" if !block_given?
+        attributes[name.to_sym] = @context.instance_eval(&block)
       end
     end
 

@@ -14,9 +14,12 @@ module OpenStax::Aws
 
     attr_reader :absolute_file_path
 
-    def initialize(absolute_file_path:)
-      raise "Template path cannot be blank" if absolute_file_path.blank?
-      @absolute_file_path = absolute_file_path
+    def self.from_absolute_file_path(absolute_file_path)
+      new(absolute_file_path: absolute_file_path)
+    end
+
+    def self.from_body(body)
+      new(body: body)
     end
 
     def basename
@@ -83,6 +86,12 @@ module OpenStax::Aws
     end
 
   protected
+
+    def initialize(absolute_file_path: nil, body: nil)
+      raise "One of `absolute_file_path` or `body` must be set" if absolute_file_path.blank? && body.nil?
+      @absolute_file_path = absolute_file_path
+      @body = body.dup
+    end
 
     def validate
       begin
