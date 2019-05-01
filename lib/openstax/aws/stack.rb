@@ -28,7 +28,7 @@ module OpenStax::Aws
 
     def template
       @template ||= begin
-        if !absolute_template_path.blank?
+        if absolute_template_path.present?
           OpenStax::Aws::Template.from_absolute_file_path(absolute_template_path)
         else
           body = client.get_template({stack_name: name}).template_body
@@ -59,23 +59,16 @@ module OpenStax::Aws
     def parameters_for_update(overrides: {})
       parameters = {}
 
-      # Find parameters in the template we'll use for the update and for any
-      # that
-
       # Start populating the parameters hash by using `:use_previous_value` for any
       # parameter that is currently in the template that is also currently on the stack,
       # and using the defined default value for any other parameter.
 
-      existing_parameter_keys = existing_parameters.keys.map(&:to_sym)
-      update_parameter_keys = template.parameter_names.map(&:underscore).map(&:to_sym)
+      continuing_parameter_keys.each do |continuing_parameter_key|
+        parameters[continuing_parameter_key] = :use_previous_value
+      end
 
-      update_parameter_keys.each do |update_parameter_key|
-        parameters[update_parameter_key] =
-          if existing_parameter_keys.include?(update_parameter_key)
-            :use_previous_value
-          else
-            parameter_defaults[update_parameter_key]
-          end
+      new_parameter_keys.each do |new_parameter_key|
+        parameters[new_parameter_key] = parameter_defaults[new_parameter_key]
       end
 
       # Volatile parameters can be changed outside of cloudformation updates.  Here
@@ -83,12 +76,7 @@ module OpenStax::Aws
       # stack, and then we merge them in (overwriting any values already in the
       # parameters hash).
 
-      if volatile_parameters_block
-        volatile_parameters_factory = StackFactory::VolatileParametersFactory.new(self)
-        volatile_parameters_factory.instance_eval(&volatile_parameters_block)
-        realized_volatile_parameters = volatile_parameters_factory.attributes
-        parameters.merge!(realized_volatile_parameters)
-      end
+      parameters.merge!(volatile_parameters)
 
       # Lastly, we merge in the overrides hash (e.g. things purposefully set
       # by an outside caller) -- they take precendence over all previous values.
@@ -97,12 +85,21 @@ module OpenStax::Aws
 
       # Leave out nil-valued parameters as they are not valid (and likely not
       # intentional)
+
       parameters.compact
     end
 
-    def existing_parameters
-      aws_stack.parameters.each_with_object({}) do |parameter, hash|
-        hash[parameter.parameter_key.underscore.to_s] = parameter.parameter_value
+    def volatile_parameters
+      return {} if volatile_parameters_block.nil?
+
+      volatile_parameters_factory = StackFactory::VolatileParametersFactory.new(self)
+      volatile_parameters_factory.instance_eval(&volatile_parameters_block)
+      volatile_parameters_factory.attributes
+    end
+
+    def deployed_parameters
+      @deployed_parameters ||= aws_stack.parameters.each_with_object({}) do |parameter, hash|
+        hash[parameter.parameter_key.underscore.to_sym] = parameter.parameter_value
       end
     end
 
@@ -132,6 +129,7 @@ module OpenStax::Aws
       else
         logger.info("Executing Change Set")
         client.execute_change_set(change_set_name: create_change_set_output.id)
+        reset_cached_remote_state
       end
 
       logger.info(change_set_description.change_summaries.join("\n"))
@@ -190,13 +188,16 @@ module OpenStax::Aws
     end
 
     def capabilities
-      @capabilities ||= set_capabilities(
-        if OpenStax::Aws.configuration.infer_stack_capabilities
-          set_capabilities(template.required_capabilities)
-        else
-          []
-        end
-      )
+      set_capabilities(default_capabilities) if @capabilities.nil?
+      @capabilities
+    end
+
+    def default_capabilities
+      if OpenStax::Aws.configuration.infer_stack_capabilities
+        template.required_capabilities
+      else
+        []
+      end
     end
 
     def self.format_hash_as_stack_parameters(params={})
@@ -276,6 +277,22 @@ module OpenStax::Aws
       @capabilities = capabilities.map do |capability|
         SHORT_CAPABILITIES[capability] || capability
       end.freeze
+    end
+
+    def template_parameter_keys
+      @tpks ||= template.parameter_names.map(&:underscore).map(&:to_sym)
+    end
+
+    def continuing_parameter_keys
+      template_parameter_keys & deployed_parameters.keys
+    end
+
+    def new_parameter_keys
+      template_parameter_keys - continuing_parameter_keys
+    end
+
+    def reset_cached_remote_state
+      @deployed_parameters = nil
     end
 
     def logger

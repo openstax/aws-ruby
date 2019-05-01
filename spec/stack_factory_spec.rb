@@ -36,7 +36,7 @@ RSpec.describe OpenStax::Aws::StackFactory do
       end
     end
 
-    allow(stack).to receive(:existing_parameters) {{}}
+    allow(stack).to receive(:deployed_parameters) {{}}
 
     expect(stack.parameters_for_update).to eq ({
       tag_value: "us-east-1"

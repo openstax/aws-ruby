@@ -122,5 +122,4 @@ RSpec.describe OpenStax::Aws::DeploymentBase do
     end
   end
 
-
 end
