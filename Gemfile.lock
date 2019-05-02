@@ -737,6 +737,7 @@ GEM
     minitest (5.11.3)
     public_suffix (3.0.3)
     rake (10.5.0)
+    rb-readline (0.5.5)
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
       rspec-expectations (~> 3.7.0)
@@ -770,9 +771,10 @@ DEPENDENCIES
   dotenv
   openstax_aws!
   rake (~> 10.0)
+  rb-readline
   rspec (~> 3.0)
   vcr
   webmock
 
 BUNDLED WITH
-   1.17.2
+   1.17.3

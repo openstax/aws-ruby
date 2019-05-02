@@ -16,13 +16,13 @@ http_interactions:
       Host:
       - cloudformation.us-west-2.amazonaws.com
       X-Amz-Date:
-      - 20190429T000133Z
+      - 20190430T212633Z
       X-Amz-Security-Token:
       - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
       - 4c4130d6d8ee21d1264dded763ed8d1415f408345990e0ea0c57bac79465bafc
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190429/us-west-2/cloudformation/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190430/us-west-2/cloudformation/aws4_request,
         SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,
         Signature=<SignatureValue>
       Content-Length:
@@ -35,13 +35,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - f2f966e6-6a11-11e9-8524-5f73be06e712
+      - a09e7ca6-6b8e-11e9-a25f-b55c1a015857
       Content-Type:
       - text/xml
       Content-Length:
       - '580'
       Date:
-      - Mon, 29 Apr 2019 00:01:32 GMT
+      - Tue, 30 Apr 2019 21:26:32 GMT
     body:
       encoding: UTF-8
       string: |
@@ -61,11 +61,11 @@ http_interactions:
             </Parameters>
           </ValidateTemplateResult>
           <ResponseMetadata>
-            <RequestId>f2f966e6-6a11-11e9-8524-5f73be06e712</RequestId>
+            <RequestId>a09e7ca6-6b8e-11e9-a25f-b55c1a015857</RequestId>
           </ResponseMetadata>
         </ValidateTemplateResponse>
     http_version: 
-  recorded_at: Mon, 29 Apr 2019 00:01:33 GMT
+  recorded_at: Tue, 30 Apr 2019 21:26:33 GMT
 - request:
     method: put
     uri: https://openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com/cfn_templates/spec-templates/template_one.yml
@@ -113,13 +113,13 @@ http_interactions:
       Host:
       - openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com
       X-Amz-Date:
-      - 20190429T000133Z
+      - 20190430T212633Z
       X-Amz-Security-Token:
       - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
       - 44820f5081bfdd4c387cf15b34f8f70367dbba4e87e0c51380353e1b3b436eab
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190429/us-west-2/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190430/us-west-2/s3/aws4_request,
         SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date;x-amz-security-token,
         Signature=<SignatureValue>
       Content-Length:
@@ -132,13 +132,13 @@ http_interactions:
       message: OK
     headers:
       X-Amz-Id-2:
-      - SNt7GlH8w5O1rc2CoP9M3DwAbEdLHa05/R81HyfaycNsvyl8Vqls4SzJfG83rG+Dman0i6k53DY=
+      - VvZ3/j5/n1hrVEvrOWd1TXurDD0s1tzlhS/D5hclbR4xNwysZkDgy4620uYAFwQytr5795hoc24=
       X-Amz-Request-Id:
-      - 15E56EEE010B7DC8
+      - D1A8810F3BF6659A
       Date:
-      - Mon, 29 Apr 2019 00:01:34 GMT
+      - Tue, 30 Apr 2019 21:26:34 GMT
       X-Amz-Version-Id:
-      - ehyIzHctbiDdUZK0FCuDHVHrvsNRaydB
+      - r9xjAtx1Sj.g5zURZF98xxRmpFnOrGte
       X-Amz-Server-Side-Encryption:
       - AES256
       Etag:
@@ -151,5 +151,5 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Mon, 29 Apr 2019 00:01:34 GMT
+  recorded_at: Tue, 30 Apr 2019 21:26:34 GMT
 recorded_with: VCR 4.0.0

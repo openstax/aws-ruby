@@ -11,6 +11,7 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     OpenStax::Aws.configure do |config|
       config.hosted_zone_name = "sandbox.openstax.org"
       config.cfn_template_bucket_name = "openstax-sandbox-cfn-templates"
+      config.cfn_template_bucket_region = "us-west-2"
       config.log_bucket_name = "openstax-sandbox-logs"
       config.key_pair_name = "openstax-sandbox-kp"
       config.stack_waiter_delay = vcr_recording? ? 5 : 0
@@ -117,6 +118,69 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     expect(@logger).to have_received(:info).with(/Deleting #{name} stack.../)
   end
 
+  context "#parameters_for_update" do
+    it "uses defaults, volatile, use_previous_value" do
+      stack = new_stack(name: "spec-aws-ruby-stack-param-update",
+                        filename: "updating_parameters/orig.yml",
+                        overrides: {
+                          parameter_defaults: {
+                            will_go_away: "value1",
+                            sticks_around: "value2",
+                            volatile_value: "gonna_change"
+                          },
+                          volatile_parameters_block: Proc.new do
+                            volatile_value { name } # the stack's name as a placeholder for stack-specific data
+                          end
+                        })
+      stack.create(params: { sticks_around_no_default: "value3" }, wait: true)
+
+      stack = new_stack(name: "spec-aws-ruby-stack-param-update",
+                        filename: "updating_parameters/mod.yml",
+                        overrides: {
+                          parameter_defaults: {
+                            will_go_away: "value1",
+                            sticks_around: "value2",
+                            added: "added value",
+                            volatile_value: "gonna_change"
+                          },
+                          volatile_parameters_block: Proc.new do
+                            volatile_value { name } # the stack's name
+                          end
+                        })
+
+      # Here is where volatile_value could be changed manually on the tag value
+      # so we don't want to just "use_previous_value" b/c that would be "gonna_change"
+
+      parameters = stack.parameters_for_update(overrides: {sticks_around: "override"})
+
+      expect(parameters).to eq({
+        sticks_around: "override",
+        added: "added value",
+        sticks_around_no_default: :use_previous_value,
+        volatile_value: "spec-aws-ruby-stack-param-update"
+      })
+
+      stack.delete
+    end
+  end
+
+  it "can be created without an absolute_template_path" do
+    expect{OpenStax::Aws::Stack.new(name: "foo", region: "us-east-2")}.not_to raise_error
+  end
+
+  it "can get a existing stack's template without specifying a file" do
+    name = "spec-aws-ruby-stack-existing-template"
+
+    stack = new_template_one_stack(name: name)
+    file_template_contents = stack.template.body
+    stack.create(params: {bucket_name: bucket_name, tag_value: "howdy"}, wait: true)
+
+    stack = described_class.new(name: name, region: region, dry_run: false)
+    expect(stack.template.body).to eq file_template_contents
+
+    stack.delete
+  end
+
   def iam_client
     Aws::IAM::Client.new(region: region)
   end
@@ -130,14 +194,14 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
   end
 
   def new_template_one_stack(name:, overrides: {})
-    new_template_stack(name: name, filename: "template_one.yml", overrides: overrides)
+    new_stack(name: name, filename: "template_one.yml", overrides: overrides)
   end
 
   def new_template_one_mod_stack(name:, overrides: {})
-    new_template_stack(name: name, filename: "template_one_mod.yml", overrides: overrides)
+    new_stack(name: name, filename: "template_one_mod.yml", overrides: overrides)
   end
 
-  def new_template_stack(name:, filename:, overrides: {})
+  def new_stack(name:, filename:, overrides: {})
     allow_any_instance_of(OpenStax::Aws::Template).to receive(:s3_folder) { "spec-templates" }
 
     described_class.new(

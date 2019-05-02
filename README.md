@@ -245,8 +245,70 @@ used in the SDK.
 
 [ Work on this section ]
 
-* In the parameters you pass to `apply_change_set`, you can use the special `:use_previous_value` value
-and AWS will reuse the parameter value used in the last create or update stack call.
+When updating a stack, call `apply_change_set` with just the parameters you want to change.  The gem will build the
+parameters to include in the update using the following algorithm:
+
+1. First, every parameter in the currently-deployed stack that is also in the template being used in
+the update will be included with a value of `:use_previous_value`.
+2. Next, those parameters in the template being used in the update that are not already in the deployed
+stack will be included with a default value defined in the stack definition (in the `parameter_defaults` block)
+3. Next, "volatile parameters" are set. Volatile parameters are those that can change outside of stack updates (e.g. autoscaling group desired
+capacities that change due to scaling events).  See below for more of a discussion of volatile parameters.
+Volatile parameters will override any existing parameter values.
+4. Finally, parameters explicitly set in the call to `apply_change_set` will be included.  These values
+will override any existing parameter values.
+
+Any parameter that ends up with a `nil` value after these series of steps will be removed.  Those parameters
+will need to have a default value set in the CloudFormation template file to avoid the call failing within AWS.
+
+##### `parameter_defaults`
+
+Use the `parameter_defaults` section of the stack defintion to give default values for stack parameters.
+Entries within the block are of the form `parameter_name value` or `parameter_name { value }`.  When the
+latter block form is used, the block is executed in the context of the stack's deployment object when
+the stack is first accessed.
+
+```ruby
+stack :app do
+  ...
+  parameter_defaults do
+    web_server_desired_capacity 2
+    some_other_parameter_name { "#{env_name}-blah" }
+  end
+  ...
+end
+```
+
+##### `volatile_parameters`
+
+By and large, we want to make changes to our stacks using the update stack capabilities offered by AWS.
+However, sometimes there are parameters that change outside of this update process.  The classic example
+is autoscaling group desired capacity.  When we define an ASG in a template, we define its desired capacity
+(if we don't, it defaults to the minimum allowed capacity).  If we give its desired capacity as a static number,
+it'll have that value for each update, meaning that if we create it with a desired capacity of '2' and then
+a scaling event causes the desired capacity to change to 6, an update through CloudFormation will reset the
+desired capacity to 2.  Even if the capacity is not a literal number but instead a stack parameter, a stack
+update call that uses the "use previous value" functionality will use the value last used during a stack update
+and not the current value of the desired capacity in the stack.  What we want to do is get the stack's current
+desired capacity and use that value in the stack update call so that the update leaves the capacity unchanged.
+
+Volatile parameters let us do that.  They define the parameters that can change outside of stack updates and
+define a block of code to run just before the update to get that latest value.  That value is then used in the
+stack update.  The form within the `volatile_parameters` block is `parameter_name { value }` where the `{ value }`
+block is executed in the context of the stack object, just before the call to update the stack.
+
+```ruby
+stack :app do
+  ...
+  volatile_parameters do
+    web_server_desired_capacity { resource("Asg").desired_capacity }
+  end
+  ...
+end
+```
+
+Here, we're getting the resource in our stack with the `Asg` logical ID (which returns an `Aws::AutoScaling::Group`
+instance) and then getting its desired capacity.
 
 #### `delete`
 

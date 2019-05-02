@@ -1,0 +1,26 @@
+Description: >
+  aws-ruby spec template - updating_parameters - mod
+
+Parameters:
+
+  SticksAround:
+    Type: String
+
+  SticksAroundNoDefault:
+    Type: String
+
+  Added:
+    Type: String
+
+  VolatileValue:
+    Type: String
+
+Resources:
+
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: openstax-aws-ruby-spec-param-updates
+      Tags:
+        - Key: Tag1
+          Value: !Ref 'VolatileValue'
