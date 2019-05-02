@@ -8,7 +8,7 @@ RSpec.describe OpenStax::Aws::StackFactory do
       count: 2
     )
 
-    stack = described_class.build(id: :bar, parameter_context: context) do
+    stack = described_class.build(id: :bar, deployment: context) do
       name "something"
       capabilities [:iam]
       region "us-east-1"
@@ -25,7 +25,7 @@ RSpec.describe OpenStax::Aws::StackFactory do
   end
 
   it 'manages volatile parameters' do
-    stack = described_class.build(id: :bar, parameter_context: OpenStruct.new) do
+    stack = described_class.build(id: :bar, deployment: OpenStruct.new) do
       name "something"
       capabilities [:iam]
       region 'us-east-1'

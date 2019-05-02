@@ -51,13 +51,13 @@ module OpenStax::Aws
 
         define_method("#{id}_stack") do
           instance_variable_get("@#{id}_stack") || begin
-            stack_factory = StackFactory.new(id: id, parameter_context: self)
+            stack_factory = StackFactory.new(id: id, deployment: self)
             stack_factory.instance_eval(&block) if block_given?
 
             # Fill in missing attributes using deployment variables and conventions
 
             if stack_factory.name.blank?
-              stack_factory.name("#{env_name}-#{name}-#{id}")
+              stack_factory.name([env_name,name,id].compact.join("-"))
             end
 
             if stack_factory.region.blank?
@@ -73,7 +73,7 @@ module OpenStax::Aws
             end
 
             if stack_factory.absolute_template_path.blank?
-              stack_factory.autoset_absolute_template_path(defined?(:template_directory) ? template_directory : "")
+              stack_factory.autoset_absolute_template_path(respond_to?(:template_directory) ? template_directory : "")
             end
 
             # Populate parameter defaults that match convention names
