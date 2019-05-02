@@ -133,6 +133,15 @@ RSpec.describe OpenStax::Aws::DeploymentBase do
       expect(instance.app_stack.name).to eq "my-spec-override-app"
     end
 
+    it "must be given an id" do
+      expect{
+        deployment_class = Class.new(described_class) do
+          template_directory __dir__, 'support/templates/factory_test'
+          stack nil do
+          end
+        end
+      }.to raise_error(StandardError, /first argument/)
+    end
   end
 
   context "#template_directory" do

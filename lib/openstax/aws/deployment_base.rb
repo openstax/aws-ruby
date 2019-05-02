@@ -44,6 +44,10 @@ module OpenStax::Aws
       end
 
       def stack(id, &block)
+        if id.blank?
+          raise "The first argument to `stack` must be a non-blank ID"
+        end
+
         if !id.to_s.match(/^[a-zA-Z][a-zA-Z0-9_]*$/)
           raise "The first argument to `stack` must consist only of letters, numbers, and underscores, " \
                 "and must start with a letter."
