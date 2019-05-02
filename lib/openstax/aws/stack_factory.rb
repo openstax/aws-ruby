@@ -2,16 +2,18 @@ module OpenStax::Aws
   class StackFactory
     attr_reader :attributes
 
-    def initialize(id:, parameter_context:)
+    def initialize(id:, deployment:)
+      raise "`deployment` cannot be nil" if deployment.nil?
+
       @id = id
-      @parameter_context = parameter_context
+      @deployment = deployment
       @attributes = {
         parameter_defaults: {}
       }
     end
 
-    def self.build(id:, parameter_context:, &block)
-      factory = new(id: id, parameter_context: parameter_context)
+    def self.build(id:, deployment:, &block)
+      factory = new(id: id, deployment: deployment)
       factory.instance_eval(&block) if block_given?
       factory.build
     end
@@ -20,7 +22,9 @@ module OpenStax::Aws
       if args.empty? && !block_given?
         attributes[name.to_sym]
       else
-        attributes[name.to_sym] = args.empty? ? yield : args[0] # TODO should this be in the deployment context too?
+        attributes[name.to_sym] = args.empty? ?
+                                    @deployment.instance_eval(&block) :
+                                    args[0]
       end
     end
 
@@ -58,7 +62,7 @@ module OpenStax::Aws
     end
 
     def parameter_defaults(&block)
-      factory = ParameterDefaultsFactory.new(@parameter_context)
+      factory = ParameterDefaultsFactory.new(@deployment)
       factory.instance_eval(&block) if block_given?
       attributes[:parameter_defaults].merge!(factory.attributes)
     end
@@ -71,6 +75,7 @@ module OpenStax::Aws
       autoset_absolute_template_path(nil) if absolute_template_path.blank?
 
       Stack.new(
+        id: id,
         name: attributes[:name],
         region: attributes[:region],
         enable_termination_protection: attributes[:enable_termination_protection],

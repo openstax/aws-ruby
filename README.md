@@ -187,6 +187,9 @@ stack :app do
 end
 ```
 
+Blocks passed to the stack definition methods (like `region` above) are executed in the context of the
+containing deployment object.
+
 When using the DSL, you can define a stack-local `template_directory` to override the deployment-level
 one, e.g.
 

@@ -1,15 +1,16 @@
 module OpenStax::Aws
   class Stack
 
-    attr_reader :name, :absolute_template_path, :dry_run,
+    attr_reader :name, :id, :absolute_template_path, :dry_run,
                 :enable_termination_protection, :region, :parameter_defaults,
                 :volatile_parameters_block
 
-    def initialize(name:, region:, enable_termination_protection: false,
+    def initialize(id: nil, name:, region:, enable_termination_protection: false,
                    absolute_template_path: nil,
                    capabilities: nil, parameter_defaults: {},
                    volatile_parameters_block: nil,
                    dry_run: true)
+      @id = id
 
       raise "Stack name must not be blank" if name.blank?
       @name = name

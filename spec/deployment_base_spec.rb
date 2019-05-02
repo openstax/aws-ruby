@@ -109,6 +109,39 @@ RSpec.describe OpenStax::Aws::DeploymentBase do
       expect(instance.app_stack.enable_termination_protection).to eq true
     end
 
+    it "makes good stack names when env_name not set" do
+      deployment_class = Class.new(described_class) do
+        template_directory __dir__, 'support/templates/factory_test'
+        stack :app
+      end
+
+      instance = deployment_class.new(name: "spec", region: "deployment-region", dry_run: false)
+
+      expect(instance.app_stack.name).to eq "spec-app"
+    end
+
+    it "can have stack name overridden" do
+      deployment_class = Class.new(described_class) do
+        template_directory __dir__, 'support/templates/factory_test'
+        stack :app do
+          name { "my-#{name}-override-app" }
+        end
+      end
+
+      instance = deployment_class.new(name: "spec", region: "deployment-region", dry_run: false)
+
+      expect(instance.app_stack.name).to eq "my-spec-override-app"
+    end
+
+    it "must be given an id" do
+      expect{
+        deployment_class = Class.new(described_class) do
+          template_directory __dir__, 'support/templates/factory_test'
+          stack nil do
+          end
+        end
+      }.to raise_error(StandardError, /first argument/)
+    end
   end
 
   context "#template_directory" do

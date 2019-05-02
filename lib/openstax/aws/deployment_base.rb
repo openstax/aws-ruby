@@ -44,6 +44,10 @@ module OpenStax::Aws
       end
 
       def stack(id, &block)
+        if id.blank?
+          raise "The first argument to `stack` must be a non-blank ID"
+        end
+
         if !id.to_s.match(/^[a-zA-Z][a-zA-Z0-9_]*$/)
           raise "The first argument to `stack` must consist only of letters, numbers, and underscores, " \
                 "and must start with a letter."
@@ -51,13 +55,13 @@ module OpenStax::Aws
 
         define_method("#{id}_stack") do
           instance_variable_get("@#{id}_stack") || begin
-            stack_factory = StackFactory.new(id: id, parameter_context: self)
+            stack_factory = StackFactory.new(id: id, deployment: self)
             stack_factory.instance_eval(&block) if block_given?
 
             # Fill in missing attributes using deployment variables and conventions
 
             if stack_factory.name.blank?
-              stack_factory.name("#{env_name}-#{name}-#{id}")
+              stack_factory.name([env_name,name,id].compact.join("-"))
             end
 
             if stack_factory.region.blank?
@@ -73,7 +77,7 @@ module OpenStax::Aws
             end
 
             if stack_factory.absolute_template_path.blank?
-              stack_factory.autoset_absolute_template_path(defined?(:template_directory) ? template_directory : "")
+              stack_factory.autoset_absolute_template_path(respond_to?(:template_directory) ? template_directory : "")
             end
 
             # Populate parameter defaults that match convention names
