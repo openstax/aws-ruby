@@ -27,14 +27,11 @@ module OpenStax
     end
 
     class Configuration
-      attr_writer :hosted_zone_name
       attr_writer :cfn_template_bucket_name
       attr_writer :cfn_template_bucket_region
-      attr_writer :log_bucket_name
-      attr_writer :logger
-      attr_writer :key_pair_name
-      attr_accessor :stack_waiter_delay
       attr_accessor :cfn_template_bucket_folder
+      attr_writer :logger
+      attr_accessor :stack_waiter_delay
       attr_accessor :infer_stack_capabilities
       attr_accessor :infer_parameter_defaults
       attr_accessor :production_env_name
@@ -45,11 +42,6 @@ module OpenStax
         @infer_stack_capabilities = true
         @infer_parameter_defaults = true
         @production_env_name = "production"
-      end
-
-      def hosted_zone_name
-        raise "hosted_zone_name isn't set!" if @hosted_zone_name.blank?
-        @hosted_zone_name
       end
 
       def cfn_template_bucket_name
@@ -68,16 +60,6 @@ module OpenStax
         # @cfn_template_bucket_region ||= ::Aws::S3::Client.new(region: "us-east-1") # could be any region
         #   .get_bucket_location(bucket: cfn_template_bucket_name)
         #   .location_constraint
-      end
-
-      def log_bucket_name
-        raise "log_bucket_name isn't set!" if @log_bucket_name.blank?
-        @log_bucket_name
-      end
-
-      def key_pair_name
-        raise "key_pair_name isn't set!" if @key_pair_name.blank?
-        @key_pair_name
       end
 
       def logger

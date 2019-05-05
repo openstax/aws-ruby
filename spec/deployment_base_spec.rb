@@ -60,7 +60,6 @@ RSpec.describe OpenStax::Aws::DeploymentBase do
       expect(instance.app_stack.template.absolute_file_path).to end_with("support/templates/factory_test/app.yml")
       expect(instance.app_stack.enable_termination_protection).to eq false
       expect(instance.app_stack.parameter_defaults[:env_name]).to eq "dev"
-      expect(instance.app_stack.parameter_defaults[:key_name]).to eq "dummy-kp"
       expect(instance.app_stack.parameter_defaults[:network_stack_name]).to eq "dev-spec-network"
     end
 
@@ -152,6 +151,46 @@ RSpec.describe OpenStax::Aws::DeploymentBase do
 
       instance = deployment_class.new(name: "spec", region: "deployment-region")
       expect(instance.template_directory).to end_with("spec/support/templates/factory_test")
+    end
+  end
+
+  context "deployment parameter defaults" do
+    it "allows explicit defauts" do
+      deployment_class = Class.new(described_class) do
+        template_directory __dir__, 'support/templates/parameter_defaults'
+        stack :app
+
+        def parameter_default(parameter_name)
+          "my-bucket-name" if parameter_name == "BucketName"
+        end
+      end
+
+      instance = deployment_class.new(name: "spec", region: "deployment-region")
+      expect(instance.app_stack.parameter_defaults[:bucket_name]).to eq "my-bucket-name"
+    end
+
+    it "provides built-in defauts" do
+      deployment_class = Class.new(described_class) do
+        template_directory __dir__, 'support/templates/parameter_defaults'
+        stack :app
+      end
+
+      instance = deployment_class.new(env_name: "howdy", name: "spec", region: "deployment-region")
+      expect(instance.app_stack.parameter_defaults[:env_name]).to eq "howdy"
+    end
+
+    it "allows built-in defauts to be overridden" do
+      deployment_class = Class.new(described_class) do
+        template_directory __dir__, 'support/templates/parameter_defaults'
+        stack :app
+
+        def built_in_parameter_default(parameter_name)
+          "something-else"
+        end
+      end
+
+      instance = deployment_class.new(env_name: "howdy", name: "spec", region: "deployment-region")
+      expect(instance.app_stack.parameter_defaults[:env_name]).to eq "something-else"
     end
   end
 

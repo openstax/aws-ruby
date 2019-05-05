@@ -1,8 +1,6 @@
 module OpenStax::Aws
   class DeploymentBase
 
-    # work on README
-
     attr_reader :env_name, :region, :name, :dry_run
 
     RESERVED_ENV_NAMES = [
@@ -85,21 +83,12 @@ module OpenStax::Aws
             if OpenStax::Aws.configuration.infer_parameter_defaults
               template = OpenStax::Aws::Template.from_absolute_file_path(stack_factory.absolute_template_path)
               template.parameter_names.each do |parameter_name|
-                value =
-                  case parameter_name
-                  when "EnvName"
-                    env_name
-                  when "KeyName", "KeyPairName"
-                    OpenStax::Aws.configuration.key_pair_name
-                  when /(.+)StackName$/
-                    begin
-                      send("#{$1}Stack".underscore).name
-                    rescue
-                      next
-                    end
-                  end
+                value = parameter_default(parameter_name) ||
+                        built_in_parameter_default(parameter_name)
 
-                stack_factory.parameter_defaults[parameter_name.underscore.to_sym] ||= value
+                if !value.nil?
+                  stack_factory.parameter_defaults[parameter_name.underscore.to_sym] ||= value
+                end
               end
             end
 
@@ -112,7 +101,20 @@ module OpenStax::Aws
 
     end
 
+    def built_in_parameter_default(parameter_name)
+      case parameter_name
+      when "EnvName"
+        env_name
+      when /(.+)StackName$/
+        send("#{$1}Stack".underscore).name rescue nil
+      end
+    end
+
     protected
+
+    def parameter_default(parameter_name)
+      nil
+    end
 
     def is_production?
       env_name == OpenStax::Aws.configuration.production_env_name
@@ -127,11 +129,7 @@ module OpenStax::Aws
       subdomain.blank? ? "" : subdomain + "."
     end
 
-    def build_domain(site_name:)
-      "#{subdomain_with_trailing_dot(site_name: site_name)}#{hosted_zone_name}"
-    end
-
-    delegate :hosted_zone_name, :log_bucket_name, :logger, :key_pair_name, to: :configuration
+    delegate :logger, to: :configuration
 
     def configuration
       OpenStax::Aws.configuration
