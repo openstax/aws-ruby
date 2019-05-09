@@ -100,6 +100,20 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     }.to raise_error(Aws::CloudFormation::Errors::ValidationError, /does not exist/)
   end
 
+  it "is a no-op update with no changes" do
+    name = "spec-aws-ruby-stack-update-no-changes"
+
+    stack = new_template_one_stack(name: name)
+    stack.create(params: {bucket_name: bucket_name, tag_value: "howdy"}, wait: true)
+
+    change_set = stack.apply_change_set
+
+    expect(change_set).to be_a OpenStax::Aws::ChangeSet
+    expect(@logger).to have_received(:info).with(/No changes detected, deleting/)
+
+    stack.delete(wait: true)
+  end
+
   it "can create and delete in a dry run" do
     expect_any_instance_of(Aws::CloudFormation::Client).not_to receive(:create_stack)
     expect_any_instance_of(Aws::CloudFormation::Client).not_to receive(:delete_stack)

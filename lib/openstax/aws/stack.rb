@@ -104,8 +104,14 @@ module OpenStax::Aws
       end
     end
 
+    def create_change_set(options)
+      OpenStax::Aws::ChangeSet.new(client: client).create(options: options)
+    end
+
     def apply_change_set(params: {}, wait: false)
       logger.info("**** DRY RUN ****") if dry_run
+
+      logger.info("Updating #{name} stack...")
 
       params = parameters_for_update(overrides: params)
 
@@ -117,27 +123,24 @@ module OpenStax::Aws
         change_set_name: "#{name}-#{Time.now.utc.strftime("%Y%m%d-%H%M%S")}"
       }
 
-      create_change_set_output = client.create_change_set(options)
-      wait_for_change_set_ready(change_set_name_or_id: create_change_set_output.id)
+      change_set = create_change_set(options)
 
-      change_set_description = OpenStax::Aws::ChangeSetDescription.new(
-        client.describe_change_set(change_set_name: create_change_set_output.id)
-      )
+      if change_set.created?
+        logger.info(change_set.change_summaries.join("\n"))
 
-      if dry_run
-        logger.info("Deleting Change Set (because this is a dry run)")
-        client.delete_change_set(change_set_name: create_change_set_output.id) # cleanup
-      else
-        logger.info("Executing Change Set")
-        client.execute_change_set(change_set_name: create_change_set_output.id)
-        reset_cached_remote_state
+        if dry_run
+          logger.info("Deleting change set (because this is a dry run)")
+          change_set.delete
+        else
+          logger.info("Executing change set")
+          change_set.execute
+          reset_cached_remote_state
+        end
+
+        wait_for_update if wait
       end
 
-      logger.info(change_set_description.change_summaries.join("\n"))
-
-      change_set_description
-
-      wait_for_update if wait
+      change_set
     end
 
     def delete(wait: false)
@@ -233,27 +236,6 @@ module OpenStax::Aws
         raise
       end
       logger.info "#{name} has been #{word}!"
-    end
-
-    def wait_for_change_set_ready(change_set_name_or_id:)
-      wait_message = OpenStax::Aws::WaitMessage.new(
-        message: "Waiting for change set #{change_set_name_or_id} to be ready"
-      )
-
-      begin
-        client.wait_until(:change_set_create_complete, change_set_name: change_set_name_or_id) do |w|
-          w.delay = OpenStax::Aws.configuration.stack_waiter_delay
-          w.before_attempt do |attempts, response|
-            wait_message.say_it
-          end
-        end
-      rescue Aws::Waiters::Errors::FailureStateError => ee
-        logger.error(ee.response.status_reason)
-        raise
-      rescue Aws::Waiters::Errors::WaiterFailed => ee
-        logger.error("An error occurred: #{ee.message}")
-        raise
-      end
     end
 
     SHORT_CAPABILITIES = {
