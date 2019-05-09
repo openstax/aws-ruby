@@ -9,11 +9,8 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     @logger = spy("logger")
 
     OpenStax::Aws.configure do |config|
-      config.hosted_zone_name = "sandbox.openstax.org"
       config.cfn_template_bucket_name = "openstax-sandbox-cfn-templates"
       config.cfn_template_bucket_region = "us-west-2"
-      config.log_bucket_name = "openstax-sandbox-logs"
-      config.key_pair_name = "openstax-sandbox-kp"
       config.stack_waiter_delay = vcr_recording? ? 5 : 0
       config.logger = @logger
     end

@@ -1,0 +1,30 @@
+Description: >
+  Parameter defaults app
+
+Parameters:
+
+  BucketName:
+    Type: String
+
+  TagValue:
+    Type: String
+
+  EnvName:
+    Type: String
+
+Resources:
+
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref 'BucketName'
+      Tags:
+        - Key: Tag1
+          Value: !Ref 'TagValue'
+
+Outputs:
+
+  BucketArn:
+    Value: !GetAtt 'S3Bucket.Arn'
+    Export:
+      Name: !Sub '${AWS::StackName}-BucketArn'

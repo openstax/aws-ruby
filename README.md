@@ -118,7 +118,6 @@ class MyDeployment < OpenStax::Aws::DeploymentBase
       parameter_defaults: {
         env_name: env_name,
         network_stack_name: @network_stack.name,
-        key_pair_name: OpenStax::Aws.configuration.key_pair_name
       },
       dry_run: dry_run
     )
@@ -282,6 +281,34 @@ stack :app do
 end
 ```
 
+Deployment-wide parameter defaults can be defined via a `parameter_defaults(parameter_name)` method on your
+deployment class.  This method should return the default value given a parameter name (as it is shown in
+the template), e.g.
+
+```ruby
+class MyDeployment < OpenStax::Aws::DeploymentBase
+  ...
+  def parameter_default(parameter_name)
+    "my-log-bucket" if parameter_name == "LogBucketName"
+  end
+  ...
+end
+```
+
+The `OpenStax::Aws::DeploymentBase` class provides a `built_in_parameter_default(parameter_name)` method
+for some baseline defaults, e.g. for `"EnvName"` and parameters that are names of other stacks.  If you
+want to disable these extra defaults, you can override the method and have it return nil.
+
+```ruby
+class MyDeployment < OpenStax::Aws::DeploymentBase
+  ...
+  def built_in_parameter_default(parameter_name)
+    nil
+  end
+  ...
+end
+```
+
 ##### `volatile_parameters`
 
 By and large, we want to make changes to our stacks using the update stack capabilities offered by AWS.
@@ -330,23 +357,16 @@ You can configure gem behavior with:
 
 ```ruby
 OpenStax::Aws.configure do |config|
-  # One of your AWS hosted zone names
-  config.hosted_zone_name = "mydomain.com"
   # The bucket where you want to upload templates
   config.cfn_template_bucket_name = "some-bucket-name"
-  # A bucket where you send logs
-  config.log_bucket_name = "some-other-bucket-name"
-  # A logger object, e.g. `Logger.new(STDOUT)` (the default); see below for more.
-  config.logger = Logger.new(STDOUT)
-  # An AWS keypair name, used for SSH'ing into instances. (make sure it is available in your
-  # targeted region)
-  config.key_pair_name = "my-key-pair"
-  # The number of seconds the gem waits between polling for the completion of stack creation,
-  # updates, deletes. (default: 30)
-  config.stack_waiter_delay = 30
   # The top-level folder(s) where templates are stored in the template bucket.
   # (default: "cfn_templates")
   config.cfn_template_bucket_folder = "cfn_templates"
+  # A logger object, e.g. `Logger.new(STDOUT)` (the default); see below for more.
+  config.logger = Logger.new(STDOUT)
+  # The number of seconds the gem waits between polling for the completion of stack creation,
+  # updates, deletes. (default: 30)
+  config.stack_waiter_delay = 30
   # If true, the gem will parse your template and autoset the required capabilities
   # (default: true)
   config.infer_stack_capabilities = true
@@ -354,7 +374,7 @@ OpenStax::Aws.configure do |config|
   # EnvName, default: true)
   config.infer_parameter_defaults = true
   # The environment name you use for production, e.g. "prod" or "production" (the default).
-  config.production_env_name
+  config.production_env_name = "production"
 end
 ```
 
