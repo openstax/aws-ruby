@@ -75,7 +75,7 @@ module OpenStax::Aws
       end.first.parameter_value
     end
 
-    def change_summaries
+    def resource_change_summaries
       summaries = description.changes.flat_map(&:resource_change).map do |change|
         summary = "#{change.action} '#{change.logical_resource_id}' (#{change.resource_type})"
 
