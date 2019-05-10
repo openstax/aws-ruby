@@ -3,7 +3,7 @@ module OpenStax::Aws
 
     attr_reader :client
 
-    def initialize(client: client)
+    def initialize(client:)
       @client = client
     end
 

@@ -2,9 +2,11 @@ require 'spec_helper'
 
 RSpec.describe OpenStax::Aws::Parameters do
 
+  let(:dry_run) { true }
   let(:instance) {
     described_class.new(region: 'region',
                         env_name: 'env_name',
+                        dry_run: dry_run,
                         parameter_namespace: 'namespace')
   }
 

@@ -1,17 +1,18 @@
 module OpenStax::Aws
   class Parameters
 
-    attr_reader :region, :env_name, :parameter_namespace
+    attr_reader :region, :env_name, :dry_run, :parameter_namespace
 
-    def initialize(region:, env_name:, parameter_namespace:)
+    def initialize(region:, env_name:, dry_run: true, parameter_namespace:)
       @region = region
       @env_name = env_name
+      @dry_run = dry_run
       @parameter_namespace = parameter_namespace
       @client = Aws::SSM::Client.new(region: region)
     end
 
-    def create(dry_run: true, specification:, substitutions: {})
-      raise "Cannot create parameters already in existence!" if !data.empty?
+    def create(specification:, substitutions: {})
+      raise "Cannot create parameters already in existence!" if !data.empty? && !dry_run
 
       # Build all parameters first so we hit any errors before we send any to AWS
       built_parameters = build_parameters(specification: specification, substitutions: substitutions)
@@ -85,7 +86,12 @@ module OpenStax::Aws
       end
     end
 
-    def delete(dry_run: true)
+    def get(local_name)
+      local_name = "/#{local_name}" unless local_name.chr == "/"
+      data["/#{env_name}/#{parameter_namespace}#{local_name}"].try(:[], :value)
+    end
+
+    def delete
       parameter_names = data!.keys
       return if parameter_names.empty?
 
@@ -94,6 +100,8 @@ module OpenStax::Aws
       OpenStax::Aws.logger.info("Deleting the following parameters in the AWS parameter store: #{parameter_names}")
 
       if !dry_run
+        @data = nil # remove cached values as they are about to get cleared remotely
+
         # Can send max 10 parameter names at a time
         parameter_names.each_slice(10) do |some_parameter_names|
           response = client.delete_parameters({names: some_parameter_names})

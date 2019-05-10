@@ -164,18 +164,27 @@ module OpenStax::Aws
     end
 
     def wait_for_creation
-      wait_for_stack_event(waiter_class: Aws::CloudFormation::Waiters::StackCreateComplete,
-                           word: "created") if !dry_run
+      if !dry_run
+        return if !creating?
+        wait_for_stack_event(waiter_class: Aws::CloudFormation::Waiters::StackCreateComplete,
+                             word: "created")
+      end
     end
 
     def wait_for_update
-      wait_for_stack_event(waiter_class: Aws::CloudFormation::Waiters::StackUpdateComplete,
-                           word: "updated") if !dry_run
+      if !dry_run
+        return if !updating? # if not updating, waiting for an updated message will thrash until timeout
+        wait_for_stack_event(waiter_class: Aws::CloudFormation::Waiters::StackUpdateComplete,
+                             word: "updated")
+      end
     end
 
     def wait_for_deletion
-      wait_for_stack_event(waiter_class: Aws::CloudFormation::Waiters::StackDeleteComplete,
-                           word: "deleted") if !dry_run
+      if !dry_run
+        return if !deleting?
+        wait_for_stack_event(waiter_class: Aws::CloudFormation::Waiters::StackDeleteComplete,
+                             word: "deleted")
+      end
     end
 
     def resource(logical_id)
@@ -216,6 +225,29 @@ module OpenStax::Aws
           end
         end
       end
+    end
+
+    def status
+      aws_stack.stack_status
+    end
+
+    def updating?
+      %w(
+        UPDATE_COMPLETE_CLEANUP_IN_PROGRESS
+        UPDATE_IN_PROGRESS
+        UPDATE_ROLLBACK_COMPLETE
+        UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS
+        UPDATE_ROLLBACK_FAILED
+        UPDATE_ROLLBACK_IN_PROGRESS
+      ).include?(status)
+    end
+
+    def creating?
+      "CREATE_IN_PROGRESS" == status
+    end
+
+    def deleting?
+      "DELETE_IN_PROGRESS" == status
     end
 
     protected

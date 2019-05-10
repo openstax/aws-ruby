@@ -13,7 +13,7 @@ module OpenStax::Aws
 
       OpenStax::Aws.configuration.logger.debug(
         "#{@message}... (#{elapsed_minutes}m#{remainder_seconds}s elapsed)"
-      ) if elapsed_seconds > 8
+      )
     end
 
   end
