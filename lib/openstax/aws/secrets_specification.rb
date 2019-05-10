@@ -1,7 +1,7 @@
 require 'yaml'
 
 module OpenStax::Aws
-  class ParametersSpecification
+  class SecretsSpecification
 
     attr_reader :data
 

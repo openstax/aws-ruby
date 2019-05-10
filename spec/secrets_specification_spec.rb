@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe OpenStax::Aws::ParametersSpecification do
+RSpec.describe OpenStax::Aws::SecretsSpecification do
 
   it "requires quotes around lone curly braces" do
     # curly braces have meaning in yaml (they are a mapping)

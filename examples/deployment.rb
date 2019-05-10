@@ -8,7 +8,7 @@ module OpenStax::Aws::SomeApp
     stack :app do
       parameter_defaults do
         web_server_desired_capacity '1'
-        parameter_namespace { parameter_namespace }
+        secrets_namespace { secrets_namespace }
       end
       volatile_parameters do
         web_server_desired_capacity { resource("Asg").desired_capacity }
@@ -82,7 +82,7 @@ module OpenStax::Aws::SomeApp
       end
     end
 
-    def parameter_namespace
+    def secrets_namespace
       'some_name'
     end
 

@@ -1,18 +1,18 @@
 require 'spec_helper'
 
-RSpec.describe OpenStax::Aws::Parameters do
+RSpec.describe OpenStax::Aws::Secrets do
 
   let(:dry_run) { true }
   let(:instance) {
     described_class.new(region: 'region',
                         env_name: 'env_name',
                         dry_run: dry_run,
-                        parameter_namespace: 'namespace')
+                        namespace: 'namespace')
   }
 
-  context "#build_parameters" do
+  context "#build_secrets" do
     let(:specification) {
-      OpenStax::Aws::ParametersSpecification.from_content(
+      OpenStax::Aws::SecretsSpecification.from_content(
         format: :yml,
         top_key: :production,
         content: <<~CONTENT
@@ -28,7 +28,7 @@ RSpec.describe OpenStax::Aws::Parameters do
       built_parameters = nil
 
       expect{
-        built_parameters = instance.build_parameters(
+        built_parameters = instance.build_secrets(
           specification: specification,
           substitutions: {
             flag1: "false",

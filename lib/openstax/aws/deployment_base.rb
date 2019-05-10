@@ -189,14 +189,14 @@ module OpenStax::Aws
       end
     end
 
-    def parameters(id: 'default')
+    def secrets(id: 'default')
       id = id.to_s
-      @parameters ||= {}
-      @parameters[id] ||= OpenStax::Aws::Parameters.new(
+      @secrets ||= {}
+      @secrets[id] ||= OpenStax::Aws::Secrets.new(
         region: region,
         env_name: env_name!,
         dry_run: dry_run,
-        parameter_namespace: parameter_namespace(id: id)
+        namespace: secrets_namespace(id: id)
       )
     end
 
@@ -217,10 +217,10 @@ module OpenStax::Aws
 
     protected
 
-    def parameter_namespace(id: 'default')
+    def secrets_namespace(id: 'default')
       raise "Override this method in your deployment class and provide a namespace " \
-            "for data in the AWS Parameter Store.  The parameter key will be this namespace " \
-            "prefixed by the environment name and suffixed with the parameter name."
+            "for secrets data in the AWS Parameter Store.  The key there will be this namespace " \
+            "prefixed by the environment name and suffixed with the secret name."
     end
 
   end
