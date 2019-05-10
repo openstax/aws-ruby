@@ -106,7 +106,13 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     stack = new_template_one_stack(name: name)
     stack.create(params: {bucket_name: bucket_name, tag_value: "howdy"}, wait: true)
 
+    expect(stack).not_to receive(:wait_for_stack_event).with(
+      waiter_class: Aws::CloudFormation::Waiters::StackUpdateComplete,
+      word: "updated"
+    )
+
     change_set = stack.apply_change_set
+    stack.wait_for_update
 
     expect(change_set).to be_a OpenStax::Aws::ChangeSet
     expect(@logger).to have_received(:info).with(/No changes detected, deleting/)

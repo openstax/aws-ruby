@@ -163,7 +163,8 @@ stacks.  The `stack` method uses knowledge of the deployment in which it is call
 to some conventions to fill in smart defaults for many of the stack options.
 
 * It makes the `:network` stack accessible via `network_stack`.
-* It standardizes the stack name in AWS as `env_name-deployment_name-stack_symbol`.
+* It standardizes the stack name in AWS as `env_name-deployment_name-stack_symbol`, where any underscores
+are replaces with hyphens.
 * It sets the stack region to the the deployment's region.
 * For the `:network` stack, it automatically finds template files named `network.yml` or `network.json`
 in the declared `template_directory`.

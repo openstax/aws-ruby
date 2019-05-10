@@ -59,7 +59,7 @@ module OpenStax::Aws
             # Fill in missing attributes using deployment variables and conventions
 
             if stack_factory.name.blank?
-              stack_factory.name([env_name,name,id].compact.join("-"))
+              stack_factory.name([env_name,name,id].compact.join("-").gsub("_","-"))
             end
 
             if stack_factory.region.blank?
@@ -195,6 +195,7 @@ module OpenStax::Aws
       @parameters[id] ||= OpenStax::Aws::Parameters.new(
         region: region,
         env_name: env_name!,
+        dry_run: dry_run,
         parameter_namespace: parameter_namespace(id: id)
       )
     end
