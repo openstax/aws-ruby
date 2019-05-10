@@ -186,9 +186,17 @@ module OpenStax::Aws
 
     def wait_for_deletion
       if !dry_run
-        return if !deleting?
-        wait_for_stack_event(waiter_class: Aws::CloudFormation::Waiters::StackDeleteComplete,
-                             word: "deleted")
+        begin
+          return if !deleting?
+          wait_for_stack_event(waiter_class: Aws::CloudFormation::Waiters::StackDeleteComplete,
+                               word: "deleted")
+        rescue Aws::CloudFormation::Errors::ValidationError => ee
+          if ee.message =~ /Stack.*does not exist/
+            logger.warn("Waiting for stack #{name} to be deleted failed because it does not exist")
+          else
+            raise
+          end
+        end
       end
     end
 
