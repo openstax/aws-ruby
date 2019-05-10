@@ -52,7 +52,7 @@ RSpec.describe OpenStax::Aws::ChangeSet do
 
       it "gives change summaries" do
         expect(
-          instance.change_summaries[0]
+          instance.resource_change_summaries[0]
         ).to eq "Add 'logical resource ID' (AWS::Something::Blah)"
       end
     end
@@ -63,7 +63,7 @@ RSpec.describe OpenStax::Aws::ChangeSet do
 
       it "gives change summaries" do
         expect(
-          instance.change_summaries[0]
+          instance.resource_change_summaries[0]
         ).to eq "Modify 'logical resource ID' (AWS::Something::Blah): Replacement=False; Due to change in [\"Properties\"]; Causes: booyah"
       end
     end

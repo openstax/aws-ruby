@@ -126,7 +126,12 @@ module OpenStax::Aws
       change_set = create_change_set(options)
 
       if change_set.created?
-        logger.info(change_set.change_summaries.join("\n"))
+        resource_changes = change_set.resource_change_summaries
+
+        logger.info("#{resource_changes.size} resource change(s)#{':' if !resource_changes.empty?}")
+        resource_changes.each do |resource_change|
+          logger.debug(resource_change)
+        end
 
         if dry_run
           logger.info("Deleting change set (because this is a dry run)")
