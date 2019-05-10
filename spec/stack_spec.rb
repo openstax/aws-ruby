@@ -18,6 +18,12 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
 
   let(:bucket_name) { "aws-ruby-rspec-bucket" }
 
+  it 'is ok deleting a stack that does not exist' do
+    name = "spec-aws-ruby-stack-delete-non-existing"
+    stack = new_template_one_stack(name: name)
+    expect{stack.delete(wait: true)}.not_to raise_error
+  end
+
   it 'creates a stack with provided parameters, then deletes it' do
     name = "spec-aws-ruby-stack-create-delete"
 
