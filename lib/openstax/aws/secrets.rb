@@ -1,36 +1,39 @@
 module OpenStax::Aws
-  class Parameters
+  class Secrets
 
-    attr_reader :region, :env_name, :dry_run, :parameter_namespace
+    # We store "secrets" in the AWS Parameter store.  Secrets can be truly secret
+    # values (e.g. keys) or just some configuration values.
 
-    def initialize(region:, env_name:, dry_run: true, parameter_namespace:)
+    attr_reader :region, :env_name, :dry_run, :namespace
+
+    def initialize(region:, env_name:, dry_run: true, namespace:)
       @region = region
       @env_name = env_name
       @dry_run = dry_run
-      @parameter_namespace = parameter_namespace
+      @namespace = namespace
       @client = Aws::SSM::Client.new(region: region)
     end
 
     def create(specification:, substitutions: {})
-      raise "Cannot create parameters already in existence!" if !data.empty? && !dry_run
+      raise "Cannot create secrets already in existence!" if !data.empty? && !dry_run
 
-      # Build all parameters first so we hit any errors before we send any to AWS
-      built_parameters = build_parameters(specification: specification, substitutions: substitutions)
+      # Build all secrets first so we hit any errors before we send any to AWS
+      built_secrets = build_secrets(specification: specification, substitutions: substitutions)
 
       OpenStax::Aws.logger.info("**** DRY RUN ****") if dry_run
 
-      OpenStax::Aws.logger.info("Creating the following parameters in the AWS parameter store: #{built_parameters}")
+      OpenStax::Aws.logger.info("Creating the following secrets in the AWS parameter store: #{built_secrets}")
 
       # Ship 'em
       if !dry_run
-        built_parameters.each do |built_parameter|
-          client.put_parameter(built_parameter)
+        built_secrets.each do |built_secret|
+          client.put_parameter(built_secret)
         end
       end
     end
 
-    def build_parameters(specification:, substitutions:)
-      built_parameters = specification.expanded_data.map do |parameter_name, spec_value|
+    def build_secrets(specification:, substitutions:)
+      specification.expanded_data.map do |secret_name, spec_value|
         value = case spec_value.strip
         when /^random\(hex,(\d+)\)$/
           SecureRandom.hex($1.to_i)
@@ -51,14 +54,14 @@ module OpenStax::Aws
               with_decryption: true
             }).parameter.value
           rescue Aws::SSM::Errors::ParameterNotFound => ee
-            raise "Could not get parameter '#{$1}'"
+            raise "Could not get secret '#{$1}'"
           end
         else # use literal value
           spec_value
         end
 
         {
-          name: "/#{env_name}/#{parameter_namespace}/#{parameter_name}",
+          name: "/#{env_name}/#{namespace}/#{secret_name}",
           type: "String",
           value: value
         }
@@ -72,7 +75,7 @@ module OpenStax::Aws
     def data!
       {}.tap do |hash|
         client.get_parameters_by_path({
-          path: "/#{env_name}/#{parameter_namespace}",
+          path: "/#{env_name}/#{namespace}",
           recursive: true,
           with_decryption: true
         }).each do |response|
@@ -88,26 +91,26 @@ module OpenStax::Aws
 
     def get(local_name)
       local_name = "/#{local_name}" unless local_name.chr == "/"
-      data["/#{env_name}/#{parameter_namespace}#{local_name}"].try(:[], :value)
+      data["/#{env_name}/#{namespace}#{local_name}"].try(:[], :value)
     end
 
     def delete
-      parameter_names = data!.keys
-      return if parameter_names.empty?
+      secret_names = data!.keys
+      return if secret_names.empty?
 
       OpenStax::Aws.logger.info("**** DRY RUN ****") if dry_run
 
-      OpenStax::Aws.logger.info("Deleting the following parameters in the AWS parameter store: #{parameter_names}")
+      OpenStax::Aws.logger.info("Deleting the following secrets in the AWS parameter store: #{secret_names}")
 
       if !dry_run
         @data = nil # remove cached values as they are about to get cleared remotely
 
-        # Can send max 10 parameter names at a time
-        parameter_names.each_slice(10) do |some_parameter_names|
-          response = client.delete_parameters({names: some_parameter_names})
+        # Can send max 10 secret names at a time
+        secret_names.each_slice(10) do |some_secret_names|
+          response = client.delete_parameters({names: some_secret_names})
 
           if response.invalid_parameters.any?
-            raise "Some parameters were not deleted: #{response.invalid_parameters}"
+            raise "Some secrets were not deleted: #{response.invalid_parameters}"
           end
         end
       end

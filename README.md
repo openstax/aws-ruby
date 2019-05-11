@@ -406,4 +406,4 @@ validated and errors are raised to you.
 
 ### README Todos
 
-1. Discuss use of multiple parameters objects
+1. Discuss use of multiple secrets objects
