@@ -345,6 +345,38 @@ instance) and then getting its desired capacity.
 
 No options here besides `wait`.
 
+#### Secrets
+
+* Explain methodology
+
+```ruby
+stack :api do
+  ...
+  secrets do
+    namespace "my-app/api"
+    specification do
+      org_slash_repo "my-org/my-repo"
+      path "config/secrets.yml.example"
+      top_key :production
+    end
+    substitutions do
+      domain { domain }
+      env_name { env_name }
+      elasticsearch_endpoint { elasticsearch_stack.output_value(key: "endpoint")}
+    end
+  end
+  ...
+end
+
+common_secrets_substititutions do
+
+end
+```
+
+persistent secrets (do not change during update)
+do_not_update(random(hex,80))
+means secrets need to be smart about update
+
 ### Dry runs
 
 You'll have noticed above that deployment and `Stack` objects are instantiated with a `dry_run` parameter
