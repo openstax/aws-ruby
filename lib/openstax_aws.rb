@@ -35,6 +35,7 @@ module OpenStax
       attr_accessor :infer_stack_capabilities
       attr_accessor :infer_parameter_defaults
       attr_accessor :production_env_name
+      attr_accessor :fixed_s3_template_folder
 
       def initialize
         @stack_waiter_delay = 30
@@ -83,3 +84,4 @@ require "openstax/aws/stack"
 require "openstax/aws/stack_factory"
 require "openstax/aws/deployment_base"
 require "openstax/aws/build_image_command"
+require "openstax/aws/auto_scaling_instance"
