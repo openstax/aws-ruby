@@ -1,4 +1,9 @@
-require "aws-sdk"
+require "aws-sdk-autoscaling"
+require "aws-sdk-cloudformation"
+require "aws-sdk-cloudfront"
+require "aws-sdk-ec2"
+require "aws-sdk-s3"
+require "aws-sdk-ssm"
 
 require 'active_support'
 require 'active_support/core_ext'
