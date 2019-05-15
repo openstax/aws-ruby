@@ -1,0 +1,205 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://169.254.169.254/latest/meta-data/instance-id
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - 169.254.169.254
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Accept-Ranges:
+      - none
+      Last-Modified:
+      - Tue, 14 May 2019 22:51:49 GMT
+      Content-Length:
+      - '19'
+      Date:
+      - Wed, 15 May 2019 04:41:57 GMT
+      Server:
+      - EC2ws
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: i-0db6530398a07495c
+    http_version: 
+  recorded_at: Wed, 15 May 2019 04:41:57 GMT
+- request:
+    method: get
+    uri: http://169.254.169.254/latest/meta-data/placement/availability-zone
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - 169.254.169.254
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Accept-Ranges:
+      - none
+      Last-Modified:
+      - Tue, 14 May 2019 22:51:49 GMT
+      Content-Length:
+      - '10'
+      Date:
+      - Wed, 15 May 2019 04:41:57 GMT
+      Server:
+      - EC2ws
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: us-east-2a
+    http_version: 
+  recorded_at: Wed, 15 May 2019 04:41:57 GMT
+- request:
+    method: post
+    uri: https://autoscaling.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeAutoScalingInstances&InstanceIds.member.1=i-0db6530398a07495c&Version=2011-01-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.48.2 ruby/2.3.1 x86_64-linux-gnu aws-sdk-autoscaling/1.19.0
+      Host:
+      - autoscaling.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190515T044157Z
+      X-Amz-Content-Sha256:
+      - 7d170d183e54b562a972f473015298067e2b82b9b4fd9d3f4cd54ec61ce9d4f4
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190515/us-east-2/autoscaling/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '95'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - c5601dea-76cb-11e9-937a-8b342154e359
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '842'
+      Date:
+      - Wed, 15 May 2019 04:41:56 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeAutoScalingInstancesResponse xmlns="http://autoscaling.amazonaws.com/doc/2011-01-01/">
+          <DescribeAutoScalingInstancesResult>
+            <AutoScalingInstances>
+              <member>
+                <LaunchConfigurationName>aws-ruby-development-Lc-PWBW7CTFFPMF</LaunchConfigurationName>
+                <LifecycleState>InService</LifecycleState>
+                <AutoScalingGroupName>aws-ruby-dev-env-asg</AutoScalingGroupName>
+                <InstanceId>i-0db6530398a07495c</InstanceId>
+                <HealthStatus>HEALTHY</HealthStatus>
+                <ProtectedFromScaleIn>false</ProtectedFromScaleIn>
+                <AvailabilityZone>us-east-2a</AvailabilityZone>
+              </member>
+            </AutoScalingInstances>
+          </DescribeAutoScalingInstancesResult>
+          <ResponseMetadata>
+            <RequestId>c5601dea-76cb-11e9-937a-8b342154e359</RequestId>
+          </ResponseMetadata>
+        </DescribeAutoScalingInstancesResponse>
+    http_version: 
+  recorded_at: Wed, 15 May 2019 04:41:57 GMT
+- request:
+    method: post
+    uri: https://autoscaling.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeAutoScalingInstances&InstanceIds.member.1=i-0db6530398a07495c&Version=2011-01-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.48.2 ruby/2.3.1 x86_64-linux-gnu aws-sdk-autoscaling/1.19.0
+      Host:
+      - autoscaling.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190515T044157Z
+      X-Amz-Content-Sha256:
+      - 7d170d183e54b562a972f473015298067e2b82b9b4fd9d3f4cd54ec61ce9d4f4
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190515/us-east-2/autoscaling/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '95'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - c5654dc8-76cb-11e9-bc0c-23d138639765
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '842'
+      Date:
+      - Wed, 15 May 2019 04:41:56 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeAutoScalingInstancesResponse xmlns="http://autoscaling.amazonaws.com/doc/2011-01-01/">
+          <DescribeAutoScalingInstancesResult>
+            <AutoScalingInstances>
+              <member>
+                <LaunchConfigurationName>aws-ruby-development-Lc-PWBW7CTFFPMF</LaunchConfigurationName>
+                <LifecycleState>InService</LifecycleState>
+                <AutoScalingGroupName>aws-ruby-dev-env-asg</AutoScalingGroupName>
+                <InstanceId>i-0db6530398a07495c</InstanceId>
+                <HealthStatus>HEALTHY</HealthStatus>
+                <ProtectedFromScaleIn>false</ProtectedFromScaleIn>
+                <AvailabilityZone>us-east-2a</AvailabilityZone>
+              </member>
+            </AutoScalingInstances>
+          </DescribeAutoScalingInstancesResult>
+          <ResponseMetadata>
+            <RequestId>c5654dc8-76cb-11e9-bc0c-23d138639765</RequestId>
+          </ResponseMetadata>
+        </DescribeAutoScalingInstancesResponse>
+    http_version: 
+  recorded_at: Wed, 15 May 2019 04:41:57 GMT
+recorded_with: VCR 4.0.0

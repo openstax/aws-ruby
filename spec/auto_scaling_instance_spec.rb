@@ -7,6 +7,21 @@ RSpec.describe OpenStax::Aws::AutoScalingInstance, vcr: VCR_OPTS do
 
   STACK_EXISTS = true
 
+  context "me" do
+    # When recordingthese specs, run them on an autoscaling instance within AWS (see
+    # bin/create_development_environment).  The created instance will have the proper
+    # permissions to make the `me` call using the instance credentials.  However, VCR
+    # isn't set up to filter out these credentials, so just run them with your own
+    # AWS keys, e.g.:
+    #
+    # $> VCR_OPTS_RECORD=all AWS_ACCESS_KEY_ID=foo AWS_SECRET_ACCESS_KEY=bar \
+    #      bundle exec rspec ./spec/auto_scaling_instance_spec.rb:21
+
+    it "makes an ASI" do
+      expect(described_class.me.lifecycle_state).to eq "InService"
+    end
+  end
+
   context "terminate things" do
 
     before(:context) {
