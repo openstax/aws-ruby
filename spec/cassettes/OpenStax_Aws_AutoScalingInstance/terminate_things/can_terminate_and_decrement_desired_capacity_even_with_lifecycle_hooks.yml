@@ -1,0 +1,771 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStackResource&LogicalResourceId=Asg&StackName=rspec-asi2&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.48.2 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.17.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190514T183716Z
+      X-Amz-Content-Sha256:
+      - 955ac1c3f3509165c30c3212a1787e2c4b9dcddda99285c0d3ec86fe9da321ad
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190514/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '90'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 4c549c8f-7677-11e9-a307-3f594b60e529
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '980'
+      Date:
+      - Tue, 14 May 2019 18:37:16 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStackResourceResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStackResourceResult>
+            <StackResourceDetail>
+              <LastUpdatedTimestamp>2019-05-13T23:37:33.795Z</LastUpdatedTimestamp>
+              <Metadata>{}</Metadata>
+              <PhysicalResourceId>rspec-asi-asg</PhysicalResourceId>
+              <ResourceStatus>CREATE_COMPLETE</ResourceStatus>
+              <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/rspec-asi2/b855cd00-75d7-11e9-a8c8-02edfbb31034</StackId>
+              <StackName>rspec-asi2</StackName>
+              <DriftInformation>
+                <StackResourceDriftStatus>NOT_CHECKED</StackResourceDriftStatus>
+              </DriftInformation>
+              <LogicalResourceId>Asg</LogicalResourceId>
+              <ResourceType>AWS::AutoScaling::AutoScalingGroup</ResourceType>
+            </StackResourceDetail>
+          </DescribeStackResourceResult>
+          <ResponseMetadata>
+            <RequestId>4c549c8f-7677-11e9-a307-3f594b60e529</RequestId>
+          </ResponseMetadata>
+        </DescribeStackResourceResponse>
+    http_version: 
+  recorded_at: Tue, 14 May 2019 18:37:16 GMT
+- request:
+    method: post
+    uri: https://autoscaling.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=SetDesiredCapacity&AutoScalingGroupName=rspec-asi-asg&DesiredCapacity=1&Version=2011-01-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.48.2 ruby/2.5.0 x86_64-darwin17 aws-sdk-autoscaling/1.19.0
+      Host:
+      - autoscaling.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190514T183716Z
+      X-Amz-Content-Sha256:
+      - a7397cf658632612d8ee3d94485343085a86838b08c3afdf2473f9e813f2fd59
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190514/us-east-2/autoscaling/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '97'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 4c90e241-7677-11e9-8157-c7e6cd04f548
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '223'
+      Date:
+      - Tue, 14 May 2019 18:37:16 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <SetDesiredCapacityResponse xmlns="http://autoscaling.amazonaws.com/doc/2011-01-01/">
+          <ResponseMetadata>
+            <RequestId>4c90e241-7677-11e9-8157-c7e6cd04f548</RequestId>
+          </ResponseMetadata>
+        </SetDesiredCapacityResponse>
+    http_version: 
+  recorded_at: Tue, 14 May 2019 18:37:17 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStackResource&LogicalResourceId=Asg&StackName=rspec-asi2&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.48.2 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.17.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190514T183717Z
+      X-Amz-Content-Sha256:
+      - 955ac1c3f3509165c30c3212a1787e2c4b9dcddda99285c0d3ec86fe9da321ad
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190514/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '90'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 4d3cb2ce-7677-11e9-92ed-71e99c0263b6
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '980'
+      Date:
+      - Tue, 14 May 2019 18:37:17 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStackResourceResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStackResourceResult>
+            <StackResourceDetail>
+              <LastUpdatedTimestamp>2019-05-13T23:37:33.795Z</LastUpdatedTimestamp>
+              <Metadata>{}</Metadata>
+              <PhysicalResourceId>rspec-asi-asg</PhysicalResourceId>
+              <ResourceStatus>CREATE_COMPLETE</ResourceStatus>
+              <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/rspec-asi2/b855cd00-75d7-11e9-a8c8-02edfbb31034</StackId>
+              <StackName>rspec-asi2</StackName>
+              <DriftInformation>
+                <StackResourceDriftStatus>NOT_CHECKED</StackResourceDriftStatus>
+              </DriftInformation>
+              <LogicalResourceId>Asg</LogicalResourceId>
+              <ResourceType>AWS::AutoScaling::AutoScalingGroup</ResourceType>
+            </StackResourceDetail>
+          </DescribeStackResourceResult>
+          <ResponseMetadata>
+            <RequestId>4d3cb2ce-7677-11e9-92ed-71e99c0263b6</RequestId>
+          </ResponseMetadata>
+        </DescribeStackResourceResponse>
+    http_version: 
+  recorded_at: Tue, 14 May 2019 18:37:18 GMT
+- request:
+    method: post
+    uri: https://autoscaling.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeAutoScalingGroups&AutoScalingGroupNames.member.1=rspec-asi-asg&Version=2011-01-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.48.2 ruby/2.5.0 x86_64-darwin17 aws-sdk-autoscaling/1.19.0
+      Host:
+      - autoscaling.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190514T183718Z
+      X-Amz-Content-Sha256:
+      - 4ada3ce58c772e6eb1a742bc09b55fa049eacfb36d1cebd603cb58880247e704
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190514/us-east-2/autoscaling/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '96'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 4d743d5c-7677-11e9-9002-e924c4c18217
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '3148'
+      Vary:
+      - Accept-Encoding
+      Date:
+      - Tue, 14 May 2019 18:37:18 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeAutoScalingGroupsResponse xmlns="http://autoscaling.amazonaws.com/doc/2011-01-01/">
+          <DescribeAutoScalingGroupsResult>
+            <AutoScalingGroups>
+              <member>
+                <HealthCheckType>EC2</HealthCheckType>
+                <Instances>
+                  <member>
+                    <LaunchConfigurationName>rspec-asi2-Lc-1E5SF3B60EDOE</LaunchConfigurationName>
+                    <LifecycleState>InService</LifecycleState>
+                    <InstanceId>i-09d347b4d959b0e94</InstanceId>
+                    <HealthStatus>Healthy</HealthStatus>
+                    <ProtectedFromScaleIn>false</ProtectedFromScaleIn>
+                    <AvailabilityZone>us-east-2b</AvailabilityZone>
+                  </member>
+                </Instances>
+                <TerminationPolicies>
+                  <member>Default</member>
+                </TerminationPolicies>
+                <DefaultCooldown>300</DefaultCooldown>
+                <EnabledMetrics/>
+                <AutoScalingGroupARN>arn:aws:autoscaling:us-east-2:373045849756:autoScalingGroup:4f1a5f44-e91d-48ab-9f12-b19649edd9c5:autoScalingGroupName/rspec-asi-asg</AutoScalingGroupARN>
+                <AvailabilityZones>
+                  <member>us-east-2a</member>
+                  <member>us-east-2b</member>
+                  <member>us-east-2c</member>
+                </AvailabilityZones>
+                <MaxSize>2</MaxSize>
+                <TargetGroupARNs/>
+                <LaunchConfigurationName>rspec-asi2-Lc-1E5SF3B60EDOE</LaunchConfigurationName>
+                <AutoScalingGroupName>rspec-asi-asg</AutoScalingGroupName>
+                <HealthCheckGracePeriod>30</HealthCheckGracePeriod>
+                <NewInstancesProtectedFromScaleIn>false</NewInstancesProtectedFromScaleIn>
+                <CreatedTime>2019-05-13T23:37:32.206Z</CreatedTime>
+                <MinSize>0</MinSize>
+                <LoadBalancerNames/>
+                <Tags>
+                  <member>
+                    <ResourceId>rspec-asi-asg</ResourceId>
+                    <PropagateAtLaunch>true</PropagateAtLaunch>
+                    <Value>Asg</Value>
+                    <Key>aws:cloudformation:logical-id</Key>
+                    <ResourceType>auto-scaling-group</ResourceType>
+                  </member>
+                  <member>
+                    <ResourceId>rspec-asi-asg</ResourceId>
+                    <PropagateAtLaunch>true</PropagateAtLaunch>
+                    <Value>arn:aws:cloudformation:us-east-2:373045849756:stack/rspec-asi2/b855cd00-75d7-11e9-a8c8-02edfbb31034</Value>
+                    <Key>aws:cloudformation:stack-id</Key>
+                    <ResourceType>auto-scaling-group</ResourceType>
+                  </member>
+                  <member>
+                    <ResourceId>rspec-asi-asg</ResourceId>
+                    <PropagateAtLaunch>true</PropagateAtLaunch>
+                    <Value>rspec-asi2</Value>
+                    <Key>aws:cloudformation:stack-name</Key>
+                    <ResourceType>auto-scaling-group</ResourceType>
+                  </member>
+                </Tags>
+                <ServiceLinkedRoleARN>arn:aws:iam::373045849756:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling</ServiceLinkedRoleARN>
+                <SuspendedProcesses/>
+                <DesiredCapacity>1</DesiredCapacity>
+                <VPCZoneIdentifier/>
+              </member>
+            </AutoScalingGroups>
+          </DescribeAutoScalingGroupsResult>
+          <ResponseMetadata>
+            <RequestId>4d743d5c-7677-11e9-9002-e924c4c18217</RequestId>
+          </ResponseMetadata>
+        </DescribeAutoScalingGroupsResponse>
+    http_version: 
+  recorded_at: Tue, 14 May 2019 18:37:18 GMT
+- request:
+    method: post
+    uri: https://autoscaling.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=TerminateInstanceInAutoScalingGroup&InstanceId=i-09d347b4d959b0e94&ShouldDecrementDesiredCapacity=true&Version=2011-01-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.48.2 ruby/2.5.0 x86_64-darwin17 aws-sdk-autoscaling/1.19.0
+      Host:
+      - autoscaling.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190514T183718Z
+      X-Amz-Content-Sha256:
+      - 27baa29366e1a00a7935dfbabf75d97f6b1c7a9ef7e1a950b9f2fdf2cbe60f4e
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190514/us-east-2/autoscaling/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '128'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 4dab2b85-7677-11e9-9709-c9017a283223
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '964'
+      Date:
+      - Tue, 14 May 2019 18:37:18 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <TerminateInstanceInAutoScalingGroupResponse xmlns="http://autoscaling.amazonaws.com/doc/2011-01-01/">
+          <TerminateInstanceInAutoScalingGroupResult>
+            <Activity>
+              <ActivityId>5225aade-89d9-5235-e313-91843bd34776</ActivityId>
+              <AutoScalingGroupName>rspec-asi-asg</AutoScalingGroupName>
+              <Description>Terminating EC2 instance: i-09d347b4d959b0e94</Description>
+              <Progress>0</Progress>
+              <Cause>At 2019-05-14T18:37:18Z instance i-09d347b4d959b0e94 was taken out of service in response to a user request, shrinking the capacity from 1 to 0.</Cause>
+              <StartTime>2019-05-14T18:37:18.804Z</StartTime>
+              <Details>{&quot;Availability Zone&quot;:&quot;us-east-2b&quot;}</Details>
+              <StatusCode>InProgress</StatusCode>
+            </Activity>
+          </TerminateInstanceInAutoScalingGroupResult>
+          <ResponseMetadata>
+            <RequestId>4dab2b85-7677-11e9-9709-c9017a283223</RequestId>
+          </ResponseMetadata>
+        </TerminateInstanceInAutoScalingGroupResponse>
+    http_version: 
+  recorded_at: Tue, 14 May 2019 18:37:18 GMT
+- request:
+    method: post
+    uri: https://autoscaling.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeAutoScalingInstances&InstanceIds.member.1=i-09d347b4d959b0e94&Version=2011-01-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.48.2 ruby/2.5.0 x86_64-darwin17 aws-sdk-autoscaling/1.19.0
+      Host:
+      - autoscaling.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190514T183718Z
+      X-Amz-Content-Sha256:
+      - 87d836831940af202b5f2737afb3b54c4a7f5e2b776f5f2e1647ec70c993b9e1
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190514/us-east-2/autoscaling/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '95'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 4de80d7b-7677-11e9-9709-c9017a283223
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '828'
+      Date:
+      - Tue, 14 May 2019 18:37:18 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeAutoScalingInstancesResponse xmlns="http://autoscaling.amazonaws.com/doc/2011-01-01/">
+          <DescribeAutoScalingInstancesResult>
+            <AutoScalingInstances>
+              <member>
+                <LaunchConfigurationName>rspec-asi2-Lc-1E5SF3B60EDOE</LaunchConfigurationName>
+                <LifecycleState>Terminating</LifecycleState>
+                <AutoScalingGroupName>rspec-asi-asg</AutoScalingGroupName>
+                <InstanceId>i-09d347b4d959b0e94</InstanceId>
+                <HealthStatus>HEALTHY</HealthStatus>
+                <ProtectedFromScaleIn>false</ProtectedFromScaleIn>
+                <AvailabilityZone>us-east-2b</AvailabilityZone>
+              </member>
+            </AutoScalingInstances>
+          </DescribeAutoScalingInstancesResult>
+          <ResponseMetadata>
+            <RequestId>4de80d7b-7677-11e9-9709-c9017a283223</RequestId>
+          </ResponseMetadata>
+        </DescribeAutoScalingInstancesResponse>
+    http_version: 
+  recorded_at: Tue, 14 May 2019 18:37:19 GMT
+- request:
+    method: post
+    uri: https://autoscaling.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeAutoScalingInstances&InstanceIds.member.1=i-09d347b4d959b0e94&Version=2011-01-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.48.2 ruby/2.5.0 x86_64-darwin17 aws-sdk-autoscaling/1.19.0
+      Host:
+      - autoscaling.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190514T183725Z
+      X-Amz-Content-Sha256:
+      - 87d836831940af202b5f2737afb3b54c4a7f5e2b776f5f2e1647ec70c993b9e1
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190514/us-east-2/autoscaling/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '95'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 51ada1ce-7677-11e9-94c0-2df95cfe8aad
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '833'
+      Date:
+      - Tue, 14 May 2019 18:37:24 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeAutoScalingInstancesResponse xmlns="http://autoscaling.amazonaws.com/doc/2011-01-01/">
+          <DescribeAutoScalingInstancesResult>
+            <AutoScalingInstances>
+              <member>
+                <LaunchConfigurationName>rspec-asi2-Lc-1E5SF3B60EDOE</LaunchConfigurationName>
+                <LifecycleState>Terminating:Wait</LifecycleState>
+                <AutoScalingGroupName>rspec-asi-asg</AutoScalingGroupName>
+                <InstanceId>i-09d347b4d959b0e94</InstanceId>
+                <HealthStatus>HEALTHY</HealthStatus>
+                <ProtectedFromScaleIn>false</ProtectedFromScaleIn>
+                <AvailabilityZone>us-east-2b</AvailabilityZone>
+              </member>
+            </AutoScalingInstances>
+          </DescribeAutoScalingInstancesResult>
+          <ResponseMetadata>
+            <RequestId>51ada1ce-7677-11e9-94c0-2df95cfe8aad</RequestId>
+          </ResponseMetadata>
+        </DescribeAutoScalingInstancesResponse>
+    http_version: 
+  recorded_at: Tue, 14 May 2019 18:37:25 GMT
+- request:
+    method: post
+    uri: https://autoscaling.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=CompleteLifecycleAction&AutoScalingGroupName=rspec-asi-asg&InstanceId=i-09d347b4d959b0e94&LifecycleActionResult=CONTINUE&LifecycleHookName=TerminationHook&Version=2011-01-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.48.2 ruby/2.5.0 x86_64-darwin17 aws-sdk-autoscaling/1.19.0
+      Host:
+      - autoscaling.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190514T183725Z
+      X-Amz-Content-Sha256:
+      - 22a7cbfe5cda3a09364e9aded1d0f60301d9c77a2c1925c1f44b94f3ea7e01eb
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190514/us-east-2/autoscaling/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '180'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 51e29449-7677-11e9-97da-f50cbb547124
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '268'
+      Date:
+      - Tue, 14 May 2019 18:37:25 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <CompleteLifecycleActionResponse xmlns="http://autoscaling.amazonaws.com/doc/2011-01-01/">
+          <CompleteLifecycleActionResult/>
+          <ResponseMetadata>
+            <RequestId>51e29449-7677-11e9-97da-f50cbb547124</RequestId>
+          </ResponseMetadata>
+        </CompleteLifecycleActionResponse>
+    http_version: 
+  recorded_at: Tue, 14 May 2019 18:37:25 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStackResource&LogicalResourceId=Asg&StackName=rspec-asi2&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.48.2 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.17.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190514T183745Z
+      X-Amz-Content-Sha256:
+      - 955ac1c3f3509165c30c3212a1787e2c4b9dcddda99285c0d3ec86fe9da321ad
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190514/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '90'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 5e06f257-7677-11e9-a307-3f594b60e529
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '980'
+      Date:
+      - Tue, 14 May 2019 18:37:46 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStackResourceResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStackResourceResult>
+            <StackResourceDetail>
+              <LastUpdatedTimestamp>2019-05-13T23:37:33.795Z</LastUpdatedTimestamp>
+              <Metadata>{}</Metadata>
+              <PhysicalResourceId>rspec-asi-asg</PhysicalResourceId>
+              <ResourceStatus>CREATE_COMPLETE</ResourceStatus>
+              <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/rspec-asi2/b855cd00-75d7-11e9-a8c8-02edfbb31034</StackId>
+              <StackName>rspec-asi2</StackName>
+              <DriftInformation>
+                <StackResourceDriftStatus>NOT_CHECKED</StackResourceDriftStatus>
+              </DriftInformation>
+              <LogicalResourceId>Asg</LogicalResourceId>
+              <ResourceType>AWS::AutoScaling::AutoScalingGroup</ResourceType>
+            </StackResourceDetail>
+          </DescribeStackResourceResult>
+          <ResponseMetadata>
+            <RequestId>5e06f257-7677-11e9-a307-3f594b60e529</RequestId>
+          </ResponseMetadata>
+        </DescribeStackResourceResponse>
+    http_version: 
+  recorded_at: Tue, 14 May 2019 18:37:46 GMT
+- request:
+    method: post
+    uri: https://autoscaling.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeAutoScalingGroups&AutoScalingGroupNames.member.1=rspec-asi-asg&Version=2011-01-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.48.2 ruby/2.5.0 x86_64-darwin17 aws-sdk-autoscaling/1.19.0
+      Host:
+      - autoscaling.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190514T183746Z
+      X-Amz-Content-Sha256:
+      - 4ada3ce58c772e6eb1a742bc09b55fa049eacfb36d1cebd603cb58880247e704
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190514/us-east-2/autoscaling/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '96'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 5e3de0b8-7677-11e9-beea-1f1e0133eafe
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '3158'
+      Vary:
+      - Accept-Encoding
+      Date:
+      - Tue, 14 May 2019 18:37:46 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeAutoScalingGroupsResponse xmlns="http://autoscaling.amazonaws.com/doc/2011-01-01/">
+          <DescribeAutoScalingGroupsResult>
+            <AutoScalingGroups>
+              <member>
+                <HealthCheckType>EC2</HealthCheckType>
+                <Instances>
+                  <member>
+                    <LaunchConfigurationName>rspec-asi2-Lc-1E5SF3B60EDOE</LaunchConfigurationName>
+                    <LifecycleState>Terminating:Proceed</LifecycleState>
+                    <InstanceId>i-09d347b4d959b0e94</InstanceId>
+                    <HealthStatus>Healthy</HealthStatus>
+                    <ProtectedFromScaleIn>false</ProtectedFromScaleIn>
+                    <AvailabilityZone>us-east-2b</AvailabilityZone>
+                  </member>
+                </Instances>
+                <TerminationPolicies>
+                  <member>Default</member>
+                </TerminationPolicies>
+                <DefaultCooldown>300</DefaultCooldown>
+                <EnabledMetrics/>
+                <AutoScalingGroupARN>arn:aws:autoscaling:us-east-2:373045849756:autoScalingGroup:4f1a5f44-e91d-48ab-9f12-b19649edd9c5:autoScalingGroupName/rspec-asi-asg</AutoScalingGroupARN>
+                <AvailabilityZones>
+                  <member>us-east-2a</member>
+                  <member>us-east-2b</member>
+                  <member>us-east-2c</member>
+                </AvailabilityZones>
+                <MaxSize>2</MaxSize>
+                <TargetGroupARNs/>
+                <LaunchConfigurationName>rspec-asi2-Lc-1E5SF3B60EDOE</LaunchConfigurationName>
+                <AutoScalingGroupName>rspec-asi-asg</AutoScalingGroupName>
+                <HealthCheckGracePeriod>30</HealthCheckGracePeriod>
+                <NewInstancesProtectedFromScaleIn>false</NewInstancesProtectedFromScaleIn>
+                <CreatedTime>2019-05-13T23:37:32.206Z</CreatedTime>
+                <MinSize>0</MinSize>
+                <LoadBalancerNames/>
+                <Tags>
+                  <member>
+                    <ResourceId>rspec-asi-asg</ResourceId>
+                    <PropagateAtLaunch>true</PropagateAtLaunch>
+                    <Value>Asg</Value>
+                    <Key>aws:cloudformation:logical-id</Key>
+                    <ResourceType>auto-scaling-group</ResourceType>
+                  </member>
+                  <member>
+                    <ResourceId>rspec-asi-asg</ResourceId>
+                    <PropagateAtLaunch>true</PropagateAtLaunch>
+                    <Value>arn:aws:cloudformation:us-east-2:373045849756:stack/rspec-asi2/b855cd00-75d7-11e9-a8c8-02edfbb31034</Value>
+                    <Key>aws:cloudformation:stack-id</Key>
+                    <ResourceType>auto-scaling-group</ResourceType>
+                  </member>
+                  <member>
+                    <ResourceId>rspec-asi-asg</ResourceId>
+                    <PropagateAtLaunch>true</PropagateAtLaunch>
+                    <Value>rspec-asi2</Value>
+                    <Key>aws:cloudformation:stack-name</Key>
+                    <ResourceType>auto-scaling-group</ResourceType>
+                  </member>
+                </Tags>
+                <ServiceLinkedRoleARN>arn:aws:iam::373045849756:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling</ServiceLinkedRoleARN>
+                <SuspendedProcesses/>
+                <DesiredCapacity>0</DesiredCapacity>
+                <VPCZoneIdentifier/>
+              </member>
+            </AutoScalingGroups>
+          </DescribeAutoScalingGroupsResult>
+          <ResponseMetadata>
+            <RequestId>5e3de0b8-7677-11e9-beea-1f1e0133eafe</RequestId>
+          </ResponseMetadata>
+        </DescribeAutoScalingGroupsResponse>
+    http_version: 
+  recorded_at: Tue, 14 May 2019 18:37:46 GMT
+- request:
+    method: post
+    uri: https://autoscaling.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeAutoScalingInstances&InstanceIds.member.1=i-09d347b4d959b0e94&Version=2011-01-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.48.2 ruby/2.5.0 x86_64-darwin17 aws-sdk-autoscaling/1.19.0
+      Host:
+      - autoscaling.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190514T183746Z
+      X-Amz-Content-Sha256:
+      - 87d836831940af202b5f2737afb3b54c4a7f5e2b776f5f2e1647ec70c993b9e1
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190514/us-east-2/autoscaling/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '95'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 5e7321c1-7677-11e9-94c0-2df95cfe8aad
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '836'
+      Date:
+      - Tue, 14 May 2019 18:37:46 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeAutoScalingInstancesResponse xmlns="http://autoscaling.amazonaws.com/doc/2011-01-01/">
+          <DescribeAutoScalingInstancesResult>
+            <AutoScalingInstances>
+              <member>
+                <LaunchConfigurationName>rspec-asi2-Lc-1E5SF3B60EDOE</LaunchConfigurationName>
+                <LifecycleState>Terminating:Proceed</LifecycleState>
+                <AutoScalingGroupName>rspec-asi-asg</AutoScalingGroupName>
+                <InstanceId>i-09d347b4d959b0e94</InstanceId>
+                <HealthStatus>HEALTHY</HealthStatus>
+                <ProtectedFromScaleIn>false</ProtectedFromScaleIn>
+                <AvailabilityZone>us-east-2b</AvailabilityZone>
+              </member>
+            </AutoScalingInstances>
+          </DescribeAutoScalingInstancesResult>
+          <ResponseMetadata>
+            <RequestId>5e7321c1-7677-11e9-94c0-2df95cfe8aad</RequestId>
+          </ResponseMetadata>
+        </DescribeAutoScalingInstancesResponse>
+    http_version: 
+  recorded_at: Tue, 14 May 2019 18:37:46 GMT
+recorded_with: VCR 4.0.0

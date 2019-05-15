@@ -30,10 +30,12 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  # We used to add specific dependencies within the SDK, but since this
-  # gem is now used by other code that may dictate which parts of the SDK to
-  # use, we now just point to the mother gem.
-  spec.add_dependency "aws-sdk", '~> 3'
+  spec.add_dependency "aws-sdk-autoscaling", "~> 1"
+  spec.add_dependency "aws-sdk-cloudformation", "~> 1"
+  spec.add_dependency "aws-sdk-cloudfront", "~> 1"
+  spec.add_dependency "aws-sdk-ec2", "~> 1"
+  spec.add_dependency "aws-sdk-s3", "~> 1"
+  spec.add_dependency "aws-sdk-ssm", "~> 1"
 
   spec.add_dependency 'git'
   spec.add_dependency "activesupport"
@@ -48,3 +50,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "dotenv"
 
 end
+
+
+
+

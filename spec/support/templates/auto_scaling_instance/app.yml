@@ -1,0 +1,79 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: AutoScalingInstance rspec app
+
+Parameters:
+
+  UniqueName:
+    Type: String
+
+  ImageId:
+    Description: AMI to use in the web server LaunchConfiguration
+    Type: AWS::EC2::Image::Id
+    ConstraintDescription: must be the id of a valid AMI
+
+Resources:
+
+  AsgInstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: !Sub '${UniqueName}-autoscaling'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - autoscaling:DescribeAutoScalingInstances
+                Resource: "*"
+
+  AsgInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref 'AsgInstanceRole'
+
+  Lc:
+    Type: AWS::AutoScaling::LaunchConfiguration
+    Properties:
+      ImageId: !Ref 'ImageId'
+      InstanceType: t3.nano
+      SpotPrice: 0.0052 # set max at on-demand pricing
+      IamInstanceProfile: !Ref 'AsgInstanceProfile'
+      UserData:
+        Fn::Base64:
+          !Sub |
+            #!/bin/bash -x
+
+            /usr/local/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource \
+            Asg --region ${AWS::Region}
+
+  Asg:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      AutoScalingGroupName: !Sub "${UniqueName}-asg"
+      LaunchConfigurationName: !Ref 'Lc'
+      AvailabilityZones:
+        Fn::GetAZs: ""
+      DesiredCapacity: 0
+      MinSize: 0
+      MaxSize: 2
+      HealthCheckType: EC2
+      HealthCheckGracePeriod: 30
+      LifecycleHookSpecificationList:
+        - LifecycleTransition: "autoscaling:EC2_INSTANCE_TERMINATING"
+          LifecycleHookName: "TerminationHook"
+          HeartbeatTimeout: 300
+    CreationPolicy:
+      ResourceSignal:
+        Count: 0
+        Timeout: PT5M
+

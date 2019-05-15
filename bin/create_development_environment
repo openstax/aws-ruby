@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "openstax_aws"
+
+REGION = 'us-east-2'
+
+OpenStax::Aws.configure do |config|
+  config.cfn_template_bucket_name = "openstax-sandbox-cfn-templates"
+  config.cfn_template_bucket_region = "us-west-2"
+  config.stack_waiter_delay = 10
+  config.fixed_s3_template_folder = "spec-templates"
+end
+
+stack = OpenStax::Aws::Stack.new({
+  name: "aws-ruby-development",
+  region: REGION,
+  absolute_template_path: File.join(__dir__, "templates/aws_ruby_development.yml"),
+  dry_run: false,
+})
+
+stack.create(wait: true, params: {
+  unique_name: "aws-ruby-dev-env",
+  image_id: "ami-0510c89f1a2691cf2", # See bin/get_latest_ubuntu_ami
+  key_name: "openstax-sandbox-kp"
+})

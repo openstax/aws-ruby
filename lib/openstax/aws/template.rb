@@ -68,7 +68,9 @@ module OpenStax::Aws
     end
 
     def s3_folder
-      @unique_s3_folder ||= Time.now.utc.strftime("%Y%m%d_%H%M%S_#{SecureRandom.hex(4)}")
+      @unique_s3_folder ||=
+        OpenStax::Aws.configuration.fixed_s3_template_folder ||
+        Time.now.utc.strftime("%Y%m%d_%H%M%S_#{SecureRandom.hex(4)}")
     end
 
     def s3_url

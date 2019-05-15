@@ -1,4 +1,9 @@
-require "aws-sdk"
+require "aws-sdk-autoscaling"
+require "aws-sdk-cloudformation"
+require "aws-sdk-cloudfront"
+require "aws-sdk-ec2"
+require "aws-sdk-s3"
+require "aws-sdk-ssm"
 
 require 'active_support'
 require 'active_support/core_ext'
@@ -35,6 +40,7 @@ module OpenStax
       attr_accessor :infer_stack_capabilities
       attr_accessor :infer_parameter_defaults
       attr_accessor :production_env_name
+      attr_accessor :fixed_s3_template_folder
 
       def initialize
         @stack_waiter_delay = 30
@@ -83,3 +89,5 @@ require "openstax/aws/stack"
 require "openstax/aws/stack_factory"
 require "openstax/aws/deployment_base"
 require "openstax/aws/build_image_command"
+require "openstax/aws/ec2_instance_data"
+require "openstax/aws/auto_scaling_instance"

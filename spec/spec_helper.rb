@@ -20,7 +20,12 @@ RSpec.configure do |config|
     ENV['AWS_ACCESS_KEY_ID'] ||= 'foo'
     ENV['AWS_SECRET_ACCESS_KEY'] ||= 'bar'
 
-    switch_to_temporary_aws_credentials
+    # I would really prefer to use expiring temporary credentials, but haven't
+    # yet figured out the magic touch to make them be able to do IAM things (e.g
+    # create IAM roles).  Since some of our specs require IAM things, this is
+    # commented out.
+    #
+    # switch_to_temporary_aws_credentials
   end
 end
 
