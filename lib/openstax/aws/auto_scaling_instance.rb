@@ -14,11 +14,20 @@ module OpenStax::Aws
     end
 
     def self.me
-      # metadata_endpoint = 'http://169.254.169.254/latest/meta-data/'
-      # instance_id = Net::HTTP.get( URI.parse( metadata_endpoint + 'instance-id' ) )
-      # new(group_name:, id: instance_id, region: )
-    end
+      instance_id = Ec2InstanceData.instance_id
+      region = Ec2InstanceData.region
 
+      client = Aws::AutoScaling::Client.new(region: region)
+      instance_info = client.describe_auto_scaling_instances({instance_ids: [instance_id]})
+                      .auto_scaling_instances[0]
+
+      new(
+        group_name: instance_info.auto_scaling_group_name,
+        id: instance_id,
+        region: region
+      )
+    end
+    
     def terminate(options = {})
       hook_name = options.delete(:continue_hook_name)
       raw.terminate(options)
