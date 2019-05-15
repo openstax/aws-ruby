@@ -7,99 +7,102 @@ RSpec.describe OpenStax::Aws::AutoScalingInstance, vcr: VCR_OPTS do
 
   STACK_EXISTS = true
 
-  before(:context) {
-    OpenStax::Aws.configure do |config|
-      config.cfn_template_bucket_name = "openstax-sandbox-cfn-templates"
-      config.cfn_template_bucket_region = "us-west-2"
-      config.stack_waiter_delay = 10
-      config.fixed_s3_template_folder = "spec-templates"
-    end
+  context "terminate things" do
 
-    @stack = new_stack(name: "rspec-asi2", filename: "app.yml")
-
-    do_not_record_or_playback do
-      @stack.create(params: {unique_name: "rspec-asi", image_id: ubuntu_ami}, wait: true) unless STACK_EXISTS
-    end
-  }
-
-  after(:context) {
-    do_not_record_or_playback { @stack.delete } unless STACK_EXISTS
-  }
-
-  around(:each) do |example|
-    original_logger = OpenStax::Aws.configuration.logger
-    example.run
-    OpenStax::Aws.configuration.logger = original_logger
-  end
-
-  before(:each) {
-    @logger = spy("logger")
-    OpenStax::Aws.configuration.logger = @logger
-
-    # Eliminate variation in cached lifecycle state behavior during tests
-    allow_any_instance_of(described_class).to receive(:lifecycle_state_refresh_seconds) { 0 }
-
-    # Don't wait unnecessarily during playback
-    allow_any_instance_of(described_class).to receive(:terminate_wait_sleep_seconds) { 0 } if !vcr_recording?
-  }
-
-  it "can get its lifecycle state" do
-    set_desired_capacity_to_1
-
-    expect(described_instance.lifecycle_state).to eq "InService"
-  end
-
-  it "can terminate and decrement desired capacity even with lifecycle hooks" do
-    set_desired_capacity_to_1
-    described_instance.terminate(should_decrement_desired_capacity: true,
-                                 continue_hook_name: "TerminationHook")
-    do_not_record_or_playback { sleep(20) }
-    expect_instance_terminating_or_terminated
-  end
-
-  context "unless_waiting_for_termination" do
-    before { set_desired_capacity_to_1 }
-
-    it "will run once if not in termination wait" do
-      test_object = double("test object")
-      expect(test_object).to receive(:foo).once
-
-      described_instance.unless_waiting_for_termination(hook_name: "TerminationHook") do
-        test_object.foo
+    before(:context) {
+      OpenStax::Aws.configure do |config|
+        config.cfn_template_bucket_name = "openstax-sandbox-cfn-templates"
+        config.cfn_template_bucket_region = "us-west-2"
+        config.stack_waiter_delay = 10
+        config.fixed_s3_template_folder = "spec-templates"
       end
 
-      do_not_record_or_playback { sleep(20) }
+      @stack = new_stack(name: "rspec-asi2", filename: "app.yml")
+
+      do_not_record_or_playback do
+        @stack.create(params: {unique_name: "rspec-asi", image_id: ubuntu_ami}, wait: true) unless STACK_EXISTS
+      end
+    }
+
+    after(:context) {
+      do_not_record_or_playback { @stack.delete } unless STACK_EXISTS
+    }
+
+    around(:each) do |example|
+      original_logger = OpenStax::Aws.configuration.logger
+      example.run
+      OpenStax::Aws.configuration.logger = original_logger
+    end
+
+    before(:each) {
+      @logger = spy("logger")
+      OpenStax::Aws.configuration.logger = @logger
+
+      # Eliminate variation in cached lifecycle state behavior during tests
+      allow_any_instance_of(described_class).to receive(:lifecycle_state_refresh_seconds) { 0 }
+
+      # Don't wait unnecessarily during playback
+      allow_any_instance_of(described_class).to receive(:terminate_wait_sleep_seconds) { 0 } if !vcr_recording?
+    }
+
+    it "can get its lifecycle state" do
+      set_desired_capacity_to_1
 
       expect(described_instance.lifecycle_state).to eq "InService"
     end
 
-    it "will not run and will continue if in termination wait before call" do
-      test_object = double("test object")
-      expect(test_object).not_to receive(:foo)
-
-      set_desired_capacity_to_0
-      described_instance.unless_waiting_for_termination(hook_name: "TerminationHook") do
-        test_object.foo
-      end
-
+    it "can terminate and decrement desired capacity even with lifecycle hooks" do
+      set_desired_capacity_to_1
+      described_instance.terminate(should_decrement_desired_capacity: true,
+                                   continue_hook_name: "TerminationHook")
       do_not_record_or_playback { sleep(20) }
-
       expect_instance_terminating_or_terminated
     end
 
-    it "will run and will continue if gets into termination wait during call" do
-      test_object = double("test object")
-      expect(test_object).to receive(:foo).once
+    context "unless_waiting_for_termination" do
+      before { set_desired_capacity_to_1 }
 
-      described_instance.unless_waiting_for_termination(hook_name: "TerminationHook") do
-        test_object.foo
-        do_not_record_or_playback { sleep(6) }
-        set_desired_capacity_to_0
+      it "will run once if not in termination wait" do
+        test_object = double("test object")
+        expect(test_object).to receive(:foo).once
+
+        described_instance.unless_waiting_for_termination(hook_name: "TerminationHook") do
+          test_object.foo
+        end
+
+        do_not_record_or_playback { sleep(20) }
+
+        expect(described_instance.lifecycle_state).to eq "InService"
       end
 
-      do_not_record_or_playback { sleep(20) }
+      it "will not run and will continue if in termination wait before call" do
+        test_object = double("test object")
+        expect(test_object).not_to receive(:foo)
 
-      expect_instance_terminating_or_terminated
+        set_desired_capacity_to_0
+        described_instance.unless_waiting_for_termination(hook_name: "TerminationHook") do
+          test_object.foo
+        end
+
+        do_not_record_or_playback { sleep(20) }
+
+        expect_instance_terminating_or_terminated
+      end
+
+      it "will run and will continue if gets into termination wait during call" do
+        test_object = double("test object")
+        expect(test_object).to receive(:foo).once
+
+        described_instance.unless_waiting_for_termination(hook_name: "TerminationHook") do
+          test_object.foo
+          do_not_record_or_playback { sleep(6) }
+          set_desired_capacity_to_0
+        end
+
+        do_not_record_or_playback { sleep(20) }
+
+        expect_instance_terminating_or_terminated
+      end
     end
   end
 
