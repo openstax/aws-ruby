@@ -400,10 +400,58 @@ use to get values back from your template.  A stack's template is available via 
 Templates are uploaded to S3 when its `Stack` needs it to be there.  Before it is uploaded, it is
 validated and errors are raised to you.
 
+### AutoScalingInstance
+
+An `OpenStax::Aws::AutoScalingInstance` class is provided that wraps and extends the `Aws::AutoScaling::Instance`
+class.  Methods that it doesn't implement are delegated to the AWS SDK class.
+
+It has a class method, `me`, that returns an `AutoScalingInstance` for a instance running within AWS.  This
+method requires the `autoscaling:DescribeAutoScalingInstances` permission on the instance calling this method
+or attached to the credentials being used to call this method.
+
+It has ASG-lifecycle-hook-aware methods, e.g. its implementation of `terminate` takes the same arguments as the
+SDK class (`should_decrement_desired_capacity`) but also takes an `continue_hook_name` parameter with a
+termination lifecycle hook name.  If that parameter is provided, the `terminate` call will wait for the
+lifecycle state `Terminating::Wait` to be reached before calling the SDK client to continue on from that
+state to complete the termination.
+
+It also has an `unless_waiting_for_termination` method that checks to see if the instance is in the
+`Terminating::Wait` state. If it isn't, the block of code passed to the method is executed.  If it is
+in that state, the block of code isn't executed and instead the termination is completed.
+
+```ruby
+OpenStax::Aws::AutoScalingInstance.me.unless_waiting_for_termination do
+ # some code that you don't want interrupted by a termination
+end
+```
+
+The `unless_waiting_for_termination` method checks for the terminating wait state just before and
+just after the block is yielded to.
+
 ### Other deployment methods and utilities
 
 [ Work on this section ]
 
-### README Todos
+## AWS Development Environment
+
+Some methods, e.g. those that retrieve instance metadata, are intended to be run on an actual AWS
+instance.  This means that to test them we must be running the tests on an AWS instance.  To this
+end, this gem provides a bash script that creates a stack with an autoscaling group containing one
+instance.
+
+```
+$> bin/create_development_environment
+```
+
+You can find the instance's IP address in the AWS console, and then SSH into it.  Once there you
+can install ruby, etc, to get the development environment set up.  There is a script, `install.sh`
+that has the commands you can use to install ruby et al.
+
+Then you can checkout this gem, do your development through SSH, record specs, etc, and commit
+your changes.
+
+Don't forget to delete your stack (from the console) when you are finished!
+
+## README Todos
 
 1. Discuss use of multiple secrets objects
