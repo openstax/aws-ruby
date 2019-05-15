@@ -5,6 +5,8 @@ RSpec.describe OpenStax::Aws::AutoScalingInstance, vcr: VCR_OPTS do
 
   REGION = 'us-east-2'
 
+  # When this is true, the stack for testing already exists (useful for spinning up the stack)
+  # and then not deleting it lets us rerun the specs over and over quickly.
   STACK_EXISTS = true
 
   context "me" do
@@ -32,6 +34,7 @@ RSpec.describe OpenStax::Aws::AutoScalingInstance, vcr: VCR_OPTS do
         config.fixed_s3_template_folder = "spec-templates"
       end
 
+      # This stack gives us an ASG with an instance to test with
       @stack = new_stack(name: "rspec-asi2", filename: "app.yml")
 
       do_not_record_or_playback do
@@ -43,31 +46,22 @@ RSpec.describe OpenStax::Aws::AutoScalingInstance, vcr: VCR_OPTS do
       do_not_record_or_playback { @stack.delete } unless STACK_EXISTS
     }
 
-    around(:each) do |example|
-      original_logger = OpenStax::Aws.configuration.logger
-      example.run
-      OpenStax::Aws.configuration.logger = original_logger
-    end
-
     before(:each) {
-      @logger = spy("logger")
-      OpenStax::Aws.configuration.logger = @logger
-
       # Eliminate variation in cached lifecycle state behavior during tests
       allow_any_instance_of(described_class).to receive(:lifecycle_state_refresh_seconds) { 0 }
 
       # Don't wait unnecessarily during playback
       allow_any_instance_of(described_class).to receive(:terminate_wait_sleep_seconds) { 0 } if !vcr_recording?
+
+      # All of these specs are about terminating instances, so start with one instance
+      set_desired_capacity_to_1
     }
 
     it "can get its lifecycle state" do
-      set_desired_capacity_to_1
-
       expect(described_instance.lifecycle_state).to eq "InService"
     end
 
     it "can terminate and decrement desired capacity even with lifecycle hooks" do
-      set_desired_capacity_to_1
       described_instance.terminate(should_decrement_desired_capacity: true,
                                    continue_hook_name: "TerminationHook")
       do_not_record_or_playback { sleep(20) }
@@ -75,8 +69,6 @@ RSpec.describe OpenStax::Aws::AutoScalingInstance, vcr: VCR_OPTS do
     end
 
     context "unless_waiting_for_termination" do
-      before { set_desired_capacity_to_1 }
-
       it "will run once if not in termination wait" do
         test_object = double("test object")
         expect(test_object).to receive(:foo).once

@@ -19,7 +19,7 @@ module OpenStax::Aws
 
       client = Aws::AutoScaling::Client.new(region: region)
       instance_info = client.describe_auto_scaling_instances({instance_ids: [instance_id]})
-                      .auto_scaling_instances[0]
+                            .auto_scaling_instances[0]
 
       new(
         group_name: instance_info.auto_scaling_group_name,
@@ -27,7 +27,7 @@ module OpenStax::Aws
         region: region
       )
     end
-    
+
     def terminate(options = {})
       hook_name = options.delete(:continue_hook_name)
       raw.terminate(options)
@@ -57,7 +57,6 @@ module OpenStax::Aws
 
       if terminating_wait?
         continue_to_termination(hook_name: hook_name)
-        return
       end
     end
 
