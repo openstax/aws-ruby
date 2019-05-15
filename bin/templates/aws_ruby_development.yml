@@ -1,0 +1,221 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: aws-ruby development
+
+Parameters:
+
+  UniqueName:
+    Type: String
+
+  ImageId:
+    Description: AMI to use in the web server LaunchConfiguration
+    Type: AWS::EC2::Image::Id
+    ConstraintDescription: must be the id of a valid AMI
+
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the instances
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDescription: must be the name of an existing EC2 KeyPair
+
+Resources:
+
+  Vpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+      Tags:
+        - Key: Name
+          Value: !Sub '${AWS::StackName}-vpc'
+        - Key: Project
+          Value: Unified
+        - Key: Application
+          Value: Search
+
+  Subnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref 'Vpc'
+      CidrBlock: 10.0.1.0/24
+      MapPublicIpOnLaunch: 'true'
+      AvailabilityZone: !Select
+        - '0'
+        - !GetAZs
+          Ref: AWS::Region
+      Tags:
+        - Key: Name
+          Value: !Sub '${AWS::StackName}-sn1'
+
+  Subnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref 'Vpc'
+      CidrBlock: 10.0.2.0/24
+      MapPublicIpOnLaunch: 'true'
+      AvailabilityZone: !Select
+        - '1'
+        - !GetAZs
+          Ref: AWS::Region
+      Tags:
+        - Key: Name
+          Value: !Sub '${AWS::StackName}-sn2'
+
+  Subnet3:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref 'Vpc'
+      CidrBlock: 10.0.3.0/24
+      MapPublicIpOnLaunch: 'true'
+      AvailabilityZone: !Select
+        - '2'
+        - !GetAZs
+          Ref: AWS::Region
+      Tags:
+        - Key: Name
+          Value: !Sub '${AWS::StackName}-sn3'
+
+  Gateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Sub '${AWS::StackName}-igw'
+
+  GatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref 'Gateway'
+      VpcId: !Ref 'Vpc'
+
+  RouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref 'Vpc'
+      Tags:
+        - Key: Name
+          Value: !Sub '${AWS::StackName}-rt'
+
+  InetTrafficRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: '0.0.0.0/0'
+      GatewayId: !Ref 'Gateway'
+      RouteTableId: !Ref 'RouteTable'
+
+  Subnet1RtAssoc:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref 'RouteTable'
+      SubnetId: !Ref 'Subnet1'
+
+  Subnet2RtAssoc:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref 'RouteTable'
+      SubnetId: !Ref 'Subnet2'
+
+  Subnet3RtAssoc:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref 'RouteTable'
+      SubnetId: !Ref 'Subnet3'
+
+  ServerSecGrp:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: aws-ruby development server
+      VpcId: !Ref 'Vpc'
+      Tags:
+        - Key: Name
+          Value: !Sub '${AWS::StackName}-dev-sg'
+      SecurityGroupEgress:
+        - Description: all traffic allowed on all ports to anywhere
+          IpProtocol: '-1'
+          FromPort: '-1'
+          ToPort: '-1'
+          CidrIp: '0.0.0.0/0'
+      SecurityGroupIngress:
+        - Description: SSH on port 22 from bastion2 (IPv4)
+          IpProtocol: '6'
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: '128.42.169.79/32'
+
+  AsgInstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: !Sub '${UniqueName}-autoscaling'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - autoscaling:DescribeAutoScalingInstances
+                Resource: "*"
+
+  AsgInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref 'AsgInstanceRole'
+
+  Lc:
+    Type: AWS::AutoScaling::LaunchConfiguration
+    Properties:
+      ImageId: !Ref 'ImageId'
+      InstanceType: t3.nano
+      KeyName: !Ref 'KeyName'
+      SecurityGroups:
+        - !Ref 'ServerSecGrp'
+      SpotPrice: 0.0052 # set max at on-demand pricing
+      IamInstanceProfile: !Ref 'AsgInstanceProfile'
+      UserData:
+        Fn::Base64:
+          !Sub |
+            #!/bin/bash -x
+
+            cat >/home/ubuntu/install.sh <<CONTENT
+            #!/bin/bash
+
+            sudo apt update
+            sudo apt install ruby-full -y
+            sudo apt install git-core -y
+            sudo apt install build-essential -y
+            sudo apt install emacs-nox -y
+            sudo gem install bundler
+            git config --global core.editor "vim"
+
+            CONTENT
+
+            /usr/local/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource \
+            Asg --region ${AWS::Region}
+
+  Asg:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      AutoScalingGroupName: !Sub "${UniqueName}-asg"
+      LaunchConfigurationName: !Ref 'Lc'
+      VPCZoneIdentifier:
+        - !Ref 'Subnet1'
+        - !Ref 'Subnet2'
+        - !Ref 'Subnet3'
+      DesiredCapacity: 1
+      MinSize: 0
+      MaxSize: 2
+      HealthCheckType: EC2
+      HealthCheckGracePeriod: 30
+    CreationPolicy:
+      ResourceSignal:
+        Count: 0
+        Timeout: PT5M
+
