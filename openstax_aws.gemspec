@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
     f.match(%r{^(test|spec|features)/})
   end
   spec.bindir        = "bin"
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.executables   = spec.files.grep(%r{^bin/}).grep_v(%r{/templates/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
   spec.add_dependency "aws-sdk-autoscaling", "~> 1"
