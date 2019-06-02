@@ -6,15 +6,28 @@ module OpenStax::Aws
 
     attr_reader :region, :env_name, :dry_run, :namespace
 
-    def initialize(region:, env_name:, dry_run: true, namespace:)
+    # TODO remove use of env_name, just make people provide namespace
+
+    def initialize(region:, env_name: nil, dry_run: true, namespace:)
       @region = region
       @env_name = env_name
       @dry_run = dry_run
       @namespace = namespace
       @client = Aws::SSM::Client.new(region: region)
+      @substitutions = {}
     end
 
-    def create(specification:, substitutions: {})
+    def define(specification:, substitutions: {})
+      @specification = specification
+      @substitutions = substitutions
+    end
+
+    def create(specification: nil, substitutions: nil)
+      specification ||= @specification
+      substitutions ||= @substitutions
+
+      raise "Cannot create secrets without a specification" if specification.nil?
+
       raise "Cannot create secrets already in existence!" if !data.empty? && !dry_run
 
       # Build all secrets first so we hit any errors before we send any to AWS
@@ -61,7 +74,7 @@ module OpenStax::Aws
         end
 
         {
-          name: "/#{env_name}/#{namespace}/#{secret_name}",
+          name: "#{key_prefix}/#{secret_name}",
           type: "String",
           value: value
         }
@@ -75,7 +88,7 @@ module OpenStax::Aws
     def data!
       {}.tap do |hash|
         client.get_parameters_by_path({
-          path: "/#{env_name}/#{namespace}",
+          path: key_prefix,
           recursive: true,
           with_decryption: true
         }).each do |response|
@@ -91,7 +104,7 @@ module OpenStax::Aws
 
     def get(local_name)
       local_name = "/#{local_name}" unless local_name.chr == "/"
-      data["/#{env_name}/#{namespace}#{local_name}"].try(:[], :value)
+      data["#{key_prefix}#{local_name}"].try(:[], :value)
     end
 
     def delete
@@ -114,6 +127,10 @@ module OpenStax::Aws
           end
         end
       end
+    end
+
+    def key_prefix
+      "/" + [env_name, namespace].flatten.reject(&:blank?).join("/")
     end
 
     protected

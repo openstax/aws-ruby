@@ -3,12 +3,13 @@ module OpenStax::Aws
 
     attr_reader :name, :id, :absolute_template_path, :dry_run,
                 :enable_termination_protection, :region, :parameter_defaults,
-                :volatile_parameters_block
+                :volatile_parameters_block, :secrets_block
 
     def initialize(id: nil, name:, region:, enable_termination_protection: false,
                    absolute_template_path: nil,
                    capabilities: nil, parameter_defaults: {},
                    volatile_parameters_block: nil,
+                   secrets_block: nil, secrets_context: nil, secrets_namespace: nil,
                    dry_run: true)
       @id = id
 
@@ -23,6 +24,10 @@ module OpenStax::Aws
       set_capabilities(capabilities)
       @parameter_defaults = parameter_defaults.dup.freeze
       @volatile_parameters_block = volatile_parameters_block
+
+      @secrets_block = secrets_block
+      @secrets_context = secrets_context
+      @secrets_namespace = secrets_namespace
 
       @dry_run = dry_run
     end
@@ -42,6 +47,13 @@ module OpenStax::Aws
       logger.info("**** DRY RUN ****") if dry_run
 
       params = parameter_defaults.merge(params)
+
+      if secrets_block
+        logger.info("Creating #{name} stack secrets...")
+        secrets(parameters: params, for_create_or_update: true).create
+      end
+
+      # For update make object from params that will look up params not here (from deployed stack)
 
       options = {
         stack_name: name,
@@ -104,6 +116,21 @@ module OpenStax::Aws
       end
     end
 
+    def secrets(parameters: {}, for_create_or_update: false)
+      return nil if secrets_block.nil?
+
+      secrets_factory = StackFactory::SecretsFactory.new(
+        region: region,
+        namespace: @secrets_namespace,
+        context: @secrets_context,
+        dry_run: dry_run,
+        for_create_or_update: for_create_or_update
+      )
+      secrets_factory.namespace { name }
+      secrets_factory.instance_exec parameters, &secrets_block
+      secrets_factory.instance
+    end
+
     def create_change_set(options)
       OpenStax::Aws::ChangeSet.new(client: client).create(options: options)
     end
@@ -150,6 +177,11 @@ module OpenStax::Aws
 
     def delete(wait: false)
       logger.info("**** DRY RUN ****") if dry_run
+
+      if secrets_block
+        logger.info("Deleting #{name} stack secrets...")
+        secrets.delete
+      end
 
       logger.info("Deleting #{name} stack...")
 
