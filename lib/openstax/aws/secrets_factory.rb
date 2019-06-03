@@ -14,8 +14,8 @@ module OpenStax::Aws
       @shared_substitutions_block = shared_substitutions_block
     end
 
-    def namespace(&block)
-      @next_namespace = @context.instance_eval(&block)
+    def namespace(*args, &block)
+      @next_namespace = args.any? ? args[0] : @context.instance_eval(&block)
     end
 
     def specification(&block)

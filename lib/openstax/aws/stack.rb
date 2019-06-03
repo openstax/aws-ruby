@@ -129,7 +129,8 @@ module OpenStax::Aws
         for_create_or_update: for_create_or_update,
         shared_substitutions_block: @shared_secrets_substitutions_block
       )
-      secrets_factory.namespace { name }
+
+      secrets_factory.namespace(id)
       secrets_factory.instance_exec parameters, &secrets_block
       secrets_factory.instance
     end

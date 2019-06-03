@@ -5,7 +5,7 @@ RSpec.describe 'secrets DSL', vcr: VCR_OPTS do
 
   let(:region) { 'us-east-2' }
   let(:env_name) { 'openstax-aws-ruby-secrets' }
-  let(:namespace) { 'secrets-dsl-spec' }
+  let(:namespace) { 'secrets-dsl-spec/main' }
 
   before(:each) {
     @logger = spy("logger")
@@ -35,8 +35,7 @@ RSpec.describe 'secrets DSL', vcr: VCR_OPTS do
     expect(secrets.data).to be_empty
   end
 
-  it 'updates secrets when stack updated' do
-
+  xit 'updates secrets when stack updated' do
   end
 
   def expect_secrets_in_parameter_store(expected_hash)

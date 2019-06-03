@@ -1,6 +1,6 @@
 module OpenStax::Aws
   class StackFactory
-    attr_reader :attributes
+    attr_reader :attributes, :id
 
     def initialize(id:, deployment:)
       raise "`deployment` cannot be nil" if deployment.nil?
@@ -77,7 +77,6 @@ module OpenStax::Aws
 
     def build
       autoset_absolute_template_path(nil) if absolute_template_path.blank?
-
       Stack.new(
         id: id,
         name: attributes[:name],
@@ -89,7 +88,7 @@ module OpenStax::Aws
         volatile_parameters_block: attributes[:volatile_parameters_block],
         secrets_block: attributes[:secrets_block],
         secrets_context: @deployment,
-        secrets_namespace: @deployment.env_name,
+        secrets_namespace: [@deployment.env_name, @deployment.name],
         shared_secrets_substitutions_block: @deployment.shared_secrets_substitutions_block,
         dry_run: attributes[:dry_run]
       )
