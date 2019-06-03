@@ -23,11 +23,6 @@ module OpenStax::Aws
     end
 
     def create(specification: nil, substitutions: nil)
-      specification ||= @specification
-      substitutions ||= @substitutions
-
-      raise "Cannot create secrets without a specification" if specification.nil?
-
       raise "Cannot create secrets already in existence!" if !data.empty? && !dry_run
 
       # Build all secrets first so we hit any errors before we send any to AWS
@@ -46,6 +41,11 @@ module OpenStax::Aws
     end
 
     def build_secrets(specification:, substitutions:)
+      specification ||= @specification
+      substitutions ||= @substitutions
+
+      raise "Cannot build secrets without a specification" if specification.nil?
+
       specification.expanded_data.map do |secret_name, spec_value|
         value = case spec_value.strip
         when /^random\(hex,(\d+)\)$/

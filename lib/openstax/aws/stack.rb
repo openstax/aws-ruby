@@ -119,7 +119,7 @@ module OpenStax::Aws
     def secrets(parameters: {}, for_create_or_update: false)
       return nil if secrets_block.nil?
 
-      secrets_factory = StackFactory::SecretsFactory.new(
+      secrets_factory = SecretsFactory.new(
         region: region,
         namespace: @secrets_namespace,
         context: @secrets_context,
