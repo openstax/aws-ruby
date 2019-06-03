@@ -1,6 +1,7 @@
 module OpenStax::Aws
   class SecretsFactory
-    def initialize(region:, context:, namespace:, dry_run: true, for_create_or_update:)
+    def initialize(region:, context:, namespace:, dry_run: true,
+                   for_create_or_update:, shared_substitutions_block: nil)
       raise "context cannot be nil" if context.nil?
       @context = context
       @specification_block = nil
@@ -10,6 +11,7 @@ module OpenStax::Aws
       @next_namespace = nil
       @dry_run = dry_run
       @for_create_or_update = for_create_or_update
+      @shared_substitutions_block = shared_substitutions_block
     end
 
     def namespace(&block)
@@ -47,10 +49,17 @@ module OpenStax::Aws
     end
 
     def substitutions_hash
-      return {} if @substitutions_block.nil?
+      shared_substitutions = substitutions_hash_from_block(@shared_substitutions_block)
+      local_substitutions = substitutions_hash_from_block(@substitutions_block)
+
+      shared_substitutions.merge(local_substitutions)
+    end
+
+    def substitutions_hash_from_block(block)
+      return {} if block.nil?
 
       factory = SecretsSubstitutionsFactory.new(@context)
-      factory.instance_eval &@substitutions_block
+      factory.instance_eval &block
       factory.attributes
     end
 
@@ -78,13 +87,9 @@ module OpenStax::Aws
 
     def format(&block)
       store_attribute(:format, &block)
-      # attributes[name.to_sym] = @context.instance_eval(&block)
     end
 
     def method_missing(name, *args, &block)
-      # raise "Secrets specification option `#{name}` cannot be called with arguments, only a block" if !args.empty?
-      # raise "Secrets specification option `#{name}` must be called with a block to set the value" if !block_given?
-      # attributes[name.to_sym] = @context.instance_eval(&block)
       store_attribute(name, *args, &block)
     end
 

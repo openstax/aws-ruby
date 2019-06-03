@@ -22,11 +22,12 @@ RSpec.describe 'secrets DSL', vcr: VCR_OPTS do
 
   it 'creates secrets when stack created and deletes when deleted' do
     deployment = SecretsDslSpec::Deployment.new(env_name: env_name, region: region, dry_run: false)
-    deployment.create(some_sha: "356cd2ac1c04e693f649645f71d3590e24420563", bucket_name: "aws-ruby-spec-secrets-dsl-create")
+    deployment.create(some_sha: "1b2ebfd91dd9fb34d58c834cbb70a21c6479ba8e", bucket_name: "aws-ruby-spec-secrets-dsl-create")
 
     expect_secrets_in_parameter_store({
       "random" => /[a-z0-9]{8}/,
-      "interpolated" => "https://something-deployment-specific"
+      "interpolated" => "https://something-deployment-specific",
+      "for_shared_substitution" => "howdy y'all"
     })
 
     deployment.delete

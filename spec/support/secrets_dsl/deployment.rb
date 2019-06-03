@@ -3,8 +3,6 @@ module SecretsDslSpec
 
     template_directory __dir__, "."
 
-    # seems like stack should know its git location independent of secrets?
-
     stack :main do
       secrets do |parameters|
         specification do
@@ -20,12 +18,16 @@ module SecretsDslSpec
       end
     end
 
-    # common_secrets_substitutions do
-
-    # end
+    secrets_substitutions do
+      shared_value { shared_value }
+    end
 
     def domain_value
       "something-deployment-specific"
+    end
+
+    def shared_value
+      "y'all"
     end
 
     def create(some_sha:, bucket_name:)

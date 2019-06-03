@@ -10,6 +10,7 @@ module OpenStax::Aws
                    capabilities: nil, parameter_defaults: {},
                    volatile_parameters_block: nil,
                    secrets_block: nil, secrets_context: nil, secrets_namespace: nil,
+                   shared_secrets_substitutions_block: nil,
                    dry_run: true)
       @id = id
 
@@ -28,6 +29,7 @@ module OpenStax::Aws
       @secrets_block = secrets_block
       @secrets_context = secrets_context
       @secrets_namespace = secrets_namespace
+      @shared_secrets_substitutions_block = shared_secrets_substitutions_block
 
       @dry_run = dry_run
     end
@@ -124,7 +126,8 @@ module OpenStax::Aws
         namespace: @secrets_namespace,
         context: @secrets_context,
         dry_run: dry_run,
-        for_create_or_update: for_create_or_update
+        for_create_or_update: for_create_or_update,
+        shared_substitutions_block: @shared_secrets_substitutions_block
       )
       secrets_factory.namespace { name }
       secrets_factory.instance_exec parameters, &secrets_block

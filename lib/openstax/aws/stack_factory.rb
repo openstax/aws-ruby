@@ -90,6 +90,7 @@ module OpenStax::Aws
         secrets_block: attributes[:secrets_block],
         secrets_context: @deployment,
         secrets_namespace: @deployment.env_name,
+        shared_secrets_substitutions_block: @deployment.shared_secrets_substitutions_block,
         dry_run: attributes[:dry_run]
       )
     end
