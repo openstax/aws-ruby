@@ -72,7 +72,8 @@ module OpenStax::Aws
     end
 
     def secrets(&block)
-      attributes[:secrets_block] = block
+      attributes[:secrets_blocks] ||= []
+      attributes[:secrets_blocks].push(block)
     end
 
     def build
@@ -86,7 +87,7 @@ module OpenStax::Aws
         capabilities: attributes[:capabilities],
         parameter_defaults: attributes[:parameter_defaults],
         volatile_parameters_block: attributes[:volatile_parameters_block],
-        secrets_block: attributes[:secrets_block],
+        secrets_blocks: attributes[:secrets_blocks],
         secrets_context: @deployment,
         secrets_namespace: [@deployment.env_name, @deployment.name],
         shared_secrets_substitutions_block: @deployment.shared_secrets_substitutions_block,

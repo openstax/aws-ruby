@@ -12,8 +12,20 @@ module SecretsDslSpec
           format { 'yml' }
           top_key { 'production' }
         end
+        specification do
+          content do
+            { content_key: "{{ domain }}" }
+          end
+        end
         substitutions do
           domain { domain_value }
+        end
+      end
+      secrets do
+        specification do
+          content do
+            { more_secrets: "foo" }
+          end
         end
       end
     end

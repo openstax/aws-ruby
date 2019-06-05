@@ -21,14 +21,22 @@ module OpenStax::Aws
       new(content: content, format: format, top_key: top_key)
     end
 
-    def self.from_content(content:, format:, top_key: nil)
+    def self.from_content(content:, format: nil, top_key: nil)
       new(content: content, format: format, top_key: top_key)
     end
 
-    def initialize(content:, format:, top_key: nil)
-      raise "#{format} is not yet handled" if :yml != format
+    def initialize(content:, format: nil, top_key: nil)
+      case content
+      when Hash
+        @data = content.dup
+      when String
+        raise "#{format} is not yet handled" if :yml != format
+        @data = YAML.load(content)
+      else
+        raise "Unknown secrets specification inline content type: #{content.class}"
+      end
 
-      @data = YAML.load(content)
+      @data = data.with_indifferent_access
       @data = data[top_key.to_s] if top_key
     end
 

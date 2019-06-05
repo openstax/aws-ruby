@@ -4,7 +4,7 @@ module OpenStax::Aws
                    for_create_or_update:, shared_substitutions_block: nil)
       raise "context cannot be nil" if context.nil?
       @context = context
-      @specification_block = nil
+      @specification_blocks = []
       @substitutions_block = nil
       @region = region
       @top_namespace = namespace
@@ -19,32 +19,38 @@ module OpenStax::Aws
     end
 
     def specification(&block)
-      @specification_block = block
+      @specification_blocks.push(block)
     end
 
     def substitutions(&block)
       @substitutions_block = block
     end
 
-    def specification_instance
-      raise "Must define secrets specification" if @specification_block.nil?
+    def specification_instances
+      raise "Must define secrets specification" if @specification_blocks.empty?
 
-      factory = SecretsSpecificationFactory.new(@context)
-      factory.instance_eval &@specification_block
-      attributes = factory.attributes
+      @specification_blocks.map do |specification_block|
+        factory = SecretsSpecificationFactory.new(@context)
+        factory.instance_eval &specification_block
+        attributes = factory.attributes
 
-      if attributes.has_key?(:org_slash_repo)
-        OpenStax::Aws::SecretsSpecification.from_git(
-          org_slash_repo: attributes[:org_slash_repo],
-          sha: attributes[:sha],
-          path: attributes[:path],
-          format: attributes[:format].to_sym,
-          top_key: attributes[:top_key].to_sym
-        )
-      elsif attributes.has_key?(:content)
-        raise "Nyi"
-      else
-        raise "Cannot build a secrets specification"
+        if attributes.has_key?(:org_slash_repo)
+          OpenStax::Aws::SecretsSpecification.from_git(
+            org_slash_repo: attributes[:org_slash_repo],
+            sha: attributes[:sha],
+            path: attributes[:path],
+            format: attributes[:format].to_sym,
+            top_key: attributes[:top_key].to_sym
+          )
+        elsif attributes.has_key?(:content)
+          OpenStax::Aws::SecretsSpecification.from_content(
+            content: attributes[:content],
+            format: attributes[:format],
+            top_key: attributes[:top_key]
+          )
+        else
+          raise "Cannot build a secrets specification"
+        end
       end
     end
 
@@ -70,7 +76,7 @@ module OpenStax::Aws
     def instance
       Secrets.new(region: @region, namespace: full_namespace, dry_run: @dry_run).tap do |secrets|
         if @for_create_or_update
-          secrets.define(specification: specification_instance, substitutions: substitutions_hash)
+          secrets.define(specifications: specification_instances, substitutions: substitutions_hash)
         end
       end
     end

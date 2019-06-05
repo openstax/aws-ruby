@@ -29,7 +29,7 @@ RSpec.describe OpenStax::Aws::Secrets do
 
       expect{
         built_parameters = instance.build_secrets(
-          specification: specification,
+          specifications: specification,
           substitutions: {
             flag1: "false",
             flag2: false,

@@ -451,21 +451,21 @@ Computed secrets are good for generating random strings.
 Specification:
 
 ```ruby
-my_secret_key: random(hex, 4)
+my_secret_key: random(hex, 8)
 ```
 
 Result in Parameter Store:
 
 ```
 Key:   /env_name/more_namespace/my_secret_key
-Value: 19af8dc
+Value: 019af8dc
 ```
 
-Instead of `random(hex, [half length here])` you can use `uuid` to get a UUID.
+Instead of `random(hex, number_of_hex_characters])` you can use `uuid` to get a UUID.
 
 ##### Referential secrets
 
-Referential secrets let you say that a secret should take the value of another value in the parameter store.  They
+Referential secrets let you say that a secret should take the value of another parameter in the parameter store.  They
 are good for defining static secret keys in the parameter store that are shared across many deployments, e.g.
 some fixed OAuth keys or a common logging endpoint.
 
@@ -476,7 +476,7 @@ Key:   /external/graylog/secret
 Value: cf9bb194b53d76a557c8
 ```
 
-The in your specification:
+Then in your specification:
 
 ```ruby
 my_graylog_secret: ssm(graylog_secret)
@@ -526,6 +526,8 @@ end
 ```
 
 Specification and substitution blocks are executed in the context of the containing deployment.  If you have the `secrets` block take a `parameters` argument, that will give you access to the stack's parameters, which is useful for getting the SHA being deployed for the stack (so you can get the secrets specification to match the deployment).
+
+You can call the `secrets` DSL multiple times within the `stack` declaration.  You may also call `specification` multiple times within the `secrets` call.  Later declarations can override earlier ones.
 
 Sometimes multiple stacks share the same substitutions.  Instead of repeating those substitutions, you can define them once in your deployment class:
 

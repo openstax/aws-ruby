@@ -17,16 +17,20 @@ module OpenStax::Aws
       @substitutions = {}
     end
 
-    def define(specification:, substitutions: {})
-      @specification = specification
+    def define(specifications:, substitutions: {})
+      @specifications = specifications
       @substitutions = substitutions
     end
 
-    def create(specification: nil, substitutions: nil)
-      raise "Cannot create secrets already in existence!" if !data.empty? && !dry_run
-
+    def create(specifications: nil, substitutions: nil)
       # Build all secrets first so we hit any errors before we send any to AWS
-      built_secrets = build_secrets(specification: specification, substitutions: substitutions)
+      built_secrets = build_secrets(specifications: specifications, substitutions: substitutions)
+
+      if !dry_run && (data.keys & built_secrets.map{|param| param[:name]}).any?
+        # We may soon add functionality to handle calling create again on a stack that already exists
+        # but we aren't there yet.
+        raise "Cannot create secrets already in existence!" if !data.empty? && !dry_run
+      end
 
       OpenStax::Aws.logger.info("**** DRY RUN ****") if dry_run
 
@@ -40,16 +44,32 @@ module OpenStax::Aws
       end
     end
 
-    def build_secrets(specification:, substitutions:)
-      specification ||= @specification
+    def update(specifications: nil, substitutions: nil)
+      # Temporary approach until we do something smarter
+      delete
+      create(specifications: nil, substitutions: nil)
+    end
+
+    def build_secrets(specifications:, substitutions:)
+      specifications ||= @specifications
       substitutions ||= @substitutions
 
-      raise "Cannot build secrets without a specification" if specification.nil?
+      specifications = [specifications].flatten
 
-      specification.expanded_data.map do |secret_name, spec_value|
+      raise "Cannot build secrets without a specification" if specifications.empty?
+
+      expanded_data = {}
+
+      # later specifications override earlier ones
+      specifications.reverse.each do |specification|
+        expanded_data.merge!(specification.expanded_data)
+      end
+
+      expanded_data.map do |secret_name, spec_value|
         value = case spec_value.strip
         when /^random\(hex,(\d+)\)$/
-          SecureRandom.hex($1.to_i)
+          num_characters = $1.to_i
+          SecureRandom.hex(num_characters)[0..num_characters-1]
         when "uuid"
           SecureRandom.uuid
         when /{([^{}]+)}/

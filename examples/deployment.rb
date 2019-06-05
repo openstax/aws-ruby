@@ -38,7 +38,7 @@ module OpenStax::Aws::SomeApp
       redis_host = redis_stack.output_value(key: "ElastiCacheAddress")
 
       parameters.create(
-        specification: OpenStax::Aws::ParametersSpecification.from_git(
+        specifications: OpenStax::Aws::ParametersSpecification.from_git(
           org_slash_repo: "openstax/some_app_repo",
           sha: deployed_app_sha,
           path: 'config/secrets.yml.example',
