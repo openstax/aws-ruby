@@ -26,12 +26,6 @@ module OpenStax::Aws
       # Build all secrets first so we hit any errors before we send any to AWS
       built_secrets = build_secrets(specifications: specifications, substitutions: substitutions)
 
-      if !dry_run && (data.keys & built_secrets.map{|param| param[:name]}).any?
-        # We may soon add functionality to handle calling create again on a stack that already exists
-        # but we aren't there yet.
-        raise "Cannot create secrets already in existence!" if !data.empty? && !dry_run
-      end
-
       OpenStax::Aws.logger.info("**** DRY RUN ****") if dry_run
 
       OpenStax::Aws.logger.info("Creating the following secrets in the AWS parameter store: #{built_secrets}")

@@ -55,8 +55,6 @@ module OpenStax::Aws
         secrets(parameters: params, for_create_or_update: true).create
       end
 
-      # For update make object from params that will look up params not here (from deployed stack)
-
       options = {
         stack_name: name,
         template_url: template.s3_url,
