@@ -14,7 +14,7 @@ RSpec.describe 'secrets DSL', vcr: VCR_OPTS do
       config.cfn_template_bucket_name = "openstax-sandbox-cfn-templates"
       config.cfn_template_bucket_region = "us-west-2"
       config.stack_waiter_delay = vcr_recording? ? 5 : 0
-      config.logger = @logger
+      config.logger = vcr_recording? ? Logger.new(STDERR) : @logger
     end
 
     allow_any_instance_of(OpenStax::Aws::Template).to receive(:s3_folder) { "spec-templates" }

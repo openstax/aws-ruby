@@ -137,7 +137,7 @@ module OpenStax::Aws
           response = client.delete_parameters({names: some_secret_names})
 
           if response.invalid_parameters.any?
-            raise "Some secrets were not deleted: #{response.invalid_parameters}"
+            OpenStax::Aws.logger.debug("Unable to delete some secrets (likely already deleted): #{response.invalid_parameters}")
           end
         end
       end
