@@ -47,7 +47,7 @@ module OpenStax::Aws
     def update(specifications: nil, substitutions: nil)
       # Temporary approach until we do something smarter
       delete
-      create(specifications: nil, substitutions: nil)
+      create(specifications: specifications, substitutions: substitutions)
     end
 
     def build_secrets(specifications:, substitutions:)

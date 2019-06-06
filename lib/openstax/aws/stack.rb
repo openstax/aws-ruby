@@ -52,7 +52,7 @@ module OpenStax::Aws
 
       if defines_secrets?
         logger.info("Creating #{name} stack secrets...")
-        secrets(parameters: params, for_create_or_update: true).each(&:create)
+        secrets(parameters: params, for_create_or_update: true).create
       end
 
       # For update make object from params that will look up params not here (from deployed stack)
@@ -119,20 +119,22 @@ module OpenStax::Aws
     end
 
     def secrets(parameters: {}, for_create_or_update: false)
-      secrets_blocks.map do |secrets_block|
-        secrets_factory = SecretsFactory.new(
-          region: region,
-          namespace: @secrets_namespace,
-          context: @secrets_context,
-          dry_run: dry_run,
-          for_create_or_update: for_create_or_update,
-          shared_substitutions_block: @shared_secrets_substitutions_block
-        )
+      SecretsSet.new(
+        secrets_blocks.map do |secrets_block|
+          secrets_factory = SecretsFactory.new(
+            region: region,
+            namespace: @secrets_namespace,
+            context: @secrets_context,
+            dry_run: dry_run,
+            for_create_or_update: for_create_or_update,
+            shared_substitutions_block: @shared_secrets_substitutions_block
+          )
 
-        secrets_factory.namespace(id)
-        secrets_factory.instance_exec parameters, &secrets_block
-        secrets_factory.instance
-      end
+          secrets_factory.namespace(id)
+          secrets_factory.instance_exec parameters, &secrets_block
+          secrets_factory.instance
+        end
+      )
     end
 
     def create_change_set(options)
@@ -145,6 +147,16 @@ module OpenStax::Aws
       logger.info("Updating #{name} stack...")
 
       params = parameters_for_update(overrides: params)
+
+      if defines_secrets?
+        logger.info("Updating #{name} stack secrets...")
+        # TODO these params need to be able to return actual previous value instead of use_previous_value
+        # wrap in a helper object that can do the lookup
+        secrets(
+          parameters: StackParameters.new(params: params, stack: self),
+          for_create_or_update: true
+        ).update
+      end
 
       options = {
         stack_name: name,
@@ -184,7 +196,7 @@ module OpenStax::Aws
 
       if defines_secrets?
         logger.info("Deleting #{name} stack secrets...")
-        secrets.each(&:delete)
+        secrets.delete
       end
 
       logger.info("Deleting #{name} stack...")
