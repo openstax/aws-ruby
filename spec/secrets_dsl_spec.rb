@@ -47,8 +47,8 @@ RSpec.describe 'secrets DSL', vcr: VCR_OPTS do
 
     deployment.value_to_change_before_update = "you'all"
 
-    # The one value that changes above and a random value
-    expect_any_instance_of(Aws::SSM::Client).to receive(:put_parameter).exactly(2).times.and_call_original
+    # The one value that changes above
+    expect_any_instance_of(Aws::SSM::Client).to receive(:put_parameter).exactly(1).times.and_call_original
 
     deployment.update
 

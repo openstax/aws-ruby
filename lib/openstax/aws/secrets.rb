@@ -44,11 +44,17 @@ module OpenStax::Aws
       built_secrets = build_secrets(specifications: specifications, substitutions: substitutions)
 
       changed_secrets = built_secrets.each_with_object([]) do |built_secret, array|
-        next if !existing_secrets.has_key?(built_secret[:name])
-        next if existing_secrets[built_secret[:name]] == {
-                  value: built_secret[:value],
-                  type: built_secret[:type]
-                }
+
+        existing_secret = existing_secrets[built_secret[:name]]
+
+        if existing_secret
+          # No need to update if the value is the same
+          next if existing_secret[:value] == built_secret[:value]
+
+          # Don't update if different values but generated from same specification
+          next if built_secret[:description].try(:starts_with?, "Generated with") &&
+                  built_secret[:description] == existing_secret[:description]
+        end
 
         array.push(built_secret)
       end
@@ -88,11 +94,16 @@ module OpenStax::Aws
       end
 
       expanded_data.map do |secret_name, spec_value|
-        value = case spec_value.strip
+        generated = false
+        spec_value = spec_value.strip
+
+        value = case spec_value
         when /^random\(hex,(\d+)\)$/
+          generated = true
           num_characters = $1.to_i
           SecureRandom.hex(num_characters)[0..num_characters-1]
         when "uuid"
+          generated = true
           SecureRandom.uuid
         when /{([^{}]+)}/
           spec_value.gsub(/({{\W*(\w+)\W*}})/) do |match|
@@ -119,7 +130,11 @@ module OpenStax::Aws
           name: "#{key_prefix}/#{secret_name}",
           type: "String",
           value: value
-        }
+        }.tap do |secret|
+          if generated
+            secret[:description] = "Generated with #{spec_value}"
+          end
+        end
       end
     end
 
@@ -135,10 +150,48 @@ module OpenStax::Aws
           with_decryption: true
         }).each do |response|
           response.parameters.each do |parameter|
-            hash[parameter.name] = {
-              type: parameter.type,
-              value: parameter.value
-            }
+            hash[parameter.name] = RetrievedParameter.new(parameter, client)
+          end
+        end
+      end
+    end
+
+    class RetrievedParameter
+      # Helper object to hide the fact that tags and descriptions have to be accessed
+      # through separate API calls
+
+      def initialize(parameter, client)
+        @raw_parameter = parameter
+        @client = client
+      end
+
+      def [](key)
+        case key
+        when :type
+          @raw_parameter.type
+        when :value
+          @raw_parameter.value
+        when :tags
+          raise "Not yet tested!"
+          @tags ||= begin
+            (@client.list_tags_for_resource({
+              resource_type: "Parameter",
+              resource_id: @raw_parameter.arn
+            }).tag_list || []).map do |tag| {
+              key: tag.key,
+              value: tag.value
+            } end
+          end
+        when :description
+          @description ||= begin
+            @client.describe_parameters({
+              parameter_filters: [{
+                key: "Name",
+                option: "Equals",
+                values: [@raw_parameter.name]
+              }],
+              max_results: 1
+            }).parameters[0].description
           end
         end
       end

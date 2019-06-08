@@ -461,7 +461,9 @@ Key:   /env_name/more_namespace/my_secret_key
 Value: 019af8dc
 ```
 
-Instead of `random(hex, number_of_hex_characters])` you can use `uuid` to get a UUID.
+Instead of `random(hex, number_of_hex_characters])` you can use `uuid` to get a UUID.  Note that generated secrets are
+only updated during a stack update if their specification changes (that way things like randomly generated secret keys
+don't change on each deployment unless how the value is computed changes).
 
 ##### Referential secrets
 
@@ -528,6 +530,8 @@ end
 Specification and substitution blocks are executed in the context of the containing deployment.  If you have the `secrets` block take a `parameters` argument, that will give you access to the stack's parameters, which is useful for getting the SHA being deployed for the stack (so you can get the secrets specification to match the deployment).
 
 You can call the `secrets` DSL multiple times within the `stack` declaration.  You may also call `specification` multiple times within the `secrets` call.  Later declarations can override earlier ones.
+
+When stacks are updated, only the secrets that change are updated.
 
 Sometimes multiple stacks share the same substitutions.  Instead of repeating those substitutions, you can define them once in your deployment class:
 
@@ -662,13 +666,6 @@ stack :api do
   cycle_if_different_parameter "MyPreferredParameter"
   ..
 ```
-
-#### TODOs
-
-There is more work to be done for secrets:
-
-1. Implement persistent secrets (do not change during update, e.g. do_not_update(random(hex,80)), useful for things like generated secret keys that shouldn't be changed on each release.
-2. Make secrets update only update the secrets that changed (currently it deletes all secrets and recreates them to implement "update")
 
 ### Dry runs
 

@@ -154,8 +154,7 @@ module OpenStax::Aws
 
       if defines_secrets?
         logger.info("Updating #{name} stack secrets...")
-        # TODO these params need to be able to return actual previous value instead of use_previous_value
-        # wrap in a helper object that can do the lookup
+
         secrets_changed = secrets(
           parameters: StackParameters.new(params: params, stack: self),
           for_create_or_update: true
