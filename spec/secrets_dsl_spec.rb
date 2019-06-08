@@ -47,11 +47,16 @@ RSpec.describe 'secrets DSL', vcr: VCR_OPTS do
 
     deployment.value_to_change_before_update = "you'all"
 
+    # The one value that changes above and a random value
+    expect_any_instance_of(Aws::SSM::Client).to receive(:put_parameter).exactly(2).times.and_call_original
+
     deployment.update
 
     expect_secrets_in_parameter_store({
       "for_shared_substitution" => "howdy you'all",
     })
+
+    expect(deployment.main_stack.deployed_parameters[:cycle_if_different]).to match /[a-f0-9]{20}/
 
     deployment.delete
 

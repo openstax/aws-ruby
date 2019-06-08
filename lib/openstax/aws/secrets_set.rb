@@ -10,8 +10,7 @@ module OpenStax::Aws
     end
 
     def update
-      delete
-      create
+      @secrets_array.map(&:update).any?
     end
 
     def delete

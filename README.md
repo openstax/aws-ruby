@@ -604,6 +604,65 @@ def deep_populate(hash, keys, value)
 end
 ```
 
+#### Forcing servers to cycle when their secrets change
+
+When an app's secrets change, we want their new values to be used by the app.  But our apps typically get their secrets when they launch, and launches happen when CloudFormation sees a change in the template that requires an update (e.g. a new AMI is specified).  When we make changes to the values in the Parameter Store, CloudFormation doesn't see them and therefore does not trigger an update of our servers.
+
+This gem provides a mechanism for changes in secrets to trigger an update of the servers that use them.  When a stack update is called and the secrets defined within the stack (via the DSL) change, the gem will set a random value in a user-defined stack parameter.  If that stack parameter is then included in an ASG's launch configuration, CloudFormation will detect a change in that launch configuration and trigger a server update.
+
+Here's a snippet of a template that will accept and use this special parameter:
+
+```yaml
+AWSTemplateFormatVersion: '2010-09-09'
+
+Parameters:
+
+  ...
+
+  CycleIfDifferent:
+    Description: A special parameter that will be set to a random value when this stack's secrets change
+    Type: String
+    Default: ''
+
+Resources:
+
+  ...
+
+  Lc:
+    Type: AWS::AutoScaling::LaunchConfiguration
+    Properties:
+      ImageId: !Ref 'WebServerImageId'
+      InstanceType: t2.micro
+      UserData:
+        Fn::Base64:
+          !Sub |
+            #!/bin/bash -x
+
+            # ${CycleIfDifferent} <-- this gets randomized when secrets change, which forces server updates
+            ...
+
+  Asg:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      LaunchConfigurationName: !Ref 'Lc'
+      ...
+```
+
+`CycleIfDifferent` is the default name of this special stack parameter.  This default can be overridden in the gem configuration via
+
+```ruby
+OpenStax::Aws.configuration.default_cycle_if_different_parameter = "MyPreferredParameter"
+```
+
+or it can be set within the `stack` declaration:
+
+```ruby
+stack :api do
+  ...
+  cycle_if_different_parameter "MyPreferredParameter"
+  ..
+```
+
 #### TODOs
 
 There is more work to be done for secrets:

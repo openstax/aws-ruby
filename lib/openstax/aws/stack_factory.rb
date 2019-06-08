@@ -76,6 +76,10 @@ module OpenStax::Aws
       attributes[:secrets_blocks].push(block)
     end
 
+    def cycle_if_different_parameter(name=nil, &block)
+      attributes[:cycle_if_different_parameter] = block.present? ? block.call : name
+    end
+
     def build
       autoset_absolute_template_path(nil) if absolute_template_path.blank?
       Stack.new(
@@ -91,6 +95,7 @@ module OpenStax::Aws
         secrets_context: @deployment,
         secrets_namespace: [@deployment.env_name, @deployment.name],
         shared_secrets_substitutions_block: @deployment.shared_secrets_substitutions_block,
+        cycle_if_different_parameter: attributes[:cycle_if_different_parameter],
         dry_run: attributes[:dry_run]
       )
     end

@@ -11,6 +11,7 @@ module OpenStax::Aws
                    volatile_parameters_block: nil,
                    secrets_blocks: [], secrets_context: nil, secrets_namespace: nil,
                    shared_secrets_substitutions_block: nil,
+                   cycle_if_different_parameter: nil,
                    dry_run: true)
       @id = id
 
@@ -30,6 +31,11 @@ module OpenStax::Aws
       @secrets_context = secrets_context
       @secrets_namespace = secrets_namespace
       @shared_secrets_substitutions_block = shared_secrets_substitutions_block
+
+      @cycle_if_different_parameter = (
+        cycle_if_different_parameter ||
+        OpenStax::Aws.configuration.default_cycle_if_different_parameter
+      ).underscore.to_sym
 
       @dry_run = dry_run
     end
@@ -150,10 +156,15 @@ module OpenStax::Aws
         logger.info("Updating #{name} stack secrets...")
         # TODO these params need to be able to return actual previous value instead of use_previous_value
         # wrap in a helper object that can do the lookup
-        secrets(
+        secrets_changed = secrets(
           parameters: StackParameters.new(params: params, stack: self),
           for_create_or_update: true
         ).update
+
+        if secrets_changed && template_parameter_keys.include?(@cycle_if_different_parameter)
+          logger.info("Secrets changed, setting stack parameter to trigger server cycling")
+          params[@cycle_if_different_parameter] = SecureRandom.hex(10)
+        end
       end
 
       options = {

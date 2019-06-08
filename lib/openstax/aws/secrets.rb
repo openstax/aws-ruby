@@ -33,15 +33,43 @@ module OpenStax::Aws
       # Ship 'em
       if !dry_run
         built_secrets.each do |built_secret|
-          client.put_parameter(built_secret)
+          client.put_parameter(built_secret.merge(overwrite: true))
         end
       end
     end
 
     def update(specifications: nil, substitutions: nil)
-      # Temporary approach until we do something smarter
-      delete
-      create(specifications: specifications, substitutions: substitutions)
+      existing_secrets = data!
+
+      built_secrets = build_secrets(specifications: specifications, substitutions: substitutions)
+
+      changed_secrets = built_secrets.each_with_object([]) do |built_secret, array|
+        next if !existing_secrets.has_key?(built_secret[:name])
+        next if existing_secrets[built_secret[:name]] == {
+                  value: built_secret[:value],
+                  type: built_secret[:type]
+                }
+
+        array.push(built_secret)
+      end
+
+      OpenStax::Aws.logger.info("**** DRY RUN ****") if dry_run
+
+      if changed_secrets.empty?
+        OpenStax::Aws.logger.info("Secrets did not change")
+        false
+      else
+        OpenStax::Aws.logger.info("Updating the following secrets in the AWS parameter store: #{changed_secrets}")
+
+        # Ship 'em
+        if !dry_run
+          changed_secrets.each do |changed_secret|
+            client.put_parameter(changed_secret.merge(overwrite: true))
+          end
+        end
+
+        true
+      end
     end
 
     def build_secrets(specifications:, substitutions:)
