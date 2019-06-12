@@ -2,7 +2,7 @@ module OpenStax::Aws
   class SecretsFactory
     def initialize(region:, context:, namespace:, dry_run: true,
                    for_create_or_update:, shared_substitutions_block: nil)
-      raise "context cannot be nil" if context.nil?
+      raise ArgumentError, "context cannot be nil" if context.nil?
       @context = context
       @specification_blocks = []
       @substitutions_block = nil
@@ -86,7 +86,7 @@ module OpenStax::Aws
     attr_reader :attributes
 
     def initialize(context)
-      raise "context cannot be nil" if context.nil?
+      raise ArgumentError, "context cannot be nil" if context.nil?
       @context = context
       @attributes = {}
     end
@@ -110,7 +110,7 @@ module OpenStax::Aws
     attr_reader :attributes
 
     def initialize(context)
-      raise "context cannot be nil" if context.nil?
+      raise ArgumentError, "context cannot be nil" if context.nil?
       @context = context
       @attributes = {}
     end

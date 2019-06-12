@@ -4,6 +4,8 @@ module OpenStax::Aws
     # We store "secrets" in the AWS Parameter store.  Secrets can be truly secret
     # values (e.g. keys) or just some configuration values.
 
+    GENERATED_WITH_PREFIX = "Generated with"
+
     attr_reader :region, :dry_run, :namespace
 
     def initialize(region:, dry_run: true, namespace:)
@@ -14,6 +16,16 @@ module OpenStax::Aws
       @substitutions = {}
     end
 
+    # `create` and `update` take secrets specifications and secrets substitutions.
+    # if you just want to call `create` and `update` with no arguments, you can
+    # define the specifications and substitutions ahead of time with this method, e.g.
+    #
+    #   my_secrets.define(specifications: my_specifications, substitutions: my_substitutions)
+    #   ...
+    #   my_secrets.create
+    #
+    # See the README for more discussion about specifications and substitutions.
+    #
     def define(specifications:, substitutions: {})
       @specifications = specifications
       @substitutions = substitutions
@@ -37,30 +49,14 @@ module OpenStax::Aws
 
     def update(specifications: nil, substitutions: nil)
       existing_secrets = data!
-
       built_secrets = build_secrets(specifications: specifications, substitutions: substitutions)
-
-      changed_secrets = built_secrets.each_with_object([]) do |built_secret, array|
-
-        existing_secret = existing_secrets[built_secret[:name]]
-
-        if existing_secret
-          # No need to update if the value is the same
-          next if existing_secret[:value] == built_secret[:value]
-
-          # Don't update if different values but generated from same specification
-          next if built_secret[:description].try(:starts_with?, "Generated with") &&
-                  built_secret[:description] == existing_secret[:description]
-        end
-
-        array.push(built_secret)
-      end
+      changed_secrets = self.class.changed_secrets(existing_secrets, built_secrets)
 
       OpenStax::Aws.logger.info("**** DRY RUN ****") if dry_run
 
       if changed_secrets.empty?
         OpenStax::Aws.logger.info("Secrets did not change")
-        false
+        return false
       else
         OpenStax::Aws.logger.info("Updating the following secrets in the AWS parameter store: #{changed_secrets}")
 
@@ -71,7 +67,28 @@ module OpenStax::Aws
           end
         end
 
-        true
+        return true
+      end
+    end
+
+    def self.changed_secrets(existing_secrets_hash, new_secrets_array)
+      existing_secrets_hash = existing_secrets_hash.with_indifferent_access
+      new_secrets_array = new_secrets_array.map(&:with_indifferent_access)
+
+      new_secrets_array.each_with_object([]) do |new_secret, array|
+
+        existing_secret = existing_secrets_hash[new_secret[:name]]
+
+        if existing_secret
+          # No need to update if the value is the same
+          next if existing_secret[:value] == new_secret[:value]
+
+          # Don't update if different values but generated from same specification
+          next if new_secret[:description].try(:starts_with?, GENERATED_WITH_PREFIX) &&
+                  new_secret[:description] == existing_secret[:description]
+        end
+
+        array.push(new_secret)
       end
     end
 
@@ -129,7 +146,7 @@ module OpenStax::Aws
           value: value
         }.tap do |secret|
           if generated
-            secret[:description] = "Generated with #{spec_value}"
+            secret[:description] = "#{GENERATED_WITH_PREFIX} #{spec_value}"
           end
         end
       end
@@ -147,13 +164,13 @@ module OpenStax::Aws
           with_decryption: true
         }).each do |response|
           response.parameters.each do |parameter|
-            hash[parameter.name] = RetrievedParameter.new(parameter, client)
+            hash[parameter.name] = ReadOnlyParameter.new(parameter, client)
           end
         end
       end
     end
 
-    class RetrievedParameter
+    class ReadOnlyParameter
       # Helper object to hide the fact that tags and descriptions have to be accessed
       # through separate API calls
 
