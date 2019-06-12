@@ -345,6 +345,328 @@ instance) and then getting its desired capacity.
 
 No options here besides `wait`.
 
+### Secrets
+
+`openstax_aws` uses the AWS Parameter Store as a holding area for application secrets (and here "secrets" includes configuration values that are both secret and not secret).  During deployment, secrets are written to the Parameter Store, and then during instance launch they are read from the Parameter Store.
+
+![Secrets sequence diagram - https://www.websequencediagrams.com/?lz=RGVwbG95IHNjcmlwdC0-U3RhY2s6Y3JlYXRlCgAIBQAMCGdldCBzZWNyZXRzIHNwZWNpZmljYXRpb24ADBt1YnN0aXR1dGlvbnMARghQYXJhbWV0ZXIgU3RvcmU6d3JpdGUAUggAawhFQzI6bGF1bmNoCkVDMgAjEgCBAgsK&s=default](assets/secrets_sequence_diagram.png)
+
+Secrets are defined with a *specification* and a set of *substitutions*.  A specification can currently be defined as a string or file containing YAML, like the following:
+
+```yaml
+secret_key: random(hex,4)
+my_domain: "https://{{ domain }}"
+search_domain:
+  endpoint: "{{ search_endpoint }}"
+```
+
+The specification gives (possibly nested) secret names and the values for them, which can be literal values, values that need substitutions populated into them, computed values, or references to other values within the Parameter Store.  The specification can be defined inline:
+
+```ruby
+OpenStax::Aws::SecretsSpecification.from_content(
+  format: :yml,
+  content: <<~CONTENT
+    graylog_url: ssm(graylog_url)
+  CONTENT
+)
+```
+
+or via a reference to a file on GitHub at a SHA:
+
+```ruby
+OpenStax::Aws::SecretsSpecification.from_git(
+  org_slash_repo: "openstax/open-search",
+  sha: some_sha_here,
+  path: 'config/secrets.yml.example',
+  format: :yml,
+  top_key: :production
+)
+```
+
+Why not just write the secrets to the instances directly?  In a world where we are deploying Amazon Machine Images or Docker containers across environments and clouds, we don't want the secrets to live in this files because (1) we don't want secret values written in plaintext in a the image file and (2) when launched those images/containers will need different secrets based on where they are launched.  This is why instead we work to get the secrets into an accessible location and then have the running app pull them when it needs them.
+
+#### How secrets get written to the Parameter Store
+
+When secrets are written to the Parameter Store, their nested structure is combined with a caller-specified namespace prefix to form the Parameter Store key.  E.g. for the following specification:
+
+```ruby
+a:
+  b:
+    c: "my value"
+```
+
+And a namespace of `qa/search/api`, the following is written to the Parameter Store:
+
+```
+Key:   /qa/search/api/a/b/c
+Value: my value
+```
+
+When using the secrets DSL, the namespace is `env_name/deployment_name/stack_name`.
+
+#### Kinds of secrets
+
+In the specification, secrets can have literal values, e.g. `"some static string"`.  But the real power of secrets is that their values can be substituted, generated, or pulled in via reference:
+
+##### Literal secrets
+
+Specification:
+
+```ruby
+some_boring_secret: "this string never changes"
+```
+
+Result in Parameter Store:
+
+```
+Key:   /env_name/more_namespace/some_boring_secret
+Value: this string never changes
+```
+
+##### Substituted secrets
+
+Specification:
+
+```ruby
+a_substitution_secret: "this string's ending changes {{ ending }}"
+```
+
+Substitutions:
+
+```ruby
+ending: "oh yeah it does"
+```
+
+Result in Parameter Store:
+
+```
+Key:   /env_name/more_namespace/a_substitution_secret
+Value: this string's ending changes oh yeah it does
+```
+
+##### Computed secrets
+
+Computed secrets are good for generating random strings.
+
+Specification:
+
+```ruby
+my_secret_key: random(hex, 8)
+```
+
+Result in Parameter Store:
+
+```
+Key:   /env_name/more_namespace/my_secret_key
+Value: 019af8dc
+```
+
+Instead of `random(hex, number_of_hex_characters])` you can use `uuid` to get a UUID.  Note that generated secrets are
+only updated during a stack update if their specification changes (that way things like randomly generated secret keys
+don't change on each deployment unless how the value is computed changes).
+
+##### Referential secrets
+
+Referential secrets let you say that a secret should take the value of another parameter in the parameter store.  They
+are good for defining static secret keys in the parameter store that are shared across many deployments, e.g.
+some fixed OAuth keys or a common logging endpoint.
+
+Assume that the parameter store has the following value:
+
+```
+Key:   /external/graylog/secret
+Value: cf9bb194b53d76a557c8
+```
+
+Then in your specification:
+
+```ruby
+my_graylog_secret: ssm(graylog_secret)
+```
+
+Substitutions:
+
+```ruby
+graylog_secret: "/external/graylog/secret"
+```
+
+Result in Parameter Store:
+
+```
+Key:   /env_name/more_namespace/my_graylog_secret
+Value: cf9bb194b53d76a557c8
+```
+
+We lookup the value inside `ssm(...)` using substitutions so that different environments can point to different
+values in the Parameter Store, which is useful if you have say two secret values, one for development and one
+for production deployments.
+
+#### Secrets DSL
+
+While you can instantiate secrets and specifications objects directly, it is easiest to use the DSL.  The DSL lets you define secrets on a per-stack basis:
+
+```ruby
+stack :api do
+  ...
+  secrets do |parameters|
+    namespace "my-app/api"
+    specification do
+      org_slash_repo { "my-org/my-repo" }
+      path { "config/secrets.yml.example" }
+      sha { parameters.sha }
+      format { :yml }
+      top_key { :production }
+    end
+    substitutions do
+      domain { domain }
+      env_name { env_name }
+      elasticsearch_endpoint { elasticsearch_stack.output_value(key: "endpoint")}
+    end
+  end
+  ...
+end
+```
+
+Specification and substitution blocks are executed in the context of the containing deployment.  If you have the `secrets` block take a `parameters` argument, that will give you access to the stack's parameters, which is useful for getting the SHA being deployed for the stack (so you can get the secrets specification to match the deployment).
+
+You can call the `secrets` DSL multiple times within the `stack` declaration.  You may also call `specification` multiple times within the `secrets` call.  Later declarations can override earlier ones.
+
+When stacks are updated, only the secrets that change are updated.
+
+Sometimes multiple stacks share the same substitutions.  Instead of repeating those substitutions, you can define them once in your deployment class:
+
+```ruby
+class MyDeployment < OpenStax::Aws::DeploymentBase
+  ...
+  secrets_substititutions do
+    domain { my_domain }
+  end
+  ...
+
+  def my_domain
+    "#{env_name}.example.com"
+  end
+end
+```
+
+Substitutions defined in this way will be overridden by any substitutions defined directly in the stack.
+
+When you create, update, or delete a stack that uses the secrets DSL, the secrets are automatically created, updated, or deleted before the stack resources are modified.
+
+#### Loading secrets from the Parameter Store
+
+When your instance or container launches, you'll want it to access its secrets in the Parameter Store so it can use them however is needed
+in your application.
+
+The key structure of each Parameter Store value helps you in two ways:
+
+(1) You can limit your application's ability to read values in the parameter store by the namespace of each value, e.g. if you want
+to limit the QA search deployment to access only the QA search secrets, you could use a CloudFormation template IAM policy such as:
+
+```
+- PolicyName: !Sub '${EnvName}-read-parameters'
+  PolicyDocument:
+    Version: '2012-10-17'
+    Statement:
+      - Effect: Allow
+        Action:
+          - ssm:DescribeParameters
+        Resource: '*'
+      - Effect: Allow
+        Action:
+          - ssm:GetParametersByPath
+          - ssm:GetParameters
+        Resource: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${EnvName}/search'
+```
+
+(2) That the nesting of the keys from the secrets specification is preserved in the Parameter Store key lets you recover it when accessing your secrets.  E.g. here's how one of our apps uses the AWS Ruby SDK to take the secrets in the Parameter Store and writes them to the app's nested `config/secrets.yml` file:
+
+```ruby
+client = Aws::SSM::Client.new(region: region)
+client.get_parameters_by_path({path: "/#{env_name}/#{namespace}/",
+                               recursive: true,
+                               with_decryption: true}).each do |response|
+  response.parameters.each do |parameter|
+    # break out the flattened keys and ignore the env name and namespace
+    keys = parameter.name.split('/').reject(&:blank?)[2..-1]
+    deep_populate(secrets, keys, parameter.value)
+  end
+end
+
+File.open(File.expand_path("config/secrets.yml"), "w") do |file|
+  # write the secrets hash as yaml, getting rid of the "---\n" at the front
+  file.write({'production' => secrets}.to_yaml[4..-1])
+end
+
+def deep_populate(hash, keys, value)
+  if keys.length == 1
+    hash[keys[0]] = value
+  else
+    hash[keys[0]] ||= {}
+    deep_populate(hash[keys[0]], keys[1..-1], value)
+  end
+end
+```
+
+#### Forcing servers to cycle when their secrets change
+
+When an app's secrets change, we want their new values to be used by the app.  But our apps typically get their secrets when they launch, and launches happen when CloudFormation sees a change in the template that requires an update (e.g. a new AMI is specified).  When we make changes to the values in the Parameter Store, CloudFormation doesn't see them and therefore does not trigger an update of our servers.
+
+This gem provides a mechanism for changes in secrets to trigger an update of the servers that use them.  When a stack update is called and the secrets defined within the stack (via the DSL) change, the gem will set a random value in a user-defined stack parameter.  If that stack parameter is then included in an ASG's launch configuration, CloudFormation will detect a change in that launch configuration and trigger a server update.
+
+Here's a snippet of a template that will accept and use this special parameter:
+
+```yaml
+AWSTemplateFormatVersion: '2010-09-09'
+
+Parameters:
+
+  ...
+
+  CycleIfDifferent:
+    Description: A special parameter that will be set to a random value when this stack's secrets change
+    Type: String
+    Default: ''
+
+Resources:
+
+  ...
+
+  Lc:
+    Type: AWS::AutoScaling::LaunchConfiguration
+    Properties:
+      ImageId: !Ref 'WebServerImageId'
+      InstanceType: t2.micro
+      UserData:
+        Fn::Base64:
+          !Sub |
+            #!/bin/bash -x
+
+            # ${CycleIfDifferent} <-- this gets randomized when secrets change, which forces server updates
+            ...
+
+  Asg:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      LaunchConfigurationName: !Ref 'Lc'
+      ...
+```
+
+`CycleIfDifferent` is the default name of this special stack parameter.  This default can be overridden in the gem configuration via
+
+```ruby
+OpenStax::Aws.configuration.default_cycle_if_different_parameter = "MyPreferredParameter"
+```
+
+or it can be set within the `stack` declaration:
+
+```ruby
+stack :api do
+  ...
+  cycle_if_different_parameter "MyPreferredParameter"
+  ..
+```
+
 ### Dry runs
 
 You'll have noticed above that deployment and `Stack` objects are instantiated with a `dry_run` parameter

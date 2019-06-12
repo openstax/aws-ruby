@@ -1,6 +1,6 @@
 module OpenStax::Aws
   class StackFactory
-    attr_reader :attributes
+    attr_reader :attributes, :id
 
     def initialize(id:, deployment:)
       raise "`deployment` cannot be nil" if deployment.nil?
@@ -71,9 +71,17 @@ module OpenStax::Aws
       attributes[:volatile_parameters_block] = block
     end
 
+    def secrets(&block)
+      attributes[:secrets_blocks] ||= []
+      attributes[:secrets_blocks].push(block)
+    end
+
+    def cycle_if_different_parameter(name=nil, &block)
+      attributes[:cycle_if_different_parameter] = block.present? ? block.call : name
+    end
+
     def build
       autoset_absolute_template_path(nil) if absolute_template_path.blank?
-
       Stack.new(
         id: id,
         name: attributes[:name],
@@ -83,6 +91,11 @@ module OpenStax::Aws
         capabilities: attributes[:capabilities],
         parameter_defaults: attributes[:parameter_defaults],
         volatile_parameters_block: attributes[:volatile_parameters_block],
+        secrets_blocks: attributes[:secrets_blocks],
+        secrets_context: @deployment,
+        secrets_namespace: [@deployment.env_name, @deployment.name],
+        shared_secrets_substitutions_block: @deployment.shared_secrets_substitutions_block,
+        cycle_if_different_parameter: attributes[:cycle_if_different_parameter],
         dry_run: attributes[:dry_run]
       )
     end

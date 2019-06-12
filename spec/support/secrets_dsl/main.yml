@@ -1,0 +1,31 @@
+Description: >
+  Secrets DSL spec
+
+Parameters:
+
+  BucketName:
+    Type: String
+
+  SomeSha:
+    Type: String
+
+  CycleIfDifferent:
+    Type: String
+    Default: ''
+
+Resources:
+
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref 'BucketName'
+      Tags:
+      - Key: MakeThereBeAChangeForCycleIfDifferent
+        Value: !Ref 'CycleIfDifferent'
+
+Outputs:
+
+  BucketArn:
+    Value: !GetAtt 'S3Bucket.Arn'
+    Export:
+      Name: !Sub '${AWS::StackName}-BucketArn'

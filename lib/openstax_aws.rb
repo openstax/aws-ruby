@@ -41,6 +41,7 @@ module OpenStax
       attr_accessor :infer_parameter_defaults
       attr_accessor :production_env_name
       attr_accessor :fixed_s3_template_folder
+      attr_accessor :default_cycle_if_different_parameter
 
       def initialize
         @stack_waiter_delay = 30
@@ -48,6 +49,7 @@ module OpenStax
         @infer_stack_capabilities = true
         @infer_parameter_defaults = true
         @production_env_name = "production"
+        @default_cycle_if_different_parameter = "CycleIfDifferent"
       end
 
       def cfn_template_bucket_name
@@ -83,8 +85,11 @@ require "openstax/aws/git_helper"
 require "openstax/aws/template"
 require "openstax/aws/distribution"
 require "openstax/aws/change_set"
+require "openstax/aws/stack_parameters"
+require "openstax/aws/secrets_set"
 require "openstax/aws/secrets_specification"
 require "openstax/aws/secrets"
+require "openstax/aws/secrets_factory"
 require "openstax/aws/stack"
 require "openstax/aws/stack_factory"
 require "openstax/aws/deployment_base"

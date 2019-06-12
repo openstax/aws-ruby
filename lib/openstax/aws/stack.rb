@@ -3,12 +3,15 @@ module OpenStax::Aws
 
     attr_reader :name, :id, :absolute_template_path, :dry_run,
                 :enable_termination_protection, :region, :parameter_defaults,
-                :volatile_parameters_block
+                :volatile_parameters_block, :secrets_blocks
 
     def initialize(id: nil, name:, region:, enable_termination_protection: false,
                    absolute_template_path: nil,
                    capabilities: nil, parameter_defaults: {},
                    volatile_parameters_block: nil,
+                   secrets_blocks: [], secrets_context: nil, secrets_namespace: nil,
+                   shared_secrets_substitutions_block: nil,
+                   cycle_if_different_parameter: nil,
                    dry_run: true)
       @id = id
 
@@ -23,6 +26,16 @@ module OpenStax::Aws
       set_capabilities(capabilities)
       @parameter_defaults = parameter_defaults.dup.freeze
       @volatile_parameters_block = volatile_parameters_block
+
+      @secrets_blocks = [secrets_blocks].flatten.compact
+      @secrets_context = secrets_context
+      @secrets_namespace = secrets_namespace
+      @shared_secrets_substitutions_block = shared_secrets_substitutions_block
+
+      @cycle_if_different_parameter = (
+        cycle_if_different_parameter ||
+        OpenStax::Aws.configuration.default_cycle_if_different_parameter
+      ).underscore.to_sym
 
       @dry_run = dry_run
     end
@@ -42,6 +55,11 @@ module OpenStax::Aws
       logger.info("**** DRY RUN ****") if dry_run
 
       params = parameter_defaults.merge(params)
+
+      if defines_secrets?
+        logger.info("Creating #{name} stack secrets...")
+        secrets(parameters: params, for_create_or_update: true).create
+      end
 
       options = {
         stack_name: name,
@@ -104,6 +122,25 @@ module OpenStax::Aws
       end
     end
 
+    def secrets(parameters: {}, for_create_or_update: false)
+      SecretsSet.new(
+        secrets_blocks.map do |secrets_block|
+          secrets_factory = SecretsFactory.new(
+            region: region,
+            namespace: @secrets_namespace,
+            context: @secrets_context,
+            dry_run: dry_run,
+            for_create_or_update: for_create_or_update,
+            shared_substitutions_block: @shared_secrets_substitutions_block
+          )
+
+          secrets_factory.namespace(id)
+          secrets_factory.instance_exec parameters, &secrets_block
+          secrets_factory.instance
+        end
+      )
+    end
+
     def create_change_set(options)
       OpenStax::Aws::ChangeSet.new(client: client).create(options: options)
     end
@@ -114,6 +151,20 @@ module OpenStax::Aws
       logger.info("Updating #{name} stack...")
 
       params = parameters_for_update(overrides: params)
+
+      if defines_secrets?
+        logger.info("Updating #{name} stack secrets...")
+
+        secrets_changed = secrets(
+          parameters: StackParameters.new(params: params, stack: self),
+          for_create_or_update: true
+        ).update
+
+        if secrets_changed && template_parameter_keys.include?(@cycle_if_different_parameter)
+          logger.info("Secrets changed, setting stack parameter to trigger server cycling")
+          params[@cycle_if_different_parameter] = SecureRandom.hex(10)
+        end
+      end
 
       options = {
         stack_name: name,
@@ -150,6 +201,11 @@ module OpenStax::Aws
 
     def delete(wait: false)
       logger.info("**** DRY RUN ****") if dry_run
+
+      if defines_secrets?
+        logger.info("Deleting #{name} stack secrets...")
+        secrets.delete
+      end
 
       logger.info("Deleting #{name} stack...")
 
@@ -261,6 +317,10 @@ module OpenStax::Aws
 
     def deleting?
       "DELETE_IN_PROGRESS" == status
+    end
+
+    def defines_secrets?
+      !secrets_blocks.empty?
     end
 
     protected

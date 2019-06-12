@@ -99,6 +99,12 @@ module OpenStax::Aws
         end
       end
 
+      def secrets_substitutions(&block)
+        define_method("shared_secrets_substitutions_block") do
+          block
+        end
+      end
+
     end
 
     def built_in_parameter_default(parameter_name)
@@ -108,6 +114,10 @@ module OpenStax::Aws
       when /(.+)StackName$/
         send("#{$1}Stack".underscore).name rescue nil
       end
+    end
+
+    def shared_secrets_substitutions_block
+      nil # can be overridden by the DSL
     end
 
     protected
@@ -194,9 +204,8 @@ module OpenStax::Aws
       @secrets ||= {}
       @secrets[id] ||= OpenStax::Aws::Secrets.new(
         region: region,
-        env_name: env_name!,
         dry_run: dry_run,
-        namespace: secrets_namespace(id: id)
+        namespace: [env_name!, secrets_namespace(id: id)]
       )
     end
 
