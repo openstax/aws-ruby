@@ -5,9 +5,8 @@ RSpec.describe OpenStax::Aws::Secrets do
   let(:dry_run) { true }
   let(:instance) {
     described_class.new(region: 'region',
-                        env_name: 'env_name',
                         dry_run: dry_run,
-                        namespace: 'namespace')
+                        namespace: ['env_name', 'namespace'])
   }
 
   context "#build_secrets" do

@@ -72,7 +72,7 @@ RSpec.describe 'secrets DSL', vcr: VCR_OPTS do
   end
 
   def secrets
-    OpenStax::Aws::Secrets.new(env_name: env_name, namespace: namespace, region: region)
+    OpenStax::Aws::Secrets.new(namespace: [env_name, namespace], region: region)
   end
 
 end

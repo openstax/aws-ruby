@@ -4,13 +4,10 @@ module OpenStax::Aws
     # We store "secrets" in the AWS Parameter store.  Secrets can be truly secret
     # values (e.g. keys) or just some configuration values.
 
-    attr_reader :region, :env_name, :dry_run, :namespace
+    attr_reader :region, :dry_run, :namespace
 
-    # TODO remove use of env_name, just make people provide namespace
-
-    def initialize(region:, env_name: nil, dry_run: true, namespace:)
+    def initialize(region:, dry_run: true, namespace:)
       @region = region
-      @env_name = env_name
       @dry_run = dry_run
       @namespace = namespace
       @client = Aws::SSM::Client.new(region: region)
@@ -225,7 +222,7 @@ module OpenStax::Aws
     end
 
     def key_prefix
-      "/" + [env_name, namespace].flatten.reject(&:blank?).join("/")
+      "/" + [namespace].flatten.reject(&:blank?).join("/")
     end
 
     protected

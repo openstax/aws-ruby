@@ -204,9 +204,8 @@ module OpenStax::Aws
       @secrets ||= {}
       @secrets[id] ||= OpenStax::Aws::Secrets.new(
         region: region,
-        env_name: env_name!,
         dry_run: dry_run,
-        namespace: secrets_namespace(id: id)
+        namespace: [env_name!, secrets_namespace(id: id)]
       )
     end
 
