@@ -1,0 +1,212 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com/some/path/file.json
+    body:
+      encoding: UTF-8
+      string: '{"foo":{"bar":2,"howdy":"there"}}
+
+'
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-s3/1.37.0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - apIFQ5qx7JobeCt5HpjG5A==
+      Host:
+      - aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190623T193749Z
+      X-Amz-Content-Sha256:
+      - 7f391abfb4eb1d46bb0d3fe49515bf69834d2a060c0a91bc9e5290c92fbbc438
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190623/us-east-2/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=<SignatureValue>
+      Content-Length:
+      - '34'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - LCEpEcLlRtOLbv1HTAie6OrP/YqfGlJs8AxaziOvE6zCFuqnCgVzsBG+8AubJZBagAk2JoL22p0=
+      X-Amz-Request-Id:
+      - 6A177D6928FE641F
+      Date:
+      - Sun, 23 Jun 2019 19:37:50 GMT
+      Etag:
+      - '"6a9205439ab1ec9a1b782b791e98c6e4"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Sun, 23 Jun 2019 19:37:49 GMT
+- request:
+    method: head
+    uri: https://aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com/some/path/file.json
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-s3/1.37.0
+      Host:
+      - aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190623T193749Z
+      X-Amz-Content-Sha256:
+      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190623/us-east-2/s3/aws4_request,
+        SignedHeaders=host;user-agent;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '0'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - G3FBZYDj25ghLhImF6G6sKXdVS17Owin1N3BH7snO8gKCIVP0xX8+1OcEbGGVwW4ZXwnfINszEo=
+      X-Amz-Request-Id:
+      - C7E8107D41A7696E
+      Date:
+      - Sun, 23 Jun 2019 19:37:51 GMT
+      Last-Modified:
+      - Sun, 23 Jun 2019 19:37:50 GMT
+      Etag:
+      - '"6a9205439ab1ec9a1b782b791e98c6e4"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Sun, 23 Jun 2019 19:37:50 GMT
+- request:
+    method: get
+    uri: https://aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com/some/path/file.json
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-s3/1.37.0
+      Host:
+      - aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190623T193750Z
+      X-Amz-Content-Sha256:
+      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190623/us-east-2/s3/aws4_request,
+        SignedHeaders=host;user-agent;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '0'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - zAzVv3v/ow5eVoxxeAbYRyPRCMlLG9G9ECSBo32noJGPENaAQVxUOpaFgOctd66wkG3U/Yihuzc=
+      X-Amz-Request-Id:
+      - 0A792C91B89401C0
+      Date:
+      - Sun, 23 Jun 2019 19:37:51 GMT
+      Last-Modified:
+      - Sun, 23 Jun 2019 19:37:50 GMT
+      Etag:
+      - '"6a9205439ab1ec9a1b782b791e98c6e4"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '34'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: '{"foo":{"bar":2,"howdy":"there"}}
+
+'
+    http_version: 
+  recorded_at: Sun, 23 Jun 2019 19:37:50 GMT
+- request:
+    method: delete
+    uri: https://aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com/some/path/file.json
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-s3/1.37.0
+      Host:
+      - aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190623T193750Z
+      X-Amz-Content-Sha256:
+      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190623/us-east-2/s3/aws4_request,
+        SignedHeaders=host;user-agent;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '0'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 204
+      message: No Content
+    headers:
+      X-Amz-Id-2:
+      - m2trVuJwNwN5EhVJLeMu0Scuu3+eZkOMgLSCnRx9qBJ1Fi2ZgWRI3G/BDMWKjEETCUeToxad84M=
+      X-Amz-Request-Id:
+      - 1E48310CFB839FBD
+      Date:
+      - Sun, 23 Jun 2019 19:37:51 GMT
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Sun, 23 Jun 2019 19:37:51 GMT
+recorded_with: VCR 4.0.0

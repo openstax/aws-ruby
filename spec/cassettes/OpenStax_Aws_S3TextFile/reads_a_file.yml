@@ -1,0 +1,113 @@
+---
+http_interactions:
+- request:
+    method: head
+    uri: https://aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com/some/path/file.json
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-s3/1.37.0
+      Host:
+      - aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190623T193625Z
+      X-Amz-Content-Sha256:
+      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190623/us-east-2/s3/aws4_request,
+        SignedHeaders=host;user-agent;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '0'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - RN8bgDqm8hZr18tSzOR3L5Thjb3AvKd154u5nZsTqxgzfGQLnTO/kNAreGp0Z1H0VzG6ohlSYfw=
+      X-Amz-Request-Id:
+      - 991789F646D3B67D
+      Date:
+      - Sun, 23 Jun 2019 19:36:26 GMT
+      Last-Modified:
+      - Sun, 23 Jun 2019 19:36:26 GMT
+      Etag:
+      - '"6a9205439ab1ec9a1b782b791e98c6e4"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Sun, 23 Jun 2019 19:36:25 GMT
+- request:
+    method: get
+    uri: https://aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com/some/path/file.json
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-s3/1.37.0
+      Host:
+      - aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190623T193625Z
+      X-Amz-Content-Sha256:
+      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190623/us-east-2/s3/aws4_request,
+        SignedHeaders=host;user-agent;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '0'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - DKa+3HBUnB85/nmYudgCQ6uSyrwHTeZEoaI1ZvDVMKE2ZozICvSkjRV+d2bxUQi+U+EZmz1xyCM=
+      X-Amz-Request-Id:
+      - AF29DD97536382A2
+      Date:
+      - Sun, 23 Jun 2019 19:36:27 GMT
+      Last-Modified:
+      - Sun, 23 Jun 2019 19:36:26 GMT
+      Etag:
+      - '"6a9205439ab1ec9a1b782b791e98c6e4"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '34'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: '{"foo":{"bar":2,"howdy":"there"}}
+
+'
+    http_version: 
+  recorded_at: Sun, 23 Jun 2019 19:36:26 GMT
+recorded_with: VCR 4.0.0

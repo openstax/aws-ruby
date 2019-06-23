@@ -1,0 +1,164 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com/some/path/file.json
+    body:
+      encoding: UTF-8
+      string: something new
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-s3/1.37.0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - T4R4gkl/DyypMT+ZxyNpZw==
+      Host:
+      - aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190623T193832Z
+      X-Amz-Content-Sha256:
+      - 9a8019ae75edbd1716ea8fe8dfbe8f125baf2c6f1002f9eeccd7610697fbbbdc
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190623/us-east-2/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=<SignatureValue>
+      Content-Length:
+      - '13'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - nymYMnJI8lXB1Ql785INt5P7VTOMmbZxZZG0QY6mu/K2KUW+sG5CeScnKslSks7nHIge3TwF/e8=
+      X-Amz-Request-Id:
+      - 7A63ED9C591A2B01
+      Date:
+      - Sun, 23 Jun 2019 19:38:34 GMT
+      Etag:
+      - '"4f847882497f0f2ca9313f99c7236967"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Sun, 23 Jun 2019 19:38:33 GMT
+- request:
+    method: head
+    uri: https://aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com/some/path/file.json
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-s3/1.37.0
+      Host:
+      - aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190623T193833Z
+      X-Amz-Content-Sha256:
+      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190623/us-east-2/s3/aws4_request,
+        SignedHeaders=host;user-agent;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '0'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - d09A1FWV2x/lHdz7UcJGxA+OxRcmPVbEE3536Rh/3CDW00LCVVQ0M4dmYNu7b3SSzzy08mH4jXQ=
+      X-Amz-Request-Id:
+      - B78AF3F5726E9DDC
+      Date:
+      - Sun, 23 Jun 2019 19:38:34 GMT
+      Last-Modified:
+      - Sun, 23 Jun 2019 19:38:34 GMT
+      Etag:
+      - '"4f847882497f0f2ca9313f99c7236967"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Sun, 23 Jun 2019 19:38:33 GMT
+- request:
+    method: get
+    uri: https://aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com/some/path/file.json
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-s3/1.37.0
+      Host:
+      - aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190623T193833Z
+      X-Amz-Content-Sha256:
+      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190623/us-east-2/s3/aws4_request,
+        SignedHeaders=host;user-agent;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '0'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - "+ThlxHl/A9w988Lg1AR0O4uIQzdmZleup3ryh1M/RvQMTFOVmiNshYdBt40gGA6UX9c3Hrprofc="
+      X-Amz-Request-Id:
+      - 99F2991417899AEB
+      Date:
+      - Sun, 23 Jun 2019 19:38:35 GMT
+      Last-Modified:
+      - Sun, 23 Jun 2019 19:38:34 GMT
+      Etag:
+      - '"4f847882497f0f2ca9313f99c7236967"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '13'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: something new
+    http_version: 
+  recorded_at: Sun, 23 Jun 2019 19:38:34 GMT
+recorded_with: VCR 4.0.0

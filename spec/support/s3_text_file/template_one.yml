@@ -1,0 +1,21 @@
+Description: >
+  S3 Text File spec
+
+Parameters:
+
+  BucketName:
+    Type: String
+
+Resources:
+
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref 'BucketName'
+
+Outputs:
+
+  BucketArn:
+    Value: !GetAtt 'S3Bucket.Arn'
+    Export:
+      Name: !Sub '${AWS::StackName}-BucketArn'

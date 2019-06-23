@@ -750,6 +750,20 @@ end
 The `unless_waiting_for_termination` method checks for the terminating wait state just before and
 just after the block is yielded to.
 
+### S3TextFile
+
+`S3TextFile` is a helper class for writing, reading, and deleting text files on S3.
+
+```ruby
+s3_text_file = OpenStax::Aws::S3TextFile.new(bucket_name: "my-bucket", bucket_region: "us-east-2", key: "some/path/foo.txt")
+s3_text_file.write("Howdy")
+s3_text_file.read #=> "Howdy"
+s3_text_file.delete
+```
+
+Raises `Aws::S3::Errors::NotFound` when trying to `read` a file that does not exist.  Calling `delete` on a file that doesn't
+exist does not raise an error.
+
 ### Other deployment methods and utilities
 
 [ Work on this section ]

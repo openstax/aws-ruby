@@ -3,8 +3,6 @@ require 'vcr_helper'
 
 RSpec.describe OpenStax::Aws::AutoScalingInstance, vcr: VCR_OPTS do
 
-  REGION = 'us-east-2'
-
   # When this is true, the stack for testing already exists (useful for spinning up the stack)
   # and then not deleting it lets us rerun the specs over and over quickly.
   STACK_EXISTS = true
@@ -35,7 +33,7 @@ RSpec.describe OpenStax::Aws::AutoScalingInstance, vcr: VCR_OPTS do
       end
 
       # This stack gives us an ASG with an instance to test with
-      @stack = new_stack(name: "rspec-asi2", filename: "app.yml")
+      @stack = new_stack(name: "rspec-asi2", filename: "auto_scaling_instance/app.yml")
 
       do_not_record_or_playback do
         @stack.create(params: {unique_name: "rspec-asi", image_id: ubuntu_ami}, wait: true) unless STACK_EXISTS
@@ -156,18 +154,7 @@ RSpec.describe OpenStax::Aws::AutoScalingInstance, vcr: VCR_OPTS do
     described_class.new(
       group_name: asg.name,
       id: id,
-      region: REGION
-    )
-  end
-
-  def new_stack(name:, filename:, overrides: {})
-    OpenStax::Aws::Stack.new(
-      {
-        name: name,
-        region: REGION,
-        absolute_template_path: File.join(__dir__, "support/templates/auto_scaling_instance/#{filename}"),
-        dry_run: false,
-      }.merge(overrides)
+      region: SPEC_DEFAULT_REGION
     )
   end
 

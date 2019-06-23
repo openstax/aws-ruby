@@ -3,7 +3,7 @@ require 'vcr_helper'
 
 RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
 
-  let(:region) { "us-east-2" }
+  let(:region) { SPEC_DEFAULT_REGION }
 
   before(:each) {
     @logger = spy("logger")
@@ -13,6 +13,7 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
       config.cfn_template_bucket_region = "us-west-2"
       config.stack_waiter_delay = vcr_recording? ? 5 : 0
       config.logger = @logger
+      config.fixed_s3_template_folder = "spec-templates"
     end
   }
 
@@ -144,7 +145,7 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
   context "#parameters_for_update" do
     it "uses defaults, volatile, use_previous_value" do
       stack = new_stack(name: "spec-aws-ruby-stack-param-update",
-                        filename: "updating_parameters/orig.yml",
+                        filename: "templates/updating_parameters/orig.yml",
                         overrides: {
                           parameter_defaults: {
                             will_go_away: "value1",
@@ -158,7 +159,7 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
       stack.create(params: { sticks_around_no_default: "value3" }, wait: true)
 
       stack = new_stack(name: "spec-aws-ruby-stack-param-update",
-                        filename: "updating_parameters/mod.yml",
+                        filename: "templates/updating_parameters/mod.yml",
                         overrides: {
                           parameter_defaults: {
                             will_go_away: "value1",
@@ -217,24 +218,11 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
   end
 
   def new_template_one_stack(name:, overrides: {})
-    new_stack(name: name, filename: "template_one.yml", overrides: overrides)
+    new_stack(name: name, filename: "templates/template_one.yml", overrides: overrides)
   end
 
   def new_template_one_mod_stack(name:, overrides: {})
-    new_stack(name: name, filename: "template_one_mod.yml", overrides: overrides)
-  end
-
-  def new_stack(name:, filename:, overrides: {})
-    allow_any_instance_of(OpenStax::Aws::Template).to receive(:s3_folder) { "spec-templates" }
-
-    described_class.new(
-      {
-        name: name,
-        region: region,
-        absolute_template_path: File.join(__dir__, "support/templates/#{filename}"),
-        dry_run: false,
-      }.merge(overrides)
-    )
+    new_stack(name: name, filename: "templates/template_one_mod.yml", overrides: overrides)
   end
 
 end
