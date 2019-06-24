@@ -18,8 +18,11 @@ module OpenStax::Aws
       object.get.body.read
     end
 
-    def write(contents)
-      object.put(body: StringIO.new(contents))
+    def write(contents, content_type='text/plain')
+      object.put(
+        body: StringIO.new(contents),
+        content_type: content_type
+      )
     end
 
     def delete

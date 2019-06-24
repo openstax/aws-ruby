@@ -16,11 +16,11 @@ http_interactions:
       Host:
       - aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190623T193501Z
+      - 20190624T205615Z
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190623/us-east-2/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190624/us-east-2/s3/aws4_request,
         SignedHeaders=host;user-agent;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
       Content-Length:
       - '0'
@@ -32,18 +32,18 @@ http_interactions:
       message: No Content
     headers:
       X-Amz-Id-2:
-      - b/PSd4ci1DRzMra2gq3QcOSSIiaJNvjLhe+u8dfmiguegjkIlLzfec1ltkghYYvP9nbwYAa9enY=
+      - DMgLdx6Rh8jEC2gzu5mke/XWtvvR4528wETugtMnf1xD4NI4ByZLXevgenqPKBEzV3BU1HkUAtE=
       X-Amz-Request-Id:
-      - E84F90985B5D2583
+      - AE8028FB55F37D41
       Date:
-      - Sun, 23 Jun 2019 19:35:03 GMT
+      - Mon, 24 Jun 2019 20:56:16 GMT
       Server:
       - AmazonS3
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sun, 23 Jun 2019 19:35:02 GMT
+  recorded_at: Mon, 24 Jun 2019 20:56:15 GMT
 - request:
     method: get
     uri: https://aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com/some/path/file.json
@@ -60,11 +60,11 @@ http_interactions:
       Host:
       - aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190623T193502Z
+      - 20190624T205615Z
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190623/us-east-2/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190624/us-east-2/s3/aws4_request,
         SignedHeaders=host;user-agent;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
       Content-Length:
       - '0'
@@ -76,22 +76,22 @@ http_interactions:
       message: Not Found
     headers:
       X-Amz-Request-Id:
-      - '05104069B1E930E5'
+      - 7570CFA325BF1B68
       X-Amz-Id-2:
-      - GhO7HerwcVYJ/bztjTkG0GYX1+kR0GrcdSLRs5Fpv7oaF0rzbJM+mI5PQ9zXjMkYz9K1/SriL8M=
+      - 0FUAzKpbHCUjw75nXkj7rXFXo7npHKBeo4gtkydwHgygD1PJl3q03HQyHekZQlq4eyAIKR4r2LQ=
       Content-Type:
       - application/xml
       Transfer-Encoding:
       - chunked
       Date:
-      - Sun, 23 Jun 2019 19:35:02 GMT
+      - Mon, 24 Jun 2019 20:56:15 GMT
       Server:
       - AmazonS3
     body:
       encoding: UTF-8
       string: |-
         <?xml version="1.0" encoding="UTF-8"?>
-        <Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message><Key>some/path/file.json</Key><RequestId>05104069B1E930E5</RequestId><HostId>GhO7HerwcVYJ/bztjTkG0GYX1+kR0GrcdSLRs5Fpv7oaF0rzbJM+mI5PQ9zXjMkYz9K1/SriL8M=</HostId></Error>
+        <Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message><Key>some/path/file.json</Key><RequestId>7570CFA325BF1B68</RequestId><HostId>0FUAzKpbHCUjw75nXkj7rXFXo7npHKBeo4gtkydwHgygD1PJl3q03HQyHekZQlq4eyAIKR4r2LQ=</HostId></Error>
     http_version: 
-  recorded_at: Sun, 23 Jun 2019 19:35:02 GMT
+  recorded_at: Mon, 24 Jun 2019 20:56:15 GMT
 recorded_with: VCR 4.0.0
