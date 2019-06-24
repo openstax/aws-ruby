@@ -80,6 +80,7 @@ end
 
 require "openstax/aws/extensions"
 require "openstax/aws/version"
+require "openstax/aws/s3_text_file"
 require "openstax/aws/wait_message"
 require "openstax/aws/git_helper"
 require "openstax/aws/template"
