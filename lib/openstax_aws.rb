@@ -19,6 +19,16 @@ module OpenStax
       end
     end
 
+    def self.verify_template_bucket_access!
+      begin
+        ::Aws::S3::Client.new(region: configuration.cfn_template_bucket_region)
+                       .head_bucket(bucket: configuration.cfn_template_bucket_name)
+      rescue ::Aws::S3::Errors::Forbidden => ee
+        raise "The provided AWS credentials cannot access the template bucket. Please " \
+              "verify that you are using the correct credentials for the targeted AWS account."
+      end
+    end
+
     def self.configure
       yield configuration
     end
