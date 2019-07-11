@@ -22,7 +22,7 @@ http_interactions:
       Host:
       - aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190711T205800Z
+      - 20190711T211501Z
       X-Amz-Content-Sha256:
       - 9a8019ae75edbd1716ea8fe8dfbe8f125baf2c6f1002f9eeccd7610697fbbbdc
       Authorization:
@@ -39,11 +39,11 @@ http_interactions:
       message: OK
     headers:
       X-Amz-Id-2:
-      - ye6mKr2H7q3EVmET9aBv8p9vuGqrKxK4XsSN1NFbwfHVEsUWMhHMgYG6pjPAFG7KSZiZ+PviP+Q=
+      - RccDJ5LWx+ITDLC6dXdJoschZ1C7I4rkCFo9Mqy6SQlxaTokTlXzOBmIwfpfHj4KJw2wViWuO1Y=
       X-Amz-Request-Id:
-      - 88C4CE3AE9005E3F
+      - 3EC3D90E0564CC6B
       Date:
-      - Thu, 11 Jul 2019 20:58:01 GMT
+      - Thu, 11 Jul 2019 21:15:02 GMT
       Etag:
       - '"4f847882497f0f2ca9313f99c7236967"'
       Content-Length:
@@ -54,7 +54,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Thu, 11 Jul 2019 20:58:00 GMT
+  recorded_at: Thu, 11 Jul 2019 21:15:02 GMT
 - request:
     method: head
     uri: https://aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com/some/path/file.json
@@ -71,7 +71,7 @@ http_interactions:
       Host:
       - aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190711T205800Z
+      - 20190711T211502Z
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       Authorization:
@@ -87,13 +87,13 @@ http_interactions:
       message: OK
     headers:
       X-Amz-Id-2:
-      - 0Jj+nzpXYY2UptO3/+v8F2vY+r5pA8g392zHoqRp45148UhJOcKji10uc5WHzXGB+oYCnEzsKFw=
+      - EcEIAkMxw0i+9uikKh+3mdQ1MWxFugTo8UieGjgmGyrYdEDl0W1VKWBgo4SeUZkDOKRZcWoxczI=
       X-Amz-Request-Id:
-      - 68959B8A06E8C49F
+      - AE53917ECF6A7481
       Date:
-      - Thu, 11 Jul 2019 20:58:01 GMT
+      - Thu, 11 Jul 2019 21:15:03 GMT
       Last-Modified:
-      - Thu, 11 Jul 2019 20:58:01 GMT
+      - Thu, 11 Jul 2019 21:15:02 GMT
       Etag:
       - '"4f847882497f0f2ca9313f99c7236967"'
       Cache-Control:
@@ -110,7 +110,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Thu, 11 Jul 2019 20:58:01 GMT
+  recorded_at: Thu, 11 Jul 2019 21:15:02 GMT
 - request:
     method: get
     uri: https://aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com/some/path/file.json
@@ -127,7 +127,7 @@ http_interactions:
       Host:
       - aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190711T205801Z
+      - 20190711T211502Z
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       Authorization:
@@ -143,13 +143,13 @@ http_interactions:
       message: OK
     headers:
       X-Amz-Id-2:
-      - 2EoXQp2H36HKdQbudmCUY/yc86ft8T+cQYgyDDoKozGXhcg1npsDj64MEVpVHGmsYJ7lq3HvN18=
+      - s076bR+scAhCUZuRvKlgAEWtQ0wv0BP3I6j2BG6GnR9WKG11zFFeNk/mHYEBVbQiSXRw+PUtubw=
       X-Amz-Request-Id:
-      - F9693D8C26B20ECA
+      - 000BFA8862731880
       Date:
-      - Thu, 11 Jul 2019 20:58:02 GMT
+      - Thu, 11 Jul 2019 21:15:03 GMT
       Last-Modified:
-      - Thu, 11 Jul 2019 20:58:01 GMT
+      - Thu, 11 Jul 2019 21:15:02 GMT
       Etag:
       - '"4f847882497f0f2ca9313f99c7236967"'
       Cache-Control:
@@ -166,5 +166,5 @@ http_interactions:
       encoding: UTF-8
       string: something new
     http_version: 
-  recorded_at: Thu, 11 Jul 2019 20:58:01 GMT
+  recorded_at: Thu, 11 Jul 2019 21:15:02 GMT
 recorded_with: VCR 4.0.0
