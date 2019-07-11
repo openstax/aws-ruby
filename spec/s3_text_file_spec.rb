@@ -51,7 +51,7 @@ RSpec.describe OpenStax::Aws::S3TextFile, vcr: VCR_OPTS  do
   it 'writes a new file' do
     with_temp_bucket do
       instance = described_class.new(bucket_name: bucket_name, bucket_region: region, key: key)
-      instance.write(test_file_string)
+      instance.write(string_contents: test_file_string)
       expect(instance.read).to eq test_file_string
       instance.delete
     end
@@ -60,8 +60,16 @@ RSpec.describe OpenStax::Aws::S3TextFile, vcr: VCR_OPTS  do
   it 'overwrites a file' do
     with_temp_bucket(files: [{key: key, path: test_file_path}]) do
       instance = described_class.new(bucket_name: bucket_name, bucket_region: region, key: key)
-      instance.write("something new")
+      instance.write(string_contents: "something new")
       expect(instance.read).to eq "something new"
+    end
+  end
+
+  it 'sets the cache control header' do
+    with_temp_bucket(files: [{key: key, path: test_file_path}]) do
+      instance = described_class.new(bucket_name: bucket_name, bucket_region: region, key: key)
+      instance.write(string_contents: "something new", cache_control: "max-age=0")
+      expect(instance.get.cache_control).to eq "max-age=0"
     end
   end
 
