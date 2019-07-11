@@ -18,11 +18,20 @@ module OpenStax::Aws
       object.get.body.read
     end
 
-    def write(contents, content_type='text/plain')
-      object.put(
-        body: StringIO.new(contents),
-        content_type: content_type
-      )
+    def get
+      object.load
+      object.get
+    end
+
+    def write(string_contents:, content_type:'text/plain', cache_control: nil)
+      args = {
+        body: StringIO.new(string_contents)
+      }
+
+      args[:content_type] = content_type if !content_type.nil?
+      args[:cache_control] = cache_control if !cache_control.nil?
+
+      object.put(**args)
     end
 
     def delete

@@ -20,11 +20,11 @@ http_interactions:
       Host:
       - aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190624T205946Z
+      - 20190711T211423Z
       X-Amz-Content-Sha256:
       - 9a8019ae75edbd1716ea8fe8dfbe8f125baf2c6f1002f9eeccd7610697fbbbdc
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190624/us-east-2/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190711/us-east-2/s3/aws4_request,
         SignedHeaders=content-md5;content-type;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
         Signature=<SignatureValue>
       Content-Length:
@@ -37,11 +37,11 @@ http_interactions:
       message: OK
     headers:
       X-Amz-Id-2:
-      - 2VUsGShpE/xJd5tp5hEyNvu1K5F7IeWOSN11mA63mgkbbHVQyee2SVIUkGYBXBB7Yk6bO6hQP7g=
+      - cUxzLWwUT+3NmF0aGIe0wfqXArvwL1FMA5Raqy+yaWH0wp+U54PnhOH7A/HzqPtB06DvXfNetzA=
       X-Amz-Request-Id:
-      - 9024085778CCF048
+      - 7AD92B7F23710817
       Date:
-      - Mon, 24 Jun 2019 20:59:47 GMT
+      - Thu, 11 Jul 2019 21:14:24 GMT
       Etag:
       - '"4f847882497f0f2ca9313f99c7236967"'
       Content-Length:
@@ -52,7 +52,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Mon, 24 Jun 2019 20:59:46 GMT
+  recorded_at: Thu, 11 Jul 2019 21:14:23 GMT
 - request:
     method: head
     uri: https://aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com/some/path/file.json
@@ -69,11 +69,11 @@ http_interactions:
       Host:
       - aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190624T205946Z
+      - 20190711T211423Z
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190624/us-east-2/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190711/us-east-2/s3/aws4_request,
         SignedHeaders=host;user-agent;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
       Content-Length:
       - '0'
@@ -85,13 +85,13 @@ http_interactions:
       message: OK
     headers:
       X-Amz-Id-2:
-      - UaMlMUtzESlxTJ6xBT7397nEwCpjREoKiM58T5H1biRPbNBl+6DsgP5+YY9Ktr+Yzdt8upOnqIk=
+      - q8/44xj86oOQ8qmme3Ww2wXDR5kIngoOuPaXG6UDV861eG2VTU4BbY/8AsbjlZSUbI9yNj/xfos=
       X-Amz-Request-Id:
-      - 4E776F800DA026D8
+      - F0C0D7607FAFF0A0
       Date:
-      - Mon, 24 Jun 2019 20:59:47 GMT
+      - Thu, 11 Jul 2019 21:14:24 GMT
       Last-Modified:
-      - Mon, 24 Jun 2019 20:59:47 GMT
+      - Thu, 11 Jul 2019 21:14:24 GMT
       Etag:
       - '"4f847882497f0f2ca9313f99c7236967"'
       Accept-Ranges:
@@ -106,7 +106,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Mon, 24 Jun 2019 20:59:47 GMT
+  recorded_at: Thu, 11 Jul 2019 21:14:23 GMT
 - request:
     method: get
     uri: https://aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com/some/path/file.json
@@ -123,11 +123,11 @@ http_interactions:
       Host:
       - aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190624T205947Z
+      - 20190711T211423Z
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190624/us-east-2/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190711/us-east-2/s3/aws4_request,
         SignedHeaders=host;user-agent;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
       Content-Length:
       - '0'
@@ -139,13 +139,13 @@ http_interactions:
       message: OK
     headers:
       X-Amz-Id-2:
-      - YXja4Ub3jnrT+brPqaRoxDJiwrwke+XsGwoNasmumrG4aYFS4/GdfxXDNTrC/D1PHgBhI8M9HAc=
+      - C4P7yt+ExYl/WPEGAfYfii/EihQZv+k+VJ4299CovrkRij2zc4/Z9L3qBhi2+bMrfkLedQ/i/VY=
       X-Amz-Request-Id:
-      - 5DD4DE9ECFE730E5
+      - 30943B216F1F3D94
       Date:
-      - Mon, 24 Jun 2019 20:59:48 GMT
+      - Thu, 11 Jul 2019 21:14:25 GMT
       Last-Modified:
-      - Mon, 24 Jun 2019 20:59:47 GMT
+      - Thu, 11 Jul 2019 21:14:24 GMT
       Etag:
       - '"4f847882497f0f2ca9313f99c7236967"'
       Accept-Ranges:
@@ -160,5 +160,5 @@ http_interactions:
       encoding: UTF-8
       string: something new
     http_version: 
-  recorded_at: Mon, 24 Jun 2019 20:59:47 GMT
+  recorded_at: Thu, 11 Jul 2019 21:14:24 GMT
 recorded_with: VCR 4.0.0

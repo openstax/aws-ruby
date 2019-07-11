@@ -756,13 +756,19 @@ just after the block is yielded to.
 
 ```ruby
 s3_text_file = OpenStax::Aws::S3TextFile.new(bucket_name: "my-bucket", bucket_region: "us-east-2", key: "some/path/foo.txt")
-s3_text_file.write("Howdy")
+s3_text_file.write(string_contents: "Howdy")
 s3_text_file.read #=> "Howdy"
 s3_text_file.delete
 ```
 
 Raises `Aws::S3::Errors::NotFound` when trying to `read` a file that does not exist.  Calling `delete` on a file that doesn't
 exist does not raise an error.
+
+You can also set the content type and cache control headers, e.g.:
+
+```ruby
+s3_text_file.write(string_contents: "...", content_type: "application/json", cache_control: "max-age=0")
+```
 
 ### Other deployment methods and utilities
 

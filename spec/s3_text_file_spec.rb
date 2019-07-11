@@ -19,9 +19,10 @@ RSpec.describe OpenStax::Aws::S3TextFile, vcr: VCR_OPTS  do
   let(:test_file_path) { File.join(__dir__, "support/s3_text_file/test.json") }
   let(:test_file_string) { File.read(test_file_path) }
 
+  let(:instance) { described_class.new(bucket_name: bucket_name, bucket_region: region, key: key) }
+
   it 'deletes a file' do
     with_temp_bucket(files: [{key: key, path: test_file_path}]) do
-      instance = described_class.new(bucket_name: bucket_name, bucket_region: region, key: key)
       instance.delete
       expect(file_exists?(key)).to eq false
     end
@@ -29,29 +30,25 @@ RSpec.describe OpenStax::Aws::S3TextFile, vcr: VCR_OPTS  do
 
   it 'does not raise for deleting a non-existent file' do
     with_temp_bucket do
-      instance = described_class.new(bucket_name: bucket_name, bucket_region: region, key: key)
       expect{instance.delete}.not_to raise_error
     end
   end
 
   it 'reads a file' do
     with_temp_bucket(files: [{key: key, path: test_file_path}]) do
-      instance = described_class.new(bucket_name: bucket_name, bucket_region: region, key: key)
       expect(instance.read).to eq test_file_string
     end
   end
 
   it 'raises for reading a non-existent file' do
     with_temp_bucket do
-      instance = described_class.new(bucket_name: bucket_name, bucket_region: region, key: key)
       expect{instance.read}.to raise_error(Aws::S3::Errors::NotFound)
     end
   end
 
   it 'writes a new file' do
     with_temp_bucket do
-      instance = described_class.new(bucket_name: bucket_name, bucket_region: region, key: key)
-      instance.write(test_file_string)
+      instance.write(string_contents: test_file_string)
       expect(instance.read).to eq test_file_string
       instance.delete
     end
@@ -59,9 +56,15 @@ RSpec.describe OpenStax::Aws::S3TextFile, vcr: VCR_OPTS  do
 
   it 'overwrites a file' do
     with_temp_bucket(files: [{key: key, path: test_file_path}]) do
-      instance = described_class.new(bucket_name: bucket_name, bucket_region: region, key: key)
-      instance.write("something new")
+      instance.write(string_contents: "something new")
       expect(instance.read).to eq "something new"
+    end
+  end
+
+  it 'sets the cache control header' do
+    with_temp_bucket(files: [{key: key, path: test_file_path}]) do
+      instance.write(string_contents: "something new", cache_control: "max-age=0")
+      expect(instance.get.cache_control).to eq "max-age=0"
     end
   end
 

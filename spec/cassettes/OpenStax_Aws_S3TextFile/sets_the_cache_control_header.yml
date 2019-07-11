@@ -1,6 +1,61 @@
 ---
 http_interactions:
 - request:
+    method: put
+    uri: https://aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com/some/path/file.json
+    body:
+      encoding: UTF-8
+      string: something new
+    headers:
+      Content-Type:
+      - text/plain
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-s3/1.37.0
+      Cache-Control:
+      - max-age=0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - T4R4gkl/DyypMT+ZxyNpZw==
+      Host:
+      - aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20190711T211501Z
+      X-Amz-Content-Sha256:
+      - 9a8019ae75edbd1716ea8fe8dfbe8f125baf2c6f1002f9eeccd7610697fbbbdc
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190711/us-east-2/s3/aws4_request,
+        SignedHeaders=cache-control;content-md5;content-type;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=<SignatureValue>
+      Content-Length:
+      - '13'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - RccDJ5LWx+ITDLC6dXdJoschZ1C7I4rkCFo9Mqy6SQlxaTokTlXzOBmIwfpfHj4KJw2wViWuO1Y=
+      X-Amz-Request-Id:
+      - 3EC3D90E0564CC6B
+      Date:
+      - Thu, 11 Jul 2019 21:15:02 GMT
+      Etag:
+      - '"4f847882497f0f2ca9313f99c7236967"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 11 Jul 2019 21:15:02 GMT
+- request:
     method: head
     uri: https://aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com/some/path/file.json
     body:
@@ -16,7 +71,7 @@ http_interactions:
       Host:
       - aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190711T211231Z
+      - 20190711T211502Z
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       Authorization:
@@ -32,19 +87,21 @@ http_interactions:
       message: OK
     headers:
       X-Amz-Id-2:
-      - hDDORBGPLi6FvRcIkiC1q6ZJMp6RpKsoeO/gFfi4USQioHoA784s4mv99zDzvLwmMPgiME+80aE=
+      - EcEIAkMxw0i+9uikKh+3mdQ1MWxFugTo8UieGjgmGyrYdEDl0W1VKWBgo4SeUZkDOKRZcWoxczI=
       X-Amz-Request-Id:
-      - 644AD76743360E8A
+      - AE53917ECF6A7481
       Date:
-      - Thu, 11 Jul 2019 21:12:32 GMT
+      - Thu, 11 Jul 2019 21:15:03 GMT
       Last-Modified:
-      - Thu, 11 Jul 2019 21:12:32 GMT
+      - Thu, 11 Jul 2019 21:15:02 GMT
       Etag:
-      - '"6a9205439ab1ec9a1b782b791e98c6e4"'
+      - '"4f847882497f0f2ca9313f99c7236967"'
+      Cache-Control:
+      - max-age=0
       Accept-Ranges:
       - bytes
       Content-Type:
-      - ''
+      - text/plain
       Content-Length:
       - '0'
       Server:
@@ -53,7 +110,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Thu, 11 Jul 2019 21:12:31 GMT
+  recorded_at: Thu, 11 Jul 2019 21:15:02 GMT
 - request:
     method: get
     uri: https://aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com/some/path/file.json
@@ -70,7 +127,7 @@ http_interactions:
       Host:
       - aws-ruby-rspec-s3-text-file.s3.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190711T211231Z
+      - 20190711T211502Z
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       Authorization:
@@ -86,28 +143,28 @@ http_interactions:
       message: OK
     headers:
       X-Amz-Id-2:
-      - 4HZoMP9VuaNWW6f7BJDR/R0Hsa3KFXYLvLZ/OSazcLcS7urgmt9lH/92LWX4E917AqdjVB5PtZU=
+      - s076bR+scAhCUZuRvKlgAEWtQ0wv0BP3I6j2BG6GnR9WKG11zFFeNk/mHYEBVbQiSXRw+PUtubw=
       X-Amz-Request-Id:
-      - 9E99F8E6C3921FE3
+      - 000BFA8862731880
       Date:
-      - Thu, 11 Jul 2019 21:12:32 GMT
+      - Thu, 11 Jul 2019 21:15:03 GMT
       Last-Modified:
-      - Thu, 11 Jul 2019 21:12:32 GMT
+      - Thu, 11 Jul 2019 21:15:02 GMT
       Etag:
-      - '"6a9205439ab1ec9a1b782b791e98c6e4"'
+      - '"4f847882497f0f2ca9313f99c7236967"'
+      Cache-Control:
+      - max-age=0
       Accept-Ranges:
       - bytes
       Content-Type:
-      - ''
+      - text/plain
       Content-Length:
-      - '34'
+      - '13'
       Server:
       - AmazonS3
     body:
       encoding: UTF-8
-      string: '{"foo":{"bar":2,"howdy":"there"}}
-
-'
+      string: something new
     http_version: 
-  recorded_at: Thu, 11 Jul 2019 21:12:32 GMT
+  recorded_at: Thu, 11 Jul 2019 21:15:02 GMT
 recorded_with: VCR 4.0.0
