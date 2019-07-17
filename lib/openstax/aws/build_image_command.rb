@@ -5,12 +5,7 @@ module OpenStax::Aws
 
     def initialize(ami_name_base:, region:, verbose: false, very_verbose: false, debug: false,
                    github_org: "openstax", repo:, branch: nil, sha: nil,
-                   packer_absolute_file_path: , playbook_absolute_file_path:)
-
-      @logger = OpenStax::Aws.configuration.logger
-      @verbose = verbose
-      @very_verbose = very_verbose
-
+                   packer_absolute_file_path: , playbook_absolute_file_path:, dry_run: true)
       if sha.nil?
         branch ||= 'master'
 
@@ -22,40 +17,27 @@ module OpenStax::Aws
 
       ami_name = "#{ami_name_base}@#{sha[0..6]} #{Time.now.utc.strftime("%y%m%d%H%MZ")}"
 
-      @cmd = "packer build --only=amazon-ebs"
+      @packer = PackerFactory.new_packer(absolute_file_path: packer_absolute_file_path,
+                                         dry_run: dry_run)
 
-      @cmd = "#{@cmd} --var 'region=#{region}'"
-      @cmd = "#{@cmd} --var 'ami_name=#{ami_name}'"
-      @cmd = "#{@cmd} --var 'sha=#{sha}'"
-      @cmd = "#{@cmd} --var 'playbook_file=#{playbook_absolute_file_path}'"
+      @packer.only("amazon-ebs")
 
-      @cmd = "PACKER_LOG=1 #{@cmd}" if verbose || very_verbose
-      @cmd = "#{@cmd} --debug" if debug
+      @packer.var("region", region)
+      @packer.var("ami_name", ami_name)
+      @packer.var("sha", sha)
+      @packer.var("playbook_file", playbook_absolute_file_path)
 
-      @cmd = "#{@cmd} #{packer_absolute_file_path}"
+      @packer.verbose! if verbose
+      @packer.very_verbose! if very_verbose
+      @packer.debug! if debug
     end
 
-    def run(dry_run: true)
-      @logger.info("**** DRY RUN ****") if dry_run
-      @logger.info("Running: #{@cmd}")
-
-      if !dry_run
-        if @verbose && !@very_verbose
-          @logger.info("Just printing stderr for desired verbosity")
-
-          Open3.popen2e(@cmd) do |stdin, stdout_err, wait_thr|
-            while line=stdout_err.gets do
-              puts(line) if line =~ / ui\: /
-            end
-          end
-        else
-          `#{@cmd}`
-        end
-      end
+    def run
+      @packer.run
     end
 
     def to_s
-      @cmd
+      @packer.to_s
     end
 
   end
