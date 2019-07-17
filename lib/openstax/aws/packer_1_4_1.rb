@@ -1,3 +1,5 @@
+require 'open3'
+
 module OpenStax::Aws
   class Packer_1_4_1
 
