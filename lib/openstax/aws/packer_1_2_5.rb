@@ -3,8 +3,8 @@ require 'open3'
 module OpenStax::Aws
   class Packer_1_2_5
 
-    def initialize(logger:, absolute_file_path:, dry_run: true)
-      @logger = logger
+    def initialize(absolute_file_path:, dry_run: true)
+      @logger = OpenStax::Aws.configuration.logger
       @only = []
       @vars = {}
       @dry_run = dry_run
