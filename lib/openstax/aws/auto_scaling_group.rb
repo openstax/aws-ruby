@@ -12,9 +12,12 @@ module OpenStax::Aws
     end
 
     def increase_desired_capacity(by:)
+      # take the smaller of max size or desired+by (or this call raises an exception)
+      increase_to = [raw_asg.max_size, raw_asg.desired_capacity + by].min
+
       raw_asg.set_desired_capacity(
         {
-          desired_capacity: raw_asg.desired_capacity() + by
+          desired_capacity: increase_to
         })
     end
 
