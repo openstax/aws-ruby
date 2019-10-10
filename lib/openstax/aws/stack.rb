@@ -297,7 +297,16 @@ module OpenStax::Aws
     end
 
     def status
-      aws_stack.stack_status
+      begin
+        aws_stack.stack_status
+      rescue Aws::CloudFormation::Errors::ValidationError => ee
+        case ee.message
+        when /Stack.*does not exist/
+          "DOES_NOT_EXIST"
+        else
+          raise
+        end
+      end
     end
 
     def updating?
@@ -317,6 +326,10 @@ module OpenStax::Aws
 
     def deleting?
       "DELETE_IN_PROGRESS" == status
+    end
+
+    def exists?
+      "DOES_NOT_EXIST" != status
     end
 
     def defines_secrets?
