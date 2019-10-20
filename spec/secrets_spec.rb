@@ -20,6 +20,7 @@ RSpec.describe OpenStax::Aws::Secrets, vcr: VCR_OPTS do
             site_info:
               flag1: "{{ flag1 }}"
               flag2: "{{ flag2 }}"
+              rand1: random(base64,7)
         CONTENT
       )
     }
@@ -36,6 +37,18 @@ RSpec.describe OpenStax::Aws::Secrets, vcr: VCR_OPTS do
           }
         )
       }.not_to raise_error
+    end
+
+    it 'generates base64 random values' do
+      built_secrets = instance.build_secrets(substitutions: {}, specifications:
+        OpenStax::Aws::SecretsSpecification.from_content(
+          format: :yml,
+          content: <<~CONTENT
+            rand: random(base64,7)
+          CONTENT
+        )
+      )
+      expect(built_secrets[0][:value]).to match(/[a-zA-Z0-9_-]{7}/)
     end
   end
 
@@ -61,6 +74,30 @@ RSpec.describe OpenStax::Aws::Secrets, vcr: VCR_OPTS do
       existing_secrets = {foo: {value: "bar", description: "Generated with something"}}
       new_secret = {name: "foo", value: "new", description: "Generated with something else"}
       expect(described_class.changed_secrets(existing_secrets, [new_secret])).to contain_exactly(new_secret)
+    end
+  end
+
+  context "#update" do
+    before(:each) do
+      allow(instance).to receive(:data!) { {
+        "foo" => OpenStax::Aws::Secrets::ReadOnlyParameter.new(nil, OpenStruct.new(type: "String", value: "bar"))
+      } }
+    end
+
+    it "says an unchanged secret is changed if it is forced to" do
+      expect(OpenStax::Aws.logger).to receive(:info).with(/DRY RUN/)
+      expect(OpenStax::Aws.logger).to receive(:info).with(/Updating the following.*foo/)
+
+      instance.update(
+        specifications: OpenStax::Aws::SecretsSpecification.from_content(
+          format: :yml,
+          top_key: :production,
+          content: <<~CONTENT
+            production:
+              foo: bar
+          CONTENT
+        ),
+        force_update_these: [/foo/])
     end
   end
 

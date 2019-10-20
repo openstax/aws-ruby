@@ -43,6 +43,63 @@ RSpec.describe OpenStax::Aws::DeploymentBase do
     end
   end
 
+  context "#secrets" do
+
+    it "can define deployment-wide secrets" do
+      deployment_class = Class.new(described_class) do
+        template_directory __dir__, 'support/templates/factory_test'
+
+        secrets :common do
+          specification do
+            content do
+              { foo: "blah" }
+            end
+          end
+        end
+      end
+
+      instance = deployment_class.new(name: "spec", env_name: "dev", region: "deployment-region", dry_run: false)
+      secrets = instance.common_secrets
+
+      expect(secrets).to be_a OpenStax::Aws::Secrets
+      expect(secrets.key_prefix).to eq "/dev/spec/common"
+    end
+
+    it "cannot define two secrets with the same name" do
+      expect{
+        Class.new(described_class) do
+          template_directory __dir__, 'support/templates/factory_test'
+
+          secrets :common
+          secrets :common
+        end
+      }.to raise_error(/secrets once/)
+    end
+
+    it "cannot define secrets with the same name as a stack" do
+      expect{
+        Class.new(described_class) do
+          template_directory __dir__, 'support/templates/factory_test'
+
+          stack :common
+          secrets :common
+        end
+      }.to raise_error(/stack with that ID/)
+    end
+
+    it "cannot define stack with the same name as a secrets" do
+      expect{
+        Class.new(described_class) do
+          template_directory __dir__, 'support/templates/factory_test'
+
+          secrets :common
+          stack :common
+        end
+      }.to raise_error(/secrets with that ID/)
+    end
+
+  end
+
   context "#stack" do
 
     it "sets a lot of default stack options" do
