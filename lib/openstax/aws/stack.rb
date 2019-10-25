@@ -209,7 +209,11 @@ module OpenStax::Aws
 
       logger.info("Deleting #{name} stack...")
 
-      client.delete_stack(stack_name: name) if !dry_run
+      if exists?
+        client.delete_stack(stack_name: name) if !dry_run
+      else
+        logger.info("Cannot delete #{name} stack as it does not exist")
+      end
 
       wait_for_deletion if wait
     end
