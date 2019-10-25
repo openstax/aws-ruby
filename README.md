@@ -383,7 +383,7 @@ OpenStax::Aws::SecretsSpecification.from_git(
 )
 ```
 
-Why not just write the secrets to the instances directly?  In a world where we are deploying Amazon Machine Images or Docker containers across environments and clouds, we don't want the secrets to live in this files because (1) we don't want secret values written in plaintext in a the image file and (2) when launched those images/containers will need different secrets based on where they are launched.  This is why instead we work to get the secrets into an accessible location and then have the running app pull them when it needs them.
+Why not just write the secrets to the instances directly?  In a world where we are deploying Amazon Machine Images or Docker containers across environments and clouds, we don't want the secrets to live in these files because (1) we don't want secret values written in plaintext in a the image file and (2) when launched those images/containers will need different secrets based on where they are launched.  This is why instead we work to get the secrets into an accessible location and then have the running app pull them when it needs them.
 
 #### How secrets get written to the Parameter Store
 
@@ -461,9 +461,7 @@ Key:   /env_name/more_namespace/my_secret_key
 Value: 019af8dc
 ```
 
-Instead of `random(hex, number_of_hex_characters])` you can use `uuid` to get a UUID.  Note that generated secrets are
-only updated during a stack update if their specification changes (that way things like randomly generated secret keys
-don't change on each deployment unless how the value is computed changes).
+Instead of `random(hex, number_of_hex_characters])` you can use `uuid` to get a UUID or `base64` to get a URL-safe base 64 string.  Note that generated secrets are only updated during a stack update if their specification changes (that way things like randomly generated secret keys don't change on each deployment unless how the value is computed changes).
 
 ##### Referential secrets
 
@@ -552,6 +550,48 @@ end
 Substitutions defined in this way will be overridden by any substitutions defined directly in the stack.
 
 When you create, update, or delete a stack that uses the secrets DSL, the secrets are automatically created, updated, or deleted before the stack resources are modified.
+
+Sometimes you might need to create secrets within a deployment but outside of any particular stack (e.g. to define a database password to be used by an RDS stack and API server stack).  You can use the secrets DSL at the deployment level just like you do at the stack level:
+
+```ruby
+class MyDeployment < OpenStax::Aws::DeploymentBase
+  secrets :common do
+    # same stuff here as for stack-level secrets
+  end
+end
+```
+
+These deployment-level secrets can then be accessed via `{ID}_secrets`, e.g. `common_secrets` in the example above.
+
+You can define multiple deployment-level secrets, but they must all have unique names compared to each other and to defined stacks, e.g. you cannot do:
+
+```ruby
+  secrets :foo
+  stack :foo
+```
+
+While stack-level secrets are created, updated, and deleted for you when you perform those actions on the stacks that contain them, deployment-level secrets must created, updated, and deleted explicitly.  E.g. you may have secrets that you create first thing inside
+your deployment's `create` method:
+
+```ruby
+class MyDeployment < OpenStax::Aws::DeploymentBase
+  secrets :common do
+    specification do
+      content do
+        { database_password: 'random(hex,15)' }
+      end
+    end
+  end
+
+  def create
+    common_secrets(for_create_or_update: true).create
+
+    rds_stack.create(params: {master_password: common_secrets.get(:database_password)})
+
+    # ...
+  end
+end
+```
 
 #### Loading secrets from the Parameter Store
 

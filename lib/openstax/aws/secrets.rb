@@ -47,10 +47,17 @@ module OpenStax::Aws
       end
     end
 
-    def update(specifications: nil, substitutions: nil)
+    def update(specifications: nil, substitutions: nil, force_update_these: [])
       existing_secrets = data!
       built_secrets = build_secrets(specifications: specifications, substitutions: substitutions)
       changed_secrets = self.class.changed_secrets(existing_secrets, built_secrets)
+
+      force_update_these.each do |force_update_this|
+        built_secrets.select{|built_secret| built_secret[:name].match(force_update_this)}.each do |forced|
+          changed_secrets.push(forced)
+        end
+      end
+      changed_secrets.uniq!
 
       OpenStax::Aws.logger.info("**** DRY RUN ****") if dry_run
 
@@ -116,6 +123,10 @@ module OpenStax::Aws
           generated = true
           num_characters = $1.to_i
           SecureRandom.hex(num_characters)[0..num_characters-1]
+        when /^random\(base64,(\d+)\)$/
+          generated = true
+          num_characters = $1.to_i
+          SecureRandom.urlsafe_base64(num_characters)[0..num_characters-1]
         when "uuid"
           generated = true
           SecureRandom.uuid
@@ -212,6 +223,7 @@ module OpenStax::Aws
     end
 
     def get(local_name)
+      local_name = local_name.to_s
       local_name = "/#{local_name}" unless local_name.chr == "/"
       data["#{key_prefix}#{local_name}"].try(:[], :value)
     end

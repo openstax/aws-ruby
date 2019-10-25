@@ -41,6 +41,40 @@ module OpenStax::Aws
         end
       end
 
+      def secrets(id, &block)
+        if id.blank?
+          raise "The first argument to `secrets` must be a non-blank ID"
+        end
+
+        if !id.to_s.match(/^[a-zA-Z][a-zA-Z0-9_]*$/)
+          raise "The first argument to `secrets` must consist only of letters, numbers, and underscores, " \
+                "and must start with a letter."
+        end
+
+        if method_defined?("#{id}_secrets")
+          raise "Can only define the `#{id}` secrets once per class definition"
+        end
+
+        if method_defined?("#{id}_stack")
+          raise "Cannot define `#{id}` secrets because there is a stack with that ID"
+        end
+
+        define_method("#{id}_secrets") do |for_create_or_update: false|
+          secrets_factory = SecretsFactory.new(
+            region: region,
+            namespace: [env_name, name],
+            context: self,
+            dry_run: dry_run,
+            for_create_or_update: for_create_or_update,
+            shared_substitutions_block: @shared_secrets_substitutions_block
+          )
+
+          secrets_factory.namespace(id)
+          secrets_factory.instance_exec({}, &block)
+          secrets_factory.instance
+        end
+      end
+
       def stack(id, &block)
         if id.blank?
           raise "The first argument to `stack` must be a non-blank ID"
@@ -49,6 +83,10 @@ module OpenStax::Aws
         if !id.to_s.match(/^[a-zA-Z][a-zA-Z0-9_]*$/)
           raise "The first argument to `stack` must consist only of letters, numbers, and underscores, " \
                 "and must start with a letter."
+        end
+
+        if method_defined?("#{id}_secrets")
+          raise "Cannot define `#{id}` stack because there are secrets with that ID"
         end
 
         define_method("#{id}_stack") do
@@ -197,16 +235,6 @@ module OpenStax::Aws
       rescue NoMethodError => ee
         nil
       end
-    end
-
-    def secrets(id: 'default')
-      id = id.to_s
-      @secrets ||= {}
-      @secrets[id] ||= OpenStax::Aws::Secrets.new(
-        region: region,
-        dry_run: dry_run,
-        namespace: [env_name!, secrets_namespace(id: id)]
-      )
     end
 
     def get_image_tag(image_id:, key:)

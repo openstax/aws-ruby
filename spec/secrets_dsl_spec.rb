@@ -20,6 +20,12 @@ RSpec.describe 'secrets DSL', vcr: VCR_OPTS do
     allow_any_instance_of(OpenStax::Aws::Template).to receive(:s3_folder) { "spec-templates" }
   }
 
+  after(:each) {
+    OpenStax::Aws.configure do |config|
+      config.logger = Logger.new(STDERR)
+    end
+  }
+
   it 'creates secrets when stack created and deletes when deleted' do
     deployment = SecretsDslSpec::Deployment.new(env_name: env_name, region: region, dry_run: false)
     deployment.create(some_sha: "1b2ebfd91dd9fb34d58c834cbb70a21c6479ba8e", bucket_name: "aws-ruby-spec-secrets-dsl-create")
