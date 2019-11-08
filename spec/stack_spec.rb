@@ -205,6 +205,21 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     stack.delete
   end
 
+  context "#deployed_parameters" do
+    it "returns empty for non-existent stack" do
+      stack = new_template_one_stack(name: "doesnotmatter")
+      expect(stack.deployed_parameters).to eq({})
+    end
+  end
+
+  context "#delete" do
+    it "does not explode when deleting a non-existent stack" do
+      stack = new_template_one_stack(name: "doesnotmatter")
+      expect(OpenStax::Aws.configuration.logger).to receive(:info).with(/as it does not exist/)
+      expect{stack.delete}.not_to raise_error
+    end
+  end
+
   def iam_client
     Aws::IAM::Client.new(region: region)
   end

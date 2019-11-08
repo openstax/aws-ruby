@@ -5,53 +5,55 @@ http_interactions:
     uri: https://cloudformation.us-east-2.amazonaws.com/
     body:
       encoding: UTF-8
-      string: Action=DeleteStack&StackName=spec-aws-ruby-stack-delete-non-existing&Version=2010-05-15
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-delete-non-existing&Version=2010-05-15
     headers:
       Content-Type:
       - application/x-www-form-urlencoded; charset=utf-8
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby3/3.48.2 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.17.0
+      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.20.0
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190510T200410Z
-      X-Amz-Security-Token:
-      - AWS_SESSION_TOKEN
+      - 20191108T193241Z
       X-Amz-Content-Sha256:
-      - 45e99dab7dbaaf01ba55bbbdbbea9fc4c1e29b5f23dd29bc3ea906b178dea4c4
+      - d493e53f0008c39804861f398041ec7b9d5a5247d56b1e2a334c4878b4f70120
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190510/us-east-2/cloudformation/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,
-        Signature=<SignatureValue>
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20191108/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
       Content-Length:
-      - '87'
+      - '90'
       Accept:
       - "*/*"
   response:
     status:
-      code: 200
-      message: OK
+      code: 400
+      message: Bad Request
     headers:
       X-Amzn-Requestid:
-      - c6822a46-735e-11e9-99c9-e7ad0ddce188
+      - 2eec09ae-9ffb-4f85-bda7-2bbc9a0d1172
       Content-Type:
       - text/xml
       Content-Length:
-      - '212'
+      - '325'
       Date:
-      - Fri, 10 May 2019 20:04:10 GMT
+      - Fri, 08 Nov 2019 19:32:41 GMT
+      Connection:
+      - close
     body:
       encoding: UTF-8
       string: |
-        <DeleteStackResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
-          <ResponseMetadata>
-            <RequestId>c6822a46-735e-11e9-99c9-e7ad0ddce188</RequestId>
-          </ResponseMetadata>
-        </DeleteStackResponse>
+        <ErrorResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <Error>
+            <Type>Sender</Type>
+            <Code>ValidationError</Code>
+            <Message>Stack with id spec-aws-ruby-stack-delete-non-existing does not exist</Message>
+          </Error>
+          <RequestId>2eec09ae-9ffb-4f85-bda7-2bbc9a0d1172</RequestId>
+        </ErrorResponse>
     http_version: 
-  recorded_at: Fri, 10 May 2019 20:04:10 GMT
+  recorded_at: Fri, 08 Nov 2019 19:32:41 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -64,19 +66,16 @@ http_interactions:
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby3/3.48.2 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.17.0
+      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.20.0
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20190510T200410Z
-      X-Amz-Security-Token:
-      - AWS_SESSION_TOKEN
+      - 20191108T193241Z
       X-Amz-Content-Sha256:
       - d493e53f0008c39804861f398041ec7b9d5a5247d56b1e2a334c4878b4f70120
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20190510/us-east-2/cloudformation/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,
-        Signature=<SignatureValue>
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20191108/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
       Content-Length:
       - '90'
       Accept:
@@ -87,13 +86,13 @@ http_interactions:
       message: Bad Request
     headers:
       X-Amzn-Requestid:
-      - c6b9dc3a-735e-11e9-abab-7d9b00ffae7e
+      - f3b94a62-bb89-4f98-9a35-71cbd9f41dc0
       Content-Type:
       - text/xml
       Content-Length:
       - '325'
       Date:
-      - Fri, 10 May 2019 20:04:10 GMT
+      - Fri, 08 Nov 2019 19:32:42 GMT
       Connection:
       - close
     body:
@@ -105,8 +104,8 @@ http_interactions:
             <Code>ValidationError</Code>
             <Message>Stack with id spec-aws-ruby-stack-delete-non-existing does not exist</Message>
           </Error>
-          <RequestId>c6b9dc3a-735e-11e9-abab-7d9b00ffae7e</RequestId>
+          <RequestId>f3b94a62-bb89-4f98-9a35-71cbd9f41dc0</RequestId>
         </ErrorResponse>
     http_version: 
-  recorded_at: Fri, 10 May 2019 20:04:11 GMT
+  recorded_at: Fri, 08 Nov 2019 19:32:42 GMT
 recorded_with: VCR 4.0.0

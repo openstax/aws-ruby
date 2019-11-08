@@ -117,8 +117,16 @@ module OpenStax::Aws
     end
 
     def deployed_parameters
-      @deployed_parameters ||= aws_stack.parameters.each_with_object({}) do |parameter, hash|
-        hash[parameter.parameter_key.underscore.to_sym] = parameter.parameter_value
+      begin
+        @deployed_parameters ||= aws_stack.parameters.each_with_object({}) do |parameter, hash|
+          hash[parameter.parameter_key.underscore.to_sym] = parameter.parameter_value
+        end
+      rescue Aws::CloudFormation::Errors::ValidationError => ee
+        if ee.message =~ /Stack.*does not exist/
+          {}
+        else
+          raise
+        end
       end
     end
 
@@ -209,7 +217,11 @@ module OpenStax::Aws
 
       logger.info("Deleting #{name} stack...")
 
-      client.delete_stack(stack_name: name) if !dry_run
+      if exists?
+        client.delete_stack(stack_name: name) if !dry_run
+      else
+        logger.info("Cannot delete #{name} stack as it does not exist")
+      end
 
       wait_for_deletion if wait
     end
