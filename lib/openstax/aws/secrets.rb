@@ -118,6 +118,8 @@ module OpenStax::Aws
         generated = false
         spec_value = spec_value.strip
 
+        type = "String"
+
         value = case spec_value
         when /^random\(hex,(\d+)\)$/
           generated = true
@@ -140,10 +142,20 @@ module OpenStax::Aws
           end
         when /^ssm\((.*)\)$/
           begin
-            client.get_parameter({
-              name: substitutions[$1] || substitutions[$1.to_sym],
+            parameter_name = $1.starts_with?("/") ? $1 : (substitutions[$1] || substitutions[$1.to_sym])
+
+            if parameter_name.blank?
+              raise "#{$1} is neither a literal parameter name nor available in the given substitutions"
+            end
+
+            parameter = client.get_parameter({
+              name: parameter_name,
               with_decryption: true
-            }).parameter.value
+            }).parameter
+
+            type = parameter.type
+
+            parameter.value
           rescue Aws::SSM::Errors::ParameterNotFound => ee
             raise "Could not get secret '#{$1}'"
           end
@@ -153,7 +165,7 @@ module OpenStax::Aws
 
         {
           name: "#{key_prefix}/#{secret_name}",
-          type: "String",
+          type: type,
           value: value
         }.tap do |secret|
           if generated

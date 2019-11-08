@@ -5,7 +5,7 @@ RSpec.describe OpenStax::Aws::Secrets, vcr: VCR_OPTS do
 
   let(:dry_run) { true }
   let(:instance) {
-    described_class.new(region: 'region',
+    described_class.new(region: 'us-east-2',
                         dry_run: dry_run,
                         namespace: ['env_name', 'namespace'])
   }
@@ -49,6 +49,74 @@ RSpec.describe OpenStax::Aws::Secrets, vcr: VCR_OPTS do
         )
       )
       expect(built_secrets[0][:value]).to match(/[a-zA-Z0-9_-]{7}/)
+    end
+
+    context "referential secrets" do
+      let(:dry_run) { false }
+
+      it 'can get value from another parameter' do
+        with_temporary_parameter(name: "something", value: "booyah") do |parameter_name:, client:|
+          built_secrets = instance.build_secrets(substitutions: {}, specifications:
+            OpenStax::Aws::SecretsSpecification.from_content(
+              format: :yml,
+              content: <<~CONTENT
+                refers_to: ssm(#{parameter_name})
+              CONTENT
+            )
+          )
+
+          expect(built_secrets[0][:value]).to eq "booyah"
+        end
+      end
+
+      it 'can get value from another parameter via a substitution' do
+        with_temporary_parameter(name: "something", value: "howdy") do |parameter_name:, client:|
+          built_secrets = instance.build_secrets(
+            substitutions: {
+              a_substitution_name: parameter_name
+            },
+            specifications:
+              OpenStax::Aws::SecretsSpecification.from_content(
+                format: :yml,
+                content: <<~CONTENT
+                  refers_to: ssm(a_substitution_name)
+                CONTENT
+              )
+          )
+
+          expect(built_secrets[0][:value]).to eq "howdy"
+        end
+      end
+
+      it "complains if can't find referenced parameter" do
+        expect{
+          instance.build_secrets(substitutions: {}, specifications:
+            OpenStax::Aws::SecretsSpecification.from_content(
+              format: :yml,
+              content: <<~CONTENT
+                refers_to: ssm(substitution_that_does_not_exist)
+              CONTENT
+            )
+          )
+        }.to raise_error /neither a literal/
+      end
+
+      it "keeps track of which secrets were encrypted" do
+        with_temporary_parameter(name: "something", value: "secret!", type: "SecureString") do |parameter_name:, client:|
+          built_secrets = instance.build_secrets(
+            substitutions: {},
+            specifications:
+              OpenStax::Aws::SecretsSpecification.from_content(
+                format: :yml,
+                content: <<~CONTENT
+                  refers_to: ssm(#{parameter_name})
+                CONTENT
+              )
+          )
+
+          expect(built_secrets[0][:type]).to eq "SecureString"
+        end
+      end
     end
   end
 
@@ -104,26 +172,37 @@ RSpec.describe OpenStax::Aws::Secrets, vcr: VCR_OPTS do
   context "ReadOnlyParameter" do
 
     it "can read the parameter's description" do
-      begin
-        parameter_name = "/openstax-aws-ruby-rspec/described_parameter"
-        client = Aws::SSM::Client.new(region: "us-east-2")
-        client.put_parameter({
-          name: parameter_name,
-          type: "String",
-          value: "booyah",
-          description: "Very descriptive"
-        })
+      with_temporary_parameter(name: "described_parameter",
+                               value: "booyah",
+                               description: "Very descriptive") do |parameter_name:, client:|
 
         raw_parameter = client.get_parameter(name: parameter_name).parameter
-
         rop = OpenStax::Aws::Secrets::ReadOnlyParameter.new(raw_parameter, client)
-
         expect(rop[:description]).to eq "Very descriptive"
-      ensure
-        client.delete_parameters({names: [parameter_name]})
       end
     end
 
+  end
+
+  def with_temporary_parameter(name:, type: "String", value:, description: nil)
+    begin
+      name = name.starts_with?("/") ? name[1..-1] : name
+      parameter_name = "/openstax-aws-ruby-rspec/#{name}"
+      client = Aws::SSM::Client.new(region: "us-east-2")
+
+      parameter = {
+        name: parameter_name,
+        type: type,
+        value: value,
+      }
+      parameter[:description] = description if !description.nil?
+
+      client.put_parameter(parameter)
+
+      yield(parameter_name: parameter_name, client: client)
+    ensure
+      client.delete_parameters({names: [parameter_name]})
+    end
   end
 
 end

@@ -499,6 +499,18 @@ We lookup the value inside `ssm(...)` using substitutions so that different envi
 values in the Parameter Store, which is useful if you have say two secret values, one for development and one
 for production deployments.
 
+Note that you can also use referential secrets without substitutions:
+
+```yaml
+my_graylog_secret: ssm(/external/graylog/secret)
+```
+
+#### Encrypted Secrets
+
+Most of the secrets we store are really just configuration values, and these we store in the Parameter Store with type "String".  However, the Parameter Store also lets us store parameters as "SecureString"s, which means that AWS encrypts them for us.  The secrets handling code can deal with these kinds of parameters.
+
+When we use referential secrets the are SecureString encrypted, the secrets that are copied to an environment's section of the Parameter Store are also SecureString encrypted.
+
 #### Secrets DSL
 
 While you can instantiate secrets and specifications objects directly, it is easiest to use the DSL.  The DSL lets you define secrets on a per-stack basis:
