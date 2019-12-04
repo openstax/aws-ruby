@@ -81,7 +81,16 @@ module OpenStax
       end
 
       def logger
-        @logger ||= Logger.new(STDOUT)
+        @logger ||= Logger.new(STDOUT).tap do |the_logger|
+          the_logger.formatter = proc do |severity, datetime, progname, msg|
+            date_format = datetime.strftime("%Y-%m-%d %H:%M:%S.%3N")
+            if severity == "INFO" or severity == "WARN"
+                "[#{date_format}] #{severity}  | #{msg}\n"
+            else
+                "[#{date_format}] #{severity} | #{msg}\n"
+            end
+          end
+        end
       end
     end
 
