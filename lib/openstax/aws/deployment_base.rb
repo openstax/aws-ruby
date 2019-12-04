@@ -216,12 +216,18 @@ module OpenStax::Aws
       end
     end
 
-    def wait_for_tag_change(resource:, key:, polling_seconds: 10, timeout_seconds: nil)
+    def wait_for_tag_change(resource:, key:, polling_seconds: 20, timeout_seconds: nil)
       keep_polling = true
       started_at = Time.now
       original_value = resource_tag_value(resource: resource, key: key)
 
+      wait_message = OpenStax::Aws::WaitMessage.new(
+        message: "Waiting for the #{key} tag on #{resource.name} to change from #{original_value}"
+      )
+
       while keep_polling
+        wait_message.say_it
+
         sleep(polling_seconds)
 
         keep_polling = false if resource_tag_value(resource: resource, key: key) != original_value
