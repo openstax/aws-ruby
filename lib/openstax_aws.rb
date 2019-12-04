@@ -81,7 +81,16 @@ module OpenStax
       end
 
       def logger
-        @logger ||= Logger.new(STDOUT)
+        @logger ||= Logger.new(STDOUT).tap do |the_logger|
+          the_logger.formatter = proc do |severity, datetime, progname, msg|
+            date_format = datetime.strftime("%Y-%m-%d %H:%M:%S.%3N")
+            if severity == "INFO" or severity == "WARN"
+                "[#{date_format}] #{severity}  | #{msg}\n"
+            else
+                "[#{date_format}] #{severity} | #{msg}\n"
+            end
+          end
+        end
       end
     end
 
@@ -110,3 +119,4 @@ require "openstax/aws/auto_scaling_instance"
 require "openstax/aws/packer_1_2_5"
 require "openstax/aws/packer_1_4_1"
 require "openstax/aws/packer_factory"
+require "openstax/aws/build_image_command_1"
