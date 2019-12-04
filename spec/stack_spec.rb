@@ -205,6 +205,14 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     stack.delete
   end
 
+  it "skips create for existing stacks" do
+    stack = new_template_one_stack(name: "spec-aws-ruby-stack-skips-create")
+    stack.create(params: {bucket_name: bucket_name, tag_value: "howdy"}, wait: true)
+    expect(OpenStax::Aws.configuration.logger).to receive(:info).with(/skipping create/)
+    expect{stack.create(wait: true)}.not_to raise_error
+    stack.delete(wait: true)
+  end
+
   context "#deployed_parameters" do
     it "returns empty for non-existent stack" do
       stack = new_template_one_stack(name: "doesnotmatter")

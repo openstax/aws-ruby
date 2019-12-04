@@ -242,7 +242,7 @@ used in the SDK.
 
 #### `create`
 
-[ Work on this section ]
+If you call create on a stack that already exists, it by default
 
 #### `apply_change_set`
 
