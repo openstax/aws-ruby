@@ -525,7 +525,8 @@ stack :api do
       path { "config/secrets.yml.example" }
       sha { parameters.sha }
       format { :yml }
-      top_key { :production }
+      top_key { :production }    # optional
+      preparser { :erb }         # optional, use if your YAML file has embedded Ruby
     end
     substitutions do
       domain { domain }

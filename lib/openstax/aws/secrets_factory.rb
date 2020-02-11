@@ -40,13 +40,15 @@ module OpenStax::Aws
             sha: attributes[:sha],
             path: attributes[:path],
             format: attributes[:format].to_sym,
-            top_key: attributes[:top_key].to_sym
+            top_key: attributes[:top_key].to_sym,
+            preparser: attributes[:preparser]
           )
         elsif attributes.has_key?(:content)
           OpenStax::Aws::SecretsSpecification.from_content(
             content: attributes[:content],
             format: attributes[:format],
-            top_key: attributes[:top_key]
+            top_key: attributes[:top_key],
+            preparser: attributes[:preparser]
           )
         else
           raise "Cannot build a secrets specification"
