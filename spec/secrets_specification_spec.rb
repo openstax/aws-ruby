@@ -9,4 +9,18 @@ RSpec.describe OpenStax::Aws::SecretsSpecification do
     expect(spec.data).not_to eq({"foo"=>"{{ bar }}"})
   end
 
+  it "handles YAML with embedded Ruby code" do
+    content = <<~CONTENT
+      foo:
+        <% if true %>
+        bar: 42
+        <% else %>
+        bar: 21
+        <% end %>
+      production:
+        bar: 84
+    CONTENT
+    spec = described_class.from_content(content: content, format: :yml, preparser: :erb)
+  end
+
 end
