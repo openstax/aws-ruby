@@ -116,7 +116,7 @@ module OpenStax::Aws
 
       expanded_data.map do |secret_name, spec_value|
         generated = false
-        spec_value = spec_value.strip
+        spec_value = spec_value.to_s.strip
 
         type = "String"
 

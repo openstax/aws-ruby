@@ -117,6 +117,19 @@ RSpec.describe OpenStax::Aws::Secrets, vcr: VCR_OPTS do
           expect(built_secrets[0][:type]).to eq "SecureString"
         end
       end
+
+      it "can handle numerical literals" do
+        expect{
+          instance.build_secrets(substitutions: {}, specifications:
+            OpenStax::Aws::SecretsSpecification.from_content(
+              format: :yml,
+              content: <<~CONTENT
+                foo: 300
+              CONTENT
+            )
+          )
+        }.not_to raise_error
+      end
     end
   end
 
