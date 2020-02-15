@@ -115,64 +115,86 @@ module OpenStax::Aws
       end
 
       expanded_data.map do |secret_name, spec_value|
-        generated = false
-        spec_value = spec_value.to_s.strip
-
-        type = "String"
-
-        value = case spec_value
-        when /^random\(hex,(\d+)\)$/
-          generated = true
-          num_characters = $1.to_i
-          SecureRandom.hex(num_characters)[0..num_characters-1]
-        when /^random\(base64,(\d+)\)$/
-          generated = true
-          num_characters = $1.to_i
-          SecureRandom.urlsafe_base64(num_characters)[0..num_characters-1]
-        when "uuid"
-          generated = true
-          SecureRandom.uuid
-        when /{([^{}]+)}/
-          spec_value.gsub(/({{\W*(\w+)\W*}})/) do |match|
-            if (!substitutions.has_key?($2) && !substitutions.has_key?($2.to_sym))
-              raise "no substitution provided for #{$2}"
-            end
-
-            substitutions[$2] || substitutions[$2.to_sym]
-          end
-        when /^ssm\((.*)\)$/
-          begin
-            parameter_name = $1.starts_with?("/") ? $1 : (substitutions[$1] || substitutions[$1.to_sym])
-
-            if parameter_name.blank?
-              raise "#{$1} is neither a literal parameter name nor available in the given substitutions"
-            end
-
-            parameter = client.get_parameter({
-              name: parameter_name,
-              with_decryption: true
-            }).parameter
-
-            type = parameter.type
-
-            parameter.value
-          rescue Aws::SSM::Errors::ParameterNotFound => ee
-            raise "Could not get secret '#{$1}'"
-          end
-        else # use literal value
-          spec_value
-        end
-
-        {
-          name: "#{key_prefix}/#{secret_name}",
-          type: type,
-          value: value
-        }.tap do |secret|
-          if generated
-            secret[:description] = "#{GENERATED_WITH_PREFIX} #{spec_value}"
-          end
-        end
+        build_secret(secret_name, spec_value, substitutions)
       end
+    end
+
+    def build_secret(secret_name, spec_value, substitutions)
+      secret = {
+        name: "#{key_prefix}/#{secret_name}"
+      }
+
+      case spec_value
+      when Array
+        processed_items = spec_value.map do |item|
+          process_individual_spec_value(item, substitutions)[:value]
+        end
+        secret[:value] = processed_items.join(",")
+        secret[:type] = "StringList"
+      else
+        spec_value = spec_value.to_s.strip
+        secret.merge!(process_individual_spec_value(spec_value, substitutions))
+      end
+
+      if (generated = secret.delete(:generated))
+        secret[:description] = "#{GENERATED_WITH_PREFIX} #{spec_value}"
+      end
+
+      secret
+    end
+
+    def process_individual_spec_value(spec_value, substitutions)
+      generated = false
+      type = "String"
+
+      value = case spec_value
+      when /^random\(hex,(\d+)\)$/
+        generated = true
+        num_characters = $1.to_i
+        SecureRandom.hex(num_characters)[0..num_characters-1]
+      when /^random\(base64,(\d+)\)$/
+        generated = true
+        num_characters = $1.to_i
+        SecureRandom.urlsafe_base64(num_characters)[0..num_characters-1]
+      when "uuid"
+        generated = true
+        SecureRandom.uuid
+      when /{([^{}]+)}/
+        spec_value.gsub(/({{\W*(\w+)\W*}})/) do |match|
+          if (!substitutions.has_key?($2) && !substitutions.has_key?($2.to_sym))
+            raise "no substitution provided for #{$2}"
+          end
+
+          substitutions[$2] || substitutions[$2.to_sym]
+        end
+      when /^ssm\((.*)\)$/
+        begin
+          parameter_name = $1.starts_with?("/") ? $1 : (substitutions[$1] || substitutions[$1.to_sym])
+
+          if parameter_name.blank?
+            raise "#{$1} is neither a literal parameter name nor available in the given substitutions"
+          end
+
+          parameter = client.get_parameter({
+            name: parameter_name,
+            with_decryption: true
+          }).parameter
+
+          type = parameter.type
+
+          parameter.value
+        rescue Aws::SSM::Errors::ParameterNotFound => ee
+          raise "Could not get secret '#{$1}'"
+        end
+      else # use literal value
+        spec_value
+      end
+
+      {
+        value: value,
+        type: type,
+        generated: generated
+      }
     end
 
     def data

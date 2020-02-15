@@ -51,6 +51,39 @@ RSpec.describe OpenStax::Aws::Secrets, vcr: VCR_OPTS do
       expect(built_secrets[0][:value]).to match(/[a-zA-Z0-9_-]{7}/)
     end
 
+    context "interesting literals" do
+      let(:dry_run) { false }
+
+      it "can handle numerical literals" do
+        expect{
+          instance.build_secrets(substitutions: {}, specifications:
+            OpenStax::Aws::SecretsSpecification.from_content(
+              format: :yml,
+              content: <<~CONTENT
+                foo: 300
+              CONTENT
+            )
+          )
+        }.not_to raise_error
+      end
+
+      it "can handle literal arrays" do
+        secrets = instance.build_secrets(substitutions: {}, specifications:
+          OpenStax::Aws::SecretsSpecification.from_content(
+            format: :yml,
+            content: <<~CONTENT
+              foo:
+                - bar1
+                - bar2
+            CONTENT
+          )
+        )
+
+        expect(secrets[0][:type]).to eq "StringList"
+        expect(secrets[0][:value]).to eq "bar1,bar2"
+      end
+    end
+
     context "referential secrets" do
       let(:dry_run) { false }
 
@@ -118,17 +151,20 @@ RSpec.describe OpenStax::Aws::Secrets, vcr: VCR_OPTS do
         end
       end
 
-      it "can handle numerical literals" do
-        expect{
-          instance.build_secrets(substitutions: {}, specifications:
-            OpenStax::Aws::SecretsSpecification.from_content(
-              format: :yml,
-              content: <<~CONTENT
-                foo: 300
-              CONTENT
-            )
+      it "can handle arrays with non-literals" do
+        secrets = instance.build_secrets(substitutions: {howdy: "there"}, specifications:
+          OpenStax::Aws::SecretsSpecification.from_content(
+            format: :yml,
+            content: <<~CONTENT
+              foo:
+                - "{{ howdy }}"
+                - random(hex,4)
+            CONTENT
           )
-        }.not_to raise_error
+        )
+
+        expect(secrets[0][:type]).to eq "StringList"
+        expect(secrets[0][:value]).to match /there,[a-f0-9]{4}/
       end
     end
   end
