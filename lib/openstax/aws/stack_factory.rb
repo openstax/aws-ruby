@@ -85,6 +85,9 @@ module OpenStax::Aws
       Stack.new(
         id: id,
         name: attributes[:name],
+        application: attributes[:application],
+        owner: attributes[:owner],
+        environment: attributes[:environment],
         region: attributes[:region],
         enable_termination_protection: attributes[:enable_termination_protection],
         absolute_template_path: attributes[:absolute_template_path],

@@ -1,11 +1,12 @@
 module OpenStax::Aws
   class Stack
 
-    attr_reader :name, :id, :absolute_template_path, :dry_run,
+    attr_reader :name, :application, :owner, :environment, :id, :absolute_template_path, :dry_run,
                 :enable_termination_protection, :region, :parameter_defaults,
                 :volatile_parameters_block, :secrets_blocks
 
-    def initialize(id: nil, name:, region:, enable_termination_protection: false,
+    def initialize(id: nil, name:, application: '', owner: '', environment: '',
+                   region:, enable_termination_protection: false,
                    absolute_template_path: nil,
                    capabilities: nil, parameter_defaults: {},
                    volatile_parameters_block: nil,
@@ -17,6 +18,15 @@ module OpenStax::Aws
 
       raise "Stack name must not be blank" if name.blank?
       @name = name
+
+      raise "Stack application is used for tagging and must not be blank" if application.blank?
+      @application = application
+
+      raise "Stack owner is used for tagging and must not be blank" if owner.blank?
+      @owner = owner
+
+      raise "Stack environment is used for tagging and must not be blank" if environment.blank?
+      @environment = environment
 
       @region = region || raise("region is not set for stack #{name}")
       @enable_termination_protection = enable_termination_protection
@@ -66,7 +76,12 @@ module OpenStax::Aws
         template_url: template.s3_url,
         capabilities: capabilities,
         parameters: self.class.format_hash_as_stack_parameters(params),
-        enable_termination_protection: enable_termination_protection
+        enable_termination_protection: enable_termination_protection,
+        tags: [
+          {key: 'Application', value: @application},
+          {key: 'Owner', value: @owner},
+          {key: 'Environment', value: @environment},
+        ]
       }
 
       logger.info("Creating #{name} stack...")
