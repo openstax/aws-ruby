@@ -143,6 +143,11 @@ module OpenStax::Aws
         end
       end
 
+      def tag(key, value)
+        raise 'The first argument to `tag` must not be blank' if key.blank?
+        @tags ||= {}
+        @tags[key] = value
+      end
     end
 
     def built_in_parameter_default(parameter_name)
@@ -156,6 +161,10 @@ module OpenStax::Aws
 
     def shared_secrets_substitutions_block
       nil # can be overridden by the DSL
+    end
+
+    def tags
+      @tags ||= {}
     end
 
     protected

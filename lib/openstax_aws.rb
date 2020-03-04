@@ -52,6 +52,7 @@ module OpenStax
       attr_accessor :production_env_name
       attr_accessor :fixed_s3_template_folder
       attr_accessor :default_cycle_if_different_parameter
+      attr_writer :required_stack_tags
 
       def initialize
         @stack_waiter_delay = 30
@@ -60,6 +61,12 @@ module OpenStax
         @infer_parameter_defaults = true
         @production_env_name = "production"
         @default_cycle_if_different_parameter = "CycleIfDifferent"
+        @required_stack_tags = %w(Application Environment Owner)
+      end
+
+      def required_stack_tags
+        # Make sure always returned as an array
+        [@required_stack_tags].compact.uniq.flatten
       end
 
       def cfn_template_bucket_name
@@ -98,6 +105,7 @@ module OpenStax
 end
 
 require "openstax/aws/extensions"
+require "openstax/aws/tag"
 require "openstax/aws/version"
 require "openstax/aws/s3_text_file"
 require "openstax/aws/wait_message"
