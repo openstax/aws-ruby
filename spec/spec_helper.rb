@@ -15,6 +15,10 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
+  config.before(:each) do
+    clear_required_tags!
+  end
+
   config.before(:each, :vcr) do
     # Values don't matter in playback, but the code objects if they are missing
     ENV['AWS_ACCESS_KEY_ID'] ||= 'foo'
@@ -42,4 +46,8 @@ def new_stack(name:, filename:, region: SPEC_DEFAULT_REGION, overrides: {})
       dry_run: false,
     }.merge(overrides)
   )
+end
+
+def clear_required_tags!
+  allow(OpenStax::Aws.configuration).to receive(:required_stack_tags).and_return([])
 end

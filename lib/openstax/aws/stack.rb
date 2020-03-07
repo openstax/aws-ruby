@@ -22,7 +22,7 @@ module OpenStax::Aws
       raise "`tags` must be a hash" if !tags.is_a?(Hash)
 
       OpenStax::Aws.configuration.required_stack_tags.each do |required_tag|
-        if @tags[required_tag].blank?
+        if tags[required_tag].blank?
           raise "The '#{required_tag}' tag is required on the '#{name}' stack but is blank or missing"
         end
       end
@@ -191,7 +191,8 @@ module OpenStax::Aws
         template_url: template.s3_url,
         capabilities: capabilities,
         parameters: self.class.format_hash_as_stack_parameters(params),
-        change_set_name: "#{name}-#{Time.now.utc.strftime("%Y%m%d-%H%M%S")}"
+        change_set_name: "#{name}-#{Time.now.utc.strftime("%Y%m%d-%H%M%S")}",
+        tags: self.class.format_hash_as_tag_parameters(@tags),
       }
 
       change_set = create_change_set(options)

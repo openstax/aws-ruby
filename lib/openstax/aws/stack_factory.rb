@@ -8,7 +8,8 @@ module OpenStax::Aws
       @id = id
       @deployment = deployment
       @attributes = {
-        parameter_defaults: {}
+        parameter_defaults: {},
+        tags: {}
       }
     end
 
@@ -90,7 +91,7 @@ module OpenStax::Aws
       Stack.new(
         id: id,
         name: attributes[:name],
-        tags: deployment.tags.merge(attributes[:tags]),
+        tags: @deployment.tags.merge(attributes[:tags]),
         region: attributes[:region],
         enable_termination_protection: attributes[:enable_termination_protection],
         absolute_template_path: attributes[:absolute_template_path],

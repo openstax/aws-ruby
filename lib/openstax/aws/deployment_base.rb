@@ -2,6 +2,7 @@ module OpenStax::Aws
   class DeploymentBase
 
     attr_reader :env_name, :region, :name, :dry_run
+    mattr_reader :tags, default: {}.with_indifferent_access
 
     RESERVED_ENV_NAMES = [
       "external", # used to namespace external secrets in the parameter store
@@ -145,8 +146,7 @@ module OpenStax::Aws
 
       def tag(key, value)
         raise 'The first argument to `tag` must not be blank' if key.blank?
-        @tags ||= {}
-        @tags[key] = value
+        tags[key] = value
       end
     end
 
@@ -161,10 +161,6 @@ module OpenStax::Aws
 
     def shared_secrets_substitutions_block
       nil # can be overridden by the DSL
-    end
-
-    def tags
-      @tags ||= {}
     end
 
     protected

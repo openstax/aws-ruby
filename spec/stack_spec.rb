@@ -45,6 +45,29 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     }.to raise_error(Aws::CloudFormation::Errors::ValidationError, /does not exist/)
   end
 
+  it 'creates a stack with tags' do
+    name = "spec-aws-ruby-stack-create-tags"
+    stack = new_stack(name: name, filename: "templates/simple.yml", overrides: {tags: {foo: "bar"}})
+    stack.create(params: {}, wait: true)
+
+    tags = ::Aws::CloudFormation::Stack.new(name: name, client: cfn_client).tags
+    expect(tags[0].key).to eq "foo"
+    expect(tags[0].value).to eq "bar"
+  end
+
+  it 'updates a stack with new tag values' do
+    name = "spec-aws-ruby-stack-update-tags"
+    stack = new_stack(name: name, filename: "templates/simple.yml", overrides: {tags: {foo: "bar"}})
+    stack.create(params: {}, wait: true)
+
+    stack = new_stack(name: name, filename: "templates/simple.yml", overrides: {tags: {foo: "howdy"}})
+    stack.apply_change_set(params: {}, wait: true)
+
+    tags = ::Aws::CloudFormation::Stack.new(name: name, client: cfn_client).tags
+    expect(tags[0].key).to eq "foo"
+    expect(tags[0].value).to eq "howdy"
+  end
+
   it "uses parameter defaults" do
     name = "spec-aws-ruby-stack-parameter-defaults"
 
