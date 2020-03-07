@@ -30,6 +30,7 @@ RSpec.describe OpenStax::Aws::AutoScalingInstance, vcr: VCR_OPTS do
         config.cfn_template_bucket_region = "us-west-2"
         config.stack_waiter_delay = 10
         config.fixed_s3_template_folder = "spec-templates"
+        config.required_stack_tags = []
       end
 
       # This stack gives us an ASG with an instance to test with

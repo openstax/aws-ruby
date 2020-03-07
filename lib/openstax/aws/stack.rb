@@ -1,11 +1,11 @@
 module OpenStax::Aws
   class Stack
 
-    attr_reader :name, :application, :owner, :environment, :id, :absolute_template_path, :dry_run,
+    attr_reader :name, :tags, :id, :absolute_template_path, :dry_run,
                 :enable_termination_protection, :region, :parameter_defaults,
                 :volatile_parameters_block, :secrets_blocks
 
-    def initialize(id: nil, name:, application: '', owner: '', environment: '',
+    def initialize(id: nil, name:, tags: {},
                    region:, enable_termination_protection: false,
                    absolute_template_path: nil,
                    capabilities: nil, parameter_defaults: {},
@@ -19,14 +19,15 @@ module OpenStax::Aws
       raise "Stack name must not be blank" if name.blank?
       @name = name
 
-      raise "Stack application is used for tagging and must not be blank" if application.blank?
-      @application = application
+      raise "`tags` must be a hash" if !tags.is_a?(Hash)
 
-      raise "Stack owner is used for tagging and must not be blank" if owner.blank?
-      @owner = owner
+      OpenStax::Aws.configuration.required_stack_tags.each do |required_tag|
+        if tags[required_tag].blank?
+          raise "The '#{required_tag}' tag is required on the '#{name}' stack but is blank or missing"
+        end
+      end
 
-      raise "Stack environment is used for tagging and must not be blank" if environment.blank?
-      @environment = environment
+      @tags = tags.map{|key, value| OpenStax::Aws::Tag.new(key, value)}
 
       @region = region || raise("region is not set for stack #{name}")
       @enable_termination_protection = enable_termination_protection
@@ -77,11 +78,7 @@ module OpenStax::Aws
         capabilities: capabilities,
         parameters: self.class.format_hash_as_stack_parameters(params),
         enable_termination_protection: enable_termination_protection,
-        tags: [
-          {key: 'Application', value: @application},
-          {key: 'Owner', value: @owner},
-          {key: 'Environment', value: @environment},
-        ]
+        tags: self.class.format_hash_as_tag_parameters(@tags),
       }
 
       logger.info("Creating #{name} stack...")
@@ -194,7 +191,8 @@ module OpenStax::Aws
         template_url: template.s3_url,
         capabilities: capabilities,
         parameters: self.class.format_hash_as_stack_parameters(params),
-        change_set_name: "#{name}-#{Time.now.utc.strftime("%Y%m%d-%H%M%S")}"
+        change_set_name: "#{name}-#{Time.now.utc.strftime("%Y%m%d-%H%M%S")}",
+        tags: self.class.format_hash_as_tag_parameters(@tags),
       }
 
       change_set = create_change_set(options)
@@ -321,6 +319,10 @@ module OpenStax::Aws
           end
         end
       end
+    end
+
+    def self.format_hash_as_tag_parameters(tags)
+      tags.map{|tag| {key: tag.key, value: tag.value}}
     end
 
     def status

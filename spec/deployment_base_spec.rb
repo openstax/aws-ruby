@@ -211,6 +211,25 @@ RSpec.describe OpenStax::Aws::DeploymentBase do
     end
   end
 
+  context "tags" do
+    it "can set tags at the deployment level with overrides at the stack level" do
+      deployment_class = Class.new(described_class) do
+        template_directory __dir__, 'support/templates'
+
+        tag :howdy, "there"
+        tag :foo, "bar"
+
+        stack :simple do
+          tag :foo, "bar"
+        end
+      end
+
+      instance = deployment_class.new(name: "spec", region: "deployment-region")
+
+      expect(instance.simple_stack.tags.map{|tag| {tag.key => tag.value}}).to contain_exactly({"howdy" => "there"}, {"foo" => "bar"})
+    end
+  end
+
   context "deployment parameter defaults" do
     it "allows explicit defauts" do
       deployment_class = Class.new(described_class) do

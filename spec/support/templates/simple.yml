@@ -1,0 +1,7 @@
+Description: >
+  Just a bucket
+
+Resources:
+
+  S3Bucket:
+    Type: AWS::S3::Bucket

@@ -720,6 +720,32 @@ stack :api do
   ..
 ```
 
+### Tags
+
+You can specify stack tags with:
+
+```ruby
+stack :network do
+  ...
+  tag :Foo, "bar"
+  ...
+end
+```
+
+You can specify tags in all of a deployment's stacks by setting the tags at the deployment level:
+
+```ruby
+class MyDeployment < OpenStax::Aws::DeploymentBase
+  tag :Application, "my_app"
+  tag :Owner, "Jimmy"
+  ...
+```
+
+Tags set at the stack level will override those set at the deployment level.
+
+You can enforce that stacks always have certain tags by setting `OpenStax::Aws.configuration.required_stack_tags`.  By default, there
+are a few required tags; if you want to disable this, set this variable to `[]`.
+
 ### Dry runs
 
 You'll have noticed above that deployment and `Stack` objects are instantiated with a `dry_run` parameter
