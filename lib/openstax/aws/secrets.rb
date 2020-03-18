@@ -43,6 +43,7 @@ module OpenStax::Aws
       if !dry_run
         built_secrets.each do |built_secret|
           client.put_parameter(built_secret.merge(overwrite: true))
+          sleep(0.1)
         end
       end
     end
