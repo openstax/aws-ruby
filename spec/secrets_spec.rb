@@ -39,6 +39,9 @@ RSpec.describe OpenStax::Aws::Secrets, vcr: VCR_OPTS do
       }.not_to raise_error
     end
 
+    it "generates rsa sso values" do
+    end
+
     it 'generates base64 random values' do
       built_secrets = instance.build_secrets(substitutions: {}, specifications:
         OpenStax::Aws::SecretsSpecification.from_content(
