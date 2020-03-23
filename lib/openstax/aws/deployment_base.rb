@@ -2,6 +2,7 @@ module OpenStax::Aws
   class DeploymentBase
 
     attr_reader :env_name, :region, :name, :dry_run
+    mattr_reader :tags, default: {}.with_indifferent_access
 
     RESERVED_ENV_NAMES = [
       "external", # used to namespace external secrets in the parameter store
@@ -143,6 +144,10 @@ module OpenStax::Aws
         end
       end
 
+      def tag(key, value)
+        raise 'The first argument to `tag` must not be blank' if key.blank?
+        tags[key] = value
+      end
     end
 
     def built_in_parameter_default(parameter_name)

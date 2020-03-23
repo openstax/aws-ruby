@@ -8,7 +8,8 @@ module OpenStax::Aws
       @id = id
       @deployment = deployment
       @attributes = {
-        parameter_defaults: {}
+        parameter_defaults: {},
+        tags: {}
       }
     end
 
@@ -80,11 +81,17 @@ module OpenStax::Aws
       attributes[:cycle_if_different_parameter] = block.present? ? block.call : name
     end
 
+    def tag(key, value)
+      raise 'The first argument to `tag` must not be blank' if key.blank?
+      (attributes[:tags] ||= {})[key] = value
+    end
+
     def build
       autoset_absolute_template_path(nil) if absolute_template_path.blank?
       Stack.new(
         id: id,
         name: attributes[:name],
+        tags: @deployment.tags.merge(attributes[:tags]),
         region: attributes[:region],
         enable_termination_protection: attributes[:enable_termination_protection],
         absolute_template_path: attributes[:absolute_template_path],

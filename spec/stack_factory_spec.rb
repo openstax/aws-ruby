@@ -5,7 +5,8 @@ RSpec.describe OpenStax::Aws::StackFactory do
   it 'passes a basic smoke test' do
     context = OpenStruct.new(
       env_name: "foo",
-      count: 2
+      count: 2,
+      tags: {}
     )
 
     stack = described_class.build(id: :bar, deployment: context) do
@@ -25,7 +26,7 @@ RSpec.describe OpenStax::Aws::StackFactory do
   end
 
   it 'manages volatile parameters' do
-    stack = described_class.build(id: :bar, deployment: OpenStruct.new) do
+    stack = described_class.build(id: :bar, deployment: mock_deployment) do
       name "something"
       capabilities [:iam]
       region 'us-east-1'
@@ -41,6 +42,38 @@ RSpec.describe OpenStax::Aws::StackFactory do
     expect(stack.parameters_for_update).to eq ({
       tag_value: "us-east-1"
     })
+  end
+
+  it 'errors if required tags are not present' do
+    allow(OpenStax::Aws.configuration).to receive(:required_stack_tags).and_return(%w(Application))
+
+    expect{
+      described_class.build(id: :bar, deployment: mock_deployment) do
+        name "something"
+        template_directory __dir__, "support/templates"
+        relative_template_path "simple.yml"
+        tag :foo, "bar"
+      end
+    }.to raise_error(/tag is required .* but is blank/)
+  end
+
+  it 'sets tags' do
+    stack = described_class.build(id: :bar, deployment: mock_deployment) do
+      name "something"
+      region 'us-east-1'
+      template_directory __dir__, "support/templates"
+      relative_template_path "simple.yml"
+      tag :foo, "bar"
+    end
+
+    expect(stack.tags).not_to be_empty
+    tag = stack.tags.first
+    expect(tag.key).to eq "foo"
+    expect(tag.value).to eq "bar"
+  end
+
+  def mock_deployment
+    OpenStruct.new(tags: {})
   end
 
 end
