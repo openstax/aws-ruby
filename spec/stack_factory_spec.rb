@@ -66,7 +66,6 @@ RSpec.describe OpenStax::Aws::StackFactory do
       tag :foo, "bar"
     end
 
-
     expect(stack.tags).not_to be_empty
     tag = stack.tags.first
     expect(tag.key).to eq "foo"

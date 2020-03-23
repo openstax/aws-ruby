@@ -24,4 +24,8 @@ RSpec.describe OpenStax::Aws::Tag do
   it "rejects values that are too long" do
     expect{described_class.new("foo", "a"*257)}.to raise_error(/matching/)
   end
+
+  it "rejects nil values" do
+    expect{described_class.new("foo", nil)}.to raise_error(/cannot be nil/)
+  end
 end
