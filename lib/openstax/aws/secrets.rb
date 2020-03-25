@@ -160,8 +160,8 @@ module OpenStax::Aws
       when /^rsa\((\d+)\)$/
         type = "SecureString"
         generated = true
-        rsa_length = $1.to_i
-        OpenSSL::PKey::RSA.new(rsa_length).to_s
+        key_length = $1.to_i
+        OpenSSL::PKey::RSA.new(key_length).to_s
       when "uuid"
         generated = true
         SecureRandom.uuid
