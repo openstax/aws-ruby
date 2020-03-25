@@ -48,7 +48,7 @@ RSpec.describe OpenStax::Aws::Secrets, vcr: VCR_OPTS do
           CONTENT
         )
       )
-      expect(built_secrets[0][:value]).to match(/*BEGIN RSA PRIVATE KEY*/)
+      expect(built_secrets[0][:value]).to match(/BEGIN RSA PRIVATE KEY/)
     end
 
     it 'generates base64 random values' do
