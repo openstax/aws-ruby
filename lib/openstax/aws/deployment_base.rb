@@ -2,7 +2,6 @@ module OpenStax::Aws
   class DeploymentBase
 
     attr_reader :env_name, :region, :name, :dry_run
-    mattr_reader :tags, default: {}.with_indifferent_access
 
     RESERVED_ENV_NAMES = [
       "external", # used to namespace external secrets in the parameter store
@@ -28,6 +27,12 @@ module OpenStax::Aws
     def env_name!
       raise "`env_name` is blank" if env_name.blank?
       env_name
+    end
+
+    def tags
+      self.class.tags.each_with_object(HashWithIndifferentAccess.new) do |(key, value), hsh|
+        hsh[key] = value.is_a?(Proc) ? instance_eval(&value) : value
+      end
     end
 
     class << self
@@ -144,9 +149,14 @@ module OpenStax::Aws
         end
       end
 
-      def tag(key, value)
+      def tag(key, value=nil, &block)
         raise 'The first argument to `tag` must not be blank' if key.blank?
-        tags[key] = value
+        raise '`tag` must be given a value or a block' if value.nil? && !block_given?
+        tags[key] = block_given? ? block : value
+      end
+
+      def tags
+        @tags ||= HashWithIndifferentAccess.new
       end
     end
 

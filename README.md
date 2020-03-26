@@ -740,8 +740,16 @@ You can specify tags in all of a deployment's stacks by setting the tags at the 
 class MyDeployment < OpenStax::Aws::DeploymentBase
   tag :Application, "my_app"
   tag :Owner, "Jimmy"
+  tag(:Environment) { env_name }
   ...
+
+  def env_name
+    @env_name
+  end
 ```
+
+Note the block form of `tag` sets the tag value by evaluating the block in the context of the deployment instance,
+in this case by calling `env_name` on the deployment instance.
 
 Tags set at the stack level will override those set at the deployment level.
 

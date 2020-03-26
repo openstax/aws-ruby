@@ -228,6 +228,22 @@ RSpec.describe OpenStax::Aws::DeploymentBase do
 
       expect(instance.simple_stack.tags.map{|tag| {tag.key => tag.value}}).to contain_exactly({"howdy" => "there"}, {"foo" => "bar"})
     end
+
+    it "can set tags with blocks evaluated in the context of the deployment instance" do
+      deployment_class = Class.new(described_class) do
+        template_directory __dir__, 'support/templates'
+
+        tag(:foo) { bar }
+
+        def bar
+          "bar"
+        end
+      end
+
+      instance = deployment_class.new(name: "spec", region: "deployment-region")
+
+      expect(instance.tags).to eq({"foo" => "bar"})
+    end
   end
 
   context "deployment parameter defaults" do
