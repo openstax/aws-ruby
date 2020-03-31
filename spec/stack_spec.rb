@@ -228,6 +228,18 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     stack.delete
   end
 
+  it "return list of stacks" do
+    stack = new_stack(name: "spec-aws-ruby-stack-list-stacks",
+                      filename: "templates/simple.yml",
+                      overrides: {
+                        list_stacks: ["first", "third"]
+                      })
+    stacks = stack.list_stacks(region: "us-east-1", findBy: /-main-distribution$/, replaceWith: "")
+    expect(stacks.length()).to eq(2)
+    expect(stacks[0]).to eq("first")
+    expect(stacks[1]).to eq("thrid")
+  end
+
   context "#deployed_parameters" do
     it "returns empty for non-existent stack" do
       stack = new_template_one_stack(name: "doesnotmatter")
