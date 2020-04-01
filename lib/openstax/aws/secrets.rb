@@ -157,6 +157,11 @@ module OpenStax::Aws
         generated = true
         num_characters = $1.to_i
         SecureRandom.urlsafe_base64(num_characters)[0..num_characters-1]
+      when /^rsa\((\d+)\)$/
+        type = "SecureString"
+        generated = true
+        key_length = $1.to_i
+        OpenSSL::PKey::RSA.new(key_length).to_s
       when "uuid"
         generated = true
         SecureRandom.uuid

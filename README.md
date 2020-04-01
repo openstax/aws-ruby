@@ -461,7 +461,7 @@ Key:   /env_name/more_namespace/my_secret_key
 Value: 019af8dc
 ```
 
-Instead of `random(hex, number_of_hex_characters])` you can use `uuid` to get a UUID or `base64` to get a URL-safe base 64 string.  Note that generated secrets are only updated during a stack update if their specification changes (that way things like randomly generated secret keys don't change on each deployment unless how the value is computed changes).
+Instead of `random(hex, number_of_hex_characters])` you can use `uuid` to get a UUID or `base64` to get a URL-safe base 64 string or `rsa(size_of_key)` to generate a private SSL RSA key. Note that generated secrets are only updated during a stack update if their specification changes (that way things like randomly generated secret keys don't change on each deployment unless how the value is computed changes).
 
 Also note that if an array of secrets in the specification contains a generated secret, the overall `StringList` secret written to the parameter store is not marked as generated and so _would_ be changed in an update; the lesson of which is that this library only partially handles generative secrets in arrays.
 
@@ -740,8 +740,16 @@ You can specify tags in all of a deployment's stacks by setting the tags at the 
 class MyDeployment < OpenStax::Aws::DeploymentBase
   tag :Application, "my_app"
   tag :Owner, "Jimmy"
+  tag(:Environment) { env_name }
   ...
+
+  def env_name
+    @env_name
+  end
 ```
+
+Note the block form of `tag` sets the tag value by evaluating the block in the context of the deployment instance,
+in this case by calling `env_name` on the deployment instance.
 
 Tags set at the stack level will override those set at the deployment level.
 
