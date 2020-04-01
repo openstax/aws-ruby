@@ -376,7 +376,8 @@ module OpenStax::Aws
         waiter_class.new(
           client: client,
           before_attempt: ->(*) { wait_message.say_it },
-          delay: OpenStax::Aws.configuration.stack_waiter_delay
+          delay: OpenStax::Aws.configuration.stack_waiter_delay,
+          max_attempts: OpenStax::Aws.configuration.stack_waiter_max_attempts
         ).wait(stack_name: name)
       rescue Aws::Waiters::Errors::WaiterFailed => error
         logger.error("Waiting failed: #{error.message}")
