@@ -325,16 +325,14 @@ module OpenStax::Aws
       tags.map{|tag| {key: tag.key, value: tag.value}}
     end
 
-    def self.list_stacks(region: "us-east-1", findBy: "", replaceWith: "")
+    def self.list_stacks(region: "us-east-1")
       client = Aws::CloudFormation::Client.new(region: region)
 
       results = []
 
       client.list_stacks().each do |response|
-        response.stack_summaries.each do |el|
-          if el.stack_name.match(findBy)
-            results.push(el.stack_name.gsub(findBy, replaceWith))
-          end
+        response.stack_summaries.each do |stack|
+          results.push(stack.stack_name)
         end
       end
 
