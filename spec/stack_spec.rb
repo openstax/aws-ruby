@@ -229,15 +229,33 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
   end
 
   it "return list of stacks" do
-    stack = new_stack(name: "spec-aws-ruby-stack-list-stacks",
-                      filename: "templates/simple.yml",
-                      overrides: {
-                        list_stacks: ["first", "third"]
-                      })
-    stacks = stack.list_stacks(region: "us-east-1", findBy: /-main-distribution$/, replaceWith: "")
-    expect(stacks.length()).to eq(2)
-    expect(stacks[0]).to eq("first")
-    expect(stacks[1]).to eq("thrid")
+    class ResponseMockStack
+      attr_reader :name
+
+      def initialize(name)
+        @name = name
+      end
+
+      def stack_name
+        return @name
+      end
+    end
+
+    class ResponseMock
+      def stack_summaries
+        return [ResponseMockStack.new("first"), ResponseMockStack.new("second"),]
+      end
+    end
+
+    client_double = double()
+    response = [ResponseMock.new(), ResponseMock.new()]
+    allow(Aws::CloudFormation::Client).to receive(:new).and_return(client_double)
+    allow(client_double).to receive(:list_stacks).and_return(response)
+
+    expect(client_double).to receive(:list_stacks)
+    stacks = OpenStax::Aws::Stack.list_stacks()
+
+    expect(stacks.length()).to eq(4)
   end
 
   context "#deployed_parameters" do
