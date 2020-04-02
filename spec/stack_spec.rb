@@ -243,7 +243,7 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
 
     class ResponseMock
       def stack_summaries
-        return [ResponseMockStack.new("first"), ResponseMockStack.new("second"),]
+        return [ResponseMockStack.new("first"), ResponseMockStack.new("second")]
       end
     end
 
@@ -253,9 +253,13 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     allow(client_double).to receive(:list_stacks).and_return(response)
 
     expect(client_double).to receive(:list_stacks)
-    stacks = OpenStax::Aws::Stack.list_stacks()
+    stacks = OpenStax::Aws::Stack.list_stacks
 
-    expect(stacks.length()).to eq(4)
+    expect(stacks.length).to eq(4)
+    expect(stacks[0]).to eq("first")
+    expect(stacks[1]).to eq("second")
+    expect(stacks[2]).to eq("first")
+    expect(stacks[3]).to eq("second")
   end
 
   context "#deployed_parameters" do

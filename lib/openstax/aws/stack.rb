@@ -327,16 +327,7 @@ module OpenStax::Aws
 
     def self.list_stacks(region: "us-east-1")
       client = Aws::CloudFormation::Client.new(region: region)
-
-      results = []
-
-      client.list_stacks().each do |response|
-        response.stack_summaries.each do |stack|
-          results.push(stack.stack_name)
-        end
-      end
-
-      return results
+      client.list_stacks.map { |response| response.stack_summaries.map { |stack| stack.stack_name } }.flatten
     end
 
     def status
