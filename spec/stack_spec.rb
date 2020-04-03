@@ -247,8 +247,8 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
       end
     end
 
-    client_double = double()
-    response = [ResponseMock.new(), ResponseMock.new()]
+    client_double = double
+    response = [ResponseMock.new, ResponseMock.new]
     allow(Aws::CloudFormation::Client).to receive(:new).and_return(client_double)
     allow(client_double).to receive(:list_stacks).and_return(response)
 
