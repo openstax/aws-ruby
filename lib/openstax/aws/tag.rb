@@ -3,8 +3,8 @@ module OpenStax::Aws
 
     attr_reader :key, :value
 
-    AWS_TAG_KEY_REGEX = /\A[\w\+\-\=\.\:\/\@]{1,128}\z/
-    AWS_TAG_VALUE_REGEX = /\A[\w\+\-\=\.\:\/\@ \,]{0,256}\z/
+    AWS_TAG_KEY_REGEX =   /\A[\w\-\/.+=:@]{1,128}\z/
+    AWS_TAG_VALUE_REGEX = /\A[\w\-\/.+=:@;, ]{0,256}\z/
 
     def initialize(key, value)
       if key.nil? || !key.match(AWS_TAG_KEY_REGEX)
