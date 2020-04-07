@@ -345,6 +345,18 @@ instance) and then getting its desired capacity.
 
 No options here besides `wait`.
 
+#### `query`
+
+A class method `query` is provided on the `Stack` class to find stacks matching certain criteria:
+
+* `regex`: only queries whose name matches this regex will be returned
+* `regions`: only stacks in these regions will be queried (defaults to US regions)
+* `active`: if true, excludes stacks that have been deleted or that failed to create
+
+```ruby
+all_highlights_stacks_in_us = OpenStax::Aws::Stack.query(regex: /.*highlights.*/)
+```
+
 ### Secrets
 
 `openstax_aws` uses the AWS Parameter Store as a holding area for application secrets (and here "secrets" includes configuration values that are both secret and not secret).  During deployment, secrets are written to the Parameter Store, and then during instance launch they are read from the Parameter Store.
