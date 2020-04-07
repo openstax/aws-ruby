@@ -229,33 +229,11 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
   end
 
   it "return list of stacks" do
-    class ResponseMockStack
-      attr_reader :name
-
-      def initialize(name)
-        @name = name
-      end
-
-      def stack_name
-        return @name
-      end
+    VCR.use_cassette("OpenStax_Aws_Stack/return_list_of_stacks") do
+      stacks = OpenStax::Aws::Stack.list_stacks
+      expect(stacks.length).to eq(82)
+      expect(stacks[0]).to eq("release-57-main-distribution")
     end
-
-    class ResponseMock
-      def stack_summaries
-        return [ResponseMockStack.new("first"), ResponseMockStack.new("second")]
-      end
-    end
-
-    client_double = double
-    response = [ResponseMock.new, ResponseMock.new]
-    allow(Aws::CloudFormation::Client).to receive(:new).and_return(client_double)
-    allow(client_double).to receive(:list_stacks).and_return(response)
-
-    expect(client_double).to receive(:list_stacks)
-    stacks = OpenStax::Aws::Stack.list_stacks
-
-    expect(stacks).to eq(["first", "second", "first", "second"])
   end
 
   context "#deployed_parameters" do

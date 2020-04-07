@@ -1,0 +1,994 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://cloudformation.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=ListStacks&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.5.1 x86_64-linux-gnu aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-1.amazonaws.com
+      X-Amz-Date:
+      - 20200407T133150Z
+      X-Amz-Content-Sha256:
+      - 3fb563d96748e13e09dec79da43734f745777cc7b4ae922cfd622475d2ecfa32
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200407/us-east-1/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '36'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 69be84d1-ecfd-477d-b217-15532dd46c72
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '52032'
+      Vary:
+      - accept-encoding
+      Date:
+      - Tue, 07 Apr 2020 13:31:50 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <ListStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <ListStacksResult>
+            <StackSummaries>
+              <member>
+                <CreationTime>2020-04-02T13:19:15.632Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/release-57-main-distribution/8c951f10-74e4-11ea-9e17-12c1d85cca19</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>release-57-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-04-06T20:15:40.078Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-04-01T19:39:03.724Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/cops-distribution/7164ab50-7450-11ea-9253-12cb3b0f9c64</StackId>
+                <TemplateDescription>Content Distribution</TemplateDescription>
+                <StackName>cops-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-04-01T19:39:09.174Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-04-01T13:49:37.020Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/piotr-test-search-elasticsearch/9fd5f970-741f-11ea-ad19-12b44143da02</StackId>
+                <TemplateDescription>Open-Search Elasticsearch</TemplateDescription>
+                <StackName>piotr-test-search-elasticsearch</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>ROLLBACK_COMPLETE</StackStatus>
+                <DeletionTime>2020-04-01T13:49:47.139Z</DeletionTime>
+              </member>
+              <member>
+                <CreationTime>2020-04-01T13:48:30.209Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/piotr-test-search-network/7800ada0-741f-11ea-ba00-0ea47a628cf7</StackId>
+                <TemplateDescription>Open-Search Network</TemplateDescription>
+                <StackName>piotr-test-search-network</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-04-01T13:48:26.384Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/piotr-test-search-sqs/75c8bf00-741f-11ea-806c-0a48dc861a07</StackId>
+                <TemplateDescription>Open-Search SQS</TemplateDescription>
+                <StackName>piotr-test-search-sqs</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-04-01T13:48:22.603Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/piotr-test-search-dynamo-db/7386be40-741f-11ea-87dc-0a029b5a039d</StackId>
+                <TemplateDescription>Open-Search DynamoDB</TemplateDescription>
+                <StackName>piotr-test-search-dynamo-db</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-03-30T15:56:24.699Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/release-56-main-distribution/017e4380-729f-11ea-b8e1-0a99e59b1983</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>release-56-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-04-01T20:46:13.640Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-03-30T02:01:42.101Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/cops-distribution/6668d280-722a-11ea-abdb-0eb21ddd4aff</StackId>
+                <TemplateDescription>Content Distribution</TemplateDescription>
+                <StackName>cops-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-04-01T19:34:44.572Z</DeletionTime>
+                <LastUpdatedTime>2020-03-30T02:01:47.598Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-03-27T16:08:05.051Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/beep-beep-content-distribution/242a55b0-7045-11ea-acad-1230a5204572</StackId>
+                <TemplateDescription>Content Distribution</TemplateDescription>
+                <StackName>beep-beep-content-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-03-27T22:14:39.742Z</DeletionTime>
+                <LastUpdatedTime>2020-03-27T16:08:10.572Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-03-17T21:58:51.521Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/cd-deleteme-ripal/7cb5e850-689a-11ea-ac9f-121b58656156</StackId>
+                <TemplateDescription>Content Distribution</TemplateDescription>
+                <StackName>cd-deleteme-ripal</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-03-25T19:53:13.050Z</DeletionTime>
+                <LastUpdatedTime>2020-03-17T21:58:56.922Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-03-16T08:37:55.182Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/kevin-2-pdfdistro-main/6e3ea7b0-6761-11ea-8ffc-0a3238f55eb3</StackId>
+                <TemplateDescription>PDF Distribution</TemplateDescription>
+                <StackName>kevin-2-pdfdistro-main</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-03-30T16:46:21.752Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-03-16T08:31:00.617Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/kevin-1-pdfdistro-main/774feef0-6760-11ea-b5f2-0a8742d8c83d</StackId>
+                <TemplateDescription>PDF Distribution</TemplateDescription>
+                <StackName>kevin-1-pdfdistro-main</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-03-16T08:36:54.320Z</DeletionTime>
+                <LastUpdatedTime>2020-03-16T08:31:11.316Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-03-16T08:18:27.312Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/kevin-1-pdfdistro-main/b6506410-675e-11ea-a2a4-12a640cb526e</StackId>
+                <TemplateDescription>Buy Print</TemplateDescription>
+                <StackName>kevin-1-pdfdistro-main</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-03-16T08:19:27.158Z</DeletionTime>
+                <LastUpdatedTime>2020-03-16T08:18:32.965Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-03-16T08:07:11.337Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/kevin-1-pdfdistro-main/235e8d40-675d-11ea-8cef-0a726edfb5e3</StackId>
+                <TemplateDescription>Buy Print</TemplateDescription>
+                <StackName>kevin-1-pdfdistro-main</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-03-16T08:17:56.606Z</DeletionTime>
+                <LastUpdatedTime>2020-03-16T08:07:16.991Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-03-15T22:55:33.998Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/sun2a-main/13714730-6710-11ea-9956-0a1f955da693</StackId>
+                <TemplateDescription>The &quot;other&quot; cloudfront distribution to test me-spike</TemplateDescription>
+                <StackName>sun2a-main</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-03-15T22:39:26.765Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/sun2a-main/d2f3f2e0-670d-11ea-8261-12c270bd7978</StackId>
+                <TemplateDescription>The &quot;other&quot; cloudfront distribution to test me-spike</TemplateDescription>
+                <StackName>sun2a-main</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-03-15T22:55:18.869Z</DeletionTime>
+              </member>
+              <member>
+                <CreationTime>2020-03-13T16:14:27.493Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/release-54-main-distribution/b5e453d0-6545-11ea-8c3d-12e727a79a85</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>release-54-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-03-16T16:38:23.159Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-03-08T16:57:16.941Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/sun2-me-main/ddb941e0-615d-11ea-a92f-1245bb6cedee</StackId>
+                <TemplateDescription>Me Spike</TemplateDescription>
+                <StackName>sun2-me-main</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-03-09T23:52:29.025Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-03-08T16:48:53.238Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/sun1-me-main/b168eab0-615c-11ea-9c5e-12cf2806950f</StackId>
+                <TemplateDescription>Me Spike</TemplateDescription>
+                <StackName>sun1-me-main</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-03-09T01:35:29.469Z</DeletionTime>
+                <LastUpdatedTime>2020-03-08T16:48:59.102Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-03-01T21:04:55.647Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/aws-cloud9-jp-mar1-0264166640f444be8953148b62ff66b8/4d5d0a80-5c00-11ea-b56c-0e706f74ed45</StackId>
+                <StackName>aws-cloud9-jp-mar1-0264166640f444be8953148b62ff66b8</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-02-27T16:20:14.175Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/test-stack-please-delete2-main-distribution/084c65b0-597d-11ea-81b5-0e660dd6b3d4</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>test-stack-please-delete2-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-27T20:55:40.529Z</DeletionTime>
+                <LastUpdatedTime>2020-02-27T16:53:34.967Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-27T16:17:46.127Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/test-stack-please-delete-main-distribution/b0089270-597c-11ea-8960-0aff04b5e65f</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>test-stack-please-delete-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-27T20:25:06.118Z</DeletionTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-24T18:53:29.519Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/cd-deleteme/f2642000-5736-11ea-928b-0e229acdb0d3</StackId>
+                <TemplateDescription>CD DeleteMe</TemplateDescription>
+                <StackName>cd-deleteme</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-03-26T22:55:13.711Z</DeletionTime>
+                <LastUpdatedTime>2020-02-24T18:53:34.919Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-24T04:46:11.404Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/dev-customized-pages-main/94092bc0-56c0-11ea-8ebf-0a3d3edde975</StackId>
+                <TemplateDescription>Customized Page Hosting</TemplateDescription>
+                <StackName>dev-customized-pages-main</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-02-23T22:27:31.103Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/sun1-customized-pages-main/adaefa30-568b-11ea-b782-0ed5acf75591</StackId>
+                <TemplateDescription>Customized Page Hosting</TemplateDescription>
+                <StackName>sun1-customized-pages-main</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-24T04:39:49.197Z</DeletionTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-17T19:28:29.259Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/release-53-main-distribution/ac8f2d20-51bb-11ea-94ad-0af228e676ce</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>release-53-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-03-26T20:45:25.844Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-17T00:03:42.188Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/dev-hosted-edited-hosted-edited/7963a5a0-5118-11ea-9123-0a28f59d0ab4</StackId>
+                <TemplateDescription>Hosted Edited Pages</TemplateDescription>
+                <StackName>dev-hosted-edited-hosted-edited</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-23T22:25:33.726Z</DeletionTime>
+                <LastUpdatedTime>2020-02-17T05:13:11.258Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-13T22:05:55.791Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/content-distribution/01e931b0-4ead-11ea-96cf-0a3fc8cbcb75</StackId>
+                <TemplateDescription>Content Distribution</TemplateDescription>
+                <StackName>content-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_FAILED</StackStatus>
+                <DeletionTime>2020-03-30T01:43:52.373Z</DeletionTime>
+                <LastUpdatedTime>2020-03-30T01:27:34.449Z</LastUpdatedTime>
+                <StackStatusReason>The following resource(s) failed to delete: [LambdaEdgeFunction]. </StackStatusReason>
+              </member>
+              <member>
+                <CreationTime>2020-02-13T01:46:05.515Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/cd-deleteme/99282eb0-4e02-11ea-9b78-0e05d1a3c102</StackId>
+                <TemplateDescription>CD DeleteMe</TemplateDescription>
+                <StackName>cd-deleteme</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-17T19:35:45.690Z</DeletionTime>
+                <LastUpdatedTime>2020-02-13T01:46:11.134Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-10T04:04:10.834Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/production-buy-print-main/642f1970-4bba-11ea-b734-126c5203d2c8</StackId>
+                <TemplateDescription>Buy Print</TemplateDescription>
+                <StackName>production-buy-print-main</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-02-12T22:19:35.443Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-10T03:28:32.907Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/sun7-buy-print-main/69fa8150-4bb5-11ea-81d0-0e6b90c5010d</StackId>
+                <TemplateDescription>Buy Print</TemplateDescription>
+                <StackName>sun7-buy-print-main</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-02-10T03:28:38.639Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-09T18:21:47.512Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/sun6-buy-print-main/086dbc00-4b69-11ea-8522-0a200f00c284</StackId>
+                <TemplateDescription>Buy Print</TemplateDescription>
+                <StackName>sun6-buy-print-main</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-02-10T03:54:36.259Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-09T18:20:46.880Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/sun5-buy-print-main/e44ff9f0-4b68-11ea-9a86-12cb3b0f9c64</StackId>
+                <TemplateDescription>Buy Print</TemplateDescription>
+                <StackName>sun5-buy-print-main</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-09T19:30:20.222Z</DeletionTime>
+                <LastUpdatedTime>2020-02-09T18:20:53.099Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-09T18:19:39.838Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/sun4-buy-print-main/bc554bd0-4b68-11ea-a324-0e65f7e0e97d</StackId>
+                <TemplateDescription>Buy Print</TemplateDescription>
+                <StackName>sun4-buy-print-main</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-09T19:30:13.601Z</DeletionTime>
+                <LastUpdatedTime>2020-02-09T18:19:46.107Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-09T18:19:07.503Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/sun3-buy-print-main/a910e480-4b68-11ea-8522-0a200f00c284</StackId>
+                <StackName>sun3-buy-print-main</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-09T19:30:05.708Z</DeletionTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-09T18:17:42.244Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/sun2-buy-print-main/763aabe0-4b68-11ea-8098-122e54527a47</StackId>
+                <StackName>sun2-buy-print-main</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-09T19:30:00.569Z</DeletionTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-09T18:00:20.144Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/sun1-buy-print-main/0922e290-4b66-11ea-a482-0ad4194c8c9d</StackId>
+                <TemplateDescription>Buy Print</TemplateDescription>
+                <StackName>sun1-buy-print-main</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-10T03:30:30.520Z</DeletionTime>
+                <LastUpdatedTime>2020-02-09T18:01:05.269Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-08T21:52:54.607Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/jp-3-buy-print-main/5c3b83a0-4abd-11ea-a412-12709ad3d671</StackId>
+                <TemplateDescription>Buy Print</TemplateDescription>
+                <StackName>jp-3-buy-print-main</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-10T03:30:24.641Z</DeletionTime>
+                <LastUpdatedTime>2020-02-08T22:04:21.078Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-08T20:51:04.842Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/jp-1-buy-print-main/b9078d30-4ab4-11ea-8eda-12878b97cc21</StackId>
+                <TemplateDescription>Buy Print</TemplateDescription>
+                <StackName>jp-1-buy-print-main</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-09T19:56:32.761Z</DeletionTime>
+                <LastUpdatedTime>2020-02-08T20:57:23.519Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-08T20:02:53.386Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/jp-buy-1/fd7ac2e0-4aad-11ea-90a8-0a78092beb51</StackId>
+                <TemplateDescription>Buy Print</TemplateDescription>
+                <StackName>jp-buy-1</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-08T21:57:41.610Z</DeletionTime>
+                <LastUpdatedTime>2020-02-08T20:02:59.137Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-07T22:04:00.632Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/jp-buy-1/bec99ac0-49f5-11ea-a446-12002b7e66d1</StackId>
+                <TemplateDescription>Buy Print</TemplateDescription>
+                <StackName>jp-buy-1</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-08T20:02:14.887Z</DeletionTime>
+                <LastUpdatedTime>2020-02-07T22:07:19.161Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-04T15:57:29.483Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/release-50-main-distribution/0b631d70-4767-11ea-a562-0ecdc090d557</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>release-50-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-02-17T17:18:19.433Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-01-31T21:21:47.564Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/cd-deleteme/b01de7f0-446f-11ea-9c2c-0e36ce6a2c7c</StackId>
+                <TemplateDescription>CD DeleteMe</TemplateDescription>
+                <StackName>cd-deleteme</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-04T15:10:51.046Z</DeletionTime>
+                <LastUpdatedTime>2020-01-31T22:12:03.404Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-01-24T15:03:41.944Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/release-49-main-distribution/b51cbca0-3eba-11ea-90a8-0a78092beb51</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>release-49-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-02-04T03:13:13.768Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-01-17T03:47:58.552Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/cops-sandbox-swarm/1cf2b490-38dc-11ea-ba1a-0e706f74ed45</StackId>
+                <TemplateDescription>Docker CE for AWS 18.09.2-ce (18.09.2-ce-aws1)</TemplateDescription>
+                <StackName>cops-sandbox-swarm</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-01-22T17:38:52.747Z</DeletionTime>
+              </member>
+              <member>
+                <CreationTime>2020-01-16T16:06:04.726Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/content-distribution/191f51f0-387a-11ea-93e1-0a4f04019892</StackId>
+                <TemplateDescription>CD DeleteMe</TemplateDescription>
+                <StackName>content-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-13T21:01:49.224Z</DeletionTime>
+                <LastUpdatedTime>2020-02-13T20:48:34.726Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-01-15T22:57:59.951Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/content-distribution/7a2261d0-37ea-11ea-b465-126c5203d2c8</StackId>
+                <TemplateDescription>Content Distribution</TemplateDescription>
+                <StackName>content-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-01-16T14:24:50.010Z</DeletionTime>
+                <LastUpdatedTime>2020-01-15T23:28:36.361Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-01-15T22:55:21.726Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/content-distribution/1bd23f60-37ea-11ea-bdc9-0e1b8dfea4f7</StackId>
+                <TemplateDescription>Content Distribution</TemplateDescription>
+                <StackName>content-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-01-15T22:57:46.403Z</DeletionTime>
+                <LastUpdatedTime>2020-01-15T22:55:27.498Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-01-15T22:51:10.856Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/content-distribution/864b7060-37e9-11ea-bde6-0a3fc8cbcb75</StackId>
+                <TemplateDescription>Content Distribution</TemplateDescription>
+                <StackName>content-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-01-15T22:53:50.905Z</DeletionTime>
+                <LastUpdatedTime>2020-01-15T22:51:16.594Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-01-15T22:42:59.065Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/content-distribution/6123add0-37e8-11ea-94a5-12878b97cc21</StackId>
+                <TemplateDescription>Content Distribution</TemplateDescription>
+                <StackName>content-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-01-15T22:50:55.736Z</DeletionTime>
+                <LastUpdatedTime>2020-01-15T22:44:12.470Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-01-14T22:08:07.853Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/content-distribution/584a4080-371a-11ea-962b-12a619bb25d0</StackId>
+                <TemplateDescription>Content Distribution</TemplateDescription>
+                <StackName>content-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-01-15T22:42:15.611Z</DeletionTime>
+                <LastUpdatedTime>2020-01-15T21:14:21.408Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-01-08T20:39:15.432Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/release-47-main-distribution/eef8f210-3256-11ea-b644-0e6f11df9e98</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>release-47-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-01-27T18:58:05.058Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-01-07T17:55:46.706Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/release-42-main-distribution/ee1ea870-3176-11ea-ae4a-0e05d1a3c102</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>release-42-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-18T18:58:22.230Z</DeletionTime>
+                <LastUpdatedTime>2020-01-27T18:29:59.647Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-12-22T22:47:59.137Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/jpLambdaEdgeTest/1a1c0d30-250d-11ea-9f8f-1220c9cd2399</StackId>
+                <TemplateDescription>Sample SAM configuration for Lambda@Edge to facilitate deployments and further updates</TemplateDescription>
+                <StackName>jpLambdaEdgeTest</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-23T20:27:07.191Z</DeletionTime>
+                <LastUpdatedTime>2019-12-22T23:21:28.165Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-12-18T02:33:55.446Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/kevin-sam-hello-world/d6326fa0-213e-11ea-b781-0a392ab5a299</StackId>
+                <TemplateDescription>hello_world
+        Sample SAM Template for hello_world
+        </TemplateDescription>
+                <StackName>kevin-sam-hello-world</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_ROLLBACK_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-01-28T17:05:07.548Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-12-18T02:32:49.637Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/aws-sam-cli-managed-default/af026480-213e-11ea-a5da-0a6641f83659</StackId>
+                <TemplateDescription>Managed Stack for AWS SAM CLI</TemplateDescription>
+                <StackName>aws-sam-cli-managed-default</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2019-12-18T02:33:05.241Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-11-14T01:31:49.267Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/release-39-main-distribution/86c5d720-067e-11ea-bc11-0afe492705d7</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>release-39-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2019-12-19T22:33:52.645Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-10-28T15:58:49.512Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/release-37-main-distribution/d43b6460-f99b-11e9-93f5-0ab87eb901cc</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>release-37-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2019-11-14T02:30:17.065Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-10-18T14:23:14.682Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/release-36-main-distribution/d1dc28d0-f1b2-11e9-a7a0-0e86e2a0c174</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>release-36-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2019-11-06T05:15:00.378Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-10-17T20:34:44.874Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/release-35-main-distribution/8d708d20-f11d-11e9-b77c-0afcd132dcac</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>release-35-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-18T18:58:09.756Z</DeletionTime>
+                <LastUpdatedTime>2019-10-18T02:30:37.042Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-09-30T16:07:41.316Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/release-28-main-distribution/6dab7fb0-e39c-11e9-83cd-0eb49284c068</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>release-28-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-18T18:58:01.424Z</DeletionTime>
+                <LastUpdatedTime>2019-10-03T16:36:26.262Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-09-26T14:35:14.754Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/testrelease-even-more-books-main-distribution/da042250-e06a-11e9-bc96-0aa958b6917a</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>testrelease-even-more-books-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-18T18:57:52.313Z</DeletionTime>
+                <LastUpdatedTime>2019-09-26T15:50:17.020Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-09-18T21:21:27.523Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/rap-distribution/466b74f0-da5a-11e9-b5fb-0a545e22b5be</StackId>
+                <TemplateDescription>RAP SPIKE Distribution</TemplateDescription>
+                <StackName>rap-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_FAILED</StackStatus>
+                <DeletionTime>2020-03-27T22:14:27.694Z</DeletionTime>
+                <LastUpdatedTime>2019-09-24T19:59:14.666Z</LastUpdatedTime>
+                <StackStatusReason>The following resource(s) failed to delete: [CfOriginAccessIdentity, LambdaEdgeFunction]. </StackStatusReason>
+              </member>
+              <member>
+                <CreationTime>2019-09-18T16:52:18.747Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/steve-test-main-distribution/ac99b5a0-da34-11e9-902a-0e162d0e1748</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>steve-test-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-18T18:57:43.520Z</DeletionTime>
+              </member>
+              <member>
+                <CreationTime>2019-09-11T22:08:37.109Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/ce-rap-mulich-web-dev/b40a0870-d4e0-11e9-9e60-0a009cdf2216</StackId>
+                <TemplateDescription>Automatically generated with Zappa</TemplateDescription>
+                <StackName>ce-rap-mulich-web-dev</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-03-27T22:14:18.647Z</DeletionTime>
+              </member>
+              <member>
+                <CreationTime>2019-09-10T04:50:11.271Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/archive-gateway-dev/787f5540-d386-11e9-a4dc-12505ef78976</StackId>
+                <TemplateDescription>Automatically generated with Zappa</TemplateDescription>
+                <StackName>archive-gateway-dev</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2019-09-05T19:00:54.359Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/testrelease-more-books-main-distribution/7c170100-d00f-11e9-881c-123cb1b397a4</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>testrelease-more-books-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-18T18:57:31.814Z</DeletionTime>
+                <LastUpdatedTime>2019-09-05T20:12:04.204Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-08-30T15:23:04.414Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/dev2-main-distribution/0f4b5e10-cb3a-11e9-9b1e-12b323895910</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>dev2-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-18T18:57:24.920Z</DeletionTime>
+              </member>
+              <member>
+                <CreationTime>2019-06-24T21:06:31.635Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/jun24a-main-distribution/f08025b0-96c3-11e9-9da1-127a71eef55e</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>jun24a-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2019-12-10T04:36:57.342Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-06-04T18:29:17.050Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/dev-main-distribution/a8c39ea0-86f6-11e9-99e1-1298ca2ea00e</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>dev-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-18T18:57:17.039Z</DeletionTime>
+              </member>
+              <member>
+                <CreationTime>2019-05-21T14:45:39.266Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/dry-run-5-21-main-distribution/195a8aa0-7bd7-11e9-81c1-120371d9064c</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>dry-run-5-21-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-18T18:56:54.718Z</DeletionTime>
+                <LastUpdatedTime>2019-05-21T16:20:20.023Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-05-10T17:32:55.034Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/cloudfront-iam/a49a8e30-7349-11e9-8e37-0aaa9d7b8aca</StackId>
+                <TemplateDescription>Global CloudFront IAM policies, roles, groups (cannot be env-specific)</TemplateDescription>
+                <StackName>cloudfront-iam</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_ROLLBACK_COMPLETE</StackStatus>
+                <LastUpdatedTime>2019-10-08T00:43:30.518Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-05-10T16:30:09.026Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/may9b-main-distribution/dfe4b640-7340-11e9-b1d2-12094f064940</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>may9b-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-18T18:56:38.771Z</DeletionTime>
+                <LastUpdatedTime>2019-05-10T17:05:12.537Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-04-18T15:43:54.185Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/apr18a-main-distribution/c4ea3740-61f0-11e9-be57-1297d6a5b478</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>apr18a-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-02-18T18:56:47.905Z</DeletionTime>
+                <LastUpdatedTime>2019-04-18T17:30:21.707Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-04-11T17:56:30.483Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/apr11a-main-distribution/22435520-5c83-11e9-a655-0ab87eb901cc</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>apr11a-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>IN_SYNC</StackDriftStatus>
+                  <LastCheckTimestamp>2019-04-18T16:31:28.504Z</LastCheckTimestamp>
+                </DriftInformation>
+                <StackStatus>DELETE_COMPLETE</StackStatus>
+                <DeletionTime>2020-03-11T19:09:48.928Z</DeletionTime>
+              </member>
+              <member>
+                <CreationTime>2019-01-11T15:54:31.323Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/release-2019-Q1-Unified-main-distribution/2e9e4c50-15b9-11e9-8f74-0e639cbb91d4</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>release-2019-Q1-Unified-main-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>ROLLBACK_COMPLETE</StackStatus>
+                <DeletionTime>2019-01-11T15:54:42.108Z</DeletionTime>
+              </member>
+              <member>
+                <CreationTime>2018-12-17T22:27:14.445Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/unified-web-s3-primary-bucket/e7299bd0-024a-11e9-89ae-0eb08bdb4cec</StackId>
+                <TemplateDescription>Primary Unified Web bucket
+        </TemplateDescription>
+                <StackName>unified-web-s3-primary-bucket</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-02-27T15:18:09.425Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2018-12-17T22:26:10.145Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/unified-web-s3-identities/c0a8bc70-024a-11e9-bac1-0a1fbafbd996</StackId>
+                <TemplateDescription>Identities needed by both primary and replica unified web buckets
+        </TemplateDescription>
+                <StackName>unified-web-s3-identities</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-02-27T15:16:52.717Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2018-12-12T20:17:18.586Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/main-qa-distribution/ec337370-fe4a-11e8-9e07-50fae984a035</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>main-qa-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2018-12-12T20:12:15.208Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/main-staging-distribution/37559230-fe4a-11e8-b7b6-500c3d441629</StackId>
+                <TemplateDescription>The main &quot;front door&quot; CloudFront distribution</TemplateDescription>
+                <StackName>main-staging-distribution</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2018-11-29T13:51:40.243Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/rex-s3-primary-bucket/e5519090-f3dd-11e8-b7b0-124d1eab42ba</StackId>
+                <TemplateDescription>Primary Rex bucket
+        </TemplateDescription>
+                <StackName>rex-s3-primary-bucket</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2018-12-02T21:18:44.728Z</LastUpdatedTime>
+                <StackStatusReason>Export RexPrimaryBucketName cannot be deleted as it is in use by main-qa-distribution and main-staging-distribution</StackStatusReason>
+              </member>
+              <member>
+                <CreationTime>2018-11-29T13:50:35.472Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-1:373045849756:stack/rex-s3-identities/beb7d200-f3dd-11e8-a46c-500c28b4e4fd</StackId>
+                <TemplateDescription>Identities needed by both primary and replica rex buckets
+        </TemplateDescription>
+                <StackName>rex-s3-identities</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <StackStatusReason>Export MainDistributionOai cannot be deleted as it is in use by main-qa-distribution and main-staging-distribution</StackStatusReason>
+              </member>
+            </StackSummaries>
+          </ListStacksResult>
+          <ResponseMetadata>
+            <RequestId>69be84d1-ecfd-477d-b217-15532dd46c72</RequestId>
+          </ResponseMetadata>
+        </ListStacksResponse>
+    http_version: 
+  recorded_at: Tue, 07 Apr 2020 13:31:51 GMT
+recorded_with: VCR 4.0.0
