@@ -365,6 +365,14 @@ module OpenStax::Aws
       !secrets_blocks.empty?
     end
 
+    def self.describe_stacks(pattern: /.*/, regions: %w(us-east-1 us-east-2 us-west-1 us-west-2))
+      regions.map do |region|
+        Aws::CloudFormation::Client.new(region: region).describe_stacks.stacks.select do |stack|
+          pattern.match?(stack[:stack_name])
+        end
+      end.flatten
+    end
+
     protected
 
     def wait_for_stack_event(waiter_class:, word:)
