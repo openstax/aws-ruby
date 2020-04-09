@@ -1,0 +1,4162 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://cloudformation.us-west-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=ValidateTemplate&TemplateBody=Description%3A%20%3E%0A%20%20Test%20template%20one%0A%0AParameters%3A%0A%0A%20%20BucketName%3A%0A%20%20%20%20Type%3A%20String%0A%0A%20%20TagValue%3A%0A%20%20%20%20Type%3A%20String%0A%0AResources%3A%0A%0A%20%20S3Bucket%3A%0A%20%20%20%20Type%3A%20AWS%3A%3AS3%3A%3ABucket%0A%20%20%20%20Properties%3A%0A%20%20%20%20%20%20BucketName%3A%20%21Ref%20%27BucketName%27%0A%20%20%20%20%20%20Tags%3A%0A%20%20%20%20%20%20%20%20-%20Key%3A%20Tag1%0A%20%20%20%20%20%20%20%20%20%20Value%3A%20%21Ref%20%27TagValue%27%0A%0AOutputs%3A%0A%0A%20%20BucketArn%3A%0A%20%20%20%20Value%3A%20%21GetAtt%20%27S3Bucket.Arn%27%0A%20%20%20%20Export%3A%0A%20%20%20%20%20%20Name%3A%20%21Sub%20%27%24%7BAWS%3A%3AStackName%7D-BucketArn%27%0A&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123726Z
+      X-Amz-Content-Sha256:
+      - 4c4130d6d8ee21d1264dded763ed8d1415f408345990e0ea0c57bac79465bafc
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-west-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '759'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - a84420d2-c8c9-4742-a889-748fe4d5a363
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '580'
+      Date:
+      - Thu, 09 Apr 2020 12:37:27 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <ValidateTemplateResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <ValidateTemplateResult>
+            <Description>Test template one
+        </Description>
+            <Parameters>
+              <member>
+                <ParameterKey>BucketName</ParameterKey>
+                <NoEcho>false</NoEcho>
+              </member>
+              <member>
+                <ParameterKey>TagValue</ParameterKey>
+                <NoEcho>false</NoEcho>
+              </member>
+            </Parameters>
+          </ValidateTemplateResult>
+          <ResponseMetadata>
+            <RequestId>a84420d2-c8c9-4742-a889-748fe4d5a363</RequestId>
+          </ResponseMetadata>
+        </ValidateTemplateResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:27 GMT
+- request:
+    method: put
+    uri: https://openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com/cfn_templates/spec-templates/template_one.yml
+    body:
+      encoding: UTF-8
+      string: |
+        Description: >
+          Test template one
+
+        Parameters:
+
+          BucketName:
+            Type: String
+
+          TagValue:
+            Type: String
+
+        Resources:
+
+          S3Bucket:
+            Type: AWS::S3::Bucket
+            Properties:
+              BucketName: !Ref 'BucketName'
+              Tags:
+                - Key: Tag1
+                  Value: !Ref 'TagValue'
+
+        Outputs:
+
+          BucketArn:
+            Value: !GetAtt 'S3Bucket.Arn'
+            Export:
+              Name: !Sub '${AWS::StackName}-BucketArn'
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-s3/1.37.0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - iwRQXuudefxiuYnuy/AKYA==
+      Host:
+      - openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123727Z
+      X-Amz-Content-Sha256:
+      - 44820f5081bfdd4c387cf15b34f8f70367dbba4e87e0c51380353e1b3b436eab
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-west-2/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=<SignatureValue>
+      Content-Length:
+      - '395'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - SRjcq06BK03la5Uw0Eht2ogxicL+1MJ1gwvo7IrAJYWpmwA9MDFa7UOkziocWDk2aB7KwhhetFs=
+      X-Amz-Request-Id:
+      - 735A8DFD16C2F10D
+      Date:
+      - Thu, 09 Apr 2020 12:37:29 GMT
+      X-Amz-Version-Id:
+      - AKmIkd60FgKsxvVLS4oVphC990e9r3Nz
+      X-Amz-Server-Side-Encryption:
+      - AES256
+      Etag:
+      - '"8b04505eeb9d79fc62b989eecbf00a60"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:28 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=CreateStack&Capabilities=&EnableTerminationProtection=false&Parameters.member.1.ParameterKey=BucketName&Parameters.member.1.ParameterValue=aws-ruby-rspec-bucket&Parameters.member.2.ParameterKey=TagValue&Parameters.member.2.ParameterValue=howdy&StackName=spec-aws-ruby-stack-describe&Tags=&TemplateURL=https%3A%2F%2Fs3.amazonaws.com%2Fopenstax-sandbox-cfn-templates%2Fcfn_templates%2Fspec-templates%2Ftemplate_one.yml&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123728Z
+      X-Amz-Content-Sha256:
+      - 22ecc1c984687cd0d6f34999ddbe0ef1d69260eca882975afa157a48aee4585d
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '442'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 161e25c5-5eeb-48e5-8bf4-9a31a8be62d6
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '398'
+      Date:
+      - Thu, 09 Apr 2020 12:37:29 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <CreateStackResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <CreateStackResult>
+            <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+          </CreateStackResult>
+          <ResponseMetadata>
+            <RequestId>161e25c5-5eeb-48e5-8bf4-9a31a8be62d6</RequestId>
+          </ResponseMetadata>
+        </CreateStackResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:30 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123730Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - be366653-a192-45cf-b45b-69d20881a9f5
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:30 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>be366653-a192-45cf-b45b-69d20881a9f5</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:30 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123730Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 2b52ba3a-dc89-40e4-99ba-224adec3698a
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:30 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>2b52ba3a-dc89-40e4-99ba-224adec3698a</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:31 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123731Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 28f45185-de8a-4a45-9295-1c7ffcc95628
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:32 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>28f45185-de8a-4a45-9295-1c7ffcc95628</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:32 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123732Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - b4287bba-9bef-4978-937b-2ccaa8b4526e
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:32 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>b4287bba-9bef-4978-937b-2ccaa8b4526e</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:32 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123732Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 9b4ae640-0f95-4e38-b238-a23f9481a41e
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:33 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>9b4ae640-0f95-4e38-b238-a23f9481a41e</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:33 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123733Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - f40d7be9-1357-4460-ab32-d6e1e65f2e1d
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:33 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>f40d7be9-1357-4460-ab32-d6e1e65f2e1d</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:34 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123734Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 43cbf2f2-c56b-41df-95e9-5dab31fb8b0c
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:34 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>43cbf2f2-c56b-41df-95e9-5dab31fb8b0c</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:34 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123734Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - f3d56c2f-2896-47a7-9dcb-a75375c86fc8
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:35 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>f3d56c2f-2896-47a7-9dcb-a75375c86fc8</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:35 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123735Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - e5d2eba1-3bf9-48e4-ba80-e9c3a5e592bc
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:36 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>e5d2eba1-3bf9-48e4-ba80-e9c3a5e592bc</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:37 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123737Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - f809a2f5-bf89-456f-94b5-f190cc4d6a24
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:38 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>f809a2f5-bf89-456f-94b5-f190cc4d6a24</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:38 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123738Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 603abcac-5f65-445a-a83e-3c3e4490d8cd
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:38 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>603abcac-5f65-445a-a83e-3c3e4490d8cd</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:39 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123739Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - cc0011c1-8a93-4e8f-a2ba-d2420fd9d05c
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:39 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>cc0011c1-8a93-4e8f-a2ba-d2420fd9d05c</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:40 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123740Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 6c94cc3e-d20c-40c4-b126-9c5978062cfe
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:40 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>6c94cc3e-d20c-40c4-b126-9c5978062cfe</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:41 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123741Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 0276b9d1-bd2d-4869-9e11-22cf6f8a4e7d
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:40 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>0276b9d1-bd2d-4869-9e11-22cf6f8a4e7d</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:42 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123742Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - da098f24-d667-4ba3-aacd-a3c96d1b612d
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:42 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>da098f24-d667-4ba3-aacd-a3c96d1b612d</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:43 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123743Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - f381f327-f139-4a33-aeea-4dec9245843f
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:44 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>f381f327-f139-4a33-aeea-4dec9245843f</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:45 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123745Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - f9715a44-1178-4b0e-9abb-d988d3621272
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:45 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>f9715a44-1178-4b0e-9abb-d988d3621272</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:46 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123746Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - fec5ffb1-149c-4ac7-be9d-4fd3605c60ff
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:46 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>fec5ffb1-149c-4ac7-be9d-4fd3605c60ff</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:47 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123747Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 7ff65458-b8ce-4599-bb20-7fd245200bb9
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:47 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>7ff65458-b8ce-4599-bb20-7fd245200bb9</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:47 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123747Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 3d4b7348-0027-44e7-b68d-673d417b7c40
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:48 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>3d4b7348-0027-44e7-b68d-673d417b7c40</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:48 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123748Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 0ff655f0-46fb-43a6-8aa1-3f2acdeea9b9
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:48 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>0ff655f0-46fb-43a6-8aa1-3f2acdeea9b9</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:49 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123749Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 786b9607-968a-479b-852f-3bfdbf7729c0
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:49 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>786b9607-968a-479b-852f-3bfdbf7729c0</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:49 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123749Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 28899529-bcd7-45ab-b0be-ca79c4060557
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:50 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>28899529-bcd7-45ab-b0be-ca79c4060557</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:50 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123750Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - bcfcc3ec-d31a-42a9-9362-44b09b6297b9
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:50 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>bcfcc3ec-d31a-42a9-9362-44b09b6297b9</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:51 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123751Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 2409c3d3-e0e7-4583-9326-7fe66ad784b5
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:51 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>2409c3d3-e0e7-4583-9326-7fe66ad784b5</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:52 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123752Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - b3ae1779-aa0d-4874-a946-103887da8cb0
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:53 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>b3ae1779-aa0d-4874-a946-103887da8cb0</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:53 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123753Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 9b2438ae-f363-4c68-b8bb-3c36c80cc658
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:53 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>9b2438ae-f363-4c68-b8bb-3c36c80cc658</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:53 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123753Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - f8a2f674-ed27-45d9-8dec-737fd522f5ad
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:54 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>f8a2f674-ed27-45d9-8dec-737fd522f5ad</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:54 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123754Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 4e1fa690-5c53-465a-bc30-cbf8c16d8ed4
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1356'
+      Date:
+      - Thu, 09 Apr 2020 12:37:54 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>4e1fa690-5c53-465a-bc30-cbf8c16d8ed4</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:55 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123755Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 2362beff-5013-4e36-afa8-df3bfbc02da0
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1624'
+      Date:
+      - Thu, 09 Apr 2020 12:37:55 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <Outputs>
+                  <member>
+                    <ExportName>spec-aws-ruby-stack-describe-BucketArn</ExportName>
+                    <OutputKey>BucketArn</OutputKey>
+                    <OutputValue>arn:aws:s3:::aws-ruby-rspec-bucket</OutputValue>
+                  </member>
+                </Outputs>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>2362beff-5013-4e36-afa8-df3bfbc02da0</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:55 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123755Z
+      X-Amz-Content-Sha256:
+      - 1c0d327d16f37b15838ca07a3964664f2dcff8d7051d9f1d87552e7df79be01f
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '40'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 8d64220a-505a-4e3f-a721-2bb235b76490
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '58972'
+      Vary:
+      - accept-encoding
+      Date:
+      - Thu, 09 Apr 2020 12:37:56 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <Outputs>
+                  <member>
+                    <ExportName>spec-aws-ruby-stack-describe-BucketArn</ExportName>
+                    <OutputKey>BucketArn</OutputKey>
+                    <OutputValue>arn:aws:s3:::aws-ruby-rspec-bucket</OutputValue>
+                  </member>
+                </Outputs>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+              <member>
+                <Outputs>
+                  <member>
+                    <Description>URL of the database host</Description>
+                    <ExportName>p-1085f0f-accounts-rds-Endpoint</ExportName>
+                    <OutputKey>Endpoint</OutputKey>
+                    <OutputValue>p-1085f0f-accounts-rds-db.c1xuysrynqzk.us-east-2.rds.amazonaws.com</OutputValue>
+                  </member>
+                  <member>
+                    <Description>Database port</Description>
+                    <ExportName>p-1085f0f-accounts-rds-DbPort</ExportName>
+                    <OutputKey>DbPort</OutputKey>
+                    <OutputValue>5432</OutputValue>
+                  </member>
+                  <member>
+                    <Description>the SecurityGroup ID that users of RDS will need</Description>
+                    <ExportName>p-1085f0f-accounts-rds-SecurityGroupId</ExportName>
+                    <OutputKey>SecGrpId</OutputKey>
+                    <OutputValue>sg-0c3d8c5bad80a0795</OutputValue>
+                  </member>
+                  <member>
+                    <Description>the ElastiCache Endpoint</Description>
+                    <ExportName>p-1085f0f-accounts-rds-ElastiCacheEndpoint</ExportName>
+                    <OutputKey>ElastiCacheEndpoint</OutputKey>
+                    <OutputValue>p-1085f0f-accounts-rds-redis.uzzdfz.0001.use2.cache.amazonaws.com</OutputValue>
+                  </member>
+                  <member>
+                    <Description>the SecurityGroup ID that users of ElastiCachce will need</Description>
+                    <ExportName>p-1085f0f-accounts-rds-ElastiCacheSecurityGroupId</ExportName>
+                    <OutputKey>ElasticCacheSecGrpId</OutputKey>
+                    <OutputValue>sg-09517b82ff293cb26</OutputValue>
+                  </member>
+                  <member>
+                    <Description>ElastiCache port</Description>
+                    <ExportName>p-1085f0f-accounts-rds-ElastiCachePort</ExportName>
+                    <OutputKey>ElastiCachePort</OutputKey>
+                    <OutputValue>6379</OutputValue>
+                  </member>
+                </Outputs>
+                <CreationTime>2020-04-01T17:39:33.326Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/p-1085f0f-accounts-rds/bf0e2b80-743f-11ea-a7da-022fd555c652</StackId>
+                <StackName>p-1085f0f-accounts-rds</StackName>
+                <Description>Accounts Database</Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags>
+                  <member>
+                    <Value>BIT</Value>
+                    <Key>Project</Key>
+                  </member>
+                  <member>
+                    <Value>ScottBatchelder</Value>
+                    <Key>Owner</Key>
+                  </member>
+                  <member>
+                    <Value>shared</Value>
+                    <Key>Environment</Key>
+                  </member>
+                  <member>
+                    <Value>Accounts</Value>
+                    <Key>Application</Key>
+                  </member>
+                </Tags>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <Parameters>
+                  <member>
+                    <ParameterKey>NetworkStackName</ParameterKey>
+                    <ParameterValue>p-1085f0f-accounts-network</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>AnytimeSnsTopic</ParameterKey>
+                    <ParameterValue>arn:aws:sns:us-east-2:373045849756:Accounts-Anytime-Notifications</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>WorkdaySnsTopic</ParameterKey>
+                    <ParameterValue>arn:aws:sns:us-east-2:373045849756:Accounts-Workday-Notifications</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>MasterUsername</ParameterKey>
+                    <ParameterValue>accounts</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>DbName</ParameterKey>
+                    <ParameterValue>accounts</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>DbPort</ParameterKey>
+                    <ParameterValue>5432</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>MasterPassword</ParameterKey>
+                    <ParameterValue>****</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>p-1085f0f</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvType</ParameterKey>
+                    <ParameterValue>prod_lite</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+              <member>
+                <Outputs>
+                  <member>
+                    <Description>URL of the database host</Description>
+                    <ExportName>p-4e40586-accounts-rds-Endpoint</ExportName>
+                    <OutputKey>Endpoint</OutputKey>
+                    <OutputValue>p-4e40586-accounts-rds-db.c1xuysrynqzk.us-east-2.rds.amazonaws.com</OutputValue>
+                  </member>
+                  <member>
+                    <Description>Database port</Description>
+                    <ExportName>p-4e40586-accounts-rds-DbPort</ExportName>
+                    <OutputKey>DbPort</OutputKey>
+                    <OutputValue>5432</OutputValue>
+                  </member>
+                  <member>
+                    <Description>the SecurityGroup ID that users of RDS will need</Description>
+                    <ExportName>p-4e40586-accounts-rds-SecurityGroupId</ExportName>
+                    <OutputKey>SecGrpId</OutputKey>
+                    <OutputValue>sg-0b9d430d0ff0d916b</OutputValue>
+                  </member>
+                  <member>
+                    <Description>the ElastiCache Endpoint</Description>
+                    <ExportName>p-4e40586-accounts-rds-ElastiCacheEndpoint</ExportName>
+                    <OutputKey>ElastiCacheEndpoint</OutputKey>
+                    <OutputValue>p-4e40586-accounts-rds-redis.uzzdfz.0001.use2.cache.amazonaws.com</OutputValue>
+                  </member>
+                  <member>
+                    <Description>the SecurityGroup ID that users of ElastiCachce will need</Description>
+                    <ExportName>p-4e40586-accounts-rds-ElastiCacheSecurityGroupId</ExportName>
+                    <OutputKey>ElasticCacheSecGrpId</OutputKey>
+                    <OutputValue>sg-0ee3ccbdeead81fd6</OutputValue>
+                  </member>
+                  <member>
+                    <Description>ElastiCache port</Description>
+                    <ExportName>p-4e40586-accounts-rds-ElastiCachePort</ExportName>
+                    <OutputKey>ElastiCachePort</OutputKey>
+                    <OutputValue>6379</OutputValue>
+                  </member>
+                </Outputs>
+                <CreationTime>2020-04-01T17:38:52.591Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/p-4e40586-accounts-rds/a6ce21b0-743f-11ea-bdb7-0608930970a0</StackId>
+                <StackName>p-4e40586-accounts-rds</StackName>
+                <Description>Accounts Database</Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags>
+                  <member>
+                    <Value>BIT</Value>
+                    <Key>Project</Key>
+                  </member>
+                  <member>
+                    <Value>ScottBatchelder</Value>
+                    <Key>Owner</Key>
+                  </member>
+                  <member>
+                    <Value>shared</Value>
+                    <Key>Environment</Key>
+                  </member>
+                  <member>
+                    <Value>Accounts</Value>
+                    <Key>Application</Key>
+                  </member>
+                </Tags>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <Parameters>
+                  <member>
+                    <ParameterKey>NetworkStackName</ParameterKey>
+                    <ParameterValue>p-4e40586-accounts-network</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>AnytimeSnsTopic</ParameterKey>
+                    <ParameterValue>arn:aws:sns:us-east-2:373045849756:Accounts-Anytime-Notifications</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>WorkdaySnsTopic</ParameterKey>
+                    <ParameterValue>arn:aws:sns:us-east-2:373045849756:Accounts-Workday-Notifications</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>MasterUsername</ParameterKey>
+                    <ParameterValue>accounts</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>DbName</ParameterKey>
+                    <ParameterValue>accounts</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>DbPort</ParameterKey>
+                    <ParameterValue>5432</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>MasterPassword</ParameterKey>
+                    <ParameterValue>****</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>p-4e40586</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvType</ParameterKey>
+                    <ParameterValue>prod_lite</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+              <member>
+                <Outputs>
+                  <member>
+                    <Description>the VPC id that everyone needs to reference</Description>
+                    <ExportName>p-1085f0f-accounts-network-VpcId</ExportName>
+                    <OutputKey>VpcId</OutputKey>
+                    <OutputValue>vpc-0f938b46bc41c7862</OutputValue>
+                  </member>
+                  <member>
+                    <Description>id for Subnet2</Description>
+                    <ExportName>p-1085f0f-accounts-network-SubnetId2</ExportName>
+                    <OutputKey>SubnetId2</OutputKey>
+                    <OutputValue>subnet-0ad0b54a3af131a13</OutputValue>
+                  </member>
+                  <member>
+                    <Description>id for Subnet3</Description>
+                    <ExportName>p-1085f0f-accounts-network-SubnetId3</ExportName>
+                    <OutputKey>SubnetId3</OutputKey>
+                    <OutputValue>subnet-07aba302f3e120c0b</OutputValue>
+                  </member>
+                  <member>
+                    <Description>id for Subnet1</Description>
+                    <ExportName>p-1085f0f-accounts-network-SubnetId1</ExportName>
+                    <OutputKey>SubnetId1</OutputKey>
+                    <OutputValue>subnet-09881d19f4928fbe5</OutputValue>
+                  </member>
+                </Outputs>
+                <CreationTime>2020-04-01T17:38:30.577Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/p-1085f0f-accounts-network/99def970-743f-11ea-8c78-063c30684966</StackId>
+                <StackName>p-1085f0f-accounts-network</StackName>
+                <Description>Accounts Network</Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags>
+                  <member>
+                    <Value>BIT</Value>
+                    <Key>Project</Key>
+                  </member>
+                  <member>
+                    <Value>ScottBatchelder</Value>
+                    <Key>Owner</Key>
+                  </member>
+                  <member>
+                    <Value>shared</Value>
+                    <Key>Environment</Key>
+                  </member>
+                  <member>
+                    <Value>Accounts</Value>
+                    <Key>Application</Key>
+                  </member>
+                </Tags>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <Parameters>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>p-1085f0f</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+              <member>
+                <Outputs>
+                  <member>
+                    <Description>the VPC id that everyone needs to reference</Description>
+                    <ExportName>p-4e40586-accounts-network-VpcId</ExportName>
+                    <OutputKey>VpcId</OutputKey>
+                    <OutputValue>vpc-0b1c4508a7f1fcd9f</OutputValue>
+                  </member>
+                  <member>
+                    <Description>id for Subnet2</Description>
+                    <ExportName>p-4e40586-accounts-network-SubnetId2</ExportName>
+                    <OutputKey>SubnetId2</OutputKey>
+                    <OutputValue>subnet-09ec849a32d6ca878</OutputValue>
+                  </member>
+                  <member>
+                    <Description>id for Subnet3</Description>
+                    <ExportName>p-4e40586-accounts-network-SubnetId3</ExportName>
+                    <OutputKey>SubnetId3</OutputKey>
+                    <OutputValue>subnet-0ac98b179cfe921c1</OutputValue>
+                  </member>
+                  <member>
+                    <Description>id for Subnet1</Description>
+                    <ExportName>p-4e40586-accounts-network-SubnetId1</ExportName>
+                    <OutputKey>SubnetId1</OutputKey>
+                    <OutputValue>subnet-0943df06bb660b8d8</OutputValue>
+                  </member>
+                </Outputs>
+                <CreationTime>2020-04-01T17:37:50.441Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/p-4e40586-accounts-network/81c403d0-743f-11ea-97d1-064ea827a74e</StackId>
+                <StackName>p-4e40586-accounts-network</StackName>
+                <Description>Accounts Network</Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags>
+                  <member>
+                    <Value>BIT</Value>
+                    <Key>Project</Key>
+                  </member>
+                  <member>
+                    <Value>ScottBatchelder</Value>
+                    <Key>Owner</Key>
+                  </member>
+                  <member>
+                    <Value>shared</Value>
+                    <Key>Environment</Key>
+                  </member>
+                  <member>
+                    <Value>Accounts</Value>
+                    <Key>Application</Key>
+                  </member>
+                </Tags>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <Parameters>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>p-4e40586</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+              <member>
+                <Capabilities>
+                  <member>CAPABILITY_NAMED_IAM</member>
+                </Capabilities>
+                <CreationTime>2020-02-24T22:08:40.557Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/feb24pl-highlights-iam/36502be0-5752-11ea-81c5-021e2396e2cc</StackId>
+                <StackName>feb24pl-highlights-iam</StackName>
+                <Description>Highlights env specific IAM policies, roles, groups.</Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <Parameters>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>feb24pl</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+              <member>
+                <Outputs>
+                  <member>
+                    <Description>this app's domain</Description>
+                    <ExportName>feb24pl-highlights-api-Domain</ExportName>
+                    <OutputKey>Domain</OutputKey>
+                    <OutputValue>highlights-feb24pl.sandbox.openstax.org</OutputValue>
+                  </member>
+                </Outputs>
+                <Capabilities>
+                  <member>CAPABILITY_NAMED_IAM</member>
+                </Capabilities>
+                <CreationTime>2020-02-24T22:08:39.219Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/feb24pl-highlights-api/35750e20-5752-11ea-b39b-0696b95a38c4</StackId>
+                <StackName>feb24pl-highlights-api</StackName>
+                <Description>Highlights API</Description>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <LastUpdatedTime>2020-03-02T19:06:27.451Z</LastUpdatedTime>
+                <Parameters>
+                  <member>
+                    <ParameterKey>NetworkStackName</ParameterKey>
+                    <ParameterValue>feb24pl-highlights-network</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>CycleIfDifferent</ParameterKey>
+                    <ParameterValue/>
+                  </member>
+                  <member>
+                    <ParameterKey>AccountsEnvName</ParameterKey>
+                    <ParameterValue>dev</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>HostedZoneName</ParameterKey>
+                    <ParameterValue>sandbox.openstax.org</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>DesiredCapacity</ParameterKey>
+                    <ParameterValue>2</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>IsSandbox</ParameterKey>
+                    <ParameterValue>true</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>KeyName</ParameterKey>
+                    <ParameterValue>openstax-sandbox-kp</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>AnytimeSnsTopic</ParameterKey>
+                    <ParameterValue>arn:aws:sns:us-east-2:373045849756:Highlights-Anytime-Notifications</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>WorkdaySnsTopic</ParameterKey>
+                    <ParameterValue>arn:aws:sns:us-east-2:373045849756:Highlights-Workday-Notifications</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>RdsStackName</ParameterKey>
+                    <ParameterValue>feb24pl-highlights-rds</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>ImageId</ParameterKey>
+                    <ParameterValue>ami-000167d12cf19dce1</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>Domain</ParameterKey>
+                    <ParameterValue>highlights-feb24pl.sandbox.openstax.org</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>SecretsNamespace</ParameterKey>
+                    <ParameterValue>highlights/api</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>feb24pl</ParameterValue>
+                  </member>
+                </Parameters>
+                <ChangeSetId>arn:aws:cloudformation:us-east-2:373045849756:changeSet/feb24pl-highlights-api-20200302-190554/0c1cc0c8-c88d-4464-9550-a35800e6e613</ChangeSetId>
+              </member>
+              <member>
+                <Capabilities>
+                  <member>CAPABILITY_NAMED_IAM</member>
+                </Capabilities>
+                <CreationTime>2020-02-24T22:03:10.610Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/feb24pl-highlights-migrator/71d392c0-5751-11ea-a9d1-0608930970a0</StackId>
+                <StackName>feb24pl-highlights-migrator</StackName>
+                <Description>Highlights Migrator</Description>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <LastUpdatedTime>2020-03-02T19:04:12.211Z</LastUpdatedTime>
+                <Parameters>
+                  <member>
+                    <ParameterKey>KeyName</ParameterKey>
+                    <ParameterValue>openstax-sandbox-kp</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>NetworkStackName</ParameterKey>
+                    <ParameterValue>feb24pl-highlights-network</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>AccountsEnvName</ParameterKey>
+                    <ParameterValue>dev</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>RdsStackName</ParameterKey>
+                    <ParameterValue>feb24pl-highlights-rds</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>ImageId</ParameterKey>
+                    <ParameterValue>ami-000167d12cf19dce1</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>SecretsNamespace</ParameterKey>
+                    <ParameterValue>highlights/migrator</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>feb24pl</ParameterValue>
+                  </member>
+                </Parameters>
+                <ChangeSetId>arn:aws:cloudformation:us-east-2:373045849756:changeSet/feb24pl-highlights-migrator-20200302-190339/7b78de81-c4e9-47bf-ae90-8e0ea5eef354</ChangeSetId>
+              </member>
+              <member>
+                <Outputs>
+                  <member>
+                    <Description>URL of the database host</Description>
+                    <ExportName>feb24pl-highlights-rds-Endpoint</ExportName>
+                    <OutputKey>Endpoint</OutputKey>
+                    <OutputValue>feb24pl-highlights-rds-db.c1xuysrynqzk.us-east-2.rds.amazonaws.com</OutputValue>
+                  </member>
+                  <member>
+                    <Description>Database port</Description>
+                    <ExportName>feb24pl-highlights-rds-DbPort</ExportName>
+                    <OutputKey>DbPort</OutputKey>
+                    <OutputValue>5432</OutputValue>
+                  </member>
+                  <member>
+                    <Description>the SecurityGroup ID that users of RDS will need</Description>
+                    <ExportName>feb24pl-highlights-rds-SecurityGroupId</ExportName>
+                    <OutputKey>SecGrpId</OutputKey>
+                    <OutputValue>sg-001f94ae78fefb266</OutputValue>
+                  </member>
+                </Outputs>
+                <CreationTime>2020-02-24T21:56:51.575Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/feb24pl-highlights-rds/8fbd00b0-5750-11ea-a726-0a569e9f7d94</StackId>
+                <StackName>feb24pl-highlights-rds</StackName>
+                <Description>Highlights Database</Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <Parameters>
+                  <member>
+                    <ParameterKey>NetworkStackName</ParameterKey>
+                    <ParameterValue>feb24pl-highlights-network</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>AnytimeSnsTopic</ParameterKey>
+                    <ParameterValue>arn:aws:sns:us-east-2:373045849756:Highlights-Anytime-Notifications</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>WorkdaySnsTopic</ParameterKey>
+                    <ParameterValue>arn:aws:sns:us-east-2:373045849756:Highlights-Workday-Notifications</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>MasterUsername</ParameterKey>
+                    <ParameterValue>highlights</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>DbName</ParameterKey>
+                    <ParameterValue>highlights</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>DbPort</ParameterKey>
+                    <ParameterValue>5432</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>MasterPassword</ParameterKey>
+                    <ParameterValue>****</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>feb24pl</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvType</ParameterKey>
+                    <ParameterValue>prod_lite</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+              <member>
+                <Outputs>
+                  <member>
+                    <Description>the VPC id that everyone needs to reference</Description>
+                    <ExportName>feb24pl-highlights-network-VpcId</ExportName>
+                    <OutputKey>VpcId</OutputKey>
+                    <OutputValue>vpc-0ae15b5e0b848ef71</OutputValue>
+                  </member>
+                  <member>
+                    <Description>id for Subnet2</Description>
+                    <ExportName>feb24pl-highlights-network-SubnetId2</ExportName>
+                    <OutputKey>SubnetId2</OutputKey>
+                    <OutputValue>subnet-0b007a8fea7f8cad1</OutputValue>
+                  </member>
+                  <member>
+                    <Description>id for Subnet3</Description>
+                    <ExportName>feb24pl-highlights-network-SubnetId3</ExportName>
+                    <OutputKey>SubnetId3</OutputKey>
+                    <OutputValue>subnet-090ce80f39e31b7e5</OutputValue>
+                  </member>
+                  <member>
+                    <Description>id for Subnet1</Description>
+                    <ExportName>feb24pl-highlights-network-SubnetId1</ExportName>
+                    <OutputKey>SubnetId1</OutputKey>
+                    <OutputValue>subnet-07ca12fd8123e8123</OutputValue>
+                  </member>
+                </Outputs>
+                <CreationTime>2020-02-24T21:55:47.531Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/feb24pl-highlights-network/69802f30-5750-11ea-918f-0af17cbfa87c</StackId>
+                <StackName>feb24pl-highlights-network</StackName>
+                <Description>Highlights Network</Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <Parameters>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>feb24pl</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+              <member>
+                <Capabilities>
+                  <member>CAPABILITY_NAMED_IAM</member>
+                </Capabilities>
+                <CreationTime>2020-02-05T21:51:51.010Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/feb5pl-highlights-iam/b6c7dac0-4861-11ea-9d3e-0294f7a52ca2</StackId>
+                <StackName>feb5pl-highlights-iam</StackName>
+                <Description>Highlights env specific IAM policies, roles, groups.</Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <Parameters>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>feb5pl</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+              <member>
+                <Outputs>
+                  <member>
+                    <Description>this app's domain</Description>
+                    <ExportName>feb5pl-highlights-api-Domain</ExportName>
+                    <OutputKey>Domain</OutputKey>
+                    <OutputValue>highlights-feb5pl.sandbox.openstax.org</OutputValue>
+                  </member>
+                </Outputs>
+                <Capabilities>
+                  <member>CAPABILITY_NAMED_IAM</member>
+                </Capabilities>
+                <CreationTime>2020-02-05T21:51:49.876Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/feb5pl-highlights-api/b6085b50-4861-11ea-a173-02d970724e3a</StackId>
+                <StackName>feb5pl-highlights-api</StackName>
+                <Description>Highlights API</Description>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <LastUpdatedTime>2020-02-18T17:44:21.934Z</LastUpdatedTime>
+                <Parameters>
+                  <member>
+                    <ParameterKey>NetworkStackName</ParameterKey>
+                    <ParameterValue>feb5pl-highlights-network</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>CycleIfDifferent</ParameterKey>
+                    <ParameterValue>e3fa08f3643cb1894884</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>AccountsEnvName</ParameterKey>
+                    <ParameterValue>dev</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>HostedZoneName</ParameterKey>
+                    <ParameterValue>sandbox.openstax.org</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>DesiredCapacity</ParameterKey>
+                    <ParameterValue>2</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>IsSandbox</ParameterKey>
+                    <ParameterValue>true</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>KeyName</ParameterKey>
+                    <ParameterValue>openstax-sandbox-kp</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>AnytimeSnsTopic</ParameterKey>
+                    <ParameterValue>arn:aws:sns:us-east-2:373045849756:Highlights-Anytime-Notifications</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>WorkdaySnsTopic</ParameterKey>
+                    <ParameterValue>arn:aws:sns:us-east-2:373045849756:Highlights-Workday-Notifications</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>RdsStackName</ParameterKey>
+                    <ParameterValue>feb5pl-highlights-rds</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>ImageId</ParameterKey>
+                    <ParameterValue>ami-0fe37f49758ff5e9b</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>Domain</ParameterKey>
+                    <ParameterValue>highlights-feb5pl.sandbox.openstax.org</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>SecretsNamespace</ParameterKey>
+                    <ParameterValue>highlights/api</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>feb5pl</ParameterValue>
+                  </member>
+                </Parameters>
+                <ChangeSetId>arn:aws:cloudformation:us-east-2:373045849756:changeSet/feb5pl-highlights-api-20200218-174349/c4587ba6-5be6-4c8b-897d-db89638f95ca</ChangeSetId>
+              </member>
+              <member>
+                <Capabilities>
+                  <member>CAPABILITY_NAMED_IAM</member>
+                </Capabilities>
+                <CreationTime>2020-02-05T21:47:27.848Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/feb5pl-highlights-migrator/19e38470-4861-11ea-adcb-0a22cca2ed82</StackId>
+                <StackName>feb5pl-highlights-migrator</StackName>
+                <Description>Highlights Migrator</Description>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <LastUpdatedTime>2020-02-18T17:41:48.204Z</LastUpdatedTime>
+                <Parameters>
+                  <member>
+                    <ParameterKey>KeyName</ParameterKey>
+                    <ParameterValue>openstax-sandbox-kp</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>NetworkStackName</ParameterKey>
+                    <ParameterValue>feb5pl-highlights-network</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>AccountsEnvName</ParameterKey>
+                    <ParameterValue>dev</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>RdsStackName</ParameterKey>
+                    <ParameterValue>feb5pl-highlights-rds</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>ImageId</ParameterKey>
+                    <ParameterValue>ami-0fe37f49758ff5e9b</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>SecretsNamespace</ParameterKey>
+                    <ParameterValue>highlights/migrator</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>feb5pl</ParameterValue>
+                  </member>
+                </Parameters>
+                <ChangeSetId>arn:aws:cloudformation:us-east-2:373045849756:changeSet/feb5pl-highlights-migrator-20200218-174115/c61e36e7-e051-4cb1-83d9-dfd875c55b4c</ChangeSetId>
+              </member>
+              <member>
+                <Outputs>
+                  <member>
+                    <Description>URL of the database host</Description>
+                    <ExportName>feb5pl-highlights-rds-Endpoint</ExportName>
+                    <OutputKey>Endpoint</OutputKey>
+                    <OutputValue>feb5pl-highlights-rds-db.c1xuysrynqzk.us-east-2.rds.amazonaws.com</OutputValue>
+                  </member>
+                  <member>
+                    <Description>Database port</Description>
+                    <ExportName>feb5pl-highlights-rds-DbPort</ExportName>
+                    <OutputKey>DbPort</OutputKey>
+                    <OutputValue>5432</OutputValue>
+                  </member>
+                  <member>
+                    <Description>the SecurityGroup ID that users of RDS will need</Description>
+                    <ExportName>feb5pl-highlights-rds-SecurityGroupId</ExportName>
+                    <OutputKey>SecGrpId</OutputKey>
+                    <OutputValue>sg-0540ffb30f6f66220</OutputValue>
+                  </member>
+                </Outputs>
+                <CreationTime>2020-02-05T21:41:14.152Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/feb5pl-highlights-rds/3b1f51b0-4860-11ea-ac0e-023ebc410218</StackId>
+                <StackName>feb5pl-highlights-rds</StackName>
+                <Description>Highlights Database</Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <Parameters>
+                  <member>
+                    <ParameterKey>NetworkStackName</ParameterKey>
+                    <ParameterValue>feb5pl-highlights-network</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>AnytimeSnsTopic</ParameterKey>
+                    <ParameterValue>arn:aws:sns:us-east-2:373045849756:Highlights-Anytime-Notifications</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>WorkdaySnsTopic</ParameterKey>
+                    <ParameterValue>arn:aws:sns:us-east-2:373045849756:Highlights-Workday-Notifications</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>MasterUsername</ParameterKey>
+                    <ParameterValue>highlights</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>DbName</ParameterKey>
+                    <ParameterValue>highlights</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>DbPort</ParameterKey>
+                    <ParameterValue>5432</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>MasterPassword</ParameterKey>
+                    <ParameterValue>****</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>feb5pl</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvType</ParameterKey>
+                    <ParameterValue>prod_lite</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+              <member>
+                <Outputs>
+                  <member>
+                    <Description>the VPC id that everyone needs to reference</Description>
+                    <ExportName>feb5pl-highlights-network-VpcId</ExportName>
+                    <OutputKey>VpcId</OutputKey>
+                    <OutputValue>vpc-0d345266aa8972172</OutputValue>
+                  </member>
+                  <member>
+                    <Description>id for Subnet2</Description>
+                    <ExportName>feb5pl-highlights-network-SubnetId2</ExportName>
+                    <OutputKey>SubnetId2</OutputKey>
+                    <OutputValue>subnet-0522c55b1ae5e3013</OutputValue>
+                  </member>
+                  <member>
+                    <Description>id for Subnet3</Description>
+                    <ExportName>feb5pl-highlights-network-SubnetId3</ExportName>
+                    <OutputKey>SubnetId3</OutputKey>
+                    <OutputValue>subnet-0d351484ae5400119</OutputValue>
+                  </member>
+                  <member>
+                    <Description>id for Subnet1</Description>
+                    <ExportName>feb5pl-highlights-network-SubnetId1</ExportName>
+                    <OutputKey>SubnetId1</OutputKey>
+                    <OutputValue>subnet-02e62dd48d12205db</OutputValue>
+                  </member>
+                </Outputs>
+                <CreationTime>2020-02-05T21:40:10.871Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/feb5pl-highlights-network/156348f0-4860-11ea-ad34-025282f53354</StackId>
+                <StackName>feb5pl-highlights-network</StackName>
+                <Description>Highlights Network</Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <Parameters>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>feb5pl</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+              <member>
+                <Outputs>
+                  <member>
+                    <Description>this app's domain</Description>
+                    <ExportName>jan16pl-highlights-api-Domain</ExportName>
+                    <OutputKey>Domain</OutputKey>
+                    <OutputValue>highlights-jan16pl.sandbox.openstax.org</OutputValue>
+                  </member>
+                </Outputs>
+                <Capabilities>
+                  <member>CAPABILITY_NAMED_IAM</member>
+                </Capabilities>
+                <CreationTime>2020-01-16T18:17:28.164Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/jan16pl-highlights-api/738f75e0-388c-11ea-8d77-02860fd3b864</StackId>
+                <StackName>jan16pl-highlights-api</StackName>
+                <Description>Highlights API</Description>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <LastUpdatedTime>2020-02-03T22:08:24.568Z</LastUpdatedTime>
+                <Parameters>
+                  <member>
+                    <ParameterKey>NetworkStackName</ParameterKey>
+                    <ParameterValue>jan16pl-highlights-network</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>CycleIfDifferent</ParameterKey>
+                    <ParameterValue>31f34fec7832eecbb389</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>AccountsEnvName</ParameterKey>
+                    <ParameterValue>dev</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>HostedZoneName</ParameterKey>
+                    <ParameterValue>sandbox.openstax.org</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>DesiredCapacity</ParameterKey>
+                    <ParameterValue>2</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>IsSandbox</ParameterKey>
+                    <ParameterValue>true</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>KeyName</ParameterKey>
+                    <ParameterValue>openstax-sandbox-kp</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>AnytimeSnsTopic</ParameterKey>
+                    <ParameterValue>arn:aws:sns:us-east-2:373045849756:Highlights-Anytime-Notifications</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>WorkdaySnsTopic</ParameterKey>
+                    <ParameterValue>arn:aws:sns:us-east-2:373045849756:Highlights-Workday-Notifications</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>RdsStackName</ParameterKey>
+                    <ParameterValue>jan16pl-highlights-rds</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>ImageId</ParameterKey>
+                    <ParameterValue>ami-0c1d1c11cca6b142c</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>Domain</ParameterKey>
+                    <ParameterValue>highlights-jan16pl.sandbox.openstax.org</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>SecretsNamespace</ParameterKey>
+                    <ParameterValue>highlights/api</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>jan16pl</ParameterValue>
+                  </member>
+                </Parameters>
+                <ChangeSetId>arn:aws:cloudformation:us-east-2:373045849756:changeSet/jan16pl-highlights-api-20200203-220751/356a3872-4100-4a33-a3c8-3bca8f84db81</ChangeSetId>
+              </member>
+              <member>
+                <Capabilities>
+                  <member>CAPABILITY_NAMED_IAM</member>
+                </Capabilities>
+                <CreationTime>2020-01-16T18:12:59.161Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/jan16pl-highlights-migrator/d34697d0-388b-11ea-849d-027927fac094</StackId>
+                <StackName>jan16pl-highlights-migrator</StackName>
+                <Description>Highlights Migrator</Description>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <LastUpdatedTime>2020-02-03T22:05:47.961Z</LastUpdatedTime>
+                <Parameters>
+                  <member>
+                    <ParameterKey>KeyName</ParameterKey>
+                    <ParameterValue>openstax-sandbox-kp</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>NetworkStackName</ParameterKey>
+                    <ParameterValue>jan16pl-highlights-network</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>AccountsEnvName</ParameterKey>
+                    <ParameterValue>dev</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>RdsStackName</ParameterKey>
+                    <ParameterValue>jan16pl-highlights-rds</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>ImageId</ParameterKey>
+                    <ParameterValue>ami-0c1d1c11cca6b142c</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>SecretsNamespace</ParameterKey>
+                    <ParameterValue>highlights/migrator</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>jan16pl</ParameterValue>
+                  </member>
+                </Parameters>
+                <ChangeSetId>arn:aws:cloudformation:us-east-2:373045849756:changeSet/jan16pl-highlights-migrator-20200203-220515/2a935485-1e04-41d5-a8bf-34348b079e54</ChangeSetId>
+              </member>
+              <member>
+                <Outputs>
+                  <member>
+                    <Description>URL of the database host</Description>
+                    <ExportName>jan16pl-highlights-rds-Endpoint</ExportName>
+                    <OutputKey>Endpoint</OutputKey>
+                    <OutputValue>jan16pl-highlights-rds-db.c1xuysrynqzk.us-east-2.rds.amazonaws.com</OutputValue>
+                  </member>
+                  <member>
+                    <Description>Database port</Description>
+                    <ExportName>jan16pl-highlights-rds-DbPort</ExportName>
+                    <OutputKey>DbPort</OutputKey>
+                    <OutputValue>5432</OutputValue>
+                  </member>
+                  <member>
+                    <Description>the SecurityGroup ID that users of RDS will need</Description>
+                    <ExportName>jan16pl-highlights-rds-SecurityGroupId</ExportName>
+                    <OutputKey>SecGrpId</OutputKey>
+                    <OutputValue>sg-060dc56dc0fd07f6e</OutputValue>
+                  </member>
+                </Outputs>
+                <CreationTime>2020-01-16T18:09:17.373Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/jan16pl-highlights-rds/4f161bc0-388b-11ea-9e30-060a55e3d44e</StackId>
+                <StackName>jan16pl-highlights-rds</StackName>
+                <Description>Highlights Database</Description>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <LastUpdatedTime>2020-01-30T19:27:49.955Z</LastUpdatedTime>
+                <Parameters>
+                  <member>
+                    <ParameterKey>NetworkStackName</ParameterKey>
+                    <ParameterValue>jan16pl-highlights-network</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>AnytimeSnsTopic</ParameterKey>
+                    <ParameterValue>arn:aws:sns:us-east-2:373045849756:Highlights-Anytime-Notifications</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>WorkdaySnsTopic</ParameterKey>
+                    <ParameterValue>arn:aws:sns:us-east-2:373045849756:Highlights-Workday-Notifications</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>MasterUsername</ParameterKey>
+                    <ParameterValue>highlights</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>DbName</ParameterKey>
+                    <ParameterValue>highlights</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>DbPort</ParameterKey>
+                    <ParameterValue>5432</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>MasterPassword</ParameterKey>
+                    <ParameterValue>****</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>jan16pl</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvType</ParameterKey>
+                    <ParameterValue>prod_lite</ParameterValue>
+                  </member>
+                </Parameters>
+                <ChangeSetId>arn:aws:cloudformation:us-east-2:373045849756:changeSet/jan16pl-highlights-rds-20200130-192718/acc0b649-ab2e-4956-abfe-c88049ab4d3d</ChangeSetId>
+              </member>
+              <member>
+                <Outputs>
+                  <member>
+                    <Description>the VPC id that everyone needs to reference</Description>
+                    <ExportName>jan16pl-highlights-network-VpcId</ExportName>
+                    <OutputKey>VpcId</OutputKey>
+                    <OutputValue>vpc-08bce7815bf88bab3</OutputValue>
+                  </member>
+                  <member>
+                    <Description>id for Subnet2</Description>
+                    <ExportName>jan16pl-highlights-network-SubnetId2</ExportName>
+                    <OutputKey>SubnetId2</OutputKey>
+                    <OutputValue>subnet-02a325847bbf0d91a</OutputValue>
+                  </member>
+                  <member>
+                    <Description>id for Subnet3</Description>
+                    <ExportName>jan16pl-highlights-network-SubnetId3</ExportName>
+                    <OutputKey>SubnetId3</OutputKey>
+                    <OutputValue>subnet-0f40d26f1aad0a44c</OutputValue>
+                  </member>
+                  <member>
+                    <Description>id for Subnet1</Description>
+                    <ExportName>jan16pl-highlights-network-SubnetId1</ExportName>
+                    <OutputKey>SubnetId1</OutputKey>
+                    <OutputValue>subnet-0c8f2f8f225f851ac</OutputValue>
+                  </member>
+                </Outputs>
+                <CreationTime>2020-01-16T18:08:13.430Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/jan16pl-highlights-network/28ef6a50-388b-11ea-8f06-0a7adbd72fc8</StackId>
+                <StackName>jan16pl-highlights-network</StackName>
+                <Description>Highlights Network</Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <Parameters>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>jan16pl</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+              <member>
+                <Capabilities>
+                  <member>CAPABILITY_NAMED_IAM</member>
+                </Capabilities>
+                <CreationTime>2020-01-16T18:07:34.010Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/jan16pl-highlights-iam/117dad00-388b-11ea-9ffa-066dd16eed5a</StackId>
+                <StackName>jan16pl-highlights-iam</StackName>
+                <Description>Highlights env specific IAM policies, roles, groups.</Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <Parameters>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>jan16pl</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+              <member>
+                <Outputs>
+                  <member>
+                    <Description>ARN of the workday topic</Description>
+                    <ExportName>highlights-monitoring-sns-WorkdayTopic</ExportName>
+                    <OutputKey>WorkdayTopicArn</OutputKey>
+                    <OutputValue>arn:aws:sns:us-east-2:373045849756:Highlights-Workday-Notifications</OutputValue>
+                  </member>
+                  <member>
+                    <Description>ARN of the anytime topic</Description>
+                    <ExportName>highlights-monitoring-sns-AnytimeTopic</ExportName>
+                    <OutputKey>AnytimeTopicArn</OutputKey>
+                    <OutputValue>arn:aws:sns:us-east-2:373045849756:Highlights-Anytime-Notifications</OutputValue>
+                  </member>
+                </Outputs>
+                <CreationTime>2019-11-13T17:04:52.725Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/highlights-monitoring-sns/b518f0e0-0637-11ea-9025-0672668ff2ce</StackId>
+                <StackName>highlights-monitoring-sns</StackName>
+                <Description>Highlights Monitoring (shared between environments)</Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <Parameters>
+                  <member>
+                    <ParameterKey>WorkdayPagerDutyEndpoint</ParameterKey>
+                    <ParameterValue>https://events.pagerduty.com/integration/c7a6d10ca1424fb99af741a07b095a3a/enqueue</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>AnytimePagerDutyEndpoint</ParameterKey>
+                    <ParameterValue>https://events.pagerduty.com/integration/b995f35544d5453c87a2e7e5b747c79c/enqueue</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>IsSandbox</ParameterKey>
+                    <ParameterValue>true</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+              <member>
+                <CreationTime>2019-10-13T18:57:27.529Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/bryan-5/4ce256b0-edeb-11e9-ac28-0af659736e02</StackId>
+                <StackName>bryan-5</StackName>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration>
+                  <RollbackTriggers/>
+                </RollbackConfiguration>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <LastUpdatedTime>2019-10-13T19:10:34.516Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-10-13T18:38:51.821Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/bryan-4th-stack-template/b3e118e0-ede8-11e9-84ef-06d9da1ade34</StackId>
+                <StackName>bryan-4th-stack-template</StackName>
+                <StackStatus>ROLLBACK_COMPLETE</StackStatus>
+                <DeletionTime>2019-10-13T18:38:55.079Z</DeletionTime>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration>
+                  <RollbackTriggers/>
+                </RollbackConfiguration>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+              </member>
+              <member>
+                <Outputs>
+                  <member>
+                    <Description>the VPC id that everyone needs to reference</Description>
+                    <ExportName>jp-pre-prod-search-network-VpcId</ExportName>
+                    <OutputKey>VpcId</OutputKey>
+                    <OutputValue>vpc-02b656ab7db46ddc7</OutputValue>
+                  </member>
+                  <member>
+                    <Description>id for Subnet2</Description>
+                    <ExportName>jp-pre-prod-search-network-SubnetId2</ExportName>
+                    <OutputKey>SubnetId2</OutputKey>
+                    <OutputValue>subnet-02a7d1bc4cdcde93c</OutputValue>
+                  </member>
+                  <member>
+                    <Description>id for Subnet3</Description>
+                    <ExportName>jp-pre-prod-search-network-SubnetId3</ExportName>
+                    <OutputKey>SubnetId3</OutputKey>
+                    <OutputValue>subnet-012dd5f4d52995282</OutputValue>
+                  </member>
+                  <member>
+                    <Description>id for Subnet1</Description>
+                    <ExportName>jp-pre-prod-search-network-SubnetId1</ExportName>
+                    <OutputKey>SubnetId1</OutputKey>
+                    <OutputValue>subnet-07c971d5f4b0cc399</OutputValue>
+                  </member>
+                </Outputs>
+                <CreationTime>2019-07-17T20:49:12.588Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/jp-pre-prod-search-network/54be6dd0-a8d4-11e9-9813-0a2bc77d7190</StackId>
+                <StackName>jp-pre-prod-search-network</StackName>
+                <Description>Open-Search Network</Description>
+                <StackStatus>DELETE_FAILED</StackStatus>
+                <DeletionTime>2020-02-08T18:01:21.976Z</DeletionTime>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatusReason>The following resource(s) failed to delete: [Vpc]. </StackStatusReason>
+                <Parameters>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>jp-pre-prod</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+              <member>
+                <Outputs>
+                  <member>
+                    <Description>Replica bucket name</Description>
+                    <ExportName>UnifiedWebReplicaBucketName</ExportName>
+                    <OutputKey>BucketName</OutputKey>
+                    <OutputValue>sandbox-unified-web-replica</OutputValue>
+                  </member>
+                </Outputs>
+                <Capabilities>
+                  <member>CAPABILITY_IAM</member>
+                </Capabilities>
+                <CreationTime>2018-12-17T22:26:42.441Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/unified-web-s3-replica-bucket/d3f19090-024a-11e9-b1ae-060ae44bf6ec</StackId>
+                <StackName>unified-web-s3-replica-bucket</StackName>
+                <Description>Replica Unified Web bucket
+        </Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>sandbox-unified-web-replica</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>MainDistributionOaiS3CanonicalUserId</ParameterKey>
+                    <ParameterValue>18d31a476defcb4a05414b78e27599d16953e9272777b5efa32ccbfc0d5a5bba6f6d9548468f973ee2774b3d0c7fe12b</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+              <member>
+                <Outputs>
+                  <member>
+                    <Description>Replica bucket name</Description>
+                    <ExportName>RexReplicaBucketName</ExportName>
+                    <OutputKey>BucketName</OutputKey>
+                    <OutputValue>openstax-sandbox-rex-replica</OutputValue>
+                  </member>
+                </Outputs>
+                <Capabilities>
+                  <member>CAPABILITY_IAM</member>
+                </Capabilities>
+                <CreationTime>2018-11-29T13:51:07.837Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/rex-s3-replica-bucket/d2089560-f3dd-11e8-a1c5-06ba3123ae48</StackId>
+                <StackName>rex-s3-replica-bucket</StackName>
+                <Description>Replica Rex bucket
+        </Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>openstax-sandbox-rex-replica</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>MainDistributionOaiS3CanonicalUserId</ParameterKey>
+                    <ParameterValue>4272e4483d2b00ce21d8d2ef3668fa245b3ca46c8b66d46dc5d264303a90bdd70def3e20a9fe28441af70f651efabe63</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>8d64220a-505a-4e3f-a721-2bb235b76490</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:57 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123757Z
+      X-Amz-Content-Sha256:
+      - 594b32f23966ef142ae4fdcca1ca9852cbd0dcc620daa892fecdb6d895100e35
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '79'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 4da5b341-c27c-4acd-9841-11156389873d
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1624'
+      Date:
+      - Thu, 09 Apr 2020 12:37:58 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <Outputs>
+                  <member>
+                    <ExportName>spec-aws-ruby-stack-describe-BucketArn</ExportName>
+                    <OutputKey>BucketArn</OutputKey>
+                    <OutputValue>arn:aws:s3:::aws-ruby-rspec-bucket</OutputValue>
+                  </member>
+                </Outputs>
+                <CreationTime>2020-04-09T12:37:30.093Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-describe/e02420c0-7a5e-11ea-bbe6-0279c28b0d70</StackId>
+                <StackName>spec-aws-ruby-stack-describe</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>4da5b341-c27c-4acd-9841-11156389873d</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:37:59 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DeleteStack&StackName=spec-aws-ruby-stack-describe&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200409T123759Z
+      X-Amz-Content-Sha256:
+      - 7e05f0354ddfa7f69a655ac29bf199010ca31be0048c35c0b4f69a875222a400
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200409/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '76'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 44a028d3-168e-4e78-a2e5-48e366b8f32c
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '212'
+      Date:
+      - Thu, 09 Apr 2020 12:38:00 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DeleteStackResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <ResponseMetadata>
+            <RequestId>44a028d3-168e-4e78-a2e5-48e366b8f32c</RequestId>
+          </ResponseMetadata>
+        </DeleteStackResponse>
+    http_version: 
+  recorded_at: Thu, 09 Apr 2020 12:38:00 GMT
+recorded_with: VCR 4.0.0
