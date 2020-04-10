@@ -36,14 +36,16 @@ module OpenStax::Aws
     end
 
     def describe_stacks
-      pattern = /_stack$/
+      stack_method_pattern = /_stack$/
 
       stack_types_to_match = self.methods.map do |method_name|
-        /_stack$/.match?(method_name) ? method_name.to_s.gsub(/_stack$/, "") : nil
+        stack_method_pattern.match?(method_name) ? method_name.to_s.gsub(stack_method_pattern, "") : nil
       end.compact.join("|").gsub("_","-");
 
+      stack_name_pattern = /^#{env_name}-(#{stack_types_to_match})/i
+
       Aws::CloudFormation::Client.new(region: region).describe_stacks.stacks.select do |stack|
-        /^#{env_name}-(#{stack_types_to_match})/i.match?(stack[:stack_name])
+        stack_name_pattern.match?(stack[:stack_name])
       end
     end
 
