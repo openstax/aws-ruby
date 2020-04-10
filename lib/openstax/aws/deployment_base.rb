@@ -39,14 +39,20 @@ module OpenStax::Aws
       stack_method_pattern = /_stack$/
 
       stack_types_to_match = self.methods.map do |method_name|
-        stack_method_pattern.match?(method_name) ? method_name.to_s.gsub(stack_method_pattern, "") : nil
-      end.compact.join("|").gsub("_","-");
+        stack_method_pattern.match?(method_name) ?
+          method_name.to_s
+            .gsub(stack_method_pattern, "")
+            .gsub("_","-")
+          : nil
+      end.compact;
 
-      env_stack_name_pattern = /^#{env_name}-(.*-)?(#{stack_types_to_match})/i
+      stack_types_to_match.map do |stack_type|
+        stack_name = name != "main" ? "#{name}-#{stack_type}" : stack_type
 
-      Aws::CloudFormation::Client.new(region: region).describe_stacks.stacks.select do |stack|
-        env_stack_name_pattern.match?(stack[:stack_name])
-      end
+        Aws::CloudFormation::Client.new(region: region)
+          .describe_stacks({stack_name: "#{env_name}-#{stack_name}"})
+          .stacks
+      end.flatten
     end
 
     class << self
