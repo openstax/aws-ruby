@@ -85,27 +85,6 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     stack.delete
   end
 
-  it "can query for descriptions of stacks" do
-    name = "spec-aws-ruby-stack-describe"
-
-    stack = new_template_one_stack(name: name, overrides: {
-      parameter_defaults: {
-        bucket_name: bucket_name,
-        tag_value: "howdy"
-      }
-    })
-
-    stack.create(wait: true)
-    description = described_class.describe_stacks(pattern: /#{name}/, regions: [region])[0]
-
-    tagValueParameter = description[:parameters].find {|param| param[:parameter_key] === "TagValue"}
-
-    expect(tagValueParameter).not_to be_nil
-    expect(tagValueParameter[:parameter_value]).to eql("howdy")
-
-    stack.delete
-  end
-
   it "gets output values" do
     name = "spec-aws-ruby-stack-output-values"
 
