@@ -42,10 +42,10 @@ module OpenStax::Aws
         stack_method_pattern.match?(method_name) ? method_name.to_s.gsub(stack_method_pattern, "") : nil
       end.compact.join("|").gsub("_","-");
 
-      stack_name_pattern = /^#{env_name}-(#{stack_types_to_match})/i
+      env_stack_name_pattern = /^#{env_name}-(#{stack_types_to_match})/i
 
       Aws::CloudFormation::Client.new(region: region).describe_stacks.stacks.select do |stack|
-        stack_name_pattern.match?(stack[:stack_name])
+        env_stack_name_pattern.match?(stack[:stack_name])
       end
     end
 
