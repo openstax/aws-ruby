@@ -35,6 +35,18 @@ module OpenStax::Aws
       end
     end
 
+    def describe_stacks
+      pattern = /_stack$/
+
+      stack_types_to_match = self.methods.map do |method_name|
+        /_stack$/.match?(method_name) ? method_name.to_s.gsub(/_stack$/, "") : nil
+      end.compact.join("|").gsub("_","-");
+
+      Aws::CloudFormation::Client.new(region: region).describe_stacks.stacks.select do |stack|
+        /^#{env_name}-(#{stack_types_to_match})/i.match?(stack[:stack_name])
+      end
+    end
+
     class << self
 
       def template_directory(*directory_parts)
