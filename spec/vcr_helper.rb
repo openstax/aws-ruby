@@ -67,3 +67,57 @@ class VCR::HTTPInteraction::HookAware
     response.update_content_length_header
   end
 end
+
+# A place to store some options for the current cassette
+
+class CassetteOptions
+  def self.current
+    all[VCR.current_cassette.name] ||= {}
+  end
+
+  def self.all
+    @all ||= {}
+  end
+end
+
+####### list_stacks (used by Stack.query returns information on all stacks, which
+#       isn't great to include in the cassettes.  This bit of code hides the info
+#       for those other stacks.  Call this from within a before block.
+
+def do_not_mask_list_stacks_for_these_patterns
+  CassetteOptions.current[:do_not_mask_list_stacks_for_these_patterns] ||= []
+end
+
+def do_not_mask_list_stacks_for(pattern)
+  do_not_mask_list_stacks_for_these_patterns.push(pattern).flatten
+end
+
+VCR.configure do |c|
+  c.before_record do |interaction|
+
+    if interaction.request.body.starts_with?("Action=ListStacks")
+      response = interaction.response.body
+
+      response.gsub!(/<StackName>(.*)<\/StackName>/) do |all|
+        name = Regexp.last_match[1]
+        do_not_mask_list_stacks_for_these_patterns.any?{|pattern| pattern.match(name)} ?
+          all :
+          "<StackName>MASKED_STACK_NAME</StackName>"
+      end
+
+      response.gsub!(/<StackId>(.*)<\/StackId>/) do |all|
+        id = Regexp.last_match[1]
+        do_not_mask_list_stacks_for_these_patterns.any?{|pattern| pattern.match(id)} ?
+          all :
+          "<StackId>MASKED_STACK_NAME</StackId>"
+      end
+
+      response.gsub!(/<StackStatusReason>.*<\/StackStatusReason>/,
+                     "<StackStatusReason>MASKED_REASON<\/StackStatusReason>")
+      response.gsub!(/<TemplateDescription>.*<\/TemplateDescription>/,
+                     "<TemplateDescription>MASKED_DESCRIPTION<\/TemplateDescription>")
+    end
+  end
+end
+
+############

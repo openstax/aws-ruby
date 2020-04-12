@@ -361,7 +361,7 @@ module OpenStax::Aws
       "DOES_NOT_EXIST" != status
     end
 
-    def all_statuses
+    def self.all_statuses
       %w(
         CREATE_IN_PROGRESS
         CREATE_FAILED
@@ -388,7 +388,7 @@ module OpenStax::Aws
       )
     end
 
-    def active_statuses
+    def self.active_statuses
       all_statuses - %w(CREATE_FAILED DELETE_COMPLETE)
     end
 
@@ -396,15 +396,24 @@ module OpenStax::Aws
       !secrets_blocks.empty?
     end
 
-    def self.query(regex: /.*/, regions: %w(us-east-1 us-east-2 us-west-1 us-west-2), active: true)
-      stack_status_filter = active ? active_statues : nil
+    def self.query(regex: /.*/, regions: %w(us-east-1 us-east-2 us-west-1 us-west-2), active: true, reload: false)
+      stack_status_filter = active ? active_statuses : nil
 
-      regions.map do |region|
+      if reload
+        @all_stacks = {}
+      else
+        @all_stacks ||= {}
+      end
+
+      # Memoize the query results to speed up subsequent queries
+      @all_stacks[stack_status_filter + regions] ||= regions.map do |region|
         client = Aws::CloudFormation::Client.new(region: region)
         client.list_stacks(stack_status_filter: stack_status_filter).map do |response|
           response.stack_summaries.map{|summary| new(name: summary.stack_name, region: region)}
         end
       end.flatten
+
+      @all_stacks[stack_status_filter + regions].select{|stack| stack.name.match(regex)}
     end
 
     protected
