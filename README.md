@@ -349,9 +349,10 @@ No options here besides `wait`.
 
 A class method `query` is provided on the `Stack` class to find stacks matching certain criteria:
 
-* `regex`: only queries whose name matches this regex will be returned
-* `regions`: only stacks in these regions will be queried (defaults to US regions)
-* `active`: if true, excludes stacks that have been deleted or that failed to create
+* `regex`: only queries whose name matches this regex will be returned (default: `/.*/`)
+* `regions`: only stacks in these regions will be queried (default: US regions)
+* `active`: if `true`, excludes stacks that have been deleted or that failed to create (default: `true`)
+* `reload`: if `true`, forces cached query data to be reloaded (default: `false`)
 
 ```ruby
 all_highlights_stacks_in_us = OpenStax::Aws::Stack.query(regex: /.*highlights.*/)
