@@ -409,7 +409,11 @@ module OpenStax::Aws
       @all_stacks[stack_status_filter + regions] ||= regions.map do |region|
         client = Aws::CloudFormation::Client.new(region: region)
         client.list_stacks(stack_status_filter: stack_status_filter).map do |response|
-          response.stack_summaries.map{|summary| new(name: summary.stack_name, region: region)}
+          response.stack_summaries.map do |summary|
+            OpenStax::Aws.configuration.without_required_stack_tags do
+              new(name: summary.stack_name, region: region)
+            end
+          end
         end
       end.flatten
 
