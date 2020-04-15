@@ -1,0 +1,15 @@
+Description: >
+  Just a bucket
+
+Parameters:
+
+  TagValue:
+    Type: String
+
+  EnvName:
+    Type: String
+
+Resources:
+
+  S3Bucket:
+    Type: AWS::S3::Bucket

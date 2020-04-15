@@ -1,6 +1,19 @@
 require 'spec_helper'
+require 'vcr_helper'
 
-RSpec.describe OpenStax::Aws::DeploymentBase do
+RSpec.describe OpenStax::Aws::DeploymentBase, vcr: VCR_OPTS do
+
+  before(:each) {
+    @logger = spy("logger")
+
+    OpenStax::Aws.configure do |config|
+      config.cfn_template_bucket_name = "openstax-sandbox-cfn-templates"
+      config.cfn_template_bucket_region = "us-west-2"
+      config.stack_waiter_delay = vcr_recording? ? 5 : 0
+      config.logger = @logger
+      config.fixed_s3_template_folder = "spec-templates"
+    end
+  }
 
   context "#subdomain_with_trailing_dot" do
     let(:instance) {
@@ -41,6 +54,30 @@ RSpec.describe OpenStax::Aws::DeploymentBase do
         end
       end
     end
+  end
+
+  it "can query for descriptions of associated stacks" do
+    deployment_class = Class.new(described_class) do
+      template_directory __dir__, 'support/templates/describing_stacks'
+      stack :app do
+        parameter_defaults do
+          tag_value "blah"
+          env_name "bloh"
+        end
+      end
+    end
+
+    instance = deployment_class.new(name: "spec", env_name: "env", region: "us-east-2", dry_run: false)
+    instance.app_stack.create(wait: true)
+
+    stack_descriptions = instance.describe_stacks
+    expect(stack_descriptions.length).to eq 1
+
+    stack_parameters = stack_descriptions[0][:parameters]
+    expect(stack_parameters).to include(hash_including({parameter_key: 'TagValue', parameter_value: 'blah'}),
+                                        hash_including({parameter_key: 'EnvName', parameter_value: 'bloh'}))
+
+    instance.app_stack.delete(wait: true)
   end
 
   context "#secrets" do

@@ -1,0 +1,1164 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://cloudformation.us-west-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=ValidateTemplate&TemplateBody=Description%3A%20%3E%0A%20%20Just%20a%20bucket%0A%0AParameters%3A%0A%0A%20%20TagValue%3A%0A%20%20%20%20Type%3A%20String%0A%0A%20%20EnvName%3A%0A%20%20%20%20Type%3A%20String%0A%0AResources%3A%0A%0A%20%20S3Bucket%3A%0A%20%20%20%20Type%3A%20AWS%3A%3AS3%3A%3ABucket%0A&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20200415T150301Z
+      X-Amz-Content-Sha256:
+      - 1d4dd5fcc42c7f29fa294164e30e2171c7e1145cf18c941cfa0726140f2562f5
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200415/us-west-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '320'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - f766c053-5c48-418a-8560-637c1ed4a3a3
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '573'
+      Date:
+      - Wed, 15 Apr 2020 15:03:01 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <ValidateTemplateResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <ValidateTemplateResult>
+            <Description>Just a bucket
+        </Description>
+            <Parameters>
+              <member>
+                <ParameterKey>TagValue</ParameterKey>
+                <NoEcho>false</NoEcho>
+              </member>
+              <member>
+                <ParameterKey>EnvName</ParameterKey>
+                <NoEcho>false</NoEcho>
+              </member>
+            </Parameters>
+          </ValidateTemplateResult>
+          <ResponseMetadata>
+            <RequestId>f766c053-5c48-418a-8560-637c1ed4a3a3</RequestId>
+          </ResponseMetadata>
+        </ValidateTemplateResponse>
+    http_version: 
+  recorded_at: Wed, 15 Apr 2020 15:03:02 GMT
+- request:
+    method: put
+    uri: https://openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com/cfn_templates/spec-templates/app.yml
+    body:
+      encoding: UTF-8
+      string: |
+        Description: >
+          Just a bucket
+
+        Parameters:
+
+          TagValue:
+            Type: String
+
+          EnvName:
+            Type: String
+
+        Resources:
+
+          S3Bucket:
+            Type: AWS::S3::Bucket
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-s3/1.37.0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - 3X+4Ml6UbZA1qVsDusJqyg==
+      Host:
+      - openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20200415T150302Z
+      X-Amz-Content-Sha256:
+      - d02cfcdccfb264e443260061c277ef35e3a12281f0b2559f5f15a7bade867287
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200415/us-west-2/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=<SignatureValue>
+      Content-Length:
+      - '154'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - UPDc87h/vViA70yjUz1Q542WD+CKfqsEWDRmbLXMC9JRwCreRhZiivUjX+FUQrM2gJa92etKvVw=
+      X-Amz-Request-Id:
+      - 8A1318789DCBDF36
+      Date:
+      - Wed, 15 Apr 2020 15:03:03 GMT
+      X-Amz-Version-Id:
+      - v5wWBLzSj2X6.Wgc9L7iZ7PJP3QDBga7
+      X-Amz-Server-Side-Encryption:
+      - AES256
+      Etag:
+      - '"dd7fb8325e946d9035a95b03bac26aca"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Wed, 15 Apr 2020 15:03:03 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=CreateStack&Capabilities=&EnableTerminationProtection=false&Parameters.member.1.ParameterKey=TagValue&Parameters.member.1.ParameterValue=blah&Parameters.member.2.ParameterKey=EnvName&Parameters.member.2.ParameterValue=bloh&StackName=env-spec-app&Tags=&TemplateURL=https%3A%2F%2Fs3.amazonaws.com%2Fopenstax-sandbox-cfn-templates%2Fcfn_templates%2Fspec-templates%2Fapp.yml&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200415T150303Z
+      X-Amz-Content-Sha256:
+      - 2c42b126e3fa9a58ef42e1eb9017807d4d16d8405cbe58c34fb365f2b8e34f67
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200415/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '396'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 95d1dba0-f8fe-4024-b8af-b305b37a4e69
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '382'
+      Date:
+      - Wed, 15 Apr 2020 15:03:04 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <CreateStackResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <CreateStackResult>
+            <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/env-spec-app/10792430-7f2a-11ea-8ba5-060a435a9e52</StackId>
+          </CreateStackResult>
+          <ResponseMetadata>
+            <RequestId>95d1dba0-f8fe-4024-b8af-b305b37a4e69</RequestId>
+          </ResponseMetadata>
+        </CreateStackResponse>
+    http_version: 
+  recorded_at: Wed, 15 Apr 2020 15:03:04 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=env-spec-app&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200415T150304Z
+      X-Amz-Content-Sha256:
+      - 81c31fce0c88e17b351d4bf677ecc683aa20695e181c60110dacec356ab46f32
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200415/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '63'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 44bab576-4bdd-414a-83a4-6b6803e013d6
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1299'
+      Date:
+      - Wed, 15 Apr 2020 15:03:04 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-15T15:03:04.548Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/env-spec-app/10792430-7f2a-11ea-8ba5-060a435a9e52</StackId>
+                <StackName>env-spec-app</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>blah</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>bloh</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>44bab576-4bdd-414a-83a4-6b6803e013d6</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Wed, 15 Apr 2020 15:03:05 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=env-spec-app&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200415T150305Z
+      X-Amz-Content-Sha256:
+      - 81c31fce0c88e17b351d4bf677ecc683aa20695e181c60110dacec356ab46f32
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200415/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '63'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 4884c81b-5006-425e-8baf-aa3bef13119b
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1299'
+      Date:
+      - Wed, 15 Apr 2020 15:03:05 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-15T15:03:04.548Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/env-spec-app/10792430-7f2a-11ea-8ba5-060a435a9e52</StackId>
+                <StackName>env-spec-app</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>blah</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>bloh</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>4884c81b-5006-425e-8baf-aa3bef13119b</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Wed, 15 Apr 2020 15:03:06 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=env-spec-app&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200415T150311Z
+      X-Amz-Content-Sha256:
+      - 81c31fce0c88e17b351d4bf677ecc683aa20695e181c60110dacec356ab46f32
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200415/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '63'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 165d754e-c437-4679-92f7-7c9b93ba8ead
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1299'
+      Date:
+      - Wed, 15 Apr 2020 15:03:10 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-15T15:03:04.548Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/env-spec-app/10792430-7f2a-11ea-8ba5-060a435a9e52</StackId>
+                <StackName>env-spec-app</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>blah</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>bloh</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>165d754e-c437-4679-92f7-7c9b93ba8ead</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Wed, 15 Apr 2020 15:03:11 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=env-spec-app&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200415T150316Z
+      X-Amz-Content-Sha256:
+      - 81c31fce0c88e17b351d4bf677ecc683aa20695e181c60110dacec356ab46f32
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200415/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '63'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - ff39c4ea-1b98-403a-b6ff-a826596e4fe1
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1299'
+      Date:
+      - Wed, 15 Apr 2020 15:03:17 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-15T15:03:04.548Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/env-spec-app/10792430-7f2a-11ea-8ba5-060a435a9e52</StackId>
+                <StackName>env-spec-app</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>blah</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>bloh</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>ff39c4ea-1b98-403a-b6ff-a826596e4fe1</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Wed, 15 Apr 2020 15:03:17 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=env-spec-app&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200415T150322Z
+      X-Amz-Content-Sha256:
+      - 81c31fce0c88e17b351d4bf677ecc683aa20695e181c60110dacec356ab46f32
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200415/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '63'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 7c9790a0-ed59-4780-8d38-368c8c188aa3
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1299'
+      Date:
+      - Wed, 15 Apr 2020 15:03:22 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-15T15:03:04.548Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/env-spec-app/10792430-7f2a-11ea-8ba5-060a435a9e52</StackId>
+                <StackName>env-spec-app</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>blah</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>bloh</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>7c9790a0-ed59-4780-8d38-368c8c188aa3</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Wed, 15 Apr 2020 15:03:23 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=env-spec-app&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200415T150328Z
+      X-Amz-Content-Sha256:
+      - 81c31fce0c88e17b351d4bf677ecc683aa20695e181c60110dacec356ab46f32
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200415/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '63'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 2f95fb73-a86d-471f-b968-2d69e6b2e7b9
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1299'
+      Date:
+      - Wed, 15 Apr 2020 15:03:28 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-15T15:03:04.548Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/env-spec-app/10792430-7f2a-11ea-8ba5-060a435a9e52</StackId>
+                <StackName>env-spec-app</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>blah</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>bloh</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>2f95fb73-a86d-471f-b968-2d69e6b2e7b9</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Wed, 15 Apr 2020 15:03:28 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=env-spec-app&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200415T150333Z
+      X-Amz-Content-Sha256:
+      - 81c31fce0c88e17b351d4bf677ecc683aa20695e181c60110dacec356ab46f32
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200415/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '63'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - bfdc812e-78e7-4a3d-a4f2-12f897d35f3d
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1296'
+      Date:
+      - Wed, 15 Apr 2020 15:03:34 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-15T15:03:04.548Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/env-spec-app/10792430-7f2a-11ea-8ba5-060a435a9e52</StackId>
+                <StackName>env-spec-app</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>blah</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>bloh</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>bfdc812e-78e7-4a3d-a4f2-12f897d35f3d</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Wed, 15 Apr 2020 15:03:34 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=env-spec-app&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200415T150334Z
+      X-Amz-Content-Sha256:
+      - 81c31fce0c88e17b351d4bf677ecc683aa20695e181c60110dacec356ab46f32
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200415/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '63'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 2f970433-74f5-4239-bbe0-886300b78ae6
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1296'
+      Date:
+      - Wed, 15 Apr 2020 15:03:34 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-15T15:03:04.548Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/env-spec-app/10792430-7f2a-11ea-8ba5-060a435a9e52</StackId>
+                <StackName>env-spec-app</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>blah</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>bloh</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>2f970433-74f5-4239-bbe0-886300b78ae6</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Wed, 15 Apr 2020 15:03:35 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=env-spec-app&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200415T150335Z
+      X-Amz-Content-Sha256:
+      - 81c31fce0c88e17b351d4bf677ecc683aa20695e181c60110dacec356ab46f32
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200415/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '63'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 31e3b1eb-f48b-4f34-94eb-0405b335f0e9
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1296'
+      Date:
+      - Wed, 15 Apr 2020 15:03:35 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-15T15:03:04.548Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/env-spec-app/10792430-7f2a-11ea-8ba5-060a435a9e52</StackId>
+                <StackName>env-spec-app</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>blah</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>bloh</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>31e3b1eb-f48b-4f34-94eb-0405b335f0e9</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Wed, 15 Apr 2020 15:03:35 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DeleteStack&StackName=env-spec-app&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200415T150335Z
+      X-Amz-Content-Sha256:
+      - 709d8aee667d96be38bf64ea15a44a4409a91d1a614cf93f562dbc51e78f74b9
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200415/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '60'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 7e0068c6-6923-4627-99e7-62a004bd7425
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '212'
+      Date:
+      - Wed, 15 Apr 2020 15:03:35 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DeleteStackResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <ResponseMetadata>
+            <RequestId>7e0068c6-6923-4627-99e7-62a004bd7425</RequestId>
+          </ResponseMetadata>
+        </DeleteStackResponse>
+    http_version: 
+  recorded_at: Wed, 15 Apr 2020 15:03:36 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=env-spec-app&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200415T150336Z
+      X-Amz-Content-Sha256:
+      - 81c31fce0c88e17b351d4bf677ecc683aa20695e181c60110dacec356ab46f32
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200415/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '63'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - '098acc62-96ef-4aa8-9a8e-fea517765ca4'
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1361'
+      Date:
+      - Wed, 15 Apr 2020 15:03:36 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-15T15:03:04.548Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/env-spec-app/10792430-7f2a-11ea-8ba5-060a435a9e52</StackId>
+                <StackName>env-spec-app</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>DELETE_IN_PROGRESS</StackStatus>
+                <DeletionTime>2020-04-15T15:03:36.423Z</DeletionTime>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>blah</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>bloh</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>098acc62-96ef-4aa8-9a8e-fea517765ca4</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Wed, 15 Apr 2020 15:03:37 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=env-spec-app&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200415T150337Z
+      X-Amz-Content-Sha256:
+      - 81c31fce0c88e17b351d4bf677ecc683aa20695e181c60110dacec356ab46f32
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200415/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '63'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 4c6ef616-15cb-4e2d-9a4f-b50f97e2d7dd
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1361'
+      Date:
+      - Wed, 15 Apr 2020 15:03:36 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-15T15:03:04.548Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/env-spec-app/10792430-7f2a-11ea-8ba5-060a435a9e52</StackId>
+                <StackName>env-spec-app</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>DELETE_IN_PROGRESS</StackStatus>
+                <DeletionTime>2020-04-15T15:03:36.423Z</DeletionTime>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <Parameters>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>blah</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>EnvName</ParameterKey>
+                    <ParameterValue>bloh</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>4c6ef616-15cb-4e2d-9a4f-b50f97e2d7dd</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: 
+  recorded_at: Wed, 15 Apr 2020 15:03:37 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=env-spec-app&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.52.0 ruby/2.6.5 x86_64-linux aws-sdk-cloudformation/1.20.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200415T150342Z
+      X-Amz-Content-Sha256:
+      - 81c31fce0c88e17b351d4bf677ecc683aa20695e181c60110dacec356ab46f32
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200415/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '63'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      X-Amzn-Requestid:
+      - 87045650-1068-4a8a-b25b-c8093e72b681
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '298'
+      Date:
+      - Wed, 15 Apr 2020 15:03:42 GMT
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: |
+        <ErrorResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <Error>
+            <Type>Sender</Type>
+            <Code>ValidationError</Code>
+            <Message>Stack with id env-spec-app does not exist</Message>
+          </Error>
+          <RequestId>87045650-1068-4a8a-b25b-c8093e72b681</RequestId>
+        </ErrorResponse>
+    http_version: 
+  recorded_at: Wed, 15 Apr 2020 15:03:43 GMT
+recorded_with: VCR 4.0.0
