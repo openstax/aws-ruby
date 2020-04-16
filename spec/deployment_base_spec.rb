@@ -100,6 +100,24 @@ RSpec.describe OpenStax::Aws::DeploymentBase do
 
   end
 
+  context "#deployed_parameters" do
+    it "gets the deployed parameters for each stack in the deployment" do
+      deployment_class = Class.new(described_class) do
+        template_directory __dir__, 'support/templates/factory_test'
+
+        stack :network
+        stack :app
+      end
+
+      instance = deployment_class.new(name: "spec", env_name: "dev", region: "deployment-region", dry_run: false)
+
+      expect(instance.network_stack).to receive(:deployed_parameters)
+      expect(instance.app_stack).to receive(:deployed_parameters)
+      # Not really making network calls here, this spec not set up for VCR
+      expect(instance.deployed_parameters).to include("dev-spec-network" => nil, "dev-spec-app" => nil)
+    end
+  end
+
   context "#stacks" do
     it "makes the stacks available via an array" do
       deployment_class = Class.new(described_class) do

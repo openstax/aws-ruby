@@ -170,6 +170,12 @@ module OpenStax::Aws
       self.class.stack_ids.map{|id| self.send("#{id}_stack")}
     end
 
+    def deployed_parameters
+      stacks.each_with_object({}) do |stack, hash|
+        hash[stack.name] = stack.deployed_parameters
+      end
+    end
+
     def built_in_parameter_default(parameter_name)
       case parameter_name
       when "EnvName"
