@@ -81,6 +81,10 @@ module OpenStax::Aws
         end
       end
 
+      def stack_ids
+        @stack_ids ||= []
+      end
+
       def stack(id, &block)
         if id.blank?
           raise "The first argument to `stack` must be a non-blank ID"
@@ -94,6 +98,8 @@ module OpenStax::Aws
         if method_defined?("#{id}_secrets")
           raise "Cannot define `#{id}` stack because there are secrets with that ID"
         end
+
+        stack_ids.push(id)
 
         define_method("#{id}_stack") do
           instance_variable_get("@#{id}_stack") || begin
@@ -158,6 +164,10 @@ module OpenStax::Aws
       def tags
         @tags ||= HashWithIndifferentAccess.new
       end
+    end
+
+    def stacks
+      self.class.stack_ids.map{|id| self.send("#{id}_stack")}
     end
 
     def built_in_parameter_default(parameter_name)
