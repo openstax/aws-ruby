@@ -99,6 +99,19 @@ module OpenStax
           end
         end
       end
+
+      # Sometimes you want to make a Stack object without requirng stack tags,
+      # e.g. if you're just inspecting a stack.  Wrapping such instantiations
+      # with this method enables this, e.g. without_required_stack_tags do ... end
+      def without_required_stack_tags
+        begin
+          original_required_stack_tags = required_stack_tags
+          self.required_stack_tags = []
+          yield
+        ensure
+          self.required_stack_tags = original_required_stack_tags
+        end
+      end
     end
 
   end
