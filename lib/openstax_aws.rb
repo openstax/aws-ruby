@@ -47,6 +47,7 @@ module OpenStax
       attr_accessor :cfn_template_bucket_folder
       attr_writer :logger
       attr_accessor :stack_waiter_delay
+      attr_accessor :stack_waiter_max_attempts
       attr_accessor :infer_stack_capabilities
       attr_accessor :infer_parameter_defaults
       attr_accessor :production_env_name
@@ -56,6 +57,7 @@ module OpenStax
 
       def initialize
         @stack_waiter_delay = 30
+        @stack_waiter_max_attempts = 180
         @cfn_template_bucket_folder = "cfn_templates"
         @infer_stack_capabilities = true
         @infer_parameter_defaults = true

@@ -792,6 +792,9 @@ OpenStax::Aws.configure do |config|
   # The number of seconds the gem waits between polling for the completion of stack creation,
   # updates, deletes. (default: 30)
   config.stack_waiter_delay = 30
+  # The number of maximum attempts the gem makes to check for the completion of stack creation,
+  # updates, deletes. (default: 180)
+  config.stack_waiter_max_attempts = 180
   # If true, the gem will parse your template and autoset the required capabilities
   # (default: true)
   config.infer_stack_capabilities = true

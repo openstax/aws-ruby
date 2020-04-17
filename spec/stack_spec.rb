@@ -100,9 +100,15 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     name = "spec-aws-ruby-stack-update-new-parameters"
     tag_1 = "howdy"
     tag_2 = "there"
+    max_attempts = OpenStax::Aws.configuration.stack_waiter_max_attempts
 
     stack = new_template_one_stack(name: name)
     stack.create(params: {bucket_name: bucket_name, tag_value: "howdy"}, wait: true)
+
+    expect(max_attempts).to be_an(Integer)
+    expect(Aws::CloudFormation::Waiters::StackUpdateComplete).to receive(:new).with(hash_including(
+      :max_attempts => max_attempts
+    )).and_call_original
 
     stack.apply_change_set(params: {bucket_name: :use_previous_value, tag_value: "there"}, wait: true)
 
