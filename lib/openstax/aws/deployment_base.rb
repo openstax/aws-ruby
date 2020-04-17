@@ -173,9 +173,9 @@ module OpenStax::Aws
       nil # can be overridden by the DSL
     end
 
-    def find_image_by_tags(tags = {})
+    def find_images_by_tags(tags = {})
       ec2_client.describe_images({
-        filters: tags.map { |key, values| {name: "tag:#{key}", values: values.kind_of?(Array) ? values : [values]}}
+        filters: tags.map { |key, values| {name: "tag:#{key}", values: [values].flatten}}
       }).images
     end
 
