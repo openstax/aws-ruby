@@ -173,12 +173,6 @@ module OpenStax::Aws
       nil # can be overridden by the DSL
     end
 
-    def find_images_by_tags(tags = {})
-      ec2_client.describe_images({
-        filters: tags.map { |key, values| {name: "tag:#{key}", values: [values].flatten}}
-      }).images
-    end
-
     protected
 
     def parameter_default(parameter_name)
@@ -226,10 +220,6 @@ module OpenStax::Aws
 
     def s3_client
       @s3_client ||= Aws::S3::Client.new(region: region)
-    end
-
-    def ec2_client
-      @ec2_client ||= Aws::EC2::Client.new(region: region)
     end
 
     def s3_key_exists?(bucket:, key:)
