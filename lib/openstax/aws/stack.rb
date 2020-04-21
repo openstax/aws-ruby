@@ -338,6 +338,47 @@ module OpenStax::Aws
       end
     end
 
+    def status_reason
+      begin
+        aws_stack.stack_status_reason
+      rescue Aws::CloudFormation::Errors::ValidationError => ee
+        case ee.message
+        when /Stack.*does not exist/
+          "DOES_NOT_EXIST"
+        else
+          raise
+        end
+      end
+    end
+
+    def events
+      begin 
+        aws_stack.events()
+      rescue
+        raise "something's wrong sorry"
+      end
+    end
+
+    def latest_failed_events
+      latest_deployment_reasons = []
+      begin
+        ###search in latest deployment events
+        aws_stack.events.each do |event|
+          if(event.data.resource_status.include?("_FAILED"))
+            latest_deployment_reasons.push(event.data.resource_status_reason)
+          end
+          if(event.data.resource_status_reason === "User Initiated")
+            break
+          end
+        end
+        return latest_deployment_reasons
+      rescue
+        raise "No registered events"
+      end
+      
+      return latest_deployment_reasons
+    end
+
     def updating?
       %w(
         UPDATE_COMPLETE_CLEANUP_IN_PROGRESS

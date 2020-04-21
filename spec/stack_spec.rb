@@ -96,6 +96,19 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     stack.delete
   end
 
+  it "gets status error reason" do
+    name = "spec-aws-ruby-stack-status-reason"
+
+    stack = new_template_one_stack(name: name)
+
+    begin
+      stack.create(params: {bucket_name: bucket_name, tag_value: "howdy**-"}, wait: true)
+    rescue 
+      expect(stack.latest_failed_events[0]).to include "The TagValue you have provided is invalid (Service: Amazon S3; Status Code: 400; Error Code: InvalidTag;"
+      stack.delete
+    end
+  end
+
   it "can be updated with new parameters" do
     name = "spec-aws-ruby-stack-update-new-parameters"
     tag_1 = "howdy"
