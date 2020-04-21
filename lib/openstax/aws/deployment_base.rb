@@ -170,6 +170,16 @@ module OpenStax::Aws
       self.class.stack_ids.map{|id| self.send("#{id}_stack")}
     end
 
+    def status
+      stacks.map do |stack|
+        {
+          name: stack.name,
+          status: stack.status,
+          reason: stack.latest_failed_events
+        }
+      end
+    end
+
     def deployed_parameters
       stacks.each_with_object({}) do |stack, hash|
         hash[stack.name] = stack.deployed_parameters
