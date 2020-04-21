@@ -1,0 +1,3801 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://cloudformation.us-west-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=ValidateTemplate&TemplateBody=Description%3A%20%3E%0A%20%20Just%20a%20bucket%0A%0AResources%3A%0A%0A%20%20S3Bucket%3A%0A%20%20%20%20Type%3A%20AWS%3A%3AS3%3A%3ABucket%0A&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233213Z
+      X-Amz-Content-Sha256:
+      - 8afc2f08c2b059cbeedb3caba0e505280d1e67a5188b98f6fb9b1a384b9405bc
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-west-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '194'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 7ae01601-6e1f-47a6-ace4-fd2d3e19e5e6
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '341'
+      Date:
+      - Sun, 12 Apr 2020 23:32:13 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <ValidateTemplateResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <ValidateTemplateResult>
+            <Description>Just a bucket
+        </Description>
+            <Parameters/>
+          </ValidateTemplateResult>
+          <ResponseMetadata>
+            <RequestId>7ae01601-6e1f-47a6-ace4-fd2d3e19e5e6</RequestId>
+          </ResponseMetadata>
+        </ValidateTemplateResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:32:13 GMT
+- request:
+    method: put
+    uri: https://openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com/cfn_templates/spec-templates/simple.yml
+    body:
+      encoding: UTF-8
+      string: |
+        Description: >
+          Just a bucket
+
+        Resources:
+
+          S3Bucket:
+            Type: AWS::S3::Bucket
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-s3/1.61.2
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - SWrMwFciS4Dd0MtHMjBc+w==
+      Host:
+      - openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233213Z
+      X-Amz-Content-Sha256:
+      - 2b9163e03e5682f82f3c034ef3dfa9e58cb7592cf651af6dc96d5c927d4f5454
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-west-2/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=<SignatureValue>
+      Content-Length:
+      - '82'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - mkP1L3w/kfepOQLBzhrL+W2q85ZqHkD69fTNrTU7caNcljKgT4zqhwXcMcVQFpGUrAmViCE1/Io=
+      X-Amz-Request-Id:
+      - '009A23D077F192C3'
+      Date:
+      - Sun, 12 Apr 2020 23:32:15 GMT
+      X-Amz-Version-Id:
+      - zoV0iIT4sI7Mj9GCIUhFkCK3HcYSmr3d
+      X-Amz-Server-Side-Encryption:
+      - AES256
+      Etag:
+      - '"496accc057224b80ddd0cb4732305cfb"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:32:14 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=CreateStack&Capabilities=&EnableTerminationProtection=false&Parameters=&StackName=aws-ruby-rspec-query-1&Tags=&TemplateURL=https%3A%2F%2Fs3.amazonaws.com%2Fopenstax-sandbox-cfn-templates%2Fcfn_templates%2Fspec-templates%2Fsimple.yml&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233214Z
+      X-Amz-Content-Sha256:
+      - c441f6aa4609ab80beaa18196a2c77483b51026b0b55e1aca7294bea94bc715e
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '258'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 92192615-0011-46c0-9633-84be43c89956
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '392'
+      Date:
+      - Sun, 12 Apr 2020 23:32:15 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <CreateStackResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <CreateStackResult>
+            <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-1/d7345de0-7d15-11ea-ad8a-02c25da8714e</StackId>
+          </CreateStackResult>
+          <ResponseMetadata>
+            <RequestId>92192615-0011-46c0-9633-84be43c89956</RequestId>
+          </ResponseMetadata>
+        </CreateStackResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:32:15 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-1&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233215Z
+      X-Amz-Content-Sha256:
+      - aed9e6129ae9976f38aabc98558a112771b581a487e86cf00ab3d13ec2e6a7af
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 5f5fadf3-6e8c-4aa7-b7ed-ff602b107fe2
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1061'
+      Date:
+      - Sun, 12 Apr 2020 23:32:14 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:32:15.312Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-1/d7345de0-7d15-11ea-ad8a-02c25da8714e</StackId>
+                <StackName>aws-ruby-rspec-query-1</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <StackStatusReason>User Initiated</StackStatusReason>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>5f5fadf3-6e8c-4aa7-b7ed-ff602b107fe2</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:32:15 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-1&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233215Z
+      X-Amz-Content-Sha256:
+      - aed9e6129ae9976f38aabc98558a112771b581a487e86cf00ab3d13ec2e6a7af
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - ef47e758-6c65-448f-ab35-53d93dfc6e71
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '999'
+      Date:
+      - Sun, 12 Apr 2020 23:32:15 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:32:15.312Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-1/d7345de0-7d15-11ea-ad8a-02c25da8714e</StackId>
+                <StackName>aws-ruby-rspec-query-1</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>ef47e758-6c65-448f-ab35-53d93dfc6e71</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:32:16 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-1&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233221Z
+      X-Amz-Content-Sha256:
+      - aed9e6129ae9976f38aabc98558a112771b581a487e86cf00ab3d13ec2e6a7af
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 29c66de6-6493-4d9d-bf37-4a2914440689
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '999'
+      Date:
+      - Sun, 12 Apr 2020 23:32:20 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:32:15.312Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-1/d7345de0-7d15-11ea-ad8a-02c25da8714e</StackId>
+                <StackName>aws-ruby-rspec-query-1</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>29c66de6-6493-4d9d-bf37-4a2914440689</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:32:21 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-1&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233226Z
+      X-Amz-Content-Sha256:
+      - aed9e6129ae9976f38aabc98558a112771b581a487e86cf00ab3d13ec2e6a7af
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 909cc317-5c88-45b6-8799-810335b01df0
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '999'
+      Date:
+      - Sun, 12 Apr 2020 23:32:26 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:32:15.312Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-1/d7345de0-7d15-11ea-ad8a-02c25da8714e</StackId>
+                <StackName>aws-ruby-rspec-query-1</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>909cc317-5c88-45b6-8799-810335b01df0</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:32:26 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-1&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233231Z
+      X-Amz-Content-Sha256:
+      - aed9e6129ae9976f38aabc98558a112771b581a487e86cf00ab3d13ec2e6a7af
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 13b95531-e64e-42d5-96f6-82a1ad3426f3
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '999'
+      Date:
+      - Sun, 12 Apr 2020 23:32:32 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:32:15.312Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-1/d7345de0-7d15-11ea-ad8a-02c25da8714e</StackId>
+                <StackName>aws-ruby-rspec-query-1</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>13b95531-e64e-42d5-96f6-82a1ad3426f3</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:32:32 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-1&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233237Z
+      X-Amz-Content-Sha256:
+      - aed9e6129ae9976f38aabc98558a112771b581a487e86cf00ab3d13ec2e6a7af
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - c1bd8384-175a-4539-89ed-d458290c6f33
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '999'
+      Date:
+      - Sun, 12 Apr 2020 23:32:36 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:32:15.312Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-1/d7345de0-7d15-11ea-ad8a-02c25da8714e</StackId>
+                <StackName>aws-ruby-rspec-query-1</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>c1bd8384-175a-4539-89ed-d458290c6f33</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:32:37 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-1&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233242Z
+      X-Amz-Content-Sha256:
+      - aed9e6129ae9976f38aabc98558a112771b581a487e86cf00ab3d13ec2e6a7af
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 7fe4bd3b-d627-420a-b00b-8fc287b4f239
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '996'
+      Date:
+      - Sun, 12 Apr 2020 23:32:42 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:32:15.312Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-1/d7345de0-7d15-11ea-ad8a-02c25da8714e</StackId>
+                <StackName>aws-ruby-rspec-query-1</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>7fe4bd3b-d627-420a-b00b-8fc287b4f239</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:32:42 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-west-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=ValidateTemplate&TemplateBody=Description%3A%20%3E%0A%20%20Just%20a%20bucket%0A%0AResources%3A%0A%0A%20%20S3Bucket%3A%0A%20%20%20%20Type%3A%20AWS%3A%3AS3%3A%3ABucket%0A&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233242Z
+      X-Amz-Content-Sha256:
+      - 8afc2f08c2b059cbeedb3caba0e505280d1e67a5188b98f6fb9b1a384b9405bc
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-west-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '194'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 1520b84f-2aaf-41d4-b30a-a948799e57ad
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '341'
+      Date:
+      - Sun, 12 Apr 2020 23:32:42 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <ValidateTemplateResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <ValidateTemplateResult>
+            <Description>Just a bucket
+        </Description>
+            <Parameters/>
+          </ValidateTemplateResult>
+          <ResponseMetadata>
+            <RequestId>1520b84f-2aaf-41d4-b30a-a948799e57ad</RequestId>
+          </ResponseMetadata>
+        </ValidateTemplateResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:32:43 GMT
+- request:
+    method: put
+    uri: https://openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com/cfn_templates/spec-templates/simple.yml
+    body:
+      encoding: UTF-8
+      string: |
+        Description: >
+          Just a bucket
+
+        Resources:
+
+          S3Bucket:
+            Type: AWS::S3::Bucket
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-s3/1.61.2
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - SWrMwFciS4Dd0MtHMjBc+w==
+      Host:
+      - openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233243Z
+      X-Amz-Content-Sha256:
+      - 2b9163e03e5682f82f3c034ef3dfa9e58cb7592cf651af6dc96d5c927d4f5454
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-west-2/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=<SignatureValue>
+      Content-Length:
+      - '82'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - I49WhwNIFZC659jNL+Rn4niVXx3XFkvQyTLL9hBe4mbfNFHp93AWsYmr9DEm2gzZo5LCTKYt1OQ=
+      X-Amz-Request-Id:
+      - 0EF2D0C8EF787F24
+      Date:
+      - Sun, 12 Apr 2020 23:32:44 GMT
+      X-Amz-Version-Id:
+      - oi87Tmiq9CcCSIAkbGEA4uGpBvlJdrii
+      X-Amz-Server-Side-Encryption:
+      - AES256
+      Etag:
+      - '"496accc057224b80ddd0cb4732305cfb"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:32:43 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=CreateStack&Capabilities=&EnableTerminationProtection=false&Parameters=&StackName=aws-ruby-rspec-query-2&Tags=&TemplateURL=https%3A%2F%2Fs3.amazonaws.com%2Fopenstax-sandbox-cfn-templates%2Fcfn_templates%2Fspec-templates%2Fsimple.yml&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233243Z
+      X-Amz-Content-Sha256:
+      - 19a9a174be305939b451697b03451fa34ebeeaef6d5fd36402616321451255d2
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '258'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - db8ed048-0a8f-418b-bad9-04e6af7e24de
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '392'
+      Date:
+      - Sun, 12 Apr 2020 23:32:44 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <CreateStackResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <CreateStackResult>
+            <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-2/e8b76620-7d15-11ea-a6db-064e0383f37e</StackId>
+          </CreateStackResult>
+          <ResponseMetadata>
+            <RequestId>db8ed048-0a8f-418b-bad9-04e6af7e24de</RequestId>
+          </ResponseMetadata>
+        </CreateStackResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:32:44 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-2&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233244Z
+      X-Amz-Content-Sha256:
+      - 94a4dacc9c3f78d18841a5b10203430747b434892a503e181584b40c0659410e
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - ac1d09d6-bd90-4c87-af30-4e06283313ca
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1061'
+      Date:
+      - Sun, 12 Apr 2020 23:32:44 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:32:44.378Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-2/e8b76620-7d15-11ea-a6db-064e0383f37e</StackId>
+                <StackName>aws-ruby-rspec-query-2</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <StackStatusReason>User Initiated</StackStatusReason>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>ac1d09d6-bd90-4c87-af30-4e06283313ca</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:32:44 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-2&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233244Z
+      X-Amz-Content-Sha256:
+      - 94a4dacc9c3f78d18841a5b10203430747b434892a503e181584b40c0659410e
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 864f7001-f52f-42d6-9207-81c183e1eb3b
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '999'
+      Date:
+      - Sun, 12 Apr 2020 23:32:44 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:32:44.378Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-2/e8b76620-7d15-11ea-a6db-064e0383f37e</StackId>
+                <StackName>aws-ruby-rspec-query-2</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>864f7001-f52f-42d6-9207-81c183e1eb3b</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:32:45 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-2&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233250Z
+      X-Amz-Content-Sha256:
+      - 94a4dacc9c3f78d18841a5b10203430747b434892a503e181584b40c0659410e
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 778704ab-08b6-421e-9ca7-ee0a6c034205
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '999'
+      Date:
+      - Sun, 12 Apr 2020 23:32:49 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:32:44.378Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-2/e8b76620-7d15-11ea-a6db-064e0383f37e</StackId>
+                <StackName>aws-ruby-rspec-query-2</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>778704ab-08b6-421e-9ca7-ee0a6c034205</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:32:50 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-2&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233255Z
+      X-Amz-Content-Sha256:
+      - 94a4dacc9c3f78d18841a5b10203430747b434892a503e181584b40c0659410e
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - a58a4cdd-6d02-425e-8b92-e92daa692f03
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '999'
+      Date:
+      - Sun, 12 Apr 2020 23:32:55 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:32:44.378Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-2/e8b76620-7d15-11ea-a6db-064e0383f37e</StackId>
+                <StackName>aws-ruby-rspec-query-2</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>a58a4cdd-6d02-425e-8b92-e92daa692f03</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:32:56 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-2&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233301Z
+      X-Amz-Content-Sha256:
+      - 94a4dacc9c3f78d18841a5b10203430747b434892a503e181584b40c0659410e
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 1ffe51ba-087d-46a7-8d88-6fd092ee0307
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '999'
+      Date:
+      - Sun, 12 Apr 2020 23:33:01 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:32:44.378Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-2/e8b76620-7d15-11ea-a6db-064e0383f37e</StackId>
+                <StackName>aws-ruby-rspec-query-2</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>1ffe51ba-087d-46a7-8d88-6fd092ee0307</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:01 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-2&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233306Z
+      X-Amz-Content-Sha256:
+      - 94a4dacc9c3f78d18841a5b10203430747b434892a503e181584b40c0659410e
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 5bf14deb-6cd8-4750-bd5e-213a77327113
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '999'
+      Date:
+      - Sun, 12 Apr 2020 23:33:06 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:32:44.378Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-2/e8b76620-7d15-11ea-a6db-064e0383f37e</StackId>
+                <StackName>aws-ruby-rspec-query-2</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>5bf14deb-6cd8-4750-bd5e-213a77327113</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:07 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-2&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233312Z
+      X-Amz-Content-Sha256:
+      - 94a4dacc9c3f78d18841a5b10203430747b434892a503e181584b40c0659410e
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 7c941a1f-9420-4484-8235-e7b651e45377
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '996'
+      Date:
+      - Sun, 12 Apr 2020 23:33:11 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:32:44.378Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-2/e8b76620-7d15-11ea-a6db-064e0383f37e</StackId>
+                <StackName>aws-ruby-rspec-query-2</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>7c941a1f-9420-4484-8235-e7b651e45377</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:12 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-west-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=ValidateTemplate&TemplateBody=Description%3A%20%3E%0A%20%20Just%20a%20bucket%0A%0AResources%3A%0A%0A%20%20S3Bucket%3A%0A%20%20%20%20Type%3A%20AWS%3A%3AS3%3A%3ABucket%0A&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233312Z
+      X-Amz-Content-Sha256:
+      - 8afc2f08c2b059cbeedb3caba0e505280d1e67a5188b98f6fb9b1a384b9405bc
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-west-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '194'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - a17ae656-8e69-4085-899b-188372eb8278
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '341'
+      Date:
+      - Sun, 12 Apr 2020 23:33:12 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <ValidateTemplateResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <ValidateTemplateResult>
+            <Description>Just a bucket
+        </Description>
+            <Parameters/>
+          </ValidateTemplateResult>
+          <ResponseMetadata>
+            <RequestId>a17ae656-8e69-4085-899b-188372eb8278</RequestId>
+          </ResponseMetadata>
+        </ValidateTemplateResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:12 GMT
+- request:
+    method: put
+    uri: https://openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com/cfn_templates/spec-templates/simple.yml
+    body:
+      encoding: UTF-8
+      string: |
+        Description: >
+          Just a bucket
+
+        Resources:
+
+          S3Bucket:
+            Type: AWS::S3::Bucket
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-s3/1.61.2
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - SWrMwFciS4Dd0MtHMjBc+w==
+      Host:
+      - openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233312Z
+      X-Amz-Content-Sha256:
+      - 2b9163e03e5682f82f3c034ef3dfa9e58cb7592cf651af6dc96d5c927d4f5454
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-west-2/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=<SignatureValue>
+      Content-Length:
+      - '82'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - wEjTUXEn7bqSkDdHdld9iM49egbwU9UTO28zUg1BbmDkAaXjyXGiApfVsZOK/V9nGYZpdQ6lCxk=
+      X-Amz-Request-Id:
+      - DE21A6CAE9C1633A
+      Date:
+      - Sun, 12 Apr 2020 23:33:14 GMT
+      X-Amz-Version-Id:
+      - Y3Ux9Z0D1SBoy7KL.QP5A_27IdVRpMA2
+      X-Amz-Server-Side-Encryption:
+      - AES256
+      Etag:
+      - '"496accc057224b80ddd0cb4732305cfb"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:13 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=CreateStack&Capabilities=&EnableTerminationProtection=false&Parameters=&StackName=aws-ruby-rspec-query-3&Tags=&TemplateURL=https%3A%2F%2Fs3.amazonaws.com%2Fopenstax-sandbox-cfn-templates%2Fcfn_templates%2Fspec-templates%2Fsimple.yml&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233313Z
+      X-Amz-Content-Sha256:
+      - 2967e110ed4047311cddea0a6169030a04f3a738bfcefc6f226b34bba1e0dc3d
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '258'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - eb4d8125-5706-4ece-bdcc-748d1937d52f
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '392'
+      Date:
+      - Sun, 12 Apr 2020 23:33:13 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <CreateStackResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <CreateStackResult>
+            <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-3/fa6994b0-7d15-11ea-96eb-0672668ff2ce</StackId>
+          </CreateStackResult>
+          <ResponseMetadata>
+            <RequestId>eb4d8125-5706-4ece-bdcc-748d1937d52f</RequestId>
+          </ResponseMetadata>
+        </CreateStackResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:14 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-3&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233314Z
+      X-Amz-Content-Sha256:
+      - d32cda5c841707c91d23a519603d4a51d097f5bf404d417acbe95e81965bd44d
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 2ecdea1d-0484-456d-b5c8-10788172e4b7
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1061'
+      Date:
+      - Sun, 12 Apr 2020 23:33:14 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:33:14.084Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-3/fa6994b0-7d15-11ea-96eb-0672668ff2ce</StackId>
+                <StackName>aws-ruby-rspec-query-3</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <StackStatusReason>User Initiated</StackStatusReason>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>2ecdea1d-0484-456d-b5c8-10788172e4b7</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:14 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-3&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233314Z
+      X-Amz-Content-Sha256:
+      - d32cda5c841707c91d23a519603d4a51d097f5bf404d417acbe95e81965bd44d
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - af6e98c3-99bb-463e-9c5d-197a724ca5a1
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '999'
+      Date:
+      - Sun, 12 Apr 2020 23:33:14 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:33:14.084Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-3/fa6994b0-7d15-11ea-96eb-0672668ff2ce</StackId>
+                <StackName>aws-ruby-rspec-query-3</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>af6e98c3-99bb-463e-9c5d-197a724ca5a1</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:14 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-3&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233319Z
+      X-Amz-Content-Sha256:
+      - d32cda5c841707c91d23a519603d4a51d097f5bf404d417acbe95e81965bd44d
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - f97822fe-4c52-42bd-ad15-0d1ca7afbea0
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '999'
+      Date:
+      - Sun, 12 Apr 2020 23:33:19 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:33:14.084Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-3/fa6994b0-7d15-11ea-96eb-0672668ff2ce</StackId>
+                <StackName>aws-ruby-rspec-query-3</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>f97822fe-4c52-42bd-ad15-0d1ca7afbea0</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:20 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-3&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233325Z
+      X-Amz-Content-Sha256:
+      - d32cda5c841707c91d23a519603d4a51d097f5bf404d417acbe95e81965bd44d
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 0eff6474-0f39-43f0-8acb-59021139fbec
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '999'
+      Date:
+      - Sun, 12 Apr 2020 23:33:25 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:33:14.084Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-3/fa6994b0-7d15-11ea-96eb-0672668ff2ce</StackId>
+                <StackName>aws-ruby-rspec-query-3</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>0eff6474-0f39-43f0-8acb-59021139fbec</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:25 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-3&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233330Z
+      X-Amz-Content-Sha256:
+      - d32cda5c841707c91d23a519603d4a51d097f5bf404d417acbe95e81965bd44d
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 446010a6-32f4-48f0-84d6-5c481fdcd0c2
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '999'
+      Date:
+      - Sun, 12 Apr 2020 23:33:30 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:33:14.084Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-3/fa6994b0-7d15-11ea-96eb-0672668ff2ce</StackId>
+                <StackName>aws-ruby-rspec-query-3</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>446010a6-32f4-48f0-84d6-5c481fdcd0c2</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:31 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-3&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233336Z
+      X-Amz-Content-Sha256:
+      - d32cda5c841707c91d23a519603d4a51d097f5bf404d417acbe95e81965bd44d
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - a2258e91-aabf-4a55-a221-0b7cabe65c7e
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '999'
+      Date:
+      - Sun, 12 Apr 2020 23:33:36 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:33:14.084Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-3/fa6994b0-7d15-11ea-96eb-0672668ff2ce</StackId>
+                <StackName>aws-ruby-rspec-query-3</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>a2258e91-aabf-4a55-a221-0b7cabe65c7e</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:36 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-3&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233341Z
+      X-Amz-Content-Sha256:
+      - d32cda5c841707c91d23a519603d4a51d097f5bf404d417acbe95e81965bd44d
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 822c600b-6939-4e39-ac13-2a52c8077432
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '996'
+      Date:
+      - Sun, 12 Apr 2020 23:33:41 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:33:14.084Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-3/fa6994b0-7d15-11ea-96eb-0672668ff2ce</StackId>
+                <StackName>aws-ruby-rspec-query-3</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>822c600b-6939-4e39-ac13-2a52c8077432</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:41 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=ListStacks&StackStatusFilter.member.1=CREATE_IN_PROGRESS&StackStatusFilter.member.10=UPDATE_COMPLETE&StackStatusFilter.member.11=UPDATE_ROLLBACK_IN_PROGRESS&StackStatusFilter.member.12=UPDATE_ROLLBACK_FAILED&StackStatusFilter.member.13=UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS&StackStatusFilter.member.14=UPDATE_ROLLBACK_COMPLETE&StackStatusFilter.member.15=REVIEW_IN_PROGRESS&StackStatusFilter.member.16=IMPORT_IN_PROGRESS&StackStatusFilter.member.17=IMPORT_COMPLETE&StackStatusFilter.member.18=IMPORT_ROLLBACK_IN_PROGRESS&StackStatusFilter.member.19=IMPORT_ROLLBACK_FAILED&StackStatusFilter.member.2=CREATE_COMPLETE&StackStatusFilter.member.20=IMPORT_ROLLBACK_COMPLETE&StackStatusFilter.member.3=ROLLBACK_IN_PROGRESS&StackStatusFilter.member.4=ROLLBACK_FAILED&StackStatusFilter.member.5=ROLLBACK_COMPLETE&StackStatusFilter.member.6=DELETE_IN_PROGRESS&StackStatusFilter.member.7=DELETE_FAILED&StackStatusFilter.member.8=UPDATE_IN_PROGRESS&StackStatusFilter.member.9=UPDATE_COMPLETE_CLEANUP_IN_PROGRESS&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-1.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233342Z
+      X-Amz-Content-Sha256:
+      - 2bd8ad7d0057ec3652a4c5682e671cbed9770e44be110ff73e55aa9a04af9850
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-1/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '1032'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 8b1730e4-a9d7-4ae4-b628-b9b6fd9671d7
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '20787'
+      Vary:
+      - accept-encoding
+      Date:
+      - Sun, 12 Apr 2020 23:33:42 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <ListStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <ListStacksResult>
+            <StackSummaries>
+              <member>
+                <CreationTime>2020-04-02T13:19:15.632Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-04-10T20:08:21.806Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-04-01T19:39:03.724Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-04-01T19:39:09.174Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-03-30T15:56:24.699Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-04-01T20:46:13.640Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-03-16T08:37:55.182Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-03-30T16:46:21.752Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-03-15T22:55:33.998Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-03-13T16:14:27.493Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-03-16T16:38:23.159Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-03-08T16:57:16.941Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-03-09T23:52:29.025Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-03-01T21:04:55.647Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-02-24T04:46:11.404Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-02-17T19:28:29.259Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-03-26T20:45:25.844Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-13T22:05:55.791Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_FAILED</StackStatus>
+                <DeletionTime>2020-03-30T01:43:52.373Z</DeletionTime>
+                <LastUpdatedTime>2020-03-30T01:27:34.449Z</LastUpdatedTime>
+                <StackStatusReason>MASKED_REASON</StackStatusReason>
+              </member>
+              <member>
+                <CreationTime>2020-02-10T04:04:10.834Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-02-12T22:19:35.443Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-10T03:28:32.907Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-02-10T03:28:38.639Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-09T18:21:47.512Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-02-10T03:54:36.259Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-04T15:57:29.483Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-02-17T17:18:19.433Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-01-24T15:03:41.944Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-02-04T03:13:13.768Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-01-08T20:39:15.432Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-01-27T18:58:05.058Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-12-18T02:33:55.446Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>hello_world
+        Sample SAM Template for hello_world
+        </TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_ROLLBACK_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-01-28T17:05:07.548Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-12-18T02:32:49.637Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2019-12-18T02:33:05.241Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-11-14T01:31:49.267Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2019-12-19T22:33:52.645Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-10-28T15:58:49.512Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2019-11-14T02:30:17.065Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-10-18T14:23:14.682Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2019-11-06T05:15:00.378Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-09-18T21:21:27.523Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_FAILED</StackStatus>
+                <DeletionTime>2020-03-27T22:14:27.694Z</DeletionTime>
+                <LastUpdatedTime>2019-09-24T19:59:14.666Z</LastUpdatedTime>
+                <StackStatusReason>MASKED_REASON</StackStatusReason>
+              </member>
+              <member>
+                <CreationTime>2019-09-10T04:50:11.271Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2019-06-24T21:06:31.635Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2019-12-10T04:36:57.342Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-05-10T17:32:55.034Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_ROLLBACK_COMPLETE</StackStatus>
+                <LastUpdatedTime>2019-10-08T00:43:30.518Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-01-11T15:54:31.323Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>ROLLBACK_COMPLETE</StackStatus>
+                <DeletionTime>2019-01-11T15:54:42.108Z</DeletionTime>
+              </member>
+              <member>
+                <CreationTime>2018-12-17T22:27:14.445Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>Primary Unified Web bucket
+        </TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-02-27T15:18:09.425Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2018-12-17T22:26:10.145Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>Identities needed by both primary and replica unified web buckets
+        </TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-02-27T15:16:52.717Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2018-12-12T20:17:18.586Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2018-12-12T20:12:15.208Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2018-11-29T13:51:40.243Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>Primary Rex bucket
+        </TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2018-12-02T21:18:44.728Z</LastUpdatedTime>
+                <StackStatusReason>MASKED_REASON</StackStatusReason>
+              </member>
+              <member>
+                <CreationTime>2018-11-29T13:50:35.472Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>Identities needed by both primary and replica rex buckets
+        </TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <StackStatusReason>MASKED_REASON</StackStatusReason>
+              </member>
+            </StackSummaries>
+          </ListStacksResult>
+          <ResponseMetadata>
+            <RequestId>8b1730e4-a9d7-4ae4-b628-b9b6fd9671d7</RequestId>
+          </ResponseMetadata>
+        </ListStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:42 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=ListStacks&StackStatusFilter.member.1=CREATE_IN_PROGRESS&StackStatusFilter.member.10=UPDATE_COMPLETE&StackStatusFilter.member.11=UPDATE_ROLLBACK_IN_PROGRESS&StackStatusFilter.member.12=UPDATE_ROLLBACK_FAILED&StackStatusFilter.member.13=UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS&StackStatusFilter.member.14=UPDATE_ROLLBACK_COMPLETE&StackStatusFilter.member.15=REVIEW_IN_PROGRESS&StackStatusFilter.member.16=IMPORT_IN_PROGRESS&StackStatusFilter.member.17=IMPORT_COMPLETE&StackStatusFilter.member.18=IMPORT_ROLLBACK_IN_PROGRESS&StackStatusFilter.member.19=IMPORT_ROLLBACK_FAILED&StackStatusFilter.member.2=CREATE_COMPLETE&StackStatusFilter.member.20=IMPORT_ROLLBACK_COMPLETE&StackStatusFilter.member.3=ROLLBACK_IN_PROGRESS&StackStatusFilter.member.4=ROLLBACK_FAILED&StackStatusFilter.member.5=ROLLBACK_COMPLETE&StackStatusFilter.member.6=DELETE_IN_PROGRESS&StackStatusFilter.member.7=DELETE_FAILED&StackStatusFilter.member.8=UPDATE_IN_PROGRESS&StackStatusFilter.member.9=UPDATE_COMPLETE_CLEANUP_IN_PROGRESS&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233342Z
+      X-Amz-Content-Sha256:
+      - 2bd8ad7d0057ec3652a4c5682e671cbed9770e44be110ff73e55aa9a04af9850
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '1032'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 1bf1db1f-eb9c-4932-8dd2-85b562139772
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '15693'
+      Vary:
+      - accept-encoding
+      Date:
+      - Sun, 12 Apr 2020 23:33:42 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <ListStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <ListStacksResult>
+            <StackSummaries>
+              <member>
+                <CreationTime>2020-04-12T23:33:14.084Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-3/fa6994b0-7d15-11ea-96eb-0672668ff2ce</StackId>
+                <TemplateDescription>Just a bucket
+        </TemplateDescription>
+                <StackName>aws-ruby-rspec-query-3</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-04-12T23:32:44.378Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-2/e8b76620-7d15-11ea-a6db-064e0383f37e</StackId>
+                <TemplateDescription>Just a bucket
+        </TemplateDescription>
+                <StackName>aws-ruby-rspec-query-2</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-04-12T23:32:15.312Z</CreationTime>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-1/d7345de0-7d15-11ea-ad8a-02c25da8714e</StackId>
+                <TemplateDescription>Just a bucket
+        </TemplateDescription>
+                <StackName>aws-ruby-rspec-query-1</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-04-01T17:39:33.326Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-04-01T17:38:52.591Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-04-01T17:38:30.577Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-04-01T17:37:50.441Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-02-24T22:08:40.557Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-02-24T22:08:39.219Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-03-02T19:06:27.451Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-24T22:03:10.610Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-03-02T19:04:12.211Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-24T21:56:51.575Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-02-24T21:55:47.531Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-02-05T21:51:51.010Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-02-05T21:51:49.876Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-02-18T17:44:21.934Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-05T21:47:27.848Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-02-18T17:41:48.204Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-02-05T21:41:14.152Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-02-05T21:40:10.871Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-01-16T18:17:28.164Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-02-03T22:08:24.568Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-01-16T18:12:59.161Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-02-03T22:05:47.961Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-01-16T18:09:17.373Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2020-01-30T19:27:49.955Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2020-01-16T18:08:13.430Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2020-01-16T18:07:34.010Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2019-11-13T17:04:52.725Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2019-10-13T18:57:27.529Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>UPDATE_COMPLETE</StackStatus>
+                <LastUpdatedTime>2019-10-13T19:10:34.516Z</LastUpdatedTime>
+              </member>
+              <member>
+                <CreationTime>2019-10-13T18:38:51.821Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>ROLLBACK_COMPLETE</StackStatus>
+                <DeletionTime>2019-10-13T18:38:55.079Z</DeletionTime>
+              </member>
+              <member>
+                <CreationTime>2019-07-17T20:49:12.588Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>DELETE_FAILED</StackStatus>
+                <DeletionTime>2020-02-08T18:01:21.976Z</DeletionTime>
+                <StackStatusReason>MASKED_REASON</StackStatusReason>
+              </member>
+              <member>
+                <CreationTime>2018-12-17T22:26:42.441Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>Replica Unified Web bucket
+        </TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+              <member>
+                <CreationTime>2018-11-29T13:51:07.837Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>Replica Rex bucket
+        </TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+            </StackSummaries>
+          </ListStacksResult>
+          <ResponseMetadata>
+            <RequestId>1bf1db1f-eb9c-4932-8dd2-85b562139772</RequestId>
+          </ResponseMetadata>
+        </ListStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:42 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-west-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=ListStacks&StackStatusFilter.member.1=CREATE_IN_PROGRESS&StackStatusFilter.member.10=UPDATE_COMPLETE&StackStatusFilter.member.11=UPDATE_ROLLBACK_IN_PROGRESS&StackStatusFilter.member.12=UPDATE_ROLLBACK_FAILED&StackStatusFilter.member.13=UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS&StackStatusFilter.member.14=UPDATE_ROLLBACK_COMPLETE&StackStatusFilter.member.15=REVIEW_IN_PROGRESS&StackStatusFilter.member.16=IMPORT_IN_PROGRESS&StackStatusFilter.member.17=IMPORT_COMPLETE&StackStatusFilter.member.18=IMPORT_ROLLBACK_IN_PROGRESS&StackStatusFilter.member.19=IMPORT_ROLLBACK_FAILED&StackStatusFilter.member.2=CREATE_COMPLETE&StackStatusFilter.member.20=IMPORT_ROLLBACK_COMPLETE&StackStatusFilter.member.3=ROLLBACK_IN_PROGRESS&StackStatusFilter.member.4=ROLLBACK_FAILED&StackStatusFilter.member.5=ROLLBACK_COMPLETE&StackStatusFilter.member.6=DELETE_IN_PROGRESS&StackStatusFilter.member.7=DELETE_FAILED&StackStatusFilter.member.8=UPDATE_IN_PROGRESS&StackStatusFilter.member.9=UPDATE_COMPLETE_CLEANUP_IN_PROGRESS&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-west-1.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233342Z
+      X-Amz-Content-Sha256:
+      - 2bd8ad7d0057ec3652a4c5682e671cbed9770e44be110ff73e55aa9a04af9850
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-west-1/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '1032'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - ecaaf1e7-f9ad-4a0b-b1cf-8115a57a8c95
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '918'
+      Date:
+      - Sun, 12 Apr 2020 23:33:43 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <ListStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <ListStacksResult>
+            <StackSummaries>
+              <member>
+                <CreationTime>2020-04-10T15:11:07.826Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>ROLLBACK_COMPLETE</StackStatus>
+                <DeletionTime>2020-04-10T15:11:09.931Z</DeletionTime>
+              </member>
+            </StackSummaries>
+          </ListStacksResult>
+          <ResponseMetadata>
+            <RequestId>ecaaf1e7-f9ad-4a0b-b1cf-8115a57a8c95</RequestId>
+          </ResponseMetadata>
+        </ListStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:43 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-west-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=ListStacks&StackStatusFilter.member.1=CREATE_IN_PROGRESS&StackStatusFilter.member.10=UPDATE_COMPLETE&StackStatusFilter.member.11=UPDATE_ROLLBACK_IN_PROGRESS&StackStatusFilter.member.12=UPDATE_ROLLBACK_FAILED&StackStatusFilter.member.13=UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS&StackStatusFilter.member.14=UPDATE_ROLLBACK_COMPLETE&StackStatusFilter.member.15=REVIEW_IN_PROGRESS&StackStatusFilter.member.16=IMPORT_IN_PROGRESS&StackStatusFilter.member.17=IMPORT_COMPLETE&StackStatusFilter.member.18=IMPORT_ROLLBACK_IN_PROGRESS&StackStatusFilter.member.19=IMPORT_ROLLBACK_FAILED&StackStatusFilter.member.2=CREATE_COMPLETE&StackStatusFilter.member.20=IMPORT_ROLLBACK_COMPLETE&StackStatusFilter.member.3=ROLLBACK_IN_PROGRESS&StackStatusFilter.member.4=ROLLBACK_FAILED&StackStatusFilter.member.5=ROLLBACK_COMPLETE&StackStatusFilter.member.6=DELETE_IN_PROGRESS&StackStatusFilter.member.7=DELETE_FAILED&StackStatusFilter.member.8=UPDATE_IN_PROGRESS&StackStatusFilter.member.9=UPDATE_COMPLETE_CLEANUP_IN_PROGRESS&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-west-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233343Z
+      X-Amz-Content-Sha256:
+      - 2bd8ad7d0057ec3652a4c5682e671cbed9770e44be110ff73e55aa9a04af9850
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-west-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '1032'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 488b86d8-0d85-4302-879d-c69fb1183182
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '831'
+      Date:
+      - Sun, 12 Apr 2020 23:33:42 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <ListStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <ListStacksResult>
+            <StackSummaries>
+              <member>
+                <CreationTime>2019-09-10T19:36:56.303Z</CreationTime>
+                <StackId>MASKED_STACK_NAME</StackId>
+                <TemplateDescription>MASKED_DESCRIPTION</TemplateDescription>
+                <StackName>MASKED_STACK_NAME</StackName>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+              </member>
+            </StackSummaries>
+          </ListStacksResult>
+          <ResponseMetadata>
+            <RequestId>488b86d8-0d85-4302-879d-c69fb1183182</RequestId>
+          </ResponseMetadata>
+        </ListStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:43 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-1&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233343Z
+      X-Amz-Content-Sha256:
+      - aed9e6129ae9976f38aabc98558a112771b581a487e86cf00ab3d13ec2e6a7af
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 5395909e-cd4c-4989-9c0e-a5a89bf8b98c
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '996'
+      Date:
+      - Sun, 12 Apr 2020 23:33:43 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:32:15.312Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-1/d7345de0-7d15-11ea-ad8a-02c25da8714e</StackId>
+                <StackName>aws-ruby-rspec-query-1</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>5395909e-cd4c-4989-9c0e-a5a89bf8b98c</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:43 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DeleteStack&StackName=aws-ruby-rspec-query-1&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233343Z
+      X-Amz-Content-Sha256:
+      - b56b166cf7ac1f5cc3646de5fe14439d370925960dcf79a4f0ba0b24779dba6b
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '70'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 72aacc64-b6cb-4203-8e75-16609ae8cdac
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '212'
+      Date:
+      - Sun, 12 Apr 2020 23:33:43 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DeleteStackResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <ResponseMetadata>
+            <RequestId>72aacc64-b6cb-4203-8e75-16609ae8cdac</RequestId>
+          </ResponseMetadata>
+        </DeleteStackResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:44 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-1&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233344Z
+      X-Amz-Content-Sha256:
+      - aed9e6129ae9976f38aabc98558a112771b581a487e86cf00ab3d13ec2e6a7af
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 17df37cd-682e-4ff2-a460-bb29b02e60a1
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1123'
+      Date:
+      - Sun, 12 Apr 2020 23:33:44 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:32:15.312Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-1/d7345de0-7d15-11ea-ad8a-02c25da8714e</StackId>
+                <StackName>aws-ruby-rspec-query-1</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>DELETE_IN_PROGRESS</StackStatus>
+                <DeletionTime>2020-04-12T23:33:44.231Z</DeletionTime>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <StackStatusReason>User Initiated</StackStatusReason>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>17df37cd-682e-4ff2-a460-bb29b02e60a1</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:44 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-1&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233344Z
+      X-Amz-Content-Sha256:
+      - aed9e6129ae9976f38aabc98558a112771b581a487e86cf00ab3d13ec2e6a7af
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 0af04a06-20ab-4654-9f8c-6c62144ebdc6
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1061'
+      Date:
+      - Sun, 12 Apr 2020 23:33:44 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:32:15.312Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-1/d7345de0-7d15-11ea-ad8a-02c25da8714e</StackId>
+                <StackName>aws-ruby-rspec-query-1</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>DELETE_IN_PROGRESS</StackStatus>
+                <DeletionTime>2020-04-12T23:33:44.231Z</DeletionTime>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>0af04a06-20ab-4654-9f8c-6c62144ebdc6</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:45 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-1&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233350Z
+      X-Amz-Content-Sha256:
+      - aed9e6129ae9976f38aabc98558a112771b581a487e86cf00ab3d13ec2e6a7af
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      X-Amzn-Requestid:
+      - 8420cf3b-eecf-4186-9272-5a8d5f99a560
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '308'
+      Date:
+      - Sun, 12 Apr 2020 23:33:50 GMT
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: |
+        <ErrorResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <Error>
+            <Type>Sender</Type>
+            <Code>ValidationError</Code>
+            <Message>Stack with id aws-ruby-rspec-query-1 does not exist</Message>
+          </Error>
+          <RequestId>8420cf3b-eecf-4186-9272-5a8d5f99a560</RequestId>
+        </ErrorResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:50 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-2&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233350Z
+      X-Amz-Content-Sha256:
+      - 94a4dacc9c3f78d18841a5b10203430747b434892a503e181584b40c0659410e
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - b248805b-78fb-4c89-8971-816fcde773f6
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '996'
+      Date:
+      - Sun, 12 Apr 2020 23:33:50 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:32:44.378Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-2/e8b76620-7d15-11ea-a6db-064e0383f37e</StackId>
+                <StackName>aws-ruby-rspec-query-2</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>b248805b-78fb-4c89-8971-816fcde773f6</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:50 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DeleteStack&StackName=aws-ruby-rspec-query-2&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233350Z
+      X-Amz-Content-Sha256:
+      - 6d40522a2de074b879b3558129cd8d076bceaaad9986c6418bf184e1868929d4
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '70'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 1944508e-c991-4a7d-ac6b-3b48d0436f68
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '212'
+      Date:
+      - Sun, 12 Apr 2020 23:33:51 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DeleteStackResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <ResponseMetadata>
+            <RequestId>1944508e-c991-4a7d-ac6b-3b48d0436f68</RequestId>
+          </ResponseMetadata>
+        </DeleteStackResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:51 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-2&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233351Z
+      X-Amz-Content-Sha256:
+      - 94a4dacc9c3f78d18841a5b10203430747b434892a503e181584b40c0659410e
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 0e32508d-7728-47c5-b30e-80b9e765157b
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1123'
+      Date:
+      - Sun, 12 Apr 2020 23:33:50 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:32:44.378Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-2/e8b76620-7d15-11ea-a6db-064e0383f37e</StackId>
+                <StackName>aws-ruby-rspec-query-2</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>DELETE_IN_PROGRESS</StackStatus>
+                <DeletionTime>2020-04-12T23:33:51.322Z</DeletionTime>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <StackStatusReason>User Initiated</StackStatusReason>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>0e32508d-7728-47c5-b30e-80b9e765157b</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:51 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-2&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233351Z
+      X-Amz-Content-Sha256:
+      - 94a4dacc9c3f78d18841a5b10203430747b434892a503e181584b40c0659410e
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 9b115937-53dc-449d-bdc9-3a7605bdddd5
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1061'
+      Date:
+      - Sun, 12 Apr 2020 23:33:52 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:32:44.378Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-2/e8b76620-7d15-11ea-a6db-064e0383f37e</StackId>
+                <StackName>aws-ruby-rspec-query-2</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>DELETE_IN_PROGRESS</StackStatus>
+                <DeletionTime>2020-04-12T23:33:51.322Z</DeletionTime>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>9b115937-53dc-449d-bdc9-3a7605bdddd5</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:52 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-2&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233357Z
+      X-Amz-Content-Sha256:
+      - 94a4dacc9c3f78d18841a5b10203430747b434892a503e181584b40c0659410e
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      X-Amzn-Requestid:
+      - 5d553920-401a-4ca6-9d64-dce1cec0707c
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '308'
+      Date:
+      - Sun, 12 Apr 2020 23:33:56 GMT
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: |
+        <ErrorResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <Error>
+            <Type>Sender</Type>
+            <Code>ValidationError</Code>
+            <Message>Stack with id aws-ruby-rspec-query-2 does not exist</Message>
+          </Error>
+          <RequestId>5d553920-401a-4ca6-9d64-dce1cec0707c</RequestId>
+        </ErrorResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:57 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-3&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233357Z
+      X-Amz-Content-Sha256:
+      - d32cda5c841707c91d23a519603d4a51d097f5bf404d417acbe95e81965bd44d
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 695f9c31-f9c0-4250-a917-35fe8ccc542f
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '996'
+      Date:
+      - Sun, 12 Apr 2020 23:33:57 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:33:14.084Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-3/fa6994b0-7d15-11ea-96eb-0672668ff2ce</StackId>
+                <StackName>aws-ruby-rspec-query-3</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>CREATE_COMPLETE</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>695f9c31-f9c0-4250-a917-35fe8ccc542f</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:57 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DeleteStack&StackName=aws-ruby-rspec-query-3&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233357Z
+      X-Amz-Content-Sha256:
+      - a0a374d20f1162063b6e6987dfc0ddad651e8aeddb5d5486de9e7ccb74f43921
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '70'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 8e6c451a-526c-419e-8e65-8dcc8bcdb42a
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '212'
+      Date:
+      - Sun, 12 Apr 2020 23:33:58 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DeleteStackResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <ResponseMetadata>
+            <RequestId>8e6c451a-526c-419e-8e65-8dcc8bcdb42a</RequestId>
+          </ResponseMetadata>
+        </DeleteStackResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:58 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-3&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233358Z
+      X-Amz-Content-Sha256:
+      - d32cda5c841707c91d23a519603d4a51d097f5bf404d417acbe95e81965bd44d
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 3e312fce-5556-4bfc-82eb-485806f00be6
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1061'
+      Date:
+      - Sun, 12 Apr 2020 23:33:58 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:33:14.084Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-3/fa6994b0-7d15-11ea-96eb-0672668ff2ce</StackId>
+                <StackName>aws-ruby-rspec-query-3</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>DELETE_IN_PROGRESS</StackStatus>
+                <DeletionTime>2020-04-12T23:33:58.319Z</DeletionTime>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>3e312fce-5556-4bfc-82eb-485806f00be6</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:58 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-3&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233358Z
+      X-Amz-Content-Sha256:
+      - d32cda5c841707c91d23a519603d4a51d097f5bf404d417acbe95e81965bd44d
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - a980fa2b-4bde-4b1c-8c5c-0534f0aefc02
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1061'
+      Date:
+      - Sun, 12 Apr 2020 23:33:58 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2020-04-12T23:33:14.084Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/aws-ruby-rspec-query-3/fa6994b0-7d15-11ea-96eb-0672668ff2ce</StackId>
+                <StackName>aws-ruby-rspec-query-3</StackName>
+                <Description>Just a bucket
+        </Description>
+                <StackStatus>DELETE_IN_PROGRESS</StackStatus>
+                <DeletionTime>2020-04-12T23:33:58.319Z</DeletionTime>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>a980fa2b-4bde-4b1c-8c5c-0534f0aefc02</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:33:59 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=aws-ruby-rspec-query-3&Version=2010-05-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.7.1 x86_64-darwin19 aws-sdk-cloudformation/1.32.0
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200412T233404Z
+      X-Amz-Content-Sha256:
+      - d32cda5c841707c91d23a519603d4a51d097f5bf404d417acbe95e81965bd44d
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200412/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '73'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      X-Amzn-Requestid:
+      - 139642a6-7f0b-44e4-b390-74c0eefa6bef
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '308'
+      Date:
+      - Sun, 12 Apr 2020 23:34:04 GMT
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: |
+        <ErrorResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <Error>
+            <Type>Sender</Type>
+            <Code>ValidationError</Code>
+            <Message>Stack with id aws-ruby-rspec-query-3 does not exist</Message>
+          </Error>
+          <RequestId>139642a6-7f0b-44e4-b390-74c0eefa6bef</RequestId>
+        </ErrorResponse>
+    http_version: null
+  recorded_at: Sun, 12 Apr 2020 23:34:04 GMT
+recorded_with: VCR 5.1.0
