@@ -364,10 +364,13 @@ module OpenStax::Aws
       begin
         ###search in latest deployment events
         aws_stack.events.each do |event|
-          if(event.data.resource_status.include?("_FAILED") 
-              || (event.data.resource_status === "ROLLBACK_IN_PROGRESS" && event.data.resource_status_reason))
-
-            latest_deployment_reasons.push(event.data.resource_status_reason)
+          if(event.data.resource_status.include?("_FAILED") || (event.data.resource_status === "ROLLBACK_IN_PROGRESS" && event.data.resource_status_reason))
+            latest_deployment_reasons.push(
+              { 
+                "status" => event.data.resource_status,
+                "status_reason" => event.data.resource_status_reason
+              }
+            )
           end
           if(event.data.resource_status_reason === "User Initiated")
             break

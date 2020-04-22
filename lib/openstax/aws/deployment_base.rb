@@ -174,8 +174,8 @@ module OpenStax::Aws
       stacks.map do |stack|
         {
           name: stack.name,
-          status: stack.status,
-          reason: stack.latest_failed_events
+          most_recent_status: stack.status,
+          reasons: stack.latest_failed_events
         }
       end
     end
