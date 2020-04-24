@@ -14,7 +14,7 @@ module OpenStax::Aws
     end
 
     def sha
-      get_image_tag(key: "sha")
+      get_tag(key: "sha")
     end
 
     def self.find_by_sha(sha:, region:)  
