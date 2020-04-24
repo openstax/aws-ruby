@@ -6,14 +6,12 @@ require 'vcr_helper'
 
 RSpec.describe OpenStax::Aws::Image, vcr: VCR_OPTS do
   let(:region) { SPEC_DEFAULT_REGION }
-  
   let(:test_image_id) { 'ami-06130829ed7f50ca1' }
   let(:test_image_sha) { 'randomSha' }
 
   let (:instance) {
     described_class.new(id: test_image_id, region: SPEC_DEFAULT_REGION)
   }
-
 
   context "#find_by_sha" do 
     it "finds images" do

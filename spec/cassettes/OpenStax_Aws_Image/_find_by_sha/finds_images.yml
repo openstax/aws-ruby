@@ -16,7 +16,7 @@ http_interactions:
       Host:
       - ec2.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20200424T162637Z
+      - 20200424T165309Z
       X-Amz-Content-Sha256:
       - 3dcdcb7791159c53f98fa4daf2c234bb4927217e103aa939dda9bb39c58be88a
       Authorization:
@@ -32,13 +32,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - bea3f470-d24a-4936-b853-0dcf52f38274
+      - 278d617f-7e5a-4ff0-a893-97ef877e6b0c
       Content-Type:
       - text/xml;charset=UTF-8
       Content-Length:
       - '1890'
       Date:
-      - Fri, 24 Apr 2020 16:26:38 GMT
+      - Fri, 24 Apr 2020 16:53:10 GMT
       Server:
       - AmazonEC2
     body:
@@ -46,13 +46,13 @@ http_interactions:
       string: |-
         <?xml version="1.0" encoding="UTF-8"?>
         <DescribeImagesResponse xmlns="http://ec2.amazonaws.com/doc/2016-11-15/">
-            <requestId>bea3f470-d24a-4936-b853-0dcf52f38274</requestId>
+            <requestId>278d617f-7e5a-4ff0-a893-97ef877e6b0c</requestId>
             <imagesSet>
                 <item>
                     <imageId>ami-06130829ed7f50ca1</imageId>
                     <imageLocation>373045849756/test-image</imageLocation>
                     <imageState>available</imageState>
-                    <imageOwnerId>373045849756</imageOwnerId>
+                    <imageOwnerId>MASKED_IMAGE_OWNER_ID</imageOwnerId>
                     <creationDate>2020-04-24T16:08:08.000Z</creationDate>
                     <isPublic>false</isPublic>
                     <architecture>x86_64</architecture>
@@ -62,18 +62,7 @@ http_interactions:
                     <description>image to record in tests</description>
                     <rootDeviceType>ebs</rootDeviceType>
                     <rootDeviceName>/dev/sda1</rootDeviceName>
-                    <blockDeviceMapping>
-                        <item>
-                            <deviceName>/dev/sda1</deviceName>
-                            <ebs>
-                                <snapshotId>snap-0336afe7ef6da0c8c</snapshotId>
-                                <volumeSize>8</volumeSize>
-                                <deleteOnTermination>true</deleteOnTermination>
-                                <volumeType>gp2</volumeType>
-                                <encrypted>false</encrypted>
-                            </ebs>
-                        </item>
-                    </blockDeviceMapping>
+                    <blockDeviceMapping>MASKED_BLOCK_DEVICE_MAPPING</blockDeviceMapping>
                     <virtualizationType>hvm</virtualizationType>
                     <tagSet>
                         <item>
@@ -89,5 +78,5 @@ http_interactions:
             </imagesSet>
         </DescribeImagesResponse>
     http_version: null
-  recorded_at: Fri, 24 Apr 2020 16:26:38 GMT
+  recorded_at: Fri, 24 Apr 2020 16:53:11 GMT
 recorded_with: VCR 5.1.0
