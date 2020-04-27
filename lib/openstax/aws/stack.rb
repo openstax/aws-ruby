@@ -353,35 +353,34 @@ module OpenStax::Aws
 
     def events
       begin 
-        aws_stack.events()
+        aws_stack.events
       rescue
         raise "something's wrong sorry"
       end
     end
 
+    def failed_status?(check_status)
+      check_status.include?("_FAILED") || check_status == "ROLLBACK_IN_PROGRESS"
+    end
+
     def latest_failed_events
-      latest_deployment_reasons = []
       begin
         ###search in latest deployment events
-        aws_stack.events.each do |event|
-          if(event.data.resource_status.include?("_FAILED") || (event.data.resource_status === "ROLLBACK_IN_PROGRESS" && event.data.resource_status_reason))
-            latest_deployment_reasons.push(
-              { 
-                "status" => event.data.resource_status,
-                "status_reason" => event.data.resource_status_reason
-              }
-            )
+        aws_stack.events.each_with_object([]) do |event, array|
+          current_status = event.data.resource_status
+          current_reason = event.data.resource_status_reason || ""
+
+          if(failed_status?(current_status))
+            array << {"status" => current_status, "status_reason" => current_reason} 
           end
-          if(event.data.resource_status_reason === "User Initiated")
-            break
+
+          if(event.data.resource_status_reason == "User Initiated")
+            return array
           end
         end
-        return latest_deployment_reasons
       rescue
         raise "No registered events"
       end
-      
-      return latest_deployment_reasons
     end
 
     def updating?
