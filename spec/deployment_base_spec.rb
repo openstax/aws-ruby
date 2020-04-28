@@ -6,14 +6,6 @@ RSpec.describe OpenStax::Aws::DeploymentBase do
     it 'doesn\'t match regex' do 
       deployment_class = Class.new(described_class) do
         template_directory __dir__, 'support/templates/factory_test'
-
-        secrets :common do
-          specification do
-            content do
-              { foo: "blah" }
-            end
-          end
-        end
       end
 
       expect{
