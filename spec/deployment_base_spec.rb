@@ -4,12 +4,8 @@ RSpec.describe OpenStax::Aws::DeploymentBase do
 
   context "env_name" do
     it 'doesn\'t match regex' do 
-      deployment_class = Class.new(described_class) do
-        template_directory __dir__, 'support/templates/factory_test'
-      end
-
       expect{
-        deployment_class.new(name: "spec", env_name: "to_fail", region: "deployment-region", dry_run: false)
+        described_class.new(name: "spec", env_name: "to_fail", region: "deployment-region", dry_run: false)
       }.to raise_error(/The environment name must consist only of letters, numbers, and hyphens/)
     end
   end
