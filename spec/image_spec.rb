@@ -18,7 +18,7 @@ RSpec.describe OpenStax::Aws::Image, vcr: VCR_OPTS do
       images = described_class.find_by_sha(sha: test_image_sha, region: region)
 
       expect(images.length).to be(1)
-      expect(images[0][:image_id]).to eq(test_image_id)
+      expect(images[0].aws_image[:image_id]).to eq(test_image_id)
     end
   end
 
