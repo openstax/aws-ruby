@@ -1,0 +1,82 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://ec2.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeImages&Filter.1.Name=tag%3Asha&Filter.1.Value.1=randomSha&Version=2016-11-15
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.94.0 ruby/2.6.5 x86_64-linux aws-sdk-ec2/1.152.0
+      Host:
+      - ec2.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200424T165309Z
+      X-Amz-Content-Sha256:
+      - 3dcdcb7791159c53f98fa4daf2c234bb4927217e103aa939dda9bb39c58be88a
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200424/us-east-2/ec2/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '91'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 278d617f-7e5a-4ff0-a893-97ef877e6b0c
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '1890'
+      Date:
+      - Fri, 24 Apr 2020 16:53:10 GMT
+      Server:
+      - AmazonEC2
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <DescribeImagesResponse xmlns="http://ec2.amazonaws.com/doc/2016-11-15/">
+            <requestId>278d617f-7e5a-4ff0-a893-97ef877e6b0c</requestId>
+            <imagesSet>
+                <item>
+                    <imageId>ami-06130829ed7f50ca1</imageId>
+                    <imageLocation>373045849756/test-image</imageLocation>
+                    <imageState>available</imageState>
+                    <imageOwnerId>MASKED_IMAGE_OWNER_ID</imageOwnerId>
+                    <creationDate>2020-04-24T16:08:08.000Z</creationDate>
+                    <isPublic>false</isPublic>
+                    <architecture>x86_64</architecture>
+                    <imageType>machine</imageType>
+                    <sriovNetSupport>simple</sriovNetSupport>
+                    <name>test-image</name>
+                    <description>image to record in tests</description>
+                    <rootDeviceType>ebs</rootDeviceType>
+                    <rootDeviceName>/dev/sda1</rootDeviceName>
+                    <blockDeviceMapping>MASKED_BLOCK_DEVICE_MAPPING</blockDeviceMapping>
+                    <virtualizationType>hvm</virtualizationType>
+                    <tagSet>
+                        <item>
+                            <key>sha</key>
+                            <value>randomSha</value>
+                        </item>
+                    </tagSet>
+                    <hypervisor>xen</hypervisor>
+                    <enaSupport>true</enaSupport>
+                    <platformDetails>Linux/UNIX</platformDetails>
+                    <usageOperation>RunInstances</usageOperation>
+                </item>
+            </imagesSet>
+        </DescribeImagesResponse>
+    http_version: null
+  recorded_at: Fri, 24 Apr 2020 16:53:11 GMT
+recorded_with: VCR 5.1.0
