@@ -2,6 +2,14 @@ require 'spec_helper'
 
 RSpec.describe OpenStax::Aws::DeploymentBase do
 
+  context "env_name" do
+    it 'doesn\'t match regex' do 
+      expect{
+        described_class.new(name: "spec", env_name: "to_fail", region: "deployment-region", dry_run: false)
+      }.to raise_error(/The environment name must consist only of letters, numbers, and hyphens/)
+    end
+  end
+
   context "#subdomain_with_trailing_dot" do
     let(:instance) {
       described_class.new(env_name: env_name,
@@ -21,7 +29,7 @@ RSpec.describe OpenStax::Aws::DeploymentBase do
 
       context "non-blank site_name" do
         it 'is the site_name' do
-          expect(instance.send(:subdomain_with_trailing_dot,site_name: "hi")).to eq "hi."
+          expect(instance.send(:subdomain_with_trailing_dot, site_name: "hi")).to eq "hi."
         end
       end
     end

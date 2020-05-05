@@ -14,6 +14,12 @@ module OpenStax::Aws
 
       # Allow a blank env_name but normalize it to `nil`
       @env_name = env_name.blank? ? nil : env_name
+
+      if @env_name && !@env_name.match(/^[a-zA-Z][a-zA-Z0-9-]*$/)
+        raise "The environment name must consist only of letters, numbers, and hyphens, " \
+              "and must start with a letter."
+      end
+
       @region = region
       @name = name
       @dry_run = dry_run

@@ -94,10 +94,9 @@ end
 
 VCR.configure do |c|
   c.before_record do |interaction|
+    response = interaction.response.body
 
     if interaction.request.body.starts_with?("Action=ListStacks")
-      response = interaction.response.body
-
       response.gsub!(/<StackName>(.*)<\/StackName>/) do |all|
         name = Regexp.last_match[1]
         do_not_mask_list_stacks_for_these_patterns.any?{|pattern| pattern.match(name)} ?
@@ -116,6 +115,13 @@ VCR.configure do |c|
                      "<StackStatusReason>MASKED_REASON<\/StackStatusReason>")
       response.gsub!(/<TemplateDescription>.*<\/TemplateDescription>/,
                      "<TemplateDescription>MASKED_DESCRIPTION<\/TemplateDescription>")
+    end
+
+    if interaction.request.body.starts_with?("Action=DescribeImages")
+      response.gsub!(/<blockDeviceMapping>.*<\/blockDeviceMapping>/m,
+                     "<blockDeviceMapping>MASKED_BLOCK_DEVICE_MAPPING<\/blockDeviceMapping>")
+      response.gsub!(/<imageOwnerId>.*<\/imageOwnerId>/,
+                     "<imageOwnerId>MASKED_IMAGE_OWNER_ID<\/imageOwnerId>")
     end
   end
 end
