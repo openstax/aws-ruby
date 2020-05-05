@@ -352,11 +352,7 @@ module OpenStax::Aws
     end
 
     def events
-      begin 
-        aws_stack.events
-      rescue
-        raise "something's wrong sorry"
-      end
+      aws_stack.nil? || aws_stack.empty? ? [] : aws_stack.events
     end
 
     def failed_status?(check_status)

@@ -105,6 +105,7 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
       stack.create(params: {bucket_name: bucket_name, tag_value: "howdy**-"}, wait: true)
     rescue 
       expect(stack.latest_failed_events[0]).to include "The TagValue you have provided is invalid (Service: Amazon S3; Status Code: 400; Error Code: InvalidTag;"
+    ensure
       stack.delete
     end
   end
