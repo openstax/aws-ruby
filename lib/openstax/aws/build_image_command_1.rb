@@ -55,7 +55,7 @@ module OpenStax
       end
 
       def status 
-        @packer.status
+        @packer.debug
       end
     end
   end
