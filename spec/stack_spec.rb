@@ -100,9 +100,15 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     name = "spec-aws-ruby-stack-update-new-parameters"
     tag_1 = "howdy"
     tag_2 = "there"
+    max_attempts = OpenStax::Aws.configuration.stack_waiter_max_attempts
 
     stack = new_template_one_stack(name: name)
     stack.create(params: {bucket_name: bucket_name, tag_value: "howdy"}, wait: true)
+
+    expect(max_attempts).to be_an(Integer)
+    expect(Aws::CloudFormation::Waiters::StackUpdateComplete).to receive(:new).with(hash_including(
+      :max_attempts => max_attempts
+    )).and_call_original
 
     stack.apply_change_set(params: {bucket_name: :use_previous_value, tag_value: "there"}, wait: true)
 
@@ -243,6 +249,38 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     end
   end
 
+  context "#query" do
+    before do
+      do_not_mask_list_stacks_for(/aws-ruby-rspec-query/)
+      clear_required_tags!
+
+      @stack_1 = create_simple_stack(name: "aws-ruby-rspec-query-1")
+      @stack_2 = create_simple_stack(name: "aws-ruby-rspec-query-2")
+      @stack_3 = create_simple_stack(name: "aws-ruby-rspec-query-3")
+    end
+
+    after do
+      @stack_1.delete(wait: true)
+      @stack_2.delete(wait: true)
+      @stack_3.delete(wait: true)
+    end
+
+    it "queries selected stacks" do
+      expect(described_class.query(regex: /aws-ruby-rspec.*/).map(&:name)).to contain_exactly(
+        "aws-ruby-rspec-query-1", "aws-ruby-rspec-query-2", "aws-ruby-rspec-query-3"
+      )
+    end
+
+    it "does not rerun queries unless asked to" do
+      # Seems like AWS does its own caching so we can't be exact here.
+      expect(Aws::CloudFormation::Client).to receive(:new).at_most(8).times.and_call_original
+
+      described_class.query(regex: /aws-ruby-rspec.*/)                # 4 times
+      described_class.query(regex: /aws-ruby-rspec.*/)                # 0 times - cached
+      described_class.query(regex: /aws-ruby-rspec.*/, reload: true)  # 4 times
+    end
+  end
+
   def iam_client
     Aws::IAM::Client.new(region: region)
   end
@@ -261,6 +299,12 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
 
   def new_template_one_mod_stack(name:, overrides: {})
     new_stack(name: name, filename: "templates/template_one_mod.yml", overrides: overrides)
+  end
+
+  def create_simple_stack(name:)
+    new_stack(name: name, filename: "templates/simple.yml").tap do |stack|
+      stack.create(params: {}, wait: true)
+    end
   end
 
 end

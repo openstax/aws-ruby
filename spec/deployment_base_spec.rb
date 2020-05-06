@@ -2,6 +2,14 @@ require 'spec_helper'
 
 RSpec.describe OpenStax::Aws::DeploymentBase do
 
+  context "env_name" do
+    it 'doesn\'t match regex' do 
+      expect{
+        described_class.new(name: "spec", env_name: "to_fail", region: "deployment-region", dry_run: false)
+      }.to raise_error(/The environment name must consist only of letters, numbers, and hyphens/)
+    end
+  end
+
   context "#subdomain_with_trailing_dot" do
     let(:instance) {
       described_class.new(env_name: env_name,
@@ -21,7 +29,7 @@ RSpec.describe OpenStax::Aws::DeploymentBase do
 
       context "non-blank site_name" do
         it 'is the site_name' do
-          expect(instance.send(:subdomain_with_trailing_dot,site_name: "hi")).to eq "hi."
+          expect(instance.send(:subdomain_with_trailing_dot, site_name: "hi")).to eq "hi."
         end
       end
     end
@@ -98,6 +106,49 @@ RSpec.describe OpenStax::Aws::DeploymentBase do
       }.to raise_error(/secrets with that ID/)
     end
 
+  end
+
+  context "#deployed_parameters" do
+    it "gets the deployed parameters for each stack in the deployment" do
+      deployment_class = Class.new(described_class) do
+        template_directory __dir__, 'support/templates/factory_test'
+
+        stack :network
+        stack :app
+      end
+
+      instance = deployment_class.new(name: "spec", env_name: "dev", region: "deployment-region", dry_run: false)
+
+      expect(instance.network_stack).to receive(:deployed_parameters)
+      expect(instance.app_stack).to receive(:deployed_parameters)
+      # Not really making network calls here, this spec not set up for VCR
+      expect(instance.deployed_parameters).to include("dev-spec-network" => nil, "dev-spec-app" => nil)
+    end
+  end
+
+  context "#stacks" do
+    it "makes the stacks available via an array" do
+      deployment_class = Class.new(described_class) do
+        template_directory __dir__, 'support/templates/factory_test'
+
+        stack :network
+        stack :app
+      end
+
+      instance = deployment_class.new(name: "spec", env_name: "dev", region: "deployment-region", dry_run: false)
+
+      expect(instance.stacks.map(&:name)).to contain_exactly("dev-spec-network", "dev-spec-app")
+    end
+
+    it "works if no stacks defined" do
+      deployment_class = Class.new(described_class) do
+        template_directory __dir__, 'support/templates/factory_test'
+      end
+
+      instance = deployment_class.new(name: "spec", env_name: "dev", region: "deployment-region", dry_run: false)
+
+      expect(instance.stacks).to be_empty
+    end
   end
 
   context "#stack" do

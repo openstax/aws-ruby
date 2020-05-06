@@ -28,4 +28,12 @@ RSpec.describe OpenStax::Aws::Tag do
   it "rejects nil values" do
     expect{described_class.new("foo", nil)}.to raise_error(/cannot be nil/)
   end
+
+  it "allows values with blanks" do
+    expect{described_class.new("foo", "a b")}.not_to raise_error
+  end
+
+  it "allows values with commas" do
+    expect{described_class.new("foo", "a,b")}.not_to raise_error
+  end
 end

@@ -14,6 +14,12 @@ module OpenStax::Aws
 
       # Allow a blank env_name but normalize it to `nil`
       @env_name = env_name.blank? ? nil : env_name
+
+      if @env_name && !@env_name.match(/^[a-zA-Z][a-zA-Z0-9-]*$/)
+        raise "The environment name must consist only of letters, numbers, and hyphens, " \
+              "and must start with a letter."
+      end
+
       @region = region
       @name = name
       @dry_run = dry_run
@@ -81,6 +87,10 @@ module OpenStax::Aws
         end
       end
 
+      def stack_ids
+        @stack_ids ||= []
+      end
+
       def stack(id, &block)
         if id.blank?
           raise "The first argument to `stack` must be a non-blank ID"
@@ -94,6 +104,8 @@ module OpenStax::Aws
         if method_defined?("#{id}_secrets")
           raise "Cannot define `#{id}` stack because there are secrets with that ID"
         end
+
+        stack_ids.push(id)
 
         define_method("#{id}_stack") do
           instance_variable_get("@#{id}_stack") || begin
@@ -157,6 +169,16 @@ module OpenStax::Aws
 
       def tags
         @tags ||= HashWithIndifferentAccess.new
+      end
+    end
+
+    def stacks
+      self.class.stack_ids.map{|id| self.send("#{id}_stack")}
+    end
+
+    def deployed_parameters
+      stacks.each_with_object({}) do |stack, hash|
+        hash[stack.name] = stack.deployed_parameters
       end
     end
 

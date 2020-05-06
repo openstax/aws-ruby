@@ -361,8 +361,63 @@ module OpenStax::Aws
       "DOES_NOT_EXIST" != status
     end
 
+    def self.all_statuses
+      %w(
+        CREATE_IN_PROGRESS
+        CREATE_FAILED
+        CREATE_COMPLETE
+        ROLLBACK_IN_PROGRESS
+        ROLLBACK_FAILED
+        ROLLBACK_COMPLETE
+        DELETE_IN_PROGRESS
+        DELETE_FAILED
+        DELETE_COMPLETE
+        UPDATE_IN_PROGRESS
+        UPDATE_COMPLETE_CLEANUP_IN_PROGRESS
+        UPDATE_COMPLETE
+        UPDATE_ROLLBACK_IN_PROGRESS
+        UPDATE_ROLLBACK_FAILED
+        UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS
+        UPDATE_ROLLBACK_COMPLETE
+        REVIEW_IN_PROGRESS
+        IMPORT_IN_PROGRESS
+        IMPORT_COMPLETE
+        IMPORT_ROLLBACK_IN_PROGRESS
+        IMPORT_ROLLBACK_FAILED
+        IMPORT_ROLLBACK_COMPLETE
+      )
+    end
+
+    def self.active_statuses
+      all_statuses - %w(CREATE_FAILED DELETE_COMPLETE)
+    end
+
     def defines_secrets?
       !secrets_blocks.empty?
+    end
+
+    def self.query(regex: /.*/, regions: %w(us-east-1 us-east-2 us-west-1 us-west-2), active: true, reload: false)
+      stack_status_filter = active ? active_statuses : nil
+
+      if reload
+        @all_stacks = {}
+      else
+        @all_stacks ||= {}
+      end
+
+      # Memoize the query results to speed up subsequent queries
+      @all_stacks[stack_status_filter + regions] ||= regions.map do |region|
+        client = Aws::CloudFormation::Client.new(region: region)
+        client.list_stacks(stack_status_filter: stack_status_filter).map do |response|
+          response.stack_summaries.map do |summary|
+            OpenStax::Aws.configuration.without_required_stack_tags do
+              new(name: summary.stack_name, region: region)
+            end
+          end
+        end
+      end.flatten
+
+      @all_stacks[stack_status_filter + regions].select{|stack| stack.name.match(regex)}
     end
 
     protected
@@ -376,7 +431,8 @@ module OpenStax::Aws
         waiter_class.new(
           client: client,
           before_attempt: ->(*) { wait_message.say_it },
-          delay: OpenStax::Aws.configuration.stack_waiter_delay
+          delay: OpenStax::Aws.configuration.stack_waiter_delay,
+          max_attempts: OpenStax::Aws.configuration.stack_waiter_max_attempts
         ).wait(stack_name: name)
       rescue Aws::Waiters::Errors::WaiterFailed => error
         logger.error("Waiting failed: #{error.message}")
