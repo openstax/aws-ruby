@@ -176,14 +176,9 @@ module OpenStax::Aws
       self.class.stack_ids.map{|id| self.send("#{id}_stack")}
     end
 
-    def status
-      stacks.map do |stack|
-        {
-          name: stack.name,
-          most_recent_status: stack.status,
-          reasons: stack.latest_failed_events
-        }
-      end
+    def status(reload: false)
+      @status = nil if reload
+      @status ||= Status.new
     end
 
     def deployed_parameters

@@ -53,6 +53,8 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     tags = ::Aws::CloudFormation::Stack.new(name: name, client: cfn_client).tags
     expect(tags[0].key).to eq "foo"
     expect(tags[0].value).to eq "bar"
+
+    stack.delete
   end
 
   it 'updates a stack with new tag values' do
@@ -66,6 +68,8 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     tags = ::Aws::CloudFormation::Stack.new(name: name, client: cfn_client).tags
     expect(tags[0].key).to eq "foo"
     expect(tags[0].value).to eq "howdy"
+
+    stack.delete
   end
 
   it "uses parameter defaults" do
@@ -104,7 +108,7 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     begin
       stack.create(params: {bucket_name: bucket_name, tag_value: "howdy**-"}, wait: true)
     rescue 
-      expect(stack.latest_failed_events[0]).to include "The TagValue you have provided is invalid (Service: Amazon S3; Status Code: 400; Error Code: InvalidTag;"
+      expect(stack.failed_events_since_last_user_event[1].reason).to include "The TagValue you have provided is invalid (Service: Amazon S3; Status Code: 400; Error Code: InvalidTag;"
     ensure
       stack.delete
     end

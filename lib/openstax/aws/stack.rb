@@ -1,5 +1,26 @@
 module OpenStax::Aws
   class Stack
+    class Event
+      def initialize(aws_stack_event)
+        @aws_stack_event = aws_stack_event
+      end
+            
+      def status
+        @aws_stack_event.data.resource_status
+      end
+            
+      def reason
+        @aws_stack_event.data.resource_status_reason
+      end
+            
+      def failure?
+        status.include?("_FAILED") || status == "ROLLBACK_IN_PROGRESS"
+      end
+            
+      def user_initiated?
+        reason == "User Initiated"
+      end
+    end
 
     attr_reader :name, :tags, :id, :absolute_template_path, :dry_run,
                 :enable_termination_protection, :region, :parameter_defaults,
@@ -338,44 +359,15 @@ module OpenStax::Aws
       end
     end
 
-    def status_reason
-      begin
-        aws_stack.stack_status_reason
-      rescue Aws::CloudFormation::Errors::ValidationError => ee
-        case ee.message
-        when /Stack.*does not exist/
-          "DOES_NOT_EXIST"
-        else
-          raise
-        end
-      end
-    end
-
     def events
-      aws_stack.nil? || aws_stack.empty? ? [] : aws_stack.events
+      aws_stack&.events || []
     end
 
-    def failed_status?(check_status)
-      check_status.include?("_FAILED") || check_status == "ROLLBACK_IN_PROGRESS"
-    end
-
-    def latest_failed_events
-      begin
-        ###search in latest deployment events
-        aws_stack.events.each_with_object([]) do |event, array|
-          current_status = event.data.resource_status
-          current_reason = event.data.resource_status_reason || ""
-
-          if(failed_status?(current_status))
-            array << {"status" => current_status, "status_reason" => current_reason} 
-          end
-
-          if(event.data.resource_status_reason == "User Initiated")
-            return array
-          end
-        end
-      rescue
-        raise "No registered events"
+    def failed_events_since_last_user_event
+      aws_stack.events.each_with_object([]) do |aws_stack_event, array|
+        event = Event.new(aws_stack_event)
+        array.push(event) if event.failure?
+        return array if event.user_initiated?
       end
     end
 
