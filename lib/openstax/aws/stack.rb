@@ -1,3 +1,5 @@
+require 'json'
+
 module OpenStax::Aws
   class Stack
     class Event
@@ -19,6 +21,34 @@ module OpenStax::Aws
             
       def user_initiated?
         reason == "User Initiated"
+      end
+    end
+
+    class Status
+      def initialize(aws_stack)
+        @aws_stack = aws_stack
+      end
+
+      def current_status
+        {
+          stack: {
+            name: @aws_stack.name,
+            status: @aws_stack.stack_status,
+            failed_events_since_last_user_event: @aws_stack.failed_events_since_last_user_event    
+          }
+        }
+      end
+
+      def status_and_events(deployment_stacks = [])
+        {
+          stacks: deployment_stacks.map do |stack|
+            {
+              name: stack.name,
+              status: stack.stack_status,
+              failed_events_since_last_user_event: stack.failed_events_since_last_user_event
+            }
+          end
+        }
       end
     end
 
@@ -346,17 +376,9 @@ module OpenStax::Aws
       tags.map{|tag| {key: tag.key, value: tag.value}}
     end
 
-    def status
-      begin
-        aws_stack.stack_status
-      rescue Aws::CloudFormation::Errors::ValidationError => ee
-        case ee.message
-        when /Stack.*does not exist/
-          "DOES_NOT_EXIST"
-        else
-          raise
-        end
-      end
+    def status(reload: false)
+      @status = nil if reload; 
+      @status ||= Status.new(aws_stack); 
     end
 
     def events
