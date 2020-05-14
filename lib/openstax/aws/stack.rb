@@ -16,6 +16,10 @@ module OpenStax::Aws
       end
             
       def failure?
+        status.include?("_FAILED") || status.include?("ROLLBACK_COMPLETE")
+      end
+
+      def failure_with_reason?
         status.include?("_FAILED") || status == "ROLLBACK_IN_PROGRESS"
       end
             
@@ -25,29 +29,27 @@ module OpenStax::Aws
     end
 
     class Status
-      def initialize(aws_stack)
-        @aws_stack = aws_stack
+      def initialize(stack)
+        @stack = stack.aws_stack
       end
 
-      def current_status
-        {
-          stack: {
-            name: @aws_stack.name,
-            status: @aws_stack.stack_status,
-            failed_events_since_last_user_event: @aws_stack.failed_events_since_last_user_event    
-          }
-        }
+      def status
+        @stack.stack_status
       end
 
-      def status_and_events(deployment_stacks = [])
+      def failure?
+        status.include?("_FAILED") || status.include?("ROLLBACK_COMPLETE")
+      end
+
+      def failure_with_reason?
+        status.include?("_FAILED") || status == "ROLLBACK_IN_PROGRESS"
+      end
+
+      def events
         {
-          stacks: deployment_stacks.map do |stack|
-            {
-              name: stack.name,
-              status: stack.stack_status,
-              failed_events_since_last_user_event: stack.failed_events_since_last_user_event
-            }
-          end
+          name: @stack.name,
+          status: status,
+          failed_events_since_last_user_event: failure? ? @stack.failed_events_since_last_user_event : []
         }
       end
     end
@@ -377,8 +379,8 @@ module OpenStax::Aws
     end
 
     def status(reload: false)
-      @status = nil if reload; 
-      @status ||= Status.new(aws_stack); 
+      @status = nil if reload
+      @status ||= Status.new(self)
     end
 
     def events
@@ -388,7 +390,7 @@ module OpenStax::Aws
     def failed_events_since_last_user_event
       aws_stack.events.each_with_object([]) do |aws_stack_event, array|
         event = Event.new(aws_stack_event)
-        array.push(event) if event.failure?
+        array.push(event) if event.failure_with_reason?
         return array if event.user_initiated?
       end
     end
@@ -475,6 +477,10 @@ module OpenStax::Aws
       @all_stacks[stack_status_filter + regions].select{|stack| stack.name.match(regex)}
     end
 
+    def aws_stack
+      ::Aws::CloudFormation::Stack.new(name: name, client: client)
+    end
+
     protected
 
     def wait_for_stack_event(waiter_class:, word:)
@@ -538,10 +544,6 @@ module OpenStax::Aws
 
     def logger
       OpenStax::Aws.configuration.logger
-    end
-
-    def aws_stack
-      ::Aws::CloudFormation::Stack.new(name: name, client: client)
     end
 
     def client

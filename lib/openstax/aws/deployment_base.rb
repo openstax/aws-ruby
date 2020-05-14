@@ -1,5 +1,24 @@
 module OpenStax::Aws
   class DeploymentBase
+    class Status
+      def initialize(deployment)
+        @deployment = deployment
+      end
+
+      def stacks
+        @deployment.stacks
+      end
+
+      def events
+        stacks.map do |stack|
+          {
+            name: stack.name,
+            status: stack.status,
+            failed_events_since_last_user_event: stack.status.failure? ? stack.failed_events_since_last_user_event : []
+          }
+        end
+      end
+    end
 
     attr_reader :env_name, :region, :name, :dry_run
 
@@ -178,7 +197,7 @@ module OpenStax::Aws
 
     def status(reload: false)
       @status = nil if reload
-      @status ||= Status.new
+      @status ||= Status.new(self)
     end
 
     def deployed_parameters
