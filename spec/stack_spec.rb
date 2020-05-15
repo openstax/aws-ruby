@@ -118,6 +118,27 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     stack.delete
   end
 
+  it "reverts previous change set" do
+    name = "spec-aws-ruby-stack-update-new-parameters"
+    tag_1 = "howdy"
+    tag_2 = "there"
+
+    stack = new_template_one_stack(name: name)
+    stack.create(params: {bucket_name: bucket_name, tag_value: tag_1}, wait: true)
+
+    stack.apply_change_set(params: {bucket_name: :use_previous_value, tag_value: tag_2}, wait: true)
+
+    taggings = s3_client.get_bucket_tagging(bucket: bucket_name)
+    expect(taggings.tag_set[0].value).to eq tag_2
+
+    stack.revert_previous_change_set(wait: true)
+
+    taggings = s3_client.get_bucket_tagging(bucket: bucket_name)
+    expect(taggings.tag_set[0].value).to eq tag_1
+
+    stack.delete
+  end
+
   it "can be updated with a new template" do
     name = "spec-aws-ruby-stack-update-new-template"
 
