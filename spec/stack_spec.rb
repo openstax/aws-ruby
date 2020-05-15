@@ -108,6 +108,16 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     expect(stack_event.failure?).to be true
   end
 
+  it "gets hash from stack status" do
+    name = "spec-aws-ruby-stack-status-reason"
+    stack = create_simple_stack(name: name)
+    stack_status = OpenStax::Aws::Stack::Status.new(stack)
+
+    expect(stack_status.failed_events_since_last_user_event.empty?).to be true
+
+    stack.delete
+  end
+
   it "can be updated with new parameters" do
     name = "spec-aws-ruby-stack-update-new-parameters"
     tag_1 = "howdy"

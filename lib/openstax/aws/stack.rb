@@ -16,11 +16,15 @@ module OpenStax::Aws
       end
             
       def failure?
-        status.include?("_FAILED") || status.include?("ROLLBACK_COMPLETE")
-      end
-
-      def failure_with_reason?
-        status.include?("_FAILED") || status == "ROLLBACK_IN_PROGRESS"
+        %w(
+          ROLLBACK_COMPLETE
+          ROLLBACK_IN_PROGRESS
+          CREATE_FAILED
+          ROLLBACK_FAILED
+          DELETE_FAILED
+          UPDATE_ROLLBACK_FAILED
+          IMPORT_ROLLBACK_FAILED
+        ).include?(status)
       end
             
       def user_initiated?
@@ -30,27 +34,43 @@ module OpenStax::Aws
 
     class Status
       def initialize(stack)
-        @stack = stack.aws_stack
+        @stack = stack
       end
 
-      def status
-        @stack.stack_status
+      def status_text
+        @stack.aws_stack.stack_status
       end
 
       def failure?
-        status.include?("_FAILED") || status.include?("ROLLBACK_COMPLETE")
+        %w(
+          ROLLBACK_COMPLETE
+          ROLLBACK_IN_PROGRESS
+          CREATE_FAILED
+          ROLLBACK_FAILED
+          DELETE_FAILED
+          UPDATE_ROLLBACK_FAILED
+          IMPORT_ROLLBACK_FAILED
+        ).include?(status_text)
       end
 
-      def failure_with_reason?
-        status.include?("_FAILED") || status == "ROLLBACK_IN_PROGRESS"
+      def failed_events_since_last_user_event
+        @stack.events.each_with_object([]) do |aws_stack_event, array|
+          event = Event.new(aws_stack_event)
+          array.push(event) if (event.failure? && status_text)
+          return array if event.user_initiated?
+        end
       end
 
-      def events
+      def to_h
         {
           name: @stack.name,
-          status: status,
+          status: status_text,
           failed_events_since_last_user_event: failure? ? @stack.failed_events_since_last_user_event : []
         }
+      end
+
+      def to_json
+        to_h.to_json
       end
     end
 
@@ -384,15 +404,7 @@ module OpenStax::Aws
     end
 
     def events
-      aws_stack&.events || []
-    end
-
-    def failed_events_since_last_user_event
-      aws_stack.events.each_with_object([]) do |aws_stack_event, array|
-        event = Event.new(aws_stack_event)
-        array.push(event) if event.failure_with_reason?
-        return array if event.user_initiated?
-      end
+      (aws_stack&.events || []).each {|aws_event| Event.new(aws_event)}
     end
 
     def updating?

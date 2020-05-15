@@ -5,18 +5,20 @@ module OpenStax::Aws
         @deployment = deployment
       end
 
-      def stacks
-        @deployment.stacks
-      end
-
-      def events
-        stacks.map do |stack|
-          {
-            name: stack.name,
-            status: stack.status,
-            failed_events_since_last_user_event: stack.status.failure? ? stack.failed_events_since_last_user_event : []
-          }
+      def stack_statuses
+        @stack_statuses ||= @deployment.stacks.each_with_object({}) do |stack, hash|
+          hash[stack.name] = stack.status
         end
+      end
+      
+      def to_h
+        {
+          stacks: stack_statuses
+        }
+      end
+      
+      def to_json
+        to_h.to_json
       end
     end
 
