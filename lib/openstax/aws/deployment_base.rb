@@ -5,18 +5,20 @@ module OpenStax::Aws
         @deployment = deployment
       end
 
-      def stack_statuses
-        @stack_statuses ||= @deployment.stacks.each_with_object({}) do |stack, hash|
-          hash[stack.name] = stack.status
+      def stack_statuses(reload: false)
+        @deployment.stacks.each_with_object({}) do |stack, hash|
+          hash[stack.name] = stack.status(reload: reload)
         end
       end
-      
+
       def to_h
         {
-          stacks: stack_statuses
+          stacks: stack_statuses.each_with_object({}) do |(stack_name, stack_status), new_hash|
+            new_hash[stack_name] = stack_status.to_h # convert the stack status object to a hash
+          end
         }
       end
-      
+
       def to_json
         to_h.to_json
       end
