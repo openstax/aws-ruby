@@ -16,7 +16,7 @@ http_interactions:
       Host:
       - cloudformation.us-west-2.amazonaws.com
       X-Amz-Date:
-      - 20200521T041456Z
+      - 20200521T170007Z
       X-Amz-Content-Sha256:
       - 4c4130d6d8ee21d1264dded763ed8d1415f408345990e0ea0c57bac79465bafc
       Authorization:
@@ -32,13 +32,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 220669da-a3b6-4b76-afb9-a9a859a91871
+      - bccd35c4-2fac-4a4c-a5d4-782fbdc6fb82
       Content-Type:
       - text/xml
       Content-Length:
       - '580'
       Date:
-      - Thu, 21 May 2020 04:14:59 GMT
+      - Thu, 21 May 2020 17:00:07 GMT
     body:
       encoding: UTF-8
       string: |
@@ -58,11 +58,11 @@ http_interactions:
             </Parameters>
           </ValidateTemplateResult>
           <ResponseMetadata>
-            <RequestId>220669da-a3b6-4b76-afb9-a9a859a91871</RequestId>
+            <RequestId>bccd35c4-2fac-4a4c-a5d4-782fbdc6fb82</RequestId>
           </ResponseMetadata>
         </ValidateTemplateResponse>
     http_version: null
-  recorded_at: Thu, 21 May 2020 04:14:59 GMT
+  recorded_at: Thu, 21 May 2020 17:00:07 GMT
 - request:
     method: put
     uri: https://openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com/cfn_templates/spec-templates/template_one.yml
@@ -110,7 +110,7 @@ http_interactions:
       Host:
       - openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com
       X-Amz-Date:
-      - 20200521T041459Z
+      - 20200521T170007Z
       X-Amz-Content-Sha256:
       - 44820f5081bfdd4c387cf15b34f8f70367dbba4e87e0c51380353e1b3b436eab
       Authorization:
@@ -127,13 +127,13 @@ http_interactions:
       message: OK
     headers:
       X-Amz-Id-2:
-      - 8b+c/OV7dEM37nIM9jHpeqXVI3AwX6HKQKxD61stC64J2EP5SmY/MPQArgRHhpKtLaYdCwoCYT0=
+      - VloLpXdlxdg3ptnTZJ/g/3/kf5hHq/htGYL8nWovS6jv4+tA2hXd+YT39VJJblhaOlWDod/QUSg=
       X-Amz-Request-Id:
-      - 61F8A4696C0A7C7E
+      - CEF78FCBDA9DAE46
       Date:
-      - Thu, 21 May 2020 04:15:01 GMT
+      - Thu, 21 May 2020 17:00:09 GMT
       X-Amz-Version-Id:
-      - gNZ.aTU1vDoUflNd.eWs9pywfstZY9ol
+      - JZB9zl15sChZE_FZkmCuARxsNv3ELAdm
       X-Amz-Server-Side-Encryption:
       - AES256
       Etag:
@@ -146,7 +146,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: null
-  recorded_at: Thu, 21 May 2020 04:15:00 GMT
+  recorded_at: Thu, 21 May 2020 17:00:08 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -163,7 +163,7 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20200521T041500Z
+      - 20200521T170008Z
       X-Amz-Content-Sha256:
       - de17902dda34feefd66090cbac7e477b4f42704d33cc8bd23f9ed9681383e531
       Authorization:
@@ -179,26 +179,26 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 7e06e392-d05c-4847-9f13-fc69d8498ad5
+      - 4f87acb7-3f5e-47d5-82f4-5e3da7a8afb4
       Content-Type:
       - text/xml
       Content-Length:
       - '408'
       Date:
-      - Thu, 21 May 2020 04:15:01 GMT
+      - Thu, 21 May 2020 17:00:09 GMT
     body:
       encoding: UTF-8
       string: |
         <CreateStackResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
           <CreateStackResult>
-            <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/a3ac30c0-9b19-11ea-8f74-06d9da1ade34</StackId>
+            <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/86edc820-9b84-11ea-b381-02582149edd0</StackId>
           </CreateStackResult>
           <ResponseMetadata>
-            <RequestId>7e06e392-d05c-4847-9f13-fc69d8498ad5</RequestId>
+            <RequestId>4f87acb7-3f5e-47d5-82f4-5e3da7a8afb4</RequestId>
           </ResponseMetadata>
         </CreateStackResponse>
     http_version: null
-  recorded_at: Thu, 21 May 2020 04:15:01 GMT
+  recorded_at: Thu, 21 May 2020 17:00:09 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -215,7 +215,7 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20200521T041501Z
+      - 20200521T170009Z
       X-Amz-Content-Sha256:
       - 1ba52dc3c0b7408ba24bedd71d0b4fd581f8349322ca1f302323076e54571f7d
       Authorization:
@@ -231,13 +231,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 9ccd2c3a-ba4c-4de9-a995-278ae7ebd386
+      - 9761e56c-c9f6-4cd1-bb5f-1c2186d0ee4d
       Content-Type:
       - text/xml
       Content-Length:
       - '1440'
       Date:
-      - Thu, 21 May 2020 04:15:01 GMT
+      - Thu, 21 May 2020 17:00:09 GMT
     body:
       encoding: UTF-8
       string: |
@@ -245,9 +245,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2020-05-21T04:15:01.713Z</CreationTime>
+                <CreationTime>2020-05-21T17:00:09.339Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/a3ac30c0-9b19-11ea-8f74-06d9da1ade34</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/86edc820-9b84-11ea-b381-02582149edd0</StackId>
                 <StackName>spec-aws-ruby-stack-status-errors-hash</StackName>
                 <Description>Test template one
         </Description>
@@ -274,11 +274,11 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>9ccd2c3a-ba4c-4de9-a995-278ae7ebd386</RequestId>
+            <RequestId>9761e56c-c9f6-4cd1-bb5f-1c2186d0ee4d</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
     http_version: null
-  recorded_at: Thu, 21 May 2020 04:15:02 GMT
+  recorded_at: Thu, 21 May 2020 17:00:09 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -295,7 +295,7 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20200521T041502Z
+      - 20200521T170009Z
       X-Amz-Content-Sha256:
       - 1ba52dc3c0b7408ba24bedd71d0b4fd581f8349322ca1f302323076e54571f7d
       Authorization:
@@ -311,13 +311,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 72abb44c-ead9-4745-988f-7c68829761fb
+      - aca972d0-a43d-461e-a533-8f823b327488
       Content-Type:
       - text/xml
       Content-Length:
       - '1378'
       Date:
-      - Thu, 21 May 2020 04:15:02 GMT
+      - Thu, 21 May 2020 17:00:10 GMT
     body:
       encoding: UTF-8
       string: |
@@ -325,9 +325,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2020-05-21T04:15:01.713Z</CreationTime>
+                <CreationTime>2020-05-21T17:00:09.339Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/a3ac30c0-9b19-11ea-8f74-06d9da1ade34</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/86edc820-9b84-11ea-b381-02582149edd0</StackId>
                 <StackName>spec-aws-ruby-stack-status-errors-hash</StackName>
                 <Description>Test template one
         </Description>
@@ -353,11 +353,11 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>72abb44c-ead9-4745-988f-7c68829761fb</RequestId>
+            <RequestId>aca972d0-a43d-461e-a533-8f823b327488</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
     http_version: null
-  recorded_at: Thu, 21 May 2020 04:15:02 GMT
+  recorded_at: Thu, 21 May 2020 17:00:10 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -374,7 +374,7 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20200521T041507Z
+      - 20200521T170015Z
       X-Amz-Content-Sha256:
       - 1ba52dc3c0b7408ba24bedd71d0b4fd581f8349322ca1f302323076e54571f7d
       Authorization:
@@ -390,13 +390,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 353b54ab-ca8b-4488-a45b-085833c14620
+      - cda67f30-e775-460b-af4d-e252be165b5d
       Content-Type:
       - text/xml
       Content-Length:
-      - '1378'
+      - '1575'
       Date:
-      - Thu, 21 May 2020 04:15:08 GMT
+      - Thu, 21 May 2020 17:00:15 GMT
     body:
       encoding: UTF-8
       string: |
@@ -404,13 +404,14 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2020-05-21T04:15:01.713Z</CreationTime>
+                <CreationTime>2020-05-21T17:00:09.339Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/a3ac30c0-9b19-11ea-8f74-06d9da1ade34</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/86edc820-9b84-11ea-b381-02582149edd0</StackId>
                 <StackName>spec-aws-ruby-stack-status-errors-hash</StackName>
                 <Description>Test template one
         </Description>
-                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <StackStatus>ROLLBACK_IN_PROGRESS</StackStatus>
+                <DeletionTime>2020-05-21T17:00:14.453Z</DeletionTime>
                 <DisableRollback>false</DisableRollback>
                 <Tags/>
                 <RollbackConfiguration/>
@@ -418,6 +419,7 @@ http_interactions:
                   <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
                 </DriftInformation>
                 <EnableTerminationProtection>false</EnableTerminationProtection>
+                <StackStatusReason>The following resource(s) failed to create: [S3Bucket]. . Rollback requested by user.</StackStatusReason>
                 <Parameters>
                   <member>
                     <ParameterKey>BucketName</ParameterKey>
@@ -432,11 +434,11 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>353b54ab-ca8b-4488-a45b-085833c14620</RequestId>
+            <RequestId>cda67f30-e775-460b-af4d-e252be165b5d</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
     http_version: null
-  recorded_at: Thu, 21 May 2020 04:15:08 GMT
+  recorded_at: Thu, 21 May 2020 17:00:15 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -453,7 +455,7 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20200521T041513Z
+      - 20200521T170020Z
       X-Amz-Content-Sha256:
       - 1ba52dc3c0b7408ba24bedd71d0b4fd581f8349322ca1f302323076e54571f7d
       Authorization:
@@ -469,13 +471,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 309d0cd2-193d-496d-bc94-1dd515c1fd40
+      - 82c20272-504b-46bc-bcb8-0e21741386d3
       Content-Type:
       - text/xml
       Content-Length:
       - '1439'
       Date:
-      - Thu, 21 May 2020 04:15:12 GMT
+      - Thu, 21 May 2020 17:00:20 GMT
     body:
       encoding: UTF-8
       string: |
@@ -483,14 +485,14 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2020-05-21T04:15:01.713Z</CreationTime>
+                <CreationTime>2020-05-21T17:00:09.339Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/a3ac30c0-9b19-11ea-8f74-06d9da1ade34</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/86edc820-9b84-11ea-b381-02582149edd0</StackId>
                 <StackName>spec-aws-ruby-stack-status-errors-hash</StackName>
                 <Description>Test template one
         </Description>
                 <StackStatus>ROLLBACK_COMPLETE</StackStatus>
-                <DeletionTime>2020-05-21T04:15:08.740Z</DeletionTime>
+                <DeletionTime>2020-05-21T17:00:14.453Z</DeletionTime>
                 <DisableRollback>false</DisableRollback>
                 <Tags/>
                 <RollbackConfiguration/>
@@ -512,11 +514,11 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>309d0cd2-193d-496d-bc94-1dd515c1fd40</RequestId>
+            <RequestId>82c20272-504b-46bc-bcb8-0e21741386d3</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
     http_version: null
-  recorded_at: Thu, 21 May 2020 04:15:13 GMT
+  recorded_at: Thu, 21 May 2020 17:00:21 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -533,7 +535,7 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20200521T041513Z
+      - 20200521T170021Z
       X-Amz-Content-Sha256:
       - 4a80c8370ec7057071c1b7520f7064142129d591480bc7729c48f9c567816d76
       Authorization:
@@ -549,7 +551,7 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 7be40bfa-36b2-47dd-9202-db1f1a29eda7
+      - 70c92b27-6ac6-4e30-b1f3-0668e5ad1128
       Content-Type:
       - text/xml
       Content-Length:
@@ -557,7 +559,7 @@ http_interactions:
       Vary:
       - accept-encoding
       Date:
-      - Thu, 21 May 2020 04:15:13 GMT
+      - Thu, 21 May 2020 17:00:20 GMT
     body:
       encoding: UTF-8
       string: |
@@ -565,102 +567,102 @@ http_interactions:
           <DescribeStackEventsResult>
             <StackEvents>
               <member>
-                <EventId>aafdd130-9b19-11ea-a18a-023ebc410218</EventId>
-                <PhysicalResourceId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/a3ac30c0-9b19-11ea-8f74-06d9da1ade34</PhysicalResourceId>
+                <EventId>8d6953e0-9b84-11ea-a3f1-064e3beebd9c</EventId>
+                <PhysicalResourceId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/86edc820-9b84-11ea-b381-02582149edd0</PhysicalResourceId>
                 <ResourceStatus>ROLLBACK_COMPLETE</ResourceStatus>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/a3ac30c0-9b19-11ea-8f74-06d9da1ade34</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/86edc820-9b84-11ea-b381-02582149edd0</StackId>
                 <StackName>spec-aws-ruby-stack-status-errors-hash</StackName>
                 <LogicalResourceId>spec-aws-ruby-stack-status-errors-hash</LogicalResourceId>
-                <Timestamp>2020-05-21T04:15:13.336Z</Timestamp>
+                <Timestamp>2020-05-21T17:00:19.860Z</Timestamp>
                 <ResourceType>AWS::CloudFormation::Stack</ResourceType>
               </member>
               <member>
-                <EventId>S3Bucket-DELETE_COMPLETE-2020-05-21T04:15:12.734Z</EventId>
+                <EventId>S3Bucket-DELETE_COMPLETE-2020-05-21T17:00:19.310Z</EventId>
                 <PhysicalResourceId>aws-ruby-rspec-bucket</PhysicalResourceId>
                 <ResourceStatus>DELETE_COMPLETE</ResourceStatus>
                 <ResourceProperties>{&quot;BucketName&quot;:&quot;aws-ruby-rspec-bucket&quot;,&quot;Tags&quot;:[{&quot;Value&quot;:&quot;howdy$*&quot;,&quot;Key&quot;:&quot;Tag1&quot;}]}</ResourceProperties>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/a3ac30c0-9b19-11ea-8f74-06d9da1ade34</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/86edc820-9b84-11ea-b381-02582149edd0</StackId>
                 <StackName>spec-aws-ruby-stack-status-errors-hash</StackName>
                 <LogicalResourceId>S3Bucket</LogicalResourceId>
-                <Timestamp>2020-05-21T04:15:12.734Z</Timestamp>
+                <Timestamp>2020-05-21T17:00:19.310Z</Timestamp>
                 <ResourceType>AWS::S3::Bucket</ResourceType>
               </member>
               <member>
-                <EventId>S3Bucket-DELETE_IN_PROGRESS-2020-05-21T04:15:11.905Z</EventId>
+                <EventId>S3Bucket-DELETE_IN_PROGRESS-2020-05-21T17:00:18.558Z</EventId>
                 <PhysicalResourceId>aws-ruby-rspec-bucket</PhysicalResourceId>
                 <ResourceStatus>DELETE_IN_PROGRESS</ResourceStatus>
                 <ResourceProperties>{&quot;BucketName&quot;:&quot;aws-ruby-rspec-bucket&quot;,&quot;Tags&quot;:[{&quot;Value&quot;:&quot;howdy$*&quot;,&quot;Key&quot;:&quot;Tag1&quot;}]}</ResourceProperties>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/a3ac30c0-9b19-11ea-8f74-06d9da1ade34</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/86edc820-9b84-11ea-b381-02582149edd0</StackId>
                 <StackName>spec-aws-ruby-stack-status-errors-hash</StackName>
                 <LogicalResourceId>S3Bucket</LogicalResourceId>
-                <Timestamp>2020-05-21T04:15:11.905Z</Timestamp>
+                <Timestamp>2020-05-21T17:00:18.558Z</Timestamp>
                 <ResourceType>AWS::S3::Bucket</ResourceType>
               </member>
               <member>
-                <EventId>a840ad00-9b19-11ea-a5ad-0681d34c9248</EventId>
-                <PhysicalResourceId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/a3ac30c0-9b19-11ea-8f74-06d9da1ade34</PhysicalResourceId>
+                <EventId>8a3048f0-9b84-11ea-9eb6-0247ef85be9c</EventId>
+                <PhysicalResourceId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/86edc820-9b84-11ea-b381-02582149edd0</PhysicalResourceId>
                 <ResourceStatus>ROLLBACK_IN_PROGRESS</ResourceStatus>
                 <ResourceStatusReason>The following resource(s) failed to create: [S3Bucket]. . Rollback requested by user.</ResourceStatusReason>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/a3ac30c0-9b19-11ea-8f74-06d9da1ade34</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/86edc820-9b84-11ea-b381-02582149edd0</StackId>
                 <StackName>spec-aws-ruby-stack-status-errors-hash</StackName>
                 <LogicalResourceId>spec-aws-ruby-stack-status-errors-hash</LogicalResourceId>
-                <Timestamp>2020-05-21T04:15:08.740Z</Timestamp>
+                <Timestamp>2020-05-21T17:00:14.453Z</Timestamp>
                 <ResourceType>AWS::CloudFormation::Stack</ResourceType>
               </member>
               <member>
-                <EventId>S3Bucket-CREATE_FAILED-2020-05-21T04:15:07.975Z</EventId>
+                <EventId>S3Bucket-CREATE_FAILED-2020-05-21T17:00:13.802Z</EventId>
                 <PhysicalResourceId>aws-ruby-rspec-bucket</PhysicalResourceId>
                 <ResourceStatus>CREATE_FAILED</ResourceStatus>
-                <ResourceStatusReason>The TagValue you have provided is invalid (Service: Amazon S3; Status Code: 400; Error Code: InvalidTag; Request ID: 1A48D6362BA7816A; S3 Extended Request ID: My1hf1FVTZztNI+X5ipbwTMqAjmlvDx/qAH6rcOhEQ1by4PXUJLcpeGZwi7GWPmoEPuamLHTHBM=)</ResourceStatusReason>
+                <ResourceStatusReason>The TagValue you have provided is invalid (Service: Amazon S3; Status Code: 400; Error Code: InvalidTag; Request ID: A5C4A5261A5C8A6D; S3 Extended Request ID: Hgx7CNA5Ji5OcHGbxGKHB5AqLujvLjcqiw4RVd9SP32cP4jN6ROZbiYxj6+ovwpWBOcM19F7gSM=)</ResourceStatusReason>
                 <ResourceProperties>{&quot;BucketName&quot;:&quot;aws-ruby-rspec-bucket&quot;,&quot;Tags&quot;:[{&quot;Value&quot;:&quot;howdy$*&quot;,&quot;Key&quot;:&quot;Tag1&quot;}]}</ResourceProperties>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/a3ac30c0-9b19-11ea-8f74-06d9da1ade34</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/86edc820-9b84-11ea-b381-02582149edd0</StackId>
                 <StackName>spec-aws-ruby-stack-status-errors-hash</StackName>
                 <LogicalResourceId>S3Bucket</LogicalResourceId>
-                <Timestamp>2020-05-21T04:15:07.975Z</Timestamp>
+                <Timestamp>2020-05-21T17:00:13.802Z</Timestamp>
                 <ResourceType>AWS::S3::Bucket</ResourceType>
               </member>
               <member>
-                <EventId>S3Bucket-CREATE_IN_PROGRESS-2020-05-21T04:15:07.420Z</EventId>
+                <EventId>S3Bucket-CREATE_IN_PROGRESS-2020-05-21T17:00:13.201Z</EventId>
                 <PhysicalResourceId>aws-ruby-rspec-bucket</PhysicalResourceId>
                 <ResourceStatus>CREATE_IN_PROGRESS</ResourceStatus>
                 <ResourceStatusReason>Resource creation Initiated</ResourceStatusReason>
                 <ResourceProperties>{&quot;BucketName&quot;:&quot;aws-ruby-rspec-bucket&quot;,&quot;Tags&quot;:[{&quot;Value&quot;:&quot;howdy$*&quot;,&quot;Key&quot;:&quot;Tag1&quot;}]}</ResourceProperties>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/a3ac30c0-9b19-11ea-8f74-06d9da1ade34</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/86edc820-9b84-11ea-b381-02582149edd0</StackId>
                 <StackName>spec-aws-ruby-stack-status-errors-hash</StackName>
                 <LogicalResourceId>S3Bucket</LogicalResourceId>
-                <Timestamp>2020-05-21T04:15:07.420Z</Timestamp>
+                <Timestamp>2020-05-21T17:00:13.201Z</Timestamp>
                 <ResourceType>AWS::S3::Bucket</ResourceType>
               </member>
               <member>
-                <EventId>S3Bucket-CREATE_IN_PROGRESS-2020-05-21T04:15:05.644Z</EventId>
+                <EventId>S3Bucket-CREATE_IN_PROGRESS-2020-05-21T17:00:12.353Z</EventId>
                 <PhysicalResourceId/>
                 <ResourceStatus>CREATE_IN_PROGRESS</ResourceStatus>
                 <ResourceProperties>{&quot;BucketName&quot;:&quot;aws-ruby-rspec-bucket&quot;,&quot;Tags&quot;:[{&quot;Value&quot;:&quot;howdy$*&quot;,&quot;Key&quot;:&quot;Tag1&quot;}]}</ResourceProperties>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/a3ac30c0-9b19-11ea-8f74-06d9da1ade34</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/86edc820-9b84-11ea-b381-02582149edd0</StackId>
                 <StackName>spec-aws-ruby-stack-status-errors-hash</StackName>
                 <LogicalResourceId>S3Bucket</LogicalResourceId>
-                <Timestamp>2020-05-21T04:15:05.644Z</Timestamp>
+                <Timestamp>2020-05-21T17:00:12.353Z</Timestamp>
                 <ResourceType>AWS::S3::Bucket</ResourceType>
               </member>
               <member>
-                <EventId>a3ae0580-9b19-11ea-8f74-06d9da1ade34</EventId>
-                <PhysicalResourceId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/a3ac30c0-9b19-11ea-8f74-06d9da1ade34</PhysicalResourceId>
+                <EventId>86ef75d0-9b84-11ea-b381-02582149edd0</EventId>
+                <PhysicalResourceId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/86edc820-9b84-11ea-b381-02582149edd0</PhysicalResourceId>
                 <ResourceStatus>CREATE_IN_PROGRESS</ResourceStatus>
                 <ResourceStatusReason>User Initiated</ResourceStatusReason>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/a3ac30c0-9b19-11ea-8f74-06d9da1ade34</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/86edc820-9b84-11ea-b381-02582149edd0</StackId>
                 <StackName>spec-aws-ruby-stack-status-errors-hash</StackName>
                 <LogicalResourceId>spec-aws-ruby-stack-status-errors-hash</LogicalResourceId>
-                <Timestamp>2020-05-21T04:15:01.713Z</Timestamp>
+                <Timestamp>2020-05-21T17:00:09.339Z</Timestamp>
                 <ResourceType>AWS::CloudFormation::Stack</ResourceType>
               </member>
             </StackEvents>
           </DescribeStackEventsResult>
           <ResponseMetadata>
-            <RequestId>7be40bfa-36b2-47dd-9202-db1f1a29eda7</RequestId>
+            <RequestId>70c92b27-6ac6-4e30-b1f3-0668e5ad1128</RequestId>
           </ResponseMetadata>
         </DescribeStackEventsResponse>
     http_version: null
-  recorded_at: Thu, 21 May 2020 04:15:13 GMT
+  recorded_at: Thu, 21 May 2020 17:00:21 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -677,7 +679,7 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20200521T041513Z
+      - 20200521T170021Z
       X-Amz-Content-Sha256:
       - 1ba52dc3c0b7408ba24bedd71d0b4fd581f8349322ca1f302323076e54571f7d
       Authorization:
@@ -693,13 +695,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - a7aac947-f358-4449-93ec-7290df359cdd
+      - 42b89f8a-e0ef-4920-9aac-925d71c0c2a1
       Content-Type:
       - text/xml
       Content-Length:
       - '1439'
       Date:
-      - Thu, 21 May 2020 04:15:13 GMT
+      - Thu, 21 May 2020 17:00:21 GMT
     body:
       encoding: UTF-8
       string: |
@@ -707,14 +709,14 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2020-05-21T04:15:01.713Z</CreationTime>
+                <CreationTime>2020-05-21T17:00:09.339Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/a3ac30c0-9b19-11ea-8f74-06d9da1ade34</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-errors-hash/86edc820-9b84-11ea-b381-02582149edd0</StackId>
                 <StackName>spec-aws-ruby-stack-status-errors-hash</StackName>
                 <Description>Test template one
         </Description>
                 <StackStatus>ROLLBACK_COMPLETE</StackStatus>
-                <DeletionTime>2020-05-21T04:15:08.740Z</DeletionTime>
+                <DeletionTime>2020-05-21T17:00:14.453Z</DeletionTime>
                 <DisableRollback>false</DisableRollback>
                 <Tags/>
                 <RollbackConfiguration/>
@@ -736,11 +738,11 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>a7aac947-f358-4449-93ec-7290df359cdd</RequestId>
+            <RequestId>42b89f8a-e0ef-4920-9aac-925d71c0c2a1</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
     http_version: null
-  recorded_at: Thu, 21 May 2020 04:15:14 GMT
+  recorded_at: Thu, 21 May 2020 17:00:21 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -757,7 +759,7 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20200521T041514Z
+      - 20200521T170021Z
       X-Amz-Content-Sha256:
       - a91ff80b633c4bac5adf698fc5ec87d4847e03af2f6a038e314831262be75199
       Authorization:
@@ -773,21 +775,21 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 72c073de-0e00-43eb-9fa5-10254b86659a
+      - 58d89c44-a0eb-4f38-ba5f-af1360b0dc0b
       Content-Type:
       - text/xml
       Content-Length:
       - '212'
       Date:
-      - Thu, 21 May 2020 04:15:14 GMT
+      - Thu, 21 May 2020 17:00:21 GMT
     body:
       encoding: UTF-8
       string: |
         <DeleteStackResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
           <ResponseMetadata>
-            <RequestId>72c073de-0e00-43eb-9fa5-10254b86659a</RequestId>
+            <RequestId>58d89c44-a0eb-4f38-ba5f-af1360b0dc0b</RequestId>
           </ResponseMetadata>
         </DeleteStackResponse>
     http_version: null
-  recorded_at: Thu, 21 May 2020 04:15:14 GMT
+  recorded_at: Thu, 21 May 2020 17:00:22 GMT
 recorded_with: VCR 5.1.0

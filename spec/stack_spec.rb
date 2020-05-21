@@ -103,7 +103,7 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
 
   it "gets status error from stack event" do
     event_data = OpenStruct.new(data: OpenStruct.new(resource_status: "CREATE_FAILED", resource_status_reason: "wrong tag"))
-    stack_event = OpenStax::Aws::StackEvent.new(event_data)
+    stack_event = OpenStax::Aws::Stack::Event.new(event_data)
 
     expect(stack_event.failed?).to be true
   end
@@ -111,7 +111,7 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
   it "gets hash from stack status" do
     name = "spec-aws-ruby-stack-status"
     stack = create_simple_stack(name: name)
-    stack_status = OpenStax::Aws::StackStatus.new(stack)
+    stack_status = OpenStax::Aws::Stack::Status.new(stack)
 
     expect(stack_status.failed_events_since_last_user_event.empty?).to be true
 

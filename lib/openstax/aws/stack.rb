@@ -1,6 +1,4 @@
 require 'json'
-require_relative 'stack_event'
-require_relative 'stack_status'
 
 module OpenStax::Aws
   class Stack
@@ -332,11 +330,11 @@ module OpenStax::Aws
 
     def status(reload: false)
       @status = nil if reload
-      @status ||= StackStatus.new(self)
+      @status ||= Status.new(self)
     end
 
     def events
-      (aws_stack&.events || []).map{|aws_event| StackEvent.new(aws_event)}
+      (aws_stack&.events || []).map{|aws_event| Event.new(aws_event)}
     end
 
     def defines_secrets?
@@ -344,7 +342,7 @@ module OpenStax::Aws
     end
 
     def self.query(regex: /.*/, regions: %w(us-east-1 us-east-2 us-west-1 us-west-2), active: true, reload: false)
-      stack_status_filter = active ? StackStatus.active_status_texts : nil
+      stack_status_filter = active ? Status.active_status_texts : nil
 
       if reload
         @all_stacks = {}
