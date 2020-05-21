@@ -1,141 +1,9 @@
 require 'json'
+require_relative 'stack_event'
+require_relative 'stack_status'
 
 module OpenStax::Aws
   class Stack
-    class Event
-      def initialize(aws_stack_event)
-        @aws_stack_event = aws_stack_event
-      end
-
-      def status_text
-        @aws_stack_event.data.resource_status
-      end
-
-      def status_reason
-        @aws_stack_event.data.resource_status_reason
-      end
-
-      def failed?
-        Status.failure_status_texts.include?(status_text)
-      end
-
-      def user_initiated?
-        status_reason == "User Initiated"
-      end
-    end
-
-    class Status
-      def initialize(stack)
-        @stack = stack
-      end
-
-      def status_text
-        begin
-          @stack.aws_stack.stack_status
-        rescue Aws::CloudFormation::Errors::ValidationError => ee
-          case ee.message
-          when /Stack.*does not exist/
-            self.class.does_not_exist_status_text
-          else
-            raise
-          end
-        end
-      end
-
-      def failed?
-        self.class.failure_status_texts.include?(status_text)
-      end
-
-      def updating?
-        %w(
-          UPDATE_COMPLETE_CLEANUP_IN_PROGRESS
-          UPDATE_IN_PROGRESS
-          UPDATE_ROLLBACK_COMPLETE
-          UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS
-          UPDATE_ROLLBACK_FAILED
-          UPDATE_ROLLBACK_IN_PROGRESS
-        ).include?(status_text)
-      end
-
-      def creating?
-        "CREATE_IN_PROGRESS" == status_text
-      end
-
-      def deleting?
-        "DELETE_IN_PROGRESS" == status_text
-      end
-
-      def exists?
-        self.class.does_not_exist_status_text != status_text
-      end
-
-      def self.does_not_exist_status_text
-        "DOES_NOT_EXIST"
-      end
-
-      def self.all_status_texts
-        %w(
-          CREATE_IN_PROGRESS
-          CREATE_FAILED
-          CREATE_COMPLETE
-          ROLLBACK_IN_PROGRESS
-          ROLLBACK_FAILED
-          ROLLBACK_COMPLETE
-          DELETE_IN_PROGRESS
-          DELETE_FAILED
-          DELETE_COMPLETE
-          UPDATE_IN_PROGRESS
-          UPDATE_COMPLETE_CLEANUP_IN_PROGRESS
-          UPDATE_COMPLETE
-          UPDATE_ROLLBACK_IN_PROGRESS
-          UPDATE_ROLLBACK_FAILED
-          UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS
-          UPDATE_ROLLBACK_COMPLETE
-          REVIEW_IN_PROGRESS
-          IMPORT_IN_PROGRESS
-          IMPORT_COMPLETE
-          IMPORT_ROLLBACK_IN_PROGRESS
-          IMPORT_ROLLBACK_FAILED
-          IMPORT_ROLLBACK_COMPLETE
-        )
-      end
-
-      def self.active_status_texts
-        all_status_texts - %w(CREATE_FAILED DELETE_COMPLETE)
-      end
-
-      def self.failure_status_texts
-        %w(
-          ROLLBACK_COMPLETE
-          ROLLBACK_IN_PROGRESS
-          CREATE_FAILED
-          ROLLBACK_FAILED
-          DELETE_FAILED
-          UPDATE_ROLLBACK_FAILED
-          IMPORT_ROLLBACK_FAILED
-        )
-      end
-
-      def failed_events_since_last_user_event
-        @stack.events.each_with_object([]) do |event, array|
-          array.push(event) if event.failed?
-          return array if event.user_initiated?
-        end
-      end
-
-      def to_h
-        {
-          name: @stack.name,
-          status: status_text,
-          failed_events_since_last_user_event: failed? ? @stack.failed_events_since_last_user_event : []
-        }
-      end
-
-      def to_json
-        to_h.to_json
-      end
-    end
-
     attr_reader :name, :tags, :id, :absolute_template_path, :dry_run,
                 :enable_termination_protection, :region, :parameter_defaults,
                 :volatile_parameters_block, :secrets_blocks
@@ -464,11 +332,11 @@ module OpenStax::Aws
 
     def status(reload: false)
       @status = nil if reload
-      @status ||= Status.new(self)
+      @status ||= StackStatus.new(self)
     end
 
     def events
-      (aws_stack&.events || []).map{|aws_event| Event.new(aws_event)}
+      (aws_stack&.events || []).map{|aws_event| StackEvent.new(aws_event)}
     end
 
     def defines_secrets?
@@ -476,7 +344,7 @@ module OpenStax::Aws
     end
 
     def self.query(regex: /.*/, regions: %w(us-east-1 us-east-2 us-west-1 us-west-2), active: true, reload: false)
-      stack_status_filter = active ? Status.active_status_texts : nil
+      stack_status_filter = active ? StackStatus.active_status_texts : nil
 
       if reload
         @all_stacks = {}

@@ -16,11 +16,11 @@ http_interactions:
       Host:
       - cloudformation.us-west-2.amazonaws.com
       X-Amz-Date:
-      - 20200519T210241Z
+      - 20200521T033859Z
       X-Amz-Content-Sha256:
       - 8afc2f08c2b059cbeedb3caba0e505280d1e67a5188b98f6fb9b1a384b9405bc
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200519/us-west-2/cloudformation/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200521/us-west-2/cloudformation/aws4_request,
         SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
       Content-Length:
       - '194'
@@ -32,13 +32,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 9de3eef7-abe7-4f47-8ccc-e32f19ab7ead
+      - a35d9825-ed25-4c2c-bdf2-8f6cc75f9540
       Content-Type:
       - text/xml
       Content-Length:
       - '341'
       Date:
-      - Tue, 19 May 2020 21:02:41 GMT
+      - Thu, 21 May 2020 03:38:59 GMT
     body:
       encoding: UTF-8
       string: |
@@ -49,11 +49,11 @@ http_interactions:
             <Parameters/>
           </ValidateTemplateResult>
           <ResponseMetadata>
-            <RequestId>9de3eef7-abe7-4f47-8ccc-e32f19ab7ead</RequestId>
+            <RequestId>a35d9825-ed25-4c2c-bdf2-8f6cc75f9540</RequestId>
           </ResponseMetadata>
         </ValidateTemplateResponse>
     http_version: null
-  recorded_at: Tue, 19 May 2020 21:02:42 GMT
+  recorded_at: Thu, 21 May 2020 03:38:59 GMT
 - request:
     method: put
     uri: https://openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com/cfn_templates/spec-templates/simple.yml
@@ -81,11 +81,11 @@ http_interactions:
       Host:
       - openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com
       X-Amz-Date:
-      - 20200519T210242Z
+      - 20200521T033859Z
       X-Amz-Content-Sha256:
       - 2b9163e03e5682f82f3c034ef3dfa9e58cb7592cf651af6dc96d5c927d4f5454
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200519/us-west-2/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200521/us-west-2/s3/aws4_request,
         SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
         Signature=<SignatureValue>
       Content-Length:
@@ -98,13 +98,13 @@ http_interactions:
       message: OK
     headers:
       X-Amz-Id-2:
-      - pPqB9WnxCSqmjTfuSEjwxCtafIuHv9+QdW28wzuTyQTHoE225j2Sk46O4/3LJAAh1YozGtHAJt4=
+      - ssv+cWYvXIGG5hnFH0oO8rLIgiTkqKtUKWzUQVYJt/iS3h+84h11ga87ucorgzveN0yu4MZllB0=
       X-Amz-Request-Id:
-      - 6AD29ABEF021F870
+      - 2E3D0881E34D4957
       Date:
-      - Tue, 19 May 2020 21:02:44 GMT
+      - Thu, 21 May 2020 03:39:01 GMT
       X-Amz-Version-Id:
-      - yQJnD9vn1m.0_E0TiugvtBwFBDS5UIu2
+      - JHhFOskPxVSl030nhVDnLqRszIhnYeUC
       X-Amz-Server-Side-Encryption:
       - AES256
       Etag:
@@ -117,7 +117,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: null
-  recorded_at: Tue, 19 May 2020 21:02:43 GMT
+  recorded_at: Thu, 21 May 2020 03:39:00 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -134,11 +134,11 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20200519T210243Z
+      - 20200521T033900Z
       X-Amz-Content-Sha256:
       - 4eafb7021ee632a1a502c304f35251aac20aebd8de16fe0147e54200e5e9f4fa
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200519/us-east-2/cloudformation/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200521/us-east-2/cloudformation/aws4_request,
         SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
       Content-Length:
       - '269'
@@ -150,26 +150,26 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 2e76c50f-8ffd-415d-8dd7-66e988798587
+      - 77ed0807-0bf6-4b04-a55f-2a33563b7b1e
       Content-Type:
       - text/xml
       Content-Length:
       - '403'
       Date:
-      - Tue, 19 May 2020 21:02:43 GMT
+      - Thu, 21 May 2020 03:39:01 GMT
     body:
       encoding: UTF-8
       string: |
         <CreateStackResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
           <CreateStackResult>
-            <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/155707b0-9a14-11ea-a9b9-021a782363a8</StackId>
+            <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/9c3baff0-9b14-11ea-9582-065ddb117676</StackId>
           </CreateStackResult>
           <ResponseMetadata>
-            <RequestId>2e76c50f-8ffd-415d-8dd7-66e988798587</RequestId>
+            <RequestId>77ed0807-0bf6-4b04-a55f-2a33563b7b1e</RequestId>
           </ResponseMetadata>
         </CreateStackResponse>
     http_version: null
-  recorded_at: Tue, 19 May 2020 21:02:44 GMT
+  recorded_at: Thu, 21 May 2020 03:39:02 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -186,11 +186,11 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20200519T210244Z
+      - 20200521T033902Z
       X-Amz-Content-Sha256:
       - f18edd3d1b9abffe92860b5e11d71e0e40d5a7153497364dcde50d3bbfa31b1c
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200519/us-east-2/cloudformation/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200521/us-east-2/cloudformation/aws4_request,
         SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
       Content-Length:
       - '84'
@@ -202,13 +202,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 343be165-1430-45e9-9342-bd039f36bda3
+      - 8526659d-2181-4fc3-be8a-e9c811f0b28f
       Content-Type:
       - text/xml
       Content-Length:
       - '1021'
       Date:
-      - Tue, 19 May 2020 21:02:44 GMT
+      - Thu, 21 May 2020 03:39:02 GMT
     body:
       encoding: UTF-8
       string: |
@@ -216,9 +216,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2020-05-19T21:02:44.154Z</CreationTime>
+                <CreationTime>2020-05-21T03:39:01.775Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/155707b0-9a14-11ea-a9b9-021a782363a8</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/9c3baff0-9b14-11ea-9582-065ddb117676</StackId>
                 <StackName>spec-aws-ruby-stack-status-reason</StackName>
                 <Description>Just a bucket
         </Description>
@@ -234,11 +234,11 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>343be165-1430-45e9-9342-bd039f36bda3</RequestId>
+            <RequestId>8526659d-2181-4fc3-be8a-e9c811f0b28f</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
     http_version: null
-  recorded_at: Tue, 19 May 2020 21:02:44 GMT
+  recorded_at: Thu, 21 May 2020 03:39:02 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -255,11 +255,11 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20200519T210244Z
+      - 20200521T033902Z
       X-Amz-Content-Sha256:
       - f18edd3d1b9abffe92860b5e11d71e0e40d5a7153497364dcde50d3bbfa31b1c
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200519/us-east-2/cloudformation/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200521/us-east-2/cloudformation/aws4_request,
         SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
       Content-Length:
       - '84'
@@ -271,13 +271,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 89d0c443-4ae2-4634-85ae-5d822c6ff8a2
+      - 92b575fb-0169-40ad-9c6b-18a51b13dae2
       Content-Type:
       - text/xml
       Content-Length:
       - '1021'
       Date:
-      - Tue, 19 May 2020 21:02:44 GMT
+      - Thu, 21 May 2020 03:39:02 GMT
     body:
       encoding: UTF-8
       string: |
@@ -285,9 +285,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2020-05-19T21:02:44.154Z</CreationTime>
+                <CreationTime>2020-05-21T03:39:01.775Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/155707b0-9a14-11ea-a9b9-021a782363a8</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/9c3baff0-9b14-11ea-9582-065ddb117676</StackId>
                 <StackName>spec-aws-ruby-stack-status-reason</StackName>
                 <Description>Just a bucket
         </Description>
@@ -303,11 +303,11 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>89d0c443-4ae2-4634-85ae-5d822c6ff8a2</RequestId>
+            <RequestId>92b575fb-0169-40ad-9c6b-18a51b13dae2</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
     http_version: null
-  recorded_at: Tue, 19 May 2020 21:02:45 GMT
+  recorded_at: Thu, 21 May 2020 03:39:02 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -324,11 +324,11 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20200519T210250Z
+      - 20200521T033907Z
       X-Amz-Content-Sha256:
       - f18edd3d1b9abffe92860b5e11d71e0e40d5a7153497364dcde50d3bbfa31b1c
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200519/us-east-2/cloudformation/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200521/us-east-2/cloudformation/aws4_request,
         SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
       Content-Length:
       - '84'
@@ -340,13 +340,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 9efed491-e16d-47d5-bc7a-b0d96bce0f5e
+      - 1a4bfcea-78c5-4d37-b5c3-c6bdb828de51
       Content-Type:
       - text/xml
       Content-Length:
       - '1021'
       Date:
-      - Tue, 19 May 2020 21:02:50 GMT
+      - Thu, 21 May 2020 03:39:07 GMT
     body:
       encoding: UTF-8
       string: |
@@ -354,9 +354,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2020-05-19T21:02:44.154Z</CreationTime>
+                <CreationTime>2020-05-21T03:39:01.775Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/155707b0-9a14-11ea-a9b9-021a782363a8</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/9c3baff0-9b14-11ea-9582-065ddb117676</StackId>
                 <StackName>spec-aws-ruby-stack-status-reason</StackName>
                 <Description>Just a bucket
         </Description>
@@ -372,11 +372,11 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>9efed491-e16d-47d5-bc7a-b0d96bce0f5e</RequestId>
+            <RequestId>1a4bfcea-78c5-4d37-b5c3-c6bdb828de51</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
     http_version: null
-  recorded_at: Tue, 19 May 2020 21:02:50 GMT
+  recorded_at: Thu, 21 May 2020 03:39:08 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -393,11 +393,11 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20200519T210255Z
+      - 20200521T033913Z
       X-Amz-Content-Sha256:
       - f18edd3d1b9abffe92860b5e11d71e0e40d5a7153497364dcde50d3bbfa31b1c
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200519/us-east-2/cloudformation/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200521/us-east-2/cloudformation/aws4_request,
         SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
       Content-Length:
       - '84'
@@ -409,13 +409,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - f083c988-e610-49e5-8093-95b488a62b95
+      - 48d3556b-6010-44ba-96f5-87e6b64daaa2
       Content-Type:
       - text/xml
       Content-Length:
       - '1021'
       Date:
-      - Tue, 19 May 2020 21:02:55 GMT
+      - Thu, 21 May 2020 03:39:13 GMT
     body:
       encoding: UTF-8
       string: |
@@ -423,9 +423,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2020-05-19T21:02:44.154Z</CreationTime>
+                <CreationTime>2020-05-21T03:39:01.775Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/155707b0-9a14-11ea-a9b9-021a782363a8</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/9c3baff0-9b14-11ea-9582-065ddb117676</StackId>
                 <StackName>spec-aws-ruby-stack-status-reason</StackName>
                 <Description>Just a bucket
         </Description>
@@ -441,11 +441,11 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>f083c988-e610-49e5-8093-95b488a62b95</RequestId>
+            <RequestId>48d3556b-6010-44ba-96f5-87e6b64daaa2</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
     http_version: null
-  recorded_at: Tue, 19 May 2020 21:02:55 GMT
+  recorded_at: Thu, 21 May 2020 03:39:13 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -462,11 +462,11 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20200519T210300Z
+      - 20200521T033918Z
       X-Amz-Content-Sha256:
       - f18edd3d1b9abffe92860b5e11d71e0e40d5a7153497364dcde50d3bbfa31b1c
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200519/us-east-2/cloudformation/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200521/us-east-2/cloudformation/aws4_request,
         SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
       Content-Length:
       - '84'
@@ -478,13 +478,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - ba44d889-e942-4231-9fd7-4a509f058e39
+      - 1c33d20c-f964-4d81-b769-c2a04ef9ede9
       Content-Type:
       - text/xml
       Content-Length:
       - '1021'
       Date:
-      - Tue, 19 May 2020 21:03:00 GMT
+      - Thu, 21 May 2020 03:39:18 GMT
     body:
       encoding: UTF-8
       string: |
@@ -492,9 +492,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2020-05-19T21:02:44.154Z</CreationTime>
+                <CreationTime>2020-05-21T03:39:01.775Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/155707b0-9a14-11ea-a9b9-021a782363a8</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/9c3baff0-9b14-11ea-9582-065ddb117676</StackId>
                 <StackName>spec-aws-ruby-stack-status-reason</StackName>
                 <Description>Just a bucket
         </Description>
@@ -510,11 +510,11 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>ba44d889-e942-4231-9fd7-4a509f058e39</RequestId>
+            <RequestId>1c33d20c-f964-4d81-b769-c2a04ef9ede9</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
     http_version: null
-  recorded_at: Tue, 19 May 2020 21:03:01 GMT
+  recorded_at: Thu, 21 May 2020 03:39:19 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -531,11 +531,11 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20200519T210306Z
+      - 20200521T033924Z
       X-Amz-Content-Sha256:
       - f18edd3d1b9abffe92860b5e11d71e0e40d5a7153497364dcde50d3bbfa31b1c
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200519/us-east-2/cloudformation/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200521/us-east-2/cloudformation/aws4_request,
         SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
       Content-Length:
       - '84'
@@ -547,13 +547,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - e3ce754a-6241-45b0-a12a-4672de47002e
+      - d3516c6b-a41a-42fd-a18b-e19d608bac52
       Content-Type:
       - text/xml
       Content-Length:
       - '1021'
       Date:
-      - Tue, 19 May 2020 21:03:06 GMT
+      - Thu, 21 May 2020 03:39:24 GMT
     body:
       encoding: UTF-8
       string: |
@@ -561,9 +561,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2020-05-19T21:02:44.154Z</CreationTime>
+                <CreationTime>2020-05-21T03:39:01.775Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/155707b0-9a14-11ea-a9b9-021a782363a8</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/9c3baff0-9b14-11ea-9582-065ddb117676</StackId>
                 <StackName>spec-aws-ruby-stack-status-reason</StackName>
                 <Description>Just a bucket
         </Description>
@@ -579,11 +579,11 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>e3ce754a-6241-45b0-a12a-4672de47002e</RequestId>
+            <RequestId>d3516c6b-a41a-42fd-a18b-e19d608bac52</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
     http_version: null
-  recorded_at: Tue, 19 May 2020 21:03:06 GMT
+  recorded_at: Thu, 21 May 2020 03:39:24 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -600,11 +600,11 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20200519T210311Z
+      - 20200521T033929Z
       X-Amz-Content-Sha256:
       - f18edd3d1b9abffe92860b5e11d71e0e40d5a7153497364dcde50d3bbfa31b1c
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200519/us-east-2/cloudformation/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200521/us-east-2/cloudformation/aws4_request,
         SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
       Content-Length:
       - '84'
@@ -616,13 +616,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - ea49d7db-fa7c-460a-b9d2-2e1eaf1f39fd
+      - 918385e7-2ad7-4aa4-bb5c-19e283ebbfd8
       Content-Type:
       - text/xml
       Content-Length:
       - '1018'
       Date:
-      - Tue, 19 May 2020 21:03:11 GMT
+      - Thu, 21 May 2020 03:39:29 GMT
     body:
       encoding: UTF-8
       string: |
@@ -630,9 +630,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2020-05-19T21:02:44.154Z</CreationTime>
+                <CreationTime>2020-05-21T03:39:01.775Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/155707b0-9a14-11ea-a9b9-021a782363a8</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/9c3baff0-9b14-11ea-9582-065ddb117676</StackId>
                 <StackName>spec-aws-ruby-stack-status-reason</StackName>
                 <Description>Just a bucket
         </Description>
@@ -648,11 +648,11 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>ea49d7db-fa7c-460a-b9d2-2e1eaf1f39fd</RequestId>
+            <RequestId>918385e7-2ad7-4aa4-bb5c-19e283ebbfd8</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
     http_version: null
-  recorded_at: Tue, 19 May 2020 21:03:12 GMT
+  recorded_at: Thu, 21 May 2020 03:39:30 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -669,11 +669,11 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20200519T210312Z
+      - 20200521T033930Z
       X-Amz-Content-Sha256:
       - b8a442c06c0313aee7d63f2882f62592e8a38625d2b9189dbebff5160b1b2638
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200519/us-east-2/cloudformation/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200521/us-east-2/cloudformation/aws4_request,
         SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
       Content-Length:
       - '89'
@@ -685,15 +685,15 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 28be523c-7006-4068-a8b1-0358e72515e6
+      - f3fb8c40-27e9-477d-a168-4bba7e98c8e9
       Content-Type:
       - text/xml
       Content-Length:
-      - '4003'
+      - '4001'
       Vary:
       - accept-encoding
       Date:
-      - Tue, 19 May 2020 21:03:11 GMT
+      - Thu, 21 May 2020 03:39:29 GMT
     body:
       encoding: UTF-8
       string: |
@@ -701,68 +701,68 @@ http_interactions:
           <DescribeStackEventsResult>
             <StackEvents>
               <member>
-                <EventId>24901ff0-9a14-11ea-80e5-0608930970a0</EventId>
-                <PhysicalResourceId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/155707b0-9a14-11ea-a9b9-021a782363a8</PhysicalResourceId>
+                <EventId>abb57ab0-9b14-11ea-8c08-064e0383f37e</EventId>
+                <PhysicalResourceId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/9c3baff0-9b14-11ea-9582-065ddb117676</PhysicalResourceId>
                 <ResourceStatus>CREATE_COMPLETE</ResourceStatus>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/155707b0-9a14-11ea-a9b9-021a782363a8</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/9c3baff0-9b14-11ea-9582-065ddb117676</StackId>
                 <StackName>spec-aws-ruby-stack-status-reason</StackName>
                 <LogicalResourceId>spec-aws-ruby-stack-status-reason</LogicalResourceId>
-                <Timestamp>2020-05-19T21:03:09.160Z</Timestamp>
+                <Timestamp>2020-05-21T03:39:27.057Z</Timestamp>
                 <ResourceType>AWS::CloudFormation::Stack</ResourceType>
               </member>
               <member>
-                <EventId>S3Bucket-CREATE_COMPLETE-2020-05-19T21:03:07.996Z</EventId>
-                <PhysicalResourceId>spec-aws-ruby-stack-status-reason-s3bucket-1591xv448l72o</PhysicalResourceId>
+                <EventId>S3Bucket-CREATE_COMPLETE-2020-05-21T03:39:25.752Z</EventId>
+                <PhysicalResourceId>spec-aws-ruby-stack-status-reason-s3bucket-33065vgh3bym</PhysicalResourceId>
                 <ResourceStatus>CREATE_COMPLETE</ResourceStatus>
                 <ResourceProperties>{}</ResourceProperties>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/155707b0-9a14-11ea-a9b9-021a782363a8</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/9c3baff0-9b14-11ea-9582-065ddb117676</StackId>
                 <StackName>spec-aws-ruby-stack-status-reason</StackName>
                 <LogicalResourceId>S3Bucket</LogicalResourceId>
-                <Timestamp>2020-05-19T21:03:07.996Z</Timestamp>
+                <Timestamp>2020-05-21T03:39:25.752Z</Timestamp>
                 <ResourceType>AWS::S3::Bucket</ResourceType>
               </member>
               <member>
-                <EventId>S3Bucket-CREATE_IN_PROGRESS-2020-05-19T21:02:47.109Z</EventId>
-                <PhysicalResourceId>spec-aws-ruby-stack-status-reason-s3bucket-1591xv448l72o</PhysicalResourceId>
+                <EventId>S3Bucket-CREATE_IN_PROGRESS-2020-05-21T03:39:04.946Z</EventId>
+                <PhysicalResourceId>spec-aws-ruby-stack-status-reason-s3bucket-33065vgh3bym</PhysicalResourceId>
                 <ResourceStatus>CREATE_IN_PROGRESS</ResourceStatus>
                 <ResourceStatusReason>Resource creation Initiated</ResourceStatusReason>
                 <ResourceProperties>{}</ResourceProperties>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/155707b0-9a14-11ea-a9b9-021a782363a8</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/9c3baff0-9b14-11ea-9582-065ddb117676</StackId>
                 <StackName>spec-aws-ruby-stack-status-reason</StackName>
                 <LogicalResourceId>S3Bucket</LogicalResourceId>
-                <Timestamp>2020-05-19T21:02:47.109Z</Timestamp>
+                <Timestamp>2020-05-21T03:39:04.946Z</Timestamp>
                 <ResourceType>AWS::S3::Bucket</ResourceType>
               </member>
               <member>
-                <EventId>S3Bucket-CREATE_IN_PROGRESS-2020-05-19T21:02:46.541Z</EventId>
+                <EventId>S3Bucket-CREATE_IN_PROGRESS-2020-05-21T03:39:04.306Z</EventId>
                 <PhysicalResourceId/>
                 <ResourceStatus>CREATE_IN_PROGRESS</ResourceStatus>
                 <ResourceProperties>{}</ResourceProperties>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/155707b0-9a14-11ea-a9b9-021a782363a8</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/9c3baff0-9b14-11ea-9582-065ddb117676</StackId>
                 <StackName>spec-aws-ruby-stack-status-reason</StackName>
                 <LogicalResourceId>S3Bucket</LogicalResourceId>
-                <Timestamp>2020-05-19T21:02:46.541Z</Timestamp>
+                <Timestamp>2020-05-21T03:39:04.306Z</Timestamp>
                 <ResourceType>AWS::S3::Bucket</ResourceType>
               </member>
               <member>
-                <EventId>1558b560-9a14-11ea-a9b9-021a782363a8</EventId>
-                <PhysicalResourceId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/155707b0-9a14-11ea-a9b9-021a782363a8</PhysicalResourceId>
+                <EventId>9c3ee440-9b14-11ea-9582-065ddb117676</EventId>
+                <PhysicalResourceId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/9c3baff0-9b14-11ea-9582-065ddb117676</PhysicalResourceId>
                 <ResourceStatus>CREATE_IN_PROGRESS</ResourceStatus>
                 <ResourceStatusReason>User Initiated</ResourceStatusReason>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/155707b0-9a14-11ea-a9b9-021a782363a8</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/9c3baff0-9b14-11ea-9582-065ddb117676</StackId>
                 <StackName>spec-aws-ruby-stack-status-reason</StackName>
                 <LogicalResourceId>spec-aws-ruby-stack-status-reason</LogicalResourceId>
-                <Timestamp>2020-05-19T21:02:44.154Z</Timestamp>
+                <Timestamp>2020-05-21T03:39:01.775Z</Timestamp>
                 <ResourceType>AWS::CloudFormation::Stack</ResourceType>
               </member>
             </StackEvents>
           </DescribeStackEventsResult>
           <ResponseMetadata>
-            <RequestId>28be523c-7006-4068-a8b1-0358e72515e6</RequestId>
+            <RequestId>f3fb8c40-27e9-477d-a168-4bba7e98c8e9</RequestId>
           </ResponseMetadata>
         </DescribeStackEventsResponse>
     http_version: null
-  recorded_at: Tue, 19 May 2020 21:03:12 GMT
+  recorded_at: Thu, 21 May 2020 03:39:30 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -779,11 +779,11 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20200519T210312Z
+      - 20200521T033930Z
       X-Amz-Content-Sha256:
       - f18edd3d1b9abffe92860b5e11d71e0e40d5a7153497364dcde50d3bbfa31b1c
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200519/us-east-2/cloudformation/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200521/us-east-2/cloudformation/aws4_request,
         SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
       Content-Length:
       - '84'
@@ -795,13 +795,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 52a7cfba-dd3f-4533-94e0-f0b7fa3ce15c
+      - de40c636-9563-4cf4-9c5d-4401dfc7064c
       Content-Type:
       - text/xml
       Content-Length:
       - '1018'
       Date:
-      - Tue, 19 May 2020 21:03:12 GMT
+      - Thu, 21 May 2020 03:39:30 GMT
     body:
       encoding: UTF-8
       string: |
@@ -809,9 +809,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2020-05-19T21:02:44.154Z</CreationTime>
+                <CreationTime>2020-05-21T03:39:01.775Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/155707b0-9a14-11ea-a9b9-021a782363a8</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-status-reason/9c3baff0-9b14-11ea-9582-065ddb117676</StackId>
                 <StackName>spec-aws-ruby-stack-status-reason</StackName>
                 <Description>Just a bucket
         </Description>
@@ -827,11 +827,11 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>52a7cfba-dd3f-4533-94e0-f0b7fa3ce15c</RequestId>
+            <RequestId>de40c636-9563-4cf4-9c5d-4401dfc7064c</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
     http_version: null
-  recorded_at: Tue, 19 May 2020 21:03:12 GMT
+  recorded_at: Thu, 21 May 2020 03:39:30 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -848,11 +848,11 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20200519T210312Z
+      - 20200521T033930Z
       X-Amz-Content-Sha256:
       - 47fd2bc1186ef76a27878422b7cab86fe706bed1ed42780fdc7a3501d0609f94
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200519/us-east-2/cloudformation/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200521/us-east-2/cloudformation/aws4_request,
         SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
       Content-Length:
       - '81'
@@ -864,21 +864,21 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 6e66c633-941a-4a82-a2d4-530cbb1cdbc3
+      - b77da8ac-fab1-4f5f-a779-1ff1897e9b21
       Content-Type:
       - text/xml
       Content-Length:
       - '212'
       Date:
-      - Tue, 19 May 2020 21:03:12 GMT
+      - Thu, 21 May 2020 03:39:31 GMT
     body:
       encoding: UTF-8
       string: |
         <DeleteStackResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
           <ResponseMetadata>
-            <RequestId>6e66c633-941a-4a82-a2d4-530cbb1cdbc3</RequestId>
+            <RequestId>b77da8ac-fab1-4f5f-a779-1ff1897e9b21</RequestId>
           </ResponseMetadata>
         </DeleteStackResponse>
     http_version: null
-  recorded_at: Tue, 19 May 2020 21:03:13 GMT
+  recorded_at: Thu, 21 May 2020 03:39:31 GMT
 recorded_with: VCR 5.1.0
