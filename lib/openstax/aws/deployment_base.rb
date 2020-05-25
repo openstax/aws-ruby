@@ -11,6 +11,10 @@ module OpenStax::Aws
         end
       end
 
+      def failed?(reload: false)
+        @deployment.stacks.any?(&:failed?)
+      end
+
       def to_h
         {
           stacks: stack_statuses.each_with_object({}) do |(stack_name, stack_status), new_hash|
