@@ -222,7 +222,7 @@ module OpenStax::Aws
       change_set
     end
 
-    def revert_previous_change_set(wait: false)
+    def revert_to_previous_change_set(wait: false)
       logger.info("**** DRY RUN ****") if dry_run
 
       if @previous_parameters

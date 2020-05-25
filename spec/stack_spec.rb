@@ -118,7 +118,7 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     stack.delete
   end
 
-  it "reverts previous change set" do
+  it "reverts to previous change set" do
     name = "spec-aws-ruby-stack-update-new-parameters"
     tag_1 = "howdy"
     tag_2 = "there"
@@ -131,7 +131,7 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     taggings = s3_client.get_bucket_tagging(bucket: bucket_name)
     expect(taggings.tag_set[0].value).to eq tag_2
 
-    stack.revert_previous_change_set(wait: true)
+    stack.revert_to_previous_change_set(wait: true)
 
     taggings = s3_client.get_bucket_tagging(bucket: bucket_name)
     expect(taggings.tag_set[0].value).to eq tag_1
