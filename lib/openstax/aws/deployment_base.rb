@@ -12,7 +12,7 @@ module OpenStax::Aws
       end
 
       def failed?(reload: false)
-        @deployment.stacks.any?(&:failed?)
+        stack_statuses(reload: reload).values.any?(&:failed?)
       end
 
       def to_h
