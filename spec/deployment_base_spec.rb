@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe OpenStax::Aws::DeploymentBase do
 
   context "env_name" do
-    it 'doesn\'t match regex' do 
+    it 'doesn\'t match regex' do
       expect{
         described_class.new(name: "spec", env_name: "to_fail", region: "deployment-region", dry_run: false)
       }.to raise_error(/The environment name must consist only of letters, numbers, and hyphens/)
@@ -294,6 +294,37 @@ RSpec.describe OpenStax::Aws::DeploymentBase do
       instance = deployment_class.new(name: "spec", region: "deployment-region")
 
       expect(instance.tags).to eq({"foo" => "bar"})
+    end
+
+    it "allows tags up the inheritance tree but does not pollute between children" do
+      base_class = Class.new(described_class) do
+        tag :howdy, "there"
+        tag :foo, "bar"
+
+        stack :simple do
+          tag :foo, "bar"
+        end
+      end
+
+      child_class_1 = Class.new(base_class) do
+        tag :something_else, "foo"
+      end
+
+      child_class_2 = Class.new(base_class)
+
+      expect(child_class_1.tags.keys).to contain_exactly("howdy", "foo", "something_else")
+      expect(child_class_2.tags.keys).to contain_exactly("howdy", "foo")
+
+      grandchild_class_1 = Class.new(child_class_1) do
+        tag :so_far_down, "foo"
+      end
+
+      grandchild_class_2 = Class.new(child_class_2) do
+        tag :other, "bar"
+      end
+
+      expect(grandchild_class_1.tags.keys).to contain_exactly("howdy", "foo", "something_else", "so_far_down")
+      expect(grandchild_class_2.tags.keys).to contain_exactly("howdy", "foo", "other")
     end
   end
 

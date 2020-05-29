@@ -170,6 +170,13 @@ module OpenStax::Aws
       def tags
         @tags ||= HashWithIndifferentAccess.new
       end
+
+      def inherited(child_class)
+        # Copy any tags defined in the parent to the child so that it can access them
+        # while not using class variables that are shared across all classes in the
+        # that inherit here
+        child_class.instance_variable_set("@tags", tags.dup)
+      end
     end
 
     def stacks
