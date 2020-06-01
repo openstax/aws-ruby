@@ -226,7 +226,7 @@ module OpenStax::Aws
       logger.info("**** DRY RUN ****") if dry_run
 
       if @previous_parameters
-        logger.info("Applying previous parameters...")
+        logger.info("Reverting to previous change set...")
         apply_change_set(params: @previous_parameters, wait: wait)
         @previous_parameters = nil
       else
