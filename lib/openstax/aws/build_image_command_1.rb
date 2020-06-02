@@ -37,8 +37,6 @@ module OpenStax
           repo: repo
         }.to_json)
 
-        puts "@packer.verbose = #{verbose}"
-
         @packer.verbose! if verbose
         @packer.very_verbose! if very_verbose
         @packer.debug! if debug

@@ -8,7 +8,7 @@ module OpenStax::Aws
       @only = []
       @vars = {}
       @dry_run = dry_run
-      @verbose = true
+      @verbose = false
       @very_verbose = false
       @debug = false
       @absolute_file_path = absolute_file_path
