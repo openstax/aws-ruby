@@ -5,7 +5,7 @@ module OpenStax
       # A standardized way to use Packer to build images.
 
       def initialize(ami_name_base:, region:,
-                     verbose: false, very_verbose: false, debug: false,
+                     verbose: true, very_verbose: false, debug: false,
                      github_org:, repo:, branch: nil, sha: nil,
                      packer_absolute_file_path: , playbook_absolute_file_path:,
                      dry_run: true)
@@ -20,30 +20,26 @@ module OpenStax
 
         ami_name = "#{ami_name_base}@#{sha[0..6]} #{Time.now.utc.strftime("%y%m%d%H%MZ")}"
 
-        begin 
-          @packer = OpenStax::Aws::PackerFactory.new_packer(
-            absolute_file_path: packer_absolute_file_path,
-            dry_run: dry_run
-          )
+        @packer = OpenStax::Aws::PackerFactory.new_packer(
+          absolute_file_path: packer_absolute_file_path,
+          dry_run: dry_run
+        )
 
-          @packer.only("amazon-ebs")
+        @packer.only("amazon-ebs")
 
-          @packer.var("region", region)
-          @packer.var("ami_name", ami_name)
-          @packer.var("sha", sha)
-          @packer.var("playbook_file", playbook_absolute_file_path)
-          @packer.var("ami_description", {
-            sha: sha,
-            github_org: github_org,
-            repo: repo
-          }.to_json)
+        @packer.var("region", region)
+        @packer.var("ami_name", ami_name)
+        @packer.var("sha", sha)
+        @packer.var("playbook_file", playbook_absolute_file_path)
+        @packer.var("ami_description", {
+          sha: sha,
+          github_org: github_org,
+          repo: repo
+        }.to_json)
 
-          @packer.verbose! if verbose
-          @packer.very_verbose! if very_verbose
-          @packer.debug! if debug
-        rescue
-          raise "Packer not installed"
-        end
+        @packer.verbose! if verbose
+        @packer.very_verbose! if very_verbose
+        @packer.debug! if debug
       end
 
       def run
