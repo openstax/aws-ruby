@@ -5,7 +5,7 @@ module OpenStax
       # A standardized way to use Packer to build images.
 
       def initialize(ami_name_base:, region:,
-                     verbose: true, very_verbose: false, debug: false,
+                     verbose: false, very_verbose: false, debug: false,
                      github_org:, repo:, branch: nil, sha: nil,
                      packer_absolute_file_path: , playbook_absolute_file_path:,
                      dry_run: true)
