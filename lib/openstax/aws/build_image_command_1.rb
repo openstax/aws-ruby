@@ -49,10 +49,6 @@ module OpenStax
       def to_s
         @packer.to_s
       end
-
-      def status 
-        @packer.debug
-      end
     end
   end
 end
