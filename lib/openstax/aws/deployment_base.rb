@@ -1,5 +1,32 @@
 module OpenStax::Aws
   class DeploymentBase
+    class Status
+      def initialize(deployment)
+        @deployment = deployment
+      end
+
+      def stack_statuses(reload: false)
+        @deployment.stacks.each_with_object({}) do |stack, hash|
+          hash[stack.name] = stack.status(reload: reload)
+        end
+      end
+
+      def failed?(reload: false)
+        stack_statuses(reload: reload).values.any?(&:failed?)
+      end
+
+      def to_h
+        {
+          stacks: stack_statuses.each_with_object({}) do |(stack_name, stack_status), new_hash|
+            new_hash[stack_name] = stack_status.to_h # convert the stack status object to a hash
+          end
+        }
+      end
+
+      def to_json
+        to_h.to_json
+      end
+    end
 
     attr_reader :env_name, :region, :name, :dry_run
 
@@ -170,10 +197,22 @@ module OpenStax::Aws
       def tags
         @tags ||= HashWithIndifferentAccess.new
       end
+
+      def inherited(child_class)
+        # Copy any tags defined in the parent to the child so that it can access them
+        # while not using class variables that are shared across all classes in the
+        # that inherit here
+        child_class.instance_variable_set("@tags", tags.dup)
+      end
     end
 
     def stacks
       self.class.stack_ids.map{|id| self.send("#{id}_stack")}
+    end
+
+    def status(reload: false)
+      @status = nil if reload
+      @status ||= Status.new(self)
     end
 
     def deployed_parameters

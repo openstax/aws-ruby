@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'vcr_helper'
+require 'json'
 
 RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
 
@@ -53,6 +54,8 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     tags = ::Aws::CloudFormation::Stack.new(name: name, client: cfn_client).tags
     expect(tags[0].key).to eq "foo"
     expect(tags[0].value).to eq "bar"
+
+    stack.delete
   end
 
   it 'updates a stack with new tag values' do
@@ -66,6 +69,8 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     tags = ::Aws::CloudFormation::Stack.new(name: name, client: cfn_client).tags
     expect(tags[0].key).to eq "foo"
     expect(tags[0].value).to eq "howdy"
+
+    stack.delete
   end
 
   it "uses parameter defaults" do
@@ -94,6 +99,36 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     expect(stack.output_value(key: "BucketArn")).to eq "arn:aws:s3:::#{bucket_name}"
 
     stack.delete
+  end
+
+  it "gets status error from stack event" do
+    event_data = OpenStruct.new(data: OpenStruct.new(resource_status: "CREATE_FAILED", resource_status_reason: "wrong tag"))
+    stack_event = OpenStax::Aws::Stack::Event.new(event_data)
+
+    expect(stack_event.failed?).to be true
+  end
+
+  it "gets hash from stack status" do
+    name = "spec-aws-ruby-stack-status"
+    stack = create_simple_stack(name: name)
+    stack_status = OpenStax::Aws::Stack::Status.new(stack)
+
+    expect(stack_status.failed_events_since_last_user_event.empty?).to be true
+
+    stack.delete
+  end
+
+  it "gets actual errors in hash from stack status" do
+    name = "spec-aws-ruby-stack-status-errors-hash"
+    stack = new_template_one_stack(name: name)
+
+    begin 
+      stack.create(params: {bucket_name: bucket_name, tag_value: "howdy$*"}, wait: true)
+    rescue
+      expect(stack.status.failed_events_since_last_user_event[1].status_reason).to include "The TagValue you have provided is invalid"
+    ensure 
+      stack.delete
+    end
   end
 
   it "can be updated with new parameters" do

@@ -1,9 +1,12 @@
+require 'json'
+
 module OpenStax::Aws
   class Stack
-
     attr_reader :name, :tags, :id, :absolute_template_path, :dry_run,
                 :enable_termination_protection, :region, :parameter_defaults,
                 :volatile_parameters_block, :secrets_blocks
+
+    delegate :failed?, :updating?, :creating?, :deleting?, :exists?, to: :status
 
     def initialize(id: nil, name:, tags: {},
                    region:, enable_termination_protection: false,
@@ -325,71 +328,13 @@ module OpenStax::Aws
       tags.map{|tag| {key: tag.key, value: tag.value}}
     end
 
-    def status
-      begin
-        aws_stack.stack_status
-      rescue Aws::CloudFormation::Errors::ValidationError => ee
-        case ee.message
-        when /Stack.*does not exist/
-          "DOES_NOT_EXIST"
-        else
-          raise
-        end
-      end
+    def status(reload: false)
+      @status = nil if reload
+      @status ||= Status.new(self)
     end
 
-    def updating?
-      %w(
-        UPDATE_COMPLETE_CLEANUP_IN_PROGRESS
-        UPDATE_IN_PROGRESS
-        UPDATE_ROLLBACK_COMPLETE
-        UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS
-        UPDATE_ROLLBACK_FAILED
-        UPDATE_ROLLBACK_IN_PROGRESS
-      ).include?(status)
-    end
-
-    def creating?
-      "CREATE_IN_PROGRESS" == status
-    end
-
-    def deleting?
-      "DELETE_IN_PROGRESS" == status
-    end
-
-    def exists?
-      "DOES_NOT_EXIST" != status
-    end
-
-    def self.all_statuses
-      %w(
-        CREATE_IN_PROGRESS
-        CREATE_FAILED
-        CREATE_COMPLETE
-        ROLLBACK_IN_PROGRESS
-        ROLLBACK_FAILED
-        ROLLBACK_COMPLETE
-        DELETE_IN_PROGRESS
-        DELETE_FAILED
-        DELETE_COMPLETE
-        UPDATE_IN_PROGRESS
-        UPDATE_COMPLETE_CLEANUP_IN_PROGRESS
-        UPDATE_COMPLETE
-        UPDATE_ROLLBACK_IN_PROGRESS
-        UPDATE_ROLLBACK_FAILED
-        UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS
-        UPDATE_ROLLBACK_COMPLETE
-        REVIEW_IN_PROGRESS
-        IMPORT_IN_PROGRESS
-        IMPORT_COMPLETE
-        IMPORT_ROLLBACK_IN_PROGRESS
-        IMPORT_ROLLBACK_FAILED
-        IMPORT_ROLLBACK_COMPLETE
-      )
-    end
-
-    def self.active_statuses
-      all_statuses - %w(CREATE_FAILED DELETE_COMPLETE)
+    def events
+      (aws_stack&.events || []).map{|aws_event| Event.new(aws_event)}
     end
 
     def defines_secrets?
@@ -397,7 +342,7 @@ module OpenStax::Aws
     end
 
     def self.query(regex: /.*/, regions: %w(us-east-1 us-east-2 us-west-1 us-west-2), active: true, reload: false)
-      stack_status_filter = active ? active_statuses : nil
+      stack_status_filter = active ? Status.active_status_texts : nil
 
       if reload
         @all_stacks = {}
@@ -418,6 +363,10 @@ module OpenStax::Aws
       end.flatten
 
       @all_stacks[stack_status_filter + regions].select{|stack| stack.name.match(regex)}
+    end
+
+    def aws_stack
+      ::Aws::CloudFormation::Stack.new(name: name, client: client)
     end
 
     protected
@@ -483,10 +432,6 @@ module OpenStax::Aws
 
     def logger
       OpenStax::Aws.configuration.logger
-    end
-
-    def aws_stack
-      ::Aws::CloudFormation::Stack.new(name: name, client: client)
     end
 
     def client
