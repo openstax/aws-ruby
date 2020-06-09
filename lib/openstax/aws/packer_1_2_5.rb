@@ -50,10 +50,10 @@ module OpenStax::Aws
     end
 
     def run
-      @logger.info("**** DRY RUN ****") if dry_run
+      @logger.info("**** DRY RUN ****") if @dry_run
       @logger.info("Running: #{command}")
 
-      if !dry_run
+      if !@dry_run
         @logger.info("Printing stderr for desired verbosity")
 
         Open3.popen2e(command) do |stdin, stdout_err, wait_thr|
