@@ -53,12 +53,12 @@ module OpenStax::Aws
       @logger.info("**** DRY RUN ****") if dry_run
       @logger.info("Running: #{command}")
 
-      if !@dry_run
+      if !dry_run
         @logger.info("Printing stderr for desired verbosity")
 
         Open3.popen2e(command) do |stdin, stdout_err, wait_thr|
           while line=stdout_err.gets do
-            puts(line) if @very_verbose || line =~ / amazon-ebs\: /
+            puts(line) if @very_verbose || line =~ / ui\: /
           end
         end
       end
