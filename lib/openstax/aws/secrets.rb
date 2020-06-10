@@ -51,18 +51,18 @@ module OpenStax::Aws
     def update(specifications: nil, substitutions: nil, force_update_these: [])
       existing_secrets = data!
       built_secrets = build_secrets(specifications: specifications, substitutions: substitutions)
-      changed_secrets = self.class.changed_secrets(existing_secrets, built_secrets)
+      @changed_secrets = self.class.changed_secrets(existing_secrets, built_secrets)
 
       force_update_these.each do |force_update_this|
         built_secrets.select{|built_secret| built_secret[:name].match(force_update_this)}.each do |forced|
-          changed_secrets.push(forced)
+          @changed_secrets.push(forced)
         end
       end
-      changed_secrets.uniq!
+      @changed_secrets.uniq!
 
       OpenStax::Aws.logger.info("**** DRY RUN ****") if dry_run
 
-      if changed_secrets.empty?
+      if @changed_secrets.empty?
         OpenStax::Aws.logger.info("Secrets did not change")
         return false
       else
@@ -70,13 +70,35 @@ module OpenStax::Aws
 
         # Ship 'em
         if !dry_run
-          changed_secrets.each do |changed_secret|
-            client.put_parameter(changed_secret.merge(overwrite: true))
+          @changed_secrets.each do |changed_secret|
+            write_secret(changed_secret)
           end
         end
 
         return true
       end
+    end
+
+    def revert
+      if @changed_secrets.empty?
+        OpenStax::Aws.logger.info("Secrets did not change during the last update, so there is nothing to revert")
+      else
+        reverted_secrets = @changed_secrets.map do |changed_secret|
+          changed_secret.dup.except(:old_value).merge(value: changed_secret[:old_value])
+        end
+
+        OpenStax::Aws.logger.info("Reverting the following secrets in the AWS parameter store: #{reverted_secrets}")
+
+        if !dry_run
+          reverted_secrets.each do |reverted_secret|
+            write_secret(reverted_secret)
+          end
+        end
+      end
+    end
+
+    def write_secret(secret)
+      client.put_parameter(secret.except(:old_value).merge(overwrite: true))
     end
 
     def self.changed_secrets(existing_secrets_hash, new_secrets_array)
@@ -95,6 +117,9 @@ module OpenStax::Aws
           next if new_secret[:description].try(:starts_with?, GENERATED_WITH_PREFIX) &&
                   new_secret[:description] == existing_secret[:description]
         end
+
+        # Keep the old value around in case we need to revert it
+        new_secrets[:old_value] = existing_secret[:value]
 
         array.push(new_secret)
       end
