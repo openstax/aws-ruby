@@ -56,10 +56,14 @@ module OpenStax::Aws
         if absolute_template_path.present?
           OpenStax::Aws::Template.from_absolute_file_path(absolute_template_path)
         else
-          body = client.get_template({stack_name: name}).template_body
-          OpenStax::Aws::Template.from_body(body)
+          previous_template
         end
       end
+    end
+
+    def previous_template
+      body = client.get_template({stack_name: name}).template_body
+      OpenStax::Aws::Template.from_body(body)
     end
 
     def create(params: {}, wait: false)
@@ -168,7 +172,9 @@ module OpenStax::Aws
     def apply_change_set(params: {}, wait: false)
       logger.info("**** DRY RUN ****") if dry_run
 
+      # Save old template and parameters in case we need to revert
       @previous_parameters = deployed_parameters
+      @previous_template = previous_template
 
       logger.info("Updating #{name} stack...")
 
@@ -225,12 +231,14 @@ module OpenStax::Aws
     def revert_to_previous_change_set(wait: false)
       logger.info("**** DRY RUN ****") if dry_run
 
-      if @previous_parameters
+      if @previous_parameters && @previous_template
         logger.info("Reverting to previous change set...")
+        @template = @previous_template
         apply_change_set(params: @previous_parameters, wait: wait)
         @previous_parameters = nil
+        @previous_template = nil
       else
-        logger.info("There are no saved previous parameters for #{name} stack.")
+        logger.info("There are no saved previous parameters or template for #{name} stack.")
       end
     end
 
