@@ -9,7 +9,6 @@ module OpenStax::Aws
       @vars = {}
       @dry_run = dry_run
       @verbose = false
-      @very_verbose = false
       @debug = false
       @absolute_file_path = absolute_file_path
     end
@@ -26,10 +25,6 @@ module OpenStax::Aws
       @verbose = true
     end
 
-    def very_verbose!
-      @very_verbose = true
-    end
-
     def debug!
       @debug = true
     end
@@ -43,27 +38,23 @@ module OpenStax::Aws
         cmd = "#{cmd} --var '#{key}=#{value}'"
       end
 
-      cmd = "PACKER_LOG=1 #{cmd}" if @verbose || @very_verbose
+      cmd = "PACKER_LOG=1 #{cmd}" if @verbose
       cmd = "#{cmd} --debug" if @debug
 
       cmd = "#{cmd} #{@absolute_file_path}"
     end
 
     def run
-      @logger.info("**** DRY RUN ****") if dry_run
+      @logger.info("**** DRY RUN ****") if @dry_run
       @logger.info("Running: #{command}")
 
-      if !dry_run
-        if @verbose && !@very_verbose
-          @logger.info("Printing stderr for desired verbosity")
+      if !@dry_run
+        @logger.info("Printing stderr for desired verbosity")
 
-          Open3.popen2e(command) do |stdin, stdout_err, wait_thr|
-            while line=stdout_err.gets do
-              puts(line) if line =~ / ui\: /
-            end
+        Open3.popen2e(command) do |stdin, stdout_err, wait_thr|
+          while line=stdout_err.gets do
+            puts(line)
           end
-        else
-          `#{@cmd}`
         end
       end
     end

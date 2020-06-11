@@ -9,7 +9,6 @@ module OpenStax::Aws
       @vars = {}
       @dry_run = dry_run
       @verbose = false
-      @very_verbose = false
       @debug = false
       @absolute_file_path = absolute_file_path
     end
@@ -26,10 +25,6 @@ module OpenStax::Aws
       @verbose = true
     end
 
-    def very_verbose!
-      @very_verbose = true
-    end
-
     def debug!
       @debug = true
     end
@@ -43,7 +38,7 @@ module OpenStax::Aws
         cmd = "#{cmd} --var '#{key}=#{value}'"
       end
 
-      cmd = "PACKER_LOG=1 #{cmd}" if @verbose || @very_verbose
+      cmd = "PACKER_LOG=1 #{cmd}" if @verbose
       cmd = "#{cmd} --debug" if @debug
 
       cmd = "#{cmd} #{@absolute_file_path}"
@@ -54,17 +49,18 @@ module OpenStax::Aws
       @logger.info("Running: #{command}")
 
       if !@dry_run
-        if @verbose && !@very_verbose
-          @logger.info("Printing stderr for desired verbosity")
+        @logger.info("Printing stderr for desired verbosity")
+        ami = ""
 
-          Open3.popen2e(command) do |stdin, stdout_err, wait_thr|
-            while line=stdout_err.gets do
-              puts(line) if line =~ / amazon-ebs\: /
-            end
+        Open3.popen2e(command) do |stdin, stdout_err, wait_thr|
+          while line=stdout_err.gets do
+            STDERR.puts(line)
+            matchami = line.match(/AMI: (ami-.*)/i)
+            ami = matchami.captures[0] if matchami
           end
-        else
-          `#{command}`
         end
+
+        puts ami
       end
     end
 

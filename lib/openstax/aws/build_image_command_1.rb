@@ -5,7 +5,7 @@ module OpenStax
       # A standardized way to use Packer to build images.
 
       def initialize(ami_name_base:, region:,
-                     verbose: false, very_verbose: false, debug: false,
+                     verbose: false, debug: false,
                      github_org:, repo:, branch: nil, sha: nil,
                      packer_absolute_file_path: , playbook_absolute_file_path:,
                      dry_run: true)
@@ -38,7 +38,6 @@ module OpenStax
         }.to_json)
 
         @packer.verbose! if verbose
-        @packer.very_verbose! if very_verbose
         @packer.debug! if debug
       end
 
@@ -49,7 +48,6 @@ module OpenStax
       def to_s
         @packer.to_s
       end
-
     end
   end
 end
