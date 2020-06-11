@@ -50,12 +50,17 @@ module OpenStax::Aws
 
       if !@dry_run
         @logger.info("Printing stderr for desired verbosity")
+        ami = ""
 
         Open3.popen2e(command) do |stdin, stdout_err, wait_thr|
           while line=stdout_err.gets do
-            puts(line)
+            STDERR.puts(line)
+            matchami = line.match(/AMI: (ami-.*)/i)
+            ami = matchami.captures[0] if matchami
           end
         end
+
+        puts ami
       end
     end
 

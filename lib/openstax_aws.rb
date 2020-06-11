@@ -90,7 +90,7 @@ module OpenStax
       end
 
       def logger
-        @logger ||= Logger.new(STDOUT).tap do |the_logger|
+        @logger ||= Logger.new(STDERR).tap do |the_logger|
           the_logger.formatter = proc do |severity, datetime, progname, msg|
             date_format = datetime.strftime("%Y-%m-%d %H:%M:%S.%3N")
             if severity == "INFO" or severity == "WARN"

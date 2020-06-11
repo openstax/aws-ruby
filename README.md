@@ -809,7 +809,7 @@ end
 We use the logger configuration below:
 
 ```ruby
-config.logger = Logger.new(STDOUT)
+config.logger = Logger.new(STDERR)
 config.logger.formatter = proc do |severity, datetime, progname, msg|
   date_format = datetime.strftime("%Y-%m-%d %H:%M:%S.%3N")
   if severity == "INFO" or severity == "WARN"
