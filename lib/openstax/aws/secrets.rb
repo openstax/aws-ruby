@@ -80,7 +80,7 @@ module OpenStax::Aws
     end
 
     def revert
-      if @changed_secrets.empty?
+      if !@changed_secrets || @changed_secrets.empty?
         OpenStax::Aws.logger.info("Secrets did not change during the last update, so there is nothing to revert")
       else
         reverted_secrets = @changed_secrets.map do |changed_secret|
