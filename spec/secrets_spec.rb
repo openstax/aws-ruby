@@ -230,6 +230,37 @@ RSpec.describe OpenStax::Aws::Secrets, vcr: VCR_OPTS do
     end
   end
 
+  context "#revert" do
+    before(:each) do
+      allow(instance).to receive(:data!) { {
+        "foo" => OpenStax::Aws::Secrets::ReadOnlyParameter.new(nil, OpenStruct.new(type: "String", value: "bar"))
+      } }
+    end
+
+    it "says there is nothing to revert if there are no changes secrets" do
+      expect(OpenStax::Aws.logger).to receive(:info).with(/Secrets did not change during the last update/)
+
+      instance.revert
+    end
+
+    it "says it is reverting changed secret" do
+      instance.update(
+        specifications: OpenStax::Aws::SecretsSpecification.from_content(
+          format: :yml,
+          top_key: :production,
+          content: <<~CONTENT
+            production:
+              foo: new-val
+          CONTENT
+        ),
+        force_update_these: [/foo/])
+
+      expect(OpenStax::Aws.logger).to receive(:info).with(/Reverting the following.*foo/)
+
+      instance.revert
+    end
+  end
+
   context "ReadOnlyParameter" do
 
     it "can read the parameter's description" do
