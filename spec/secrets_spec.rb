@@ -201,8 +201,8 @@ RSpec.describe OpenStax::Aws::Secrets, vcr: VCR_OPTS do
 
     it "does say a secret is changed if the value is generated from a different spec" do
       existing_secrets = {foo: {value: "bar", description: "Generated with something"}}
-      new_secret = {name: "foo", value: "new", old_value: "bar", description: "Generated with something else"}
-      expect(described_class.changed_secrets(existing_secrets, [new_secret])).to contain_exactly(new_secret)
+      new_secret = {name: "foo", value: "new", description: "Generated with something else"}
+      expect(described_class.changed_secrets(existing_secrets, [new_secret])).to contain_exactly(new_secret.merge({old_value: "bar"}))
     end
   end
 
