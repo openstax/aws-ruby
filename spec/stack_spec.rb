@@ -119,7 +119,7 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
   end
 
   it "reverts to previous change set" do
-    name = "spec-aws-ruby-stack-update-new-parameters"
+    name = "spec-aws-ruby-stack-reverts-previous-change-set"
     tag_1 = "howdy"
     tag_2 = "there"
 
