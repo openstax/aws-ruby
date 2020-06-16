@@ -23,7 +23,7 @@ module OpenStax::Aws
     end
 
     def basename
-      File.basename(absolute_file_path)
+      File.basename(absolute_file_path) if absolute_file_path
     end
 
     def body

@@ -184,7 +184,7 @@ RSpec.describe OpenStax::Aws::Secrets, vcr: VCR_OPTS do
   context "#changed_secrets" do
     it "counts a secret as changed if it didn't exist" do
       new_secret = {name: "foo", value: "bar"}
-      expect(described_class.changed_secrets({}, [new_secret])).to contain_exactly(new_secret)
+      expect(described_class.changed_secrets({}, [new_secret])).to contain_exactly(new_secret.merge({old_value: nil}))
     end
 
     it "does not say a secret is changed if the value is the same" do
@@ -202,7 +202,7 @@ RSpec.describe OpenStax::Aws::Secrets, vcr: VCR_OPTS do
     it "does say a secret is changed if the value is generated from a different spec" do
       existing_secrets = {foo: {value: "bar", description: "Generated with something"}}
       new_secret = {name: "foo", value: "new", description: "Generated with something else"}
-      expect(described_class.changed_secrets(existing_secrets, [new_secret])).to contain_exactly(new_secret)
+      expect(described_class.changed_secrets(existing_secrets, [new_secret])).to contain_exactly(new_secret.merge({old_value: "bar"}))
     end
   end
 
@@ -227,6 +227,37 @@ RSpec.describe OpenStax::Aws::Secrets, vcr: VCR_OPTS do
           CONTENT
         ),
         force_update_these: [/foo/])
+    end
+  end
+
+  context "#revert" do
+    before(:each) do
+      allow(instance).to receive(:data!) { {
+        "foo" => OpenStax::Aws::Secrets::ReadOnlyParameter.new(nil, OpenStruct.new(type: "String", value: "bar"))
+      } }
+    end
+
+    it "says there is nothing to revert if there are no changes secrets" do
+      expect(OpenStax::Aws.logger).to receive(:info).with(/Secrets did not change during the last update/)
+
+      instance.revert
+    end
+
+    it "says it is reverting changed secret" do
+      instance.update(
+        specifications: OpenStax::Aws::SecretsSpecification.from_content(
+          format: :yml,
+          top_key: :production,
+          content: <<~CONTENT
+            production:
+              foo: new-val
+          CONTENT
+        ),
+        force_update_these: [/foo/])
+
+      expect(OpenStax::Aws.logger).to receive(:info).with(/Reverting the following.*foo/)
+
+      instance.revert
     end
   end
 

@@ -118,23 +118,32 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     stack.delete
   end
 
-  it "reverts to previous change set" do
-    name = "spec-aws-ruby-stack-update-new-parameters"
+  it "reverts to previous change set and template" do
+    name = "spec-aws-ruby-stack-reverts-previous-change-set-and-template"
     tag_1 = "howdy"
     tag_2 = "there"
+    template_from_file = File.read(File.join(__dir__, "support/templates/template_one.yml"))
+    template_from_file_mod = File.read(File.join(__dir__, "support/templates/template_one_mod.yml"))
 
     stack = new_template_one_stack(name: name)
     stack.create(params: {bucket_name: bucket_name, tag_value: tag_1}, wait: true)
 
+    stack = new_template_one_mod_stack(name: name)
     stack.apply_change_set(params: {bucket_name: :use_previous_value, tag_value: tag_2}, wait: true)
 
     taggings = s3_client.get_bucket_tagging(bucket: bucket_name)
     expect(taggings.tag_set[0].value).to eq tag_2
 
+    template_from_aws = cfn_client.get_template({stack_name: name}).template_body
+    expect(template_from_aws).to eq template_from_file_mod
+
     stack.revert_to_previous_change_set(wait: true)
 
     taggings = s3_client.get_bucket_tagging(bucket: bucket_name)
     expect(taggings.tag_set[0].value).to eq tag_1
+
+    template_from_aws_after_revert = cfn_client.get_template({stack_name: name}).template_body
+    expect(template_from_aws_after_revert).to eq template_from_file
 
     stack.delete
   end

@@ -66,7 +66,7 @@ module OpenStax::Aws
         OpenStax::Aws.logger.info("Secrets did not change")
         return false
       else
-        OpenStax::Aws.logger.info("Updating the following secrets in the AWS parameter store: #{changed_secrets}")
+        OpenStax::Aws.logger.info("Updating the following secrets in the AWS parameter store: #{@changed_secrets}")
 
         # Ship 'em
         if !dry_run
@@ -80,7 +80,7 @@ module OpenStax::Aws
     end
 
     def revert
-      if @changed_secrets.empty?
+      if !@changed_secrets || @changed_secrets.empty?
         OpenStax::Aws.logger.info("Secrets did not change during the last update, so there is nothing to revert")
       else
         reverted_secrets = @changed_secrets.map do |changed_secret|
@@ -119,7 +119,7 @@ module OpenStax::Aws
         end
 
         # Keep the old value around in case we need to revert it
-        new_secrets[:old_value] = existing_secret[:value]
+        new_secret[:old_value] = existing_secret ? existing_secret[:value] : nil
 
         array.push(new_secret)
       end
