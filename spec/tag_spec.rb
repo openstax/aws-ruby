@@ -33,7 +33,11 @@ RSpec.describe OpenStax::Aws::Tag do
     expect{described_class.new("foo", "a b")}.not_to raise_error
   end
 
-  it "allows values with commas" do
-    expect{described_class.new("foo", "a,b")}.not_to raise_error
+  it "rejects values with commas" do
+    expect{described_class.new("foo", "a,b")}.to raise_error(/matching/)
+  end
+
+  it "rejects values with semicolons" do
+    expect{described_class.new("foo", "a;b")}.to raise_error(/matching/)
   end
 end
