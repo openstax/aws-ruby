@@ -4,7 +4,7 @@ module OpenStax::Aws
     attr_reader :dry_run
 
     def initialize(dry_run: true)
-      @dry_run = true
+      @dry_run = dry_run
     end
 
     def built_template_filename
@@ -51,8 +51,8 @@ module OpenStax::Aws
       call("sam build -t #{source_template_file} -b #{build_directory}", dry_run: dry_run)
     end
 
-    def package(s3_bucket:)
-      command = "sam package --s3-bucket #{s3_bucket}" \
+    def package(bucket:)
+      command = "sam package --s3-bucket #{bucket}" \
                 " --template-file #{build_directory}/#{built_template_filename}" \
                 " --output-template-file #{build_directory}/#{packaged_template_filename}"
       call(command, dry_run: dry_run)
