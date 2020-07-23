@@ -53,9 +53,17 @@ module OpenStax::Aws
 
     def package(bucket:)
       command = "sam package --s3-bucket #{bucket}" \
-                " --template-file #{build_directory}/#{built_template_filename}" \
-                " --output-template-file #{build_directory}/#{packaged_template_filename}"
+                " --template-file #{built_template_file}" \
+                " --output-template-file #{packaged_template_file}"
       call(command, dry_run: dry_run)
+    end
+
+    def built_template_file
+      "#{build_directory}/#{built_template_filename}"
+    end
+
+    def packaged_template_file
+      "#{build_directory}/#{packaged_template_filename}"
     end
 
     def method_missing(method, *args, &block)

@@ -87,6 +87,11 @@ module OpenStax::Aws
       @uploaded = true
     end
 
+    def serverless_function_bucket
+      # For a serverless template, the s3 bucket is in a CodeUri field.
+      body.match(/CodeUri: s3:\/\/([^\/]+)\//)[1]
+    end
+
   protected
 
     def initialize(absolute_file_path: nil, body: nil)

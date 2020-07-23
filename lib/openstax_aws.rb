@@ -120,6 +120,7 @@ module OpenStax
 end
 
 require "openstax/aws/extensions"
+require "openstax/aws/system"
 require "openstax/aws/tag"
 require "openstax/aws/version"
 require "openstax/aws/s3_text_file"
