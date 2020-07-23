@@ -16,6 +16,10 @@ In this gem, you don't make the AWS API calls directly.  Instead, you make "depl
 sets of "stack" objects.  While not required to benefit from this gem, DSLs, convenience methods, and conventions let you
 adopt a "convention over configuration" approach to dry up your code.
 
+## Requirements
+
+* `git`
+
 ## A Quick Look
 
 Let's assume we have a web API application defined in two CloudFormation templates: `app.yml` for the web server template

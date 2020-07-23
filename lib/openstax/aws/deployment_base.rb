@@ -204,6 +204,10 @@ module OpenStax::Aws
         # that inherit here
         child_class.instance_variable_set("@tags", tags.dup)
       end
+
+      def logger
+        OpenStax::Aws.configuration.logger
+      end
     end
 
     def stacks
