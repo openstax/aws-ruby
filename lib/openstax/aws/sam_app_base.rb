@@ -37,10 +37,6 @@ module OpenStax::Aws
       end
 
       def packaged_template_filename(filename)
-        if method_defined?("packaged_template_filename")
-          raise "Can only set packaged_template_filename once per class definition"
-        end
-
         define_method "packaged_template_filename" do
           filename
         end
@@ -48,14 +44,15 @@ module OpenStax::Aws
     end
 
     def build
-      call("sam build -t #{source_template_file} -b #{build_directory}", dry_run: dry_run)
+      command = "sam build -t #{source_template_file} -b #{build_directory}"
+      System.call(command, logger: logger, dry_run: dry_run)
     end
 
     def package(bucket:)
       command = "sam package --s3-bucket #{bucket}" \
                 " --template-file #{built_template_file}" \
                 " --output-template-file #{packaged_template_file}"
-      call(command, dry_run: dry_run)
+      System.call(command, logger: logger, dry_run: dry_run)
     end
 
     def built_template_file
@@ -67,11 +64,11 @@ module OpenStax::Aws
     end
 
     def method_missing(method, *args, &block)
-      case method
-      when "source_template_file"
+      case method.to_sym
+      when :source_template_file
         raise "You must set the source template file with a call to " \
               "`source_template_file` in #{self.class.name}"
-      when "build_directory"
+      when :build_directory
         raise "You must set the build directory with a call to `build_directory` " \
               "in #{self.class.name}"
       else
@@ -83,21 +80,6 @@ module OpenStax::Aws
 
     def configuration
       OpenStax::Aws.configuration
-    end
-
-    protected
-
-    def call(command, dry_run:)
-      logger.info("**** DRY RUN ****") if @dry_run
-      logger.info("Running: #{command}")
-
-      if !dry_run
-        Open3.popen2e(command) do |stdin, stdout_err, wait_thr|
-          while line=stdout_err.gets do
-            STDERR.puts(line)
-          end
-        end
-      end
     end
 
   end

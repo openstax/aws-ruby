@@ -6,7 +6,7 @@ module OpenStax::Aws
       super(env_name: env_name, region: region, name: name, dry_run: dry_run)
     end
 
-    def deploy(params: {}, wait: true)
+    def deploy(params: {})
       command = "sam deploy" \
                 " --template-file #{app.packaged_template_file}" \
                 " --capabilities CAPABILITY_IAM" \
@@ -18,7 +18,7 @@ module OpenStax::Aws
         command += " --parameter-overrides #{self.class.format_hash_as_cli_stack_parameters(params)}"
       end
 
-      if tags.empty?
+      if tags.any?
         command += " --tags #{self.class.format_hash_as_cli_tags(tags)}"
       end
 
@@ -31,16 +31,24 @@ module OpenStax::Aws
     end
 
     def stack_name
-      [env_name,name].compact.join("-").gsub("_","-"))
+      [env_name,name].compact.join("-").gsub("_","-")
     end
 
     def self.format_hash_as_cli_stack_parameters(params={})
-      params.map{|key, value| "ParameterKey=#{key},ParameterValue=#{value}"}.join(" ")
+      params.map{|key, value| "ParameterKey=#{key},ParameterValue=#{value}"}
+            .map{|item| "'" + item + "'"}
+            .join(" ")
     end
 
     def self.format_hash_as_cli_tags(params={})
-      params.map{|key, value| "Key=#{key},Value=#{value}"}.join(" ")
+      params.map{|key, value| "Key=#{key},Value=#{value}"}
+            .map{|item| "'" + item + "'"}
+            .join(" ")
     end
+
+    protected
+
+    attr_reader :app
 
   end
 end
