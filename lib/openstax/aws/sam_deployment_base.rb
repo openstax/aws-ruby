@@ -12,10 +12,13 @@ module OpenStax::Aws
                 " --capabilities CAPABILITY_IAM" \
                 " --s3-bucket #{bucket}" \
                 " --s3-prefix #{stack_name}" \
-                " --parameter-overrides #{self.class.format_hash_as_cli_stack_parameters(params)}" \
                 " --stack-name #{stack_name}"
 
-      if !tags.empty?
+      if params.any?
+        command += " --parameter-overrides #{self.class.format_hash_as_cli_stack_parameters(params)}"
+      end
+
+      if tags.empty?
         command += " --tags #{self.class.format_hash_as_cli_tags(tags)}"
       end
 
