@@ -27,6 +27,16 @@ module OpenStax::Aws
       System.call(command, logger: logger, dry_run: dry_run)
     end
 
+    def delete
+      # There's only one stack in these deployments, make it on the fly here to
+      # reuse its delete functionality
+      OpenStax::Aws.configuration.without_required_stack_tags do
+        OpenStax::Aws::Stack.new(
+          name: stack_name, region: region, dry_run: dry_run
+        ).delete(wait: true)
+      end
+    end
+
     def bucket
       template.serverless_function_bucket
     end
