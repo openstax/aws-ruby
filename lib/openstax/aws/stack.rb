@@ -223,7 +223,7 @@ module OpenStax::Aws
       change_set
     end
 
-    def delete(wait: false)
+    def delete(retain_resources: [], wait: false)
       logger.info("**** DRY RUN ****") if dry_run
 
       if defines_secrets?
@@ -234,7 +234,7 @@ module OpenStax::Aws
       logger.info("Deleting #{name} stack...")
 
       if exists?
-        client.delete_stack(stack_name: name) if !dry_run
+        client.delete_stack(stack_name: name, retain_resources: retain_resources) if !dry_run
       else
         logger.info("Cannot delete #{name} stack as it does not exist")
       end

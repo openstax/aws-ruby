@@ -27,13 +27,13 @@ module OpenStax::Aws
       System.call(command, logger: logger, dry_run: dry_run)
     end
 
-    def delete
+    def delete(retain_resources: [])
       # There's only one stack in these deployments, make it on the fly here to
       # reuse its delete functionality
       OpenStax::Aws.configuration.without_required_stack_tags do
         OpenStax::Aws::Stack.new(
           name: stack_name, region: region, dry_run: dry_run
-        ).delete(wait: true)
+        ).delete(retain_resources: retain_resources, wait: true)
       end
     end
 
