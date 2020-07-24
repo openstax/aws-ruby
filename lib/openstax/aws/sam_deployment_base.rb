@@ -46,7 +46,7 @@ module OpenStax::Aws
     end
 
     def self.format_hash_as_cli_tags(params={})
-      params.map{|key, value| "Key=#{key},Value=#{value}"}
+      params.map{|key, value| "#{key}=#{value}"}
             .map{|item| "'" + item + "'"}
             .join(" ")
     end

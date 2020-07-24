@@ -21,7 +21,7 @@ RSpec.describe OpenStax::Aws::SamDeploymentBase do
     it "works" do
       expect(
         described_class.format_hash_as_cli_tags({a: "A", b: "B"})
-      ).to eq "'Key=a,Value=A' 'Key=b,Value=B'"
+      ).to eq "'a=A' 'b=B'"
     end
   end
 
@@ -61,7 +61,7 @@ RSpec.describe OpenStax::Aws::SamDeploymentBase do
 
         it "gives a good command" do
           expect(OpenStax::Aws::System).to receive(:call).with(
-            / --tags 'Key=Application,Value=Coolness' 'Key=Project,Value=Oh yeah'/,
+            / --tags 'Application=Coolness' 'Project=Oh yeah'/,
             any_args
           )
 
