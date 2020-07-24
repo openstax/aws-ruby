@@ -12,8 +12,8 @@ RSpec.describe OpenStax::Aws::SamDeploymentBase do
   context "#format_hash_as_cli_stack_parameters" do
     it "works" do
       expect(
-        described_class.format_hash_as_cli_stack_parameters({a: "A", b: "B"})
-      ).to eq "'ParameterKey=a,ParameterValue=A' 'ParameterKey=b,ParameterValue=B'"
+        described_class.format_hash_as_cli_stack_parameters({a: "A", b_b: "B"})
+      ).to eq "'ParameterKey=A,ParameterValue=A' 'ParameterKey=BB,ParameterValue=B'"
     end
   end
 
@@ -36,9 +36,16 @@ RSpec.describe OpenStax::Aws::SamDeploymentBase do
       deployment_class.new(env_name: "env", region: "us-east-1", name: "coolness", app: app)
     end
 
+    let(:template_fragment_parameters) { "Parameters:\n  EnvName:\n" }
+
     before do
-      # fake the template file contents so it can find a bucket name
-      allow(File).to receive(:read) { "\n\n\nCodeUri: s3://some-bucket/blah\n\n"}
+      # fake the template file contents so it can find a bucket name and default env name
+      allow(File).to receive(:read).and_return(<<~YAML
+          #{template_fragment_parameters}
+
+          CodeUri: s3://some-bucket/blah
+        YAML
+      )
     end
 
     context "deployment with tags" do
@@ -49,31 +56,39 @@ RSpec.describe OpenStax::Aws::SamDeploymentBase do
         end
       end
 
-      it "gives a good command" do
-        expect(OpenStax::Aws::System).to receive(:call).with(
-          / --tags 'Key=Application,Value=Coolness' 'Key=Project,Value=Oh yeah'/,
-          any_args
-        )
+      context "no parameters" do
+        let(:template_fragment_parameters) { "" }
 
-        deployment.deploy
+        it "gives a good command" do
+          expect(OpenStax::Aws::System).to receive(:call).with(
+            / --tags 'Key=Application,Value=Coolness' 'Key=Project,Value=Oh yeah'/,
+            any_args
+          )
+
+          deployment.deploy
+        end
       end
 
-      it "gives a good command with params" do
-        expect(OpenStax::Aws::System).to receive(:call).with(
-          / --parameter-overrides 'ParameterKey=Foo,ParameterValue=Bar'/,
-          any_args
-        )
+      context "with parameters" do
+        it "gives a good command with params" do
+          expect(OpenStax::Aws::System).to receive(:call).with(
+            / --parameter-overrides 'ParameterKey=EnvName,ParameterValue=env' 'ParameterKey=Foo,ParameterValue=Bar'/,
+            any_args
+          )
 
-        deployment.deploy(params: {Foo: "Bar"})
+          deployment.deploy(params: {Foo: "Bar"})
+        end
       end
     end
 
-    context "deployment without tags" do
+    context "deployment without tags or params" do
+      let(:template_fragment_parameters) { "" }
+
       let(:deployment_class) do
         Class.new(described_class)
       end
 
-      it "gives a good command without params" do
+      it "gives a good command" do
         expect(OpenStax::Aws::System).to receive(:call).with(
           "sam deploy --template-file /build/app-output-sam.yaml" \
           " --capabilities CAPABILITY_IAM" \

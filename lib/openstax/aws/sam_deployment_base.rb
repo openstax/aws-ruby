@@ -7,6 +7,8 @@ module OpenStax::Aws
     end
 
     def deploy(params: {})
+      params = parameter_defaults_from_template(template).merge(params)
+
       command = "sam deploy" \
                 " --template-file #{app.packaged_template_file}" \
                 " --capabilities CAPABILITY_IAM" \
@@ -26,8 +28,11 @@ module OpenStax::Aws
     end
 
     def bucket
+      template.serverless_function_bucket
+    end
+
+    def template
       Template.from_absolute_file_path(app.packaged_template_file)
-              .serverless_function_bucket
     end
 
     def stack_name
@@ -35,7 +40,7 @@ module OpenStax::Aws
     end
 
     def self.format_hash_as_cli_stack_parameters(params={})
-      params.map{|key, value| "ParameterKey=#{key},ParameterValue=#{value}"}
+      params.map{|key, value| "ParameterKey=#{key.to_s.camelcase},ParameterValue=#{value}"}
             .map{|item| "'" + item + "'"}
             .join(" ")
     end
