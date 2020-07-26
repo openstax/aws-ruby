@@ -28,13 +28,7 @@ module OpenStax::Aws
     end
 
     def delete(retain_resources: [])
-      # There's only one stack in these deployments, make it on the fly here to
-      # reuse its delete functionality
-      OpenStax::Aws.configuration.without_required_stack_tags do
-        OpenStax::Aws::Stack.new(
-          name: stack_name, region: region, dry_run: dry_run
-        ).delete(retain_resources: retain_resources, wait: true)
-      end
+      sam_stack.delete(retain_resources: retain_resources, wait: true)
     end
 
     def bucket
@@ -43,6 +37,21 @@ module OpenStax::Aws
 
     def template
       Template.from_absolute_file_path(app.packaged_template_file)
+    end
+
+    def sam_stack
+      # There's only one stack in these deployments, make it on the fly here
+      OpenStax::Aws::Stack.new(
+        name: stack_name, region: region, dry_run: dry_run, tags: tags
+      )
+    end
+
+    def failed?(reload: false)
+      sam_stack.status(reload: reload).failed?
+    end
+
+    def succeeded?(reload: false)
+      sam_stack.status(reload: reload).succeeded?
     end
 
     def stack_name
