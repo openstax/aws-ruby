@@ -25,6 +25,13 @@ module OpenStax::Aws
       end
 
       System.call(command, logger: logger, dry_run: dry_run)
+
+      if is_production?
+        client.update_termination_protection({
+          enable_termination_protection: true,
+          stack_name: stack_name
+        })
+      end
     end
 
     def delete(retain_resources: [])
