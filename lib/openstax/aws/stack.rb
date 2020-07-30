@@ -292,7 +292,7 @@ module OpenStax::Aws
         name = stack_resource.physical_resource_id
         client = Aws::AutoScaling::Client.new(region: region)
         Aws::AutoScaling::AutoScalingGroup.new(name: name, client: client)
-      when "Aws::RDS::DBInstance"
+      when "AWS::RDS::DBInstance"
         db_instance_identifier = stack_resource.physical_resource_id
         OpenStax::Aws::RdsInstance.new(db_instance_identifier: db_instance_identifier, region: region)
       else
