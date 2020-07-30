@@ -9,6 +9,8 @@ RSpec.describe OpenStax::Aws::StackFactory do
       tags: {}
     )
 
+    allow(File).to receive(:read).with("/tmp/fake") { "" }
+
     stack = described_class.build(id: :bar, deployment: context) do
       name "something"
       capabilities [:iam]

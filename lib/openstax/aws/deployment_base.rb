@@ -80,6 +80,16 @@ module OpenStax::Aws
         end
       end
 
+      def sam_build_directory(*directory_parts)
+        if method_defined?("sam_build_directory")
+          raise "Can only set buisam_build_directoryld_directory once per class definition"
+        end
+
+        define_method "sam_build_directory" do
+          File.expand_path(File.join(*directory_parts))
+        end
+      end
+
       def secrets(id, &block)
         if id.blank?
           raise "The first argument to `secrets` must be a non-blank ID"

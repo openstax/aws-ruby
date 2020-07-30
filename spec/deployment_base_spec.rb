@@ -368,4 +368,14 @@ RSpec.describe OpenStax::Aws::DeploymentBase do
     end
   end
 
+  context "#sam_build_directory" do
+    it "can be set" do
+      deployment_class = Class.new(described_class) do
+        sam_build_directory '/Foo/bar', '../howdy'
+      end
+      instance = deployment_class.new(env_name: "howdy", name: "spec", region: "some-region")
+      expect(instance.sam_build_directory).to eq "/Foo/howdy"
+    end
+  end
+
 end

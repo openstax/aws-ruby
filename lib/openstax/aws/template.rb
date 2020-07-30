@@ -87,11 +87,8 @@ module OpenStax::Aws
       @uploaded = true
     end
 
-    def serverless_function_bucket
-      # For a serverless template, the s3 bucket is in a CodeUri field.
-      matches = body.match(/CodeUri: s3:\/\/([^\/]+)\//)
-      raise "Did not find a serverless function bucket" if matches.nil?
-      matches[1]
+    def is_sam?
+      body.match(/Transform: AWS::Serverless/).present?
     end
 
   protected
