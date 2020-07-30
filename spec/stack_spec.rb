@@ -26,6 +26,16 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     expect{stack.delete(wait: true)}.not_to raise_error
   end
 
+  it 'objects if tags are missing during create' do
+    name = "spec-aws-ruby-stack-create-delete"
+    stack = new_template_one_stack(name: name)
+    require_these_tags(["Foo"])
+    stack.tags.clear
+    expect{
+      stack.create(params: {bucket_name: bucket_name, tag_value: "howdy"}, wait: true)
+    }.to raise_error(/tag is required .* but is blank/)
+  end
+
   it 'creates a stack with provided parameters, then deletes it' do
     name = "spec-aws-ruby-stack-create-delete"
 
@@ -122,11 +132,11 @@ RSpec.describe OpenStax::Aws::Stack, vcr: VCR_OPTS do
     name = "spec-aws-ruby-stack-status-errors-hash"
     stack = new_template_one_stack(name: name)
 
-    begin 
+    begin
       stack.create(params: {bucket_name: bucket_name, tag_value: "howdy$*"}, wait: true)
     rescue
       expect(stack.status.failed_events_since_last_user_event[1].status_reason).to include "The TagValue you have provided is invalid"
-    ensure 
+    ensure
       stack.delete
     end
   end

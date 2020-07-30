@@ -40,6 +40,9 @@ module OpenStax::Aws
 
     def deploy(bucket_name:, params: {})
       # SAM doesn't have an API or SDK - we have to make calls to its CLI
+
+      check_for_required_tags
+
       params = parameter_defaults.merge(params)
 
       command = "sam deploy" \

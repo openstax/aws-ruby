@@ -77,6 +77,13 @@ RSpec.describe OpenStax::Aws::SamStack do
 
         stack.deploy(bucket_name: "some-bucket")
       end
+
+      it "objects if tags are missing" do
+        require_these_tags(%w(Foo))
+        expect{
+          stack.deploy(bucket_name: "some-bucket")
+        }.to raise_error(/tag is required .* but is blank/)
+      end
     end
   end
 

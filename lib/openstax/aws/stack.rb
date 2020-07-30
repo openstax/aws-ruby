@@ -24,12 +24,6 @@ module OpenStax::Aws
 
       raise "`tags` must be a hash" if !tags.is_a?(Hash)
 
-      OpenStax::Aws.configuration.required_stack_tags.each do |required_tag|
-        if tags[required_tag].blank?
-          raise "The '#{required_tag}' tag is required on the '#{name}' stack but is blank or missing"
-        end
-      end
-
       @tags = tags.map{|key, value| OpenStax::Aws::Tag.new(key, value)}
 
       @region = region || raise("region is not set for stack #{name}")
@@ -67,6 +61,8 @@ module OpenStax::Aws
 
     def create(params: {}, wait: false)
       logger.info("**** DRY RUN ****") if dry_run
+
+      check_for_required_tags
 
       params = parameter_defaults.merge(params)
 
@@ -170,6 +166,8 @@ module OpenStax::Aws
 
     def apply_change_set(params: {}, wait: false)
       logger.info("**** DRY RUN ****") if dry_run
+
+      check_for_required_tags
 
       logger.info("Updating #{name} stack...")
 
@@ -436,6 +434,20 @@ module OpenStax::Aws
 
     def client
       @client ||= ::Aws::CloudFormation::Client.new(region: region)
+    end
+
+    def tag(name)
+      tags.select{|tag| tag.key == name}.first
+    end
+
+    def check_for_required_tags
+      OpenStax::Aws.configuration.required_stack_tags.each do |required_tag|
+        tag = tag(required_tag)
+        if tag.nil? || tag.value.blank?
+          raise "The '#{required_tag}' tag is required on the '#{name}' stack but is blank or missing"
+        end
+      end
+
     end
 
   end

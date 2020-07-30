@@ -46,19 +46,6 @@ RSpec.describe OpenStax::Aws::StackFactory do
     })
   end
 
-  it 'errors if required tags are not present' do
-    allow(OpenStax::Aws.configuration).to receive(:required_stack_tags).and_return(%w(Application))
-
-    expect{
-      described_class.build(id: :bar, deployment: mock_deployment) do
-        name "something"
-        template_directory __dir__, "support/templates"
-        relative_template_path "simple.yml"
-        tag :foo, "bar"
-      end
-    }.to raise_error(/tag is required .* but is blank/)
-  end
-
   it 'sets tags' do
     stack = described_class.build(id: :bar, deployment: mock_deployment) do
       name "something"
