@@ -294,8 +294,7 @@ module OpenStax::Aws
         Aws::AutoScaling::AutoScalingGroup.new(name: name, client: client)
       when "Aws::RDS::DBInstance"
         db_instance_identifier = stack_resource.physical_resource_id
-        client = Aws::RDS::Client.new(region: region)
-        Aws::RDS::DBInstance.new(db_instance_identifier: db_instance_identifier, client: client)
+        OpenStax::Aws::RdsInstance.new(db_instance_identifier: db_instance_identifier, region: region)
       else
         raise "'#{stack_resource.resource_type}' is not yet implemented in `Stack#resource`"
       end

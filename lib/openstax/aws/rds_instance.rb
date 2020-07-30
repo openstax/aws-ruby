@@ -12,9 +12,8 @@ module OpenStax::Aws
       )
     end
 
-    def set_rds_master_password( db_instance_identifier: ,password:)
-      raw.modify_rds_instance({
-        db_instance_identifier: db_instance_identifier,
+    def set_master_password(password:)
+      raw.modify({
         apply_immediately: true, 
         master_user_password: password
       })
