@@ -65,7 +65,7 @@ module OpenStax::Aws
       if enable_termination_protection
         client.update_termination_protection({
           enable_termination_protection: true,
-          stack_name: stack_name
+          stack_name: name
         })
       end
     end

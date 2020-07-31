@@ -15,6 +15,10 @@ module OpenStax::Aws
         stack_statuses(reload: reload).values.any?(&:failed?)
       end
 
+      def succeeded?(reload: false)
+        stack_statuses(reload: reload).values.all?(&:succeeded?)
+      end
+
       def to_h
         {
           stacks: stack_statuses.each_with_object({}) do |(stack_name, stack_status), new_hash|
