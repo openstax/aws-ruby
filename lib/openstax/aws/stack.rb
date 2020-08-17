@@ -171,6 +171,8 @@ module OpenStax::Aws
     def apply_change_set(params: {}, wait: false)
       logger.info("**** DRY RUN ****") if dry_run
 
+      @previous_parameters = deployed_parameters
+
       logger.info("Updating #{name} stack...")
 
       params = parameters_for_update(overrides: params)
@@ -221,6 +223,18 @@ module OpenStax::Aws
       end
 
       change_set
+    end
+
+    def revert_to_previous_change_set(wait: false)
+      logger.info("**** DRY RUN ****") if dry_run
+
+      if @previous_parameters
+        logger.info("Reverting to previous change set...")
+        apply_change_set(params: @previous_parameters, wait: wait)
+        @previous_parameters = nil
+      else
+        logger.info("There are no saved previous parameters for #{name} stack.")
+      end
     end
 
     def delete(wait: false)
