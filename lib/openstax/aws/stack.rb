@@ -295,6 +295,9 @@ module OpenStax::Aws
       when "AWS::RDS::DBInstance"
         db_instance_identifier = stack_resource.physical_resource_id
         OpenStax::Aws::RdsInstance.new(db_instance_identifier: db_instance_identifier, region: region)
+      when "AWS::MSK::Cluster"
+        msk_instance_identifier = stack_resource.physical_resource_id
+        OpenStax::Aws::MskCluster.new(msk_instance_identifier: msk_instance_identifier, region: region)
       else
         raise "'#{stack_resource.resource_type}' is not yet implemented in `Stack#resource`"
       end
