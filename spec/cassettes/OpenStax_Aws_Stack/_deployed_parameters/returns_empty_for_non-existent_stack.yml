@@ -16,11 +16,11 @@ http_interactions:
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20191108T214633Z
+      - 20191124T154917Z
       X-Amz-Content-Sha256:
       - 7fbb919a852977e9f662bc85e932e37164683fee231016b783a11bcbe839808c
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20191108/us-east-2/cloudformation/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20191124/us-east-2/cloudformation/aws4_request,
         SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
       Content-Length:
       - '64'
@@ -32,13 +32,13 @@ http_interactions:
       message: Bad Request
     headers:
       X-Amzn-Requestid:
-      - 9c005b83-b7e7-4337-9ae8-464f1115667b
+      - 5798503d-a1b1-409a-b6a2-3490a04b172a
       Content-Type:
       - text/xml
       Content-Length:
       - '299'
       Date:
-      - Fri, 08 Nov 2019 21:46:33 GMT
+      - Sun, 24 Nov 2019 15:49:16 GMT
       Connection:
       - close
     body:
@@ -50,8 +50,8 @@ http_interactions:
             <Code>ValidationError</Code>
             <Message>Stack with id doesnotmatter does not exist</Message>
           </Error>
-          <RequestId>9c005b83-b7e7-4337-9ae8-464f1115667b</RequestId>
+          <RequestId>5798503d-a1b1-409a-b6a2-3490a04b172a</RequestId>
         </ErrorResponse>
     http_version: 
-  recorded_at: Fri, 08 Nov 2019 21:46:34 GMT
+  recorded_at: Sun, 24 Nov 2019 15:49:17 GMT
 recorded_with: VCR 4.0.0

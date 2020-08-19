@@ -65,8 +65,13 @@ module OpenStax::Aws
       end
     end
 
-    def create(params: {}, wait: false)
+    def create(params: {}, wait: false, skip_existing: true)
       logger.info("**** DRY RUN ****") if dry_run
+
+      if skip_existing && exists?
+        logger.info("#{name} stack already exists; skipping create.")
+        return
+      end
 
       params = parameter_defaults.merge(params)
 
