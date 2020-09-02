@@ -1,10 +1,18 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
-RSpec.describe OpenStax::Aws::MskCluster do
-  let(:instance) { described_class.new(msk_instance_identifier: 'foo', region: 'us-east-1') }
+require 'spec_helper'
+require 'vcr_helper'
+
+ACTUAL_MSK_ARN = 'arn:aws:kafka:us-east-2:373045849756:cluster/rjr-test-quasar/430c3363-00b0-4576-ae82-6894eb9ea401-3'
+RSpec.describe OpenStax::Aws::MskCluster, vcr: VCR_OPTS do
+  let(:instance) do
+    described_class.new(
+      cluster_arn: ACTUAL_MSK_ARN, region: 'us-east-2'
+    )
+  end
 
   it 'Retrieves list of bootstrap hosts' do
-      expect(instance.client).to receive(:get_bootstrap_brokers).with(cluster_arn: 'foo')
-    instance.bootstrap_hosts
+    expect(instance.client).to receive(:get_bootstrap_brokers).with(cluster_arn: ACTUAL_MSK_ARN).and_call_original
+    instance.bootstrap_broker_string
   end
 end
