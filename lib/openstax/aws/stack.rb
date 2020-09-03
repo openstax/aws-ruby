@@ -65,8 +65,13 @@ module OpenStax::Aws
       end
     end
 
-    def create(params: {}, wait: false)
+    def create(params: {}, wait: false, skip_if_exists: false)
       logger.info("**** DRY RUN ****") if dry_run
+
+      if skip_if_exists && exists?
+        logger.info("Skipping #{name} stack - exists...")
+        return
+      end
 
       params = parameter_defaults.merge(params)
 
@@ -295,6 +300,9 @@ module OpenStax::Aws
       when "AWS::RDS::DBInstance"
         db_instance_identifier = stack_resource.physical_resource_id
         OpenStax::Aws::RdsInstance.new(db_instance_identifier: db_instance_identifier, region: region)
+      when "AWS::MSK::Cluster"
+        msk_instance_identifier = stack_resource.physical_resource_id
+        OpenStax::Aws::MskCluster.new(msk_instance_identifier: msk_instance_identifier, region: region)
       else
         raise "'#{stack_resource.resource_type}' is not yet implemented in `Stack#resource`"
       end
