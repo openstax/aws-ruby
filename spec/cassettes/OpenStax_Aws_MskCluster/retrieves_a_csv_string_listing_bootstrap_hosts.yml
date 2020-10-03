@@ -1,0 +1,61 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://kafka.us-east-2.amazonaws.com/v1/clusters/arn:aws:kafka:us-east-2:373045849756:cluster%2Frjr-test-quasar%2F430c3363-00b0-4576-ae82-6894eb9ea401-3/bootstrap-brokers
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.104.4 ruby/2.6.3 x86_64-linux aws-sdk-kafka/1.24.0
+      Host:
+      - kafka.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20200902T171354Z
+      X-Amz-Content-Sha256:
+      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20200902/us-east-2/kafka/aws4_request,
+        SignedHeaders=host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      Content-Length:
+      - '0'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '446'
+      Connection:
+      - keep-alive
+      Date:
+      - Wed, 02 Sep 2020 17:13:54 GMT
+      X-Amzn-Requestid:
+      - c688d2b9-3895-4925-8cc5-f7a1d4aca3d9
+      X-Amz-Apigw-Id:
+      - SP3g3E-7CYcF5eg=
+      X-Amzn-Trace-Id:
+      - Root=1-5f4fd2d2-1c63aa3930e13d4e63d9576b;Sampled=0
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 4754087481425702d2274da292bd4ae9.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - DFW50-C1
+      X-Amz-Cf-Id:
+      - M9enNcw07-ChlxBWpZHEswzi9_WpRh5OrkKcCktS1dQ3DoR7o2BC6Q==
+    body:
+      encoding: UTF-8
+      string: '{"bootstrapBrokerString":"b-2.rjr-test-quasar.isl91e.c3.kafka.us-east-2.amazonaws.com:9092,b-3.rjr-test-quasar.isl91e.c3.kafka.us-east-2.amazonaws.com:9092,b-1.rjr-test-quasar.isl91e.c3.kafka.us-east-2.amazonaws.com:9092","bootstrapBrokerStringTls":"b-2.rjr-test-quasar.isl91e.c3.kafka.us-east-2.amazonaws.com:9094,b-3.rjr-test-quasar.isl91e.c3.kafka.us-east-2.amazonaws.com:9094,b-1.rjr-test-quasar.isl91e.c3.kafka.us-east-2.amazonaws.com:9094"}'
+    http_version: null
+  recorded_at: Wed, 02 Sep 2020 17:13:54 GMT
+recorded_with: VCR 5.1.0
