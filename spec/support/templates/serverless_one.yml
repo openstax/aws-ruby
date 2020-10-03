@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Blah
+Parameters:
+  EnvName:
+    Type: String
+    Description: The name of the environment, e.g. 'staging', 'production'
+Resources:
+  LambdaEdgeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://some-bucket/0cf7b90a330b19268ecfa6f73a20ab73
+      Role:
+        Fn::GetAtt:
+        - LambdaEdgeFunctionRole
+        - Arn
+      Runtime: python3.7
+      Handler: lambda_function.lambda_handler
+      Timeout: 5
+      AutoPublishAlias: live
+Outputs:
+  LambdaEdgeFunction:
+    Description: Lambda@Edge handler for content
+    Value:
+      Ref: LambdaEdgeFunction.Version

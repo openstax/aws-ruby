@@ -49,5 +49,9 @@ def new_stack(name:, filename:, region: SPEC_DEFAULT_REGION, overrides: {})
 end
 
 def clear_required_tags!
-  allow(OpenStax::Aws.configuration).to receive(:required_stack_tags).and_return([])
+  require_these_tags([])
+end
+
+def require_these_tags(array)
+  allow(OpenStax::Aws.configuration).to receive(:required_stack_tags).and_return(array)
 end

@@ -22,13 +22,15 @@ module OpenStax::Aws
         self.class.failure_status_texts.include?(status_text)
       end
 
+      def succeeded?
+        self.class.success_status_texts.include?(status_text)
+      end
+
       def updating?
         %w(
           UPDATE_COMPLETE_CLEANUP_IN_PROGRESS
           UPDATE_IN_PROGRESS
-          UPDATE_ROLLBACK_COMPLETE
           UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS
-          UPDATE_ROLLBACK_FAILED
           UPDATE_ROLLBACK_IN_PROGRESS
         ).include?(status_text)
       end
@@ -82,6 +84,7 @@ module OpenStax::Aws
 
       def self.failure_status_texts
         %w(
+          UPDATE_ROLLBACK_COMPLETE
           ROLLBACK_COMPLETE
           ROLLBACK_IN_PROGRESS
           CREATE_FAILED
@@ -89,6 +92,14 @@ module OpenStax::Aws
           DELETE_FAILED
           UPDATE_ROLLBACK_FAILED
           IMPORT_ROLLBACK_FAILED
+        )
+      end
+
+      def self.success_status_texts
+        %w(
+          UPDATE_COMPLETE
+          DELETE_COMPLETE
+          CREATE_COMPLETE
         )
       end
 

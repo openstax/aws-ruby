@@ -88,7 +88,8 @@ module OpenStax::Aws
 
     def build
       autoset_absolute_template_path(nil) if absolute_template_path.blank?
-      Stack.new(
+
+      initializer_args = {
         id: id,
         name: attributes[:name],
         tags: @deployment.tags.merge(attributes[:tags]),
@@ -104,7 +105,19 @@ module OpenStax::Aws
         shared_secrets_substitutions_block: @deployment.shared_secrets_substitutions_block,
         cycle_if_different_parameter: attributes[:cycle_if_different_parameter],
         dry_run: attributes[:dry_run]
-      )
+      }
+
+      template = Template.from_absolute_file_path(absolute_template_path)
+      if template.is_sam?
+        if !@deployment.respond_to?(:sam_build_directory)
+          raise "You must set the SAM build directory with a call to `sam_build_directory`"
+        end
+
+        initializer_args[:build_directory] = @deployment.sam_build_directory
+        SamStack.new(**initializer_args)
+      else
+        Stack.new(**initializer_args)
+      end
     end
 
     class ParameterDefaultsFactory

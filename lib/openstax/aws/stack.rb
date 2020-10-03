@@ -24,12 +24,6 @@ module OpenStax::Aws
 
       raise "`tags` must be a hash" if !tags.is_a?(Hash)
 
-      OpenStax::Aws.configuration.required_stack_tags.each do |required_tag|
-        if tags[required_tag].blank?
-          raise "The '#{required_tag}' tag is required on the '#{name}' stack but is blank or missing"
-        end
-      end
-
       @tags = tags.map{|key, value| OpenStax::Aws::Tag.new(key, value)}
 
       @region = region || raise("region is not set for stack #{name}")
@@ -67,6 +61,8 @@ module OpenStax::Aws
 
     def create(params: {}, wait: false, skip_if_exists: false)
       logger.info("**** DRY RUN ****") if dry_run
+
+      check_for_required_tags
 
       if skip_if_exists && exists?
         logger.info("Skipping #{name} stack - exists...")
@@ -176,6 +172,8 @@ module OpenStax::Aws
     def apply_change_set(params: {}, wait: false)
       logger.info("**** DRY RUN ****") if dry_run
 
+      check_for_required_tags
+
       logger.info("Updating #{name} stack...")
 
       params = parameters_for_update(overrides: params)
@@ -228,7 +226,7 @@ module OpenStax::Aws
       change_set
     end
 
-    def delete(wait: false)
+    def delete(retain_resources: [], wait: false)
       logger.info("**** DRY RUN ****") if dry_run
 
       if defines_secrets?
@@ -239,7 +237,7 @@ module OpenStax::Aws
       logger.info("Deleting #{name} stack...")
 
       if exists?
-        client.delete_stack(stack_name: name) if !dry_run
+        client.delete_stack(stack_name: name, retain_resources: retain_resources) if !dry_run
       else
         logger.info("Cannot delete #{name} stack as it does not exist")
       end
@@ -447,6 +445,20 @@ module OpenStax::Aws
 
     def client
       @client ||= ::Aws::CloudFormation::Client.new(region: region)
+    end
+
+    def tag(name)
+      tags.select{|tag| tag.key == name}.first
+    end
+
+    def check_for_required_tags
+      OpenStax::Aws.configuration.required_stack_tags.each do |required_tag|
+        tag = tag(required_tag)
+        if tag.nil? || tag.value.blank?
+          raise "The '#{required_tag}' tag is required on the '#{name}' stack but is blank or missing"
+        end
+      end
+
     end
 
   end

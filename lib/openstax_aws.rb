@@ -122,6 +122,7 @@ module OpenStax
 end
 
 require "openstax/aws/extensions"
+require "openstax/aws/system"
 require "openstax/aws/tag"
 require "openstax/aws/version"
 require "openstax/aws/s3_text_file"
@@ -136,6 +137,7 @@ require "openstax/aws/secrets_specification"
 require "openstax/aws/secrets"
 require "openstax/aws/secrets_factory"
 require "openstax/aws/stack"
+require "openstax/aws/sam_stack"
 require "openstax/aws/stack_event"
 require "openstax/aws/stack_status"
 require "openstax/aws/stack_factory"

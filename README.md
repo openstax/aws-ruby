@@ -16,6 +16,10 @@ In this gem, you don't make the AWS API calls directly.  Instead, you make "depl
 sets of "stack" objects.  While not required to benefit from this gem, DSLs, convenience methods, and conventions let you
 adopt a "convention over configuration" approach to dry up your code.
 
+## Requirements
+
+* `git`
+
 ## A Quick Look
 
 Let's assume we have a web API application defined in two CloudFormation templates: `app.yml` for the web server template
@@ -875,9 +879,28 @@ You can also set the content type and cache control headers, e.g.:
 s3_text_file.write(string_contents: "...", content_type: "application/json", cache_control: "max-age=0")
 ```
 
-### Other deployment methods and utilities
+### SAM
 
-[ Work on this section ]
+You can include [AWS SAM](https://aws.amazon.com/serverless/sam/) (Serverless Application Model) stacks in your deployments, just like you would any other stack:
+
+```ruby
+stack :sam   # use whatever name you want
+```
+
+SAM stacks will be automatically detected by finding the "Transform: AWS::Serverless" text in its template.
+
+When you have a SAM stack, you need to declare a build directory in your deployment, e.g.:
+
+```ruby
+class Deployment < OpenStax::Aws::DeploymentBase
+  sam_build_directory __dir__, '../.aws-sam'
+```
+
+You should `gitignore` this directory.  Because there isn't an API or SDK for AWS SAM, you'll need the SAM cli installed where this code is run.
+
+Within the deployment class, the stack variable provided for you, `sam_stack` in the example above, will be of type `OpenStax::Aws::SamStack` instead of the normal `OpenStax::Aws::Stack`.  `SamStack` inherits from `Stack` and adds two methods: `build` and `deploy`, which make the SAM CLI calls to build and deploy the stack.  `deploy` is a method that creates the stack if it doesn't exist or updates it if it does.
+
+Where it is common practice for us to have `create`, `update`, and `delete` scripts that call these methods on our deployments, with a SAM stack in the mix, you'll probably also want a `build` script to call a `build` method on your deployment class which turns around and calls `build` on your SAM stack.  Then you can choose to have `create` and `update` or a `deploy` method on your deployment class, which calls `deploy` on your SAM stack and normal `create` and `update` methods on your non-SAM stacks.
 
 ## AWS Development Environment
 

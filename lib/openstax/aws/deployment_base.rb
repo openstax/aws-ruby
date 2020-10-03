@@ -15,6 +15,10 @@ module OpenStax::Aws
         stack_statuses(reload: reload).values.any?(&:failed?)
       end
 
+      def succeeded?(reload: false)
+        stack_statuses(reload: reload).values.all?(&:succeeded?)
+      end
+
       def to_h
         {
           stacks: stack_statuses.each_with_object({}) do |(stack_name, stack_status), new_hash|
@@ -77,6 +81,16 @@ module OpenStax::Aws
 
         define_method "template_directory" do
           File.join(*directory_parts)
+        end
+      end
+
+      def sam_build_directory(*directory_parts)
+        if method_defined?("sam_build_directory")
+          raise "Can only set buisam_build_directoryld_directory once per class definition"
+        end
+
+        define_method "sam_build_directory" do
+          File.expand_path(File.join(*directory_parts))
         end
       end
 
@@ -164,15 +178,8 @@ module OpenStax::Aws
             # Populate parameter defaults that match convention names
 
             if OpenStax::Aws.configuration.infer_parameter_defaults
-              template = OpenStax::Aws::Template.from_absolute_file_path(stack_factory.absolute_template_path)
-              template.parameter_names.each do |parameter_name|
-                value = parameter_default(parameter_name) ||
-                        built_in_parameter_default(parameter_name)
-
-                if !value.nil?
-                  stack_factory.parameter_defaults[parameter_name.underscore.to_sym] ||= value
-                end
-              end
+              defaults = parameter_defaults_from_template(stack_factory.absolute_template_path)
+              defaults.each{|key,value| stack_factory.parameter_defaults[key] ||= value}
             end
 
             stack_factory.build.tap do |stack|
@@ -203,6 +210,25 @@ module OpenStax::Aws
         # while not using class variables that are shared across all classes in the
         # that inherit here
         child_class.instance_variable_set("@tags", tags.dup)
+      end
+
+      def logger
+        OpenStax::Aws.configuration.logger
+      end
+    end
+
+    def parameter_defaults_from_template(template_or_absolute_template_path)
+      template = template_or_absolute_template_path.is_a?(String) ?
+                   Template.from_absolute_file_path(template_or_absolute_template_path) :
+                   template_or_absolute_template_path
+
+      template.parameter_names.each_with_object({}) do |parameter_name, defaults|
+        value = parameter_default(parameter_name) ||
+                built_in_parameter_default(parameter_name)
+
+        if !value.nil?
+          defaults[parameter_name.underscore.to_sym] = value
+        end
       end
     end
 

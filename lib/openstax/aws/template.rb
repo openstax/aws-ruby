@@ -87,6 +87,10 @@ module OpenStax::Aws
       @uploaded = true
     end
 
+    def is_sam?
+      body.match(/Transform: AWS::Serverless/).present?
+    end
+
   protected
 
     def initialize(absolute_file_path: nil, body: nil)
