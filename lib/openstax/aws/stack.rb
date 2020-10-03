@@ -59,10 +59,15 @@ module OpenStax::Aws
       end
     end
 
-    def create(params: {}, wait: false)
+    def create(params: {}, wait: false, skip_if_exists: false)
       logger.info("**** DRY RUN ****") if dry_run
 
       check_for_required_tags
+
+      if skip_if_exists && exists?
+        logger.info("Skipping #{name} stack - exists...")
+        return
+      end
 
       params = parameter_defaults.merge(params)
 
@@ -290,6 +295,12 @@ module OpenStax::Aws
         name = stack_resource.physical_resource_id
         client = Aws::AutoScaling::Client.new(region: region)
         Aws::AutoScaling::AutoScalingGroup.new(name: name, client: client)
+      when "AWS::RDS::DBInstance"
+        db_instance_identifier = stack_resource.physical_resource_id
+        OpenStax::Aws::RdsInstance.new(db_instance_identifier: db_instance_identifier, region: region)
+      when "AWS::MSK::Cluster"
+        msk_cluster_arn = stack_resource.physical_resource_id
+        OpenStax::Aws::MskCluster.new(cluster_arn: msk_cluster_arn, region: region)
       else
         raise "'#{stack_resource.resource_type}' is not yet implemented in `Stack#resource`"
       end
