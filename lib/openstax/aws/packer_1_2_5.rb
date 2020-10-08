@@ -52,8 +52,10 @@ module OpenStax::Aws
         @logger.info("Printing stderr for desired verbosity")
 
         Open3.popen2e(command) do |stdin, stdout_err, wait_thr|
-          while line=stdout_err.gets do
-            puts(line)
+          stdout_err.sync = true
+
+          while char = stdout_err.getc do
+            print char
           end
         end
       end
