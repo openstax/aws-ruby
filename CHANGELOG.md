@@ -6,9 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Fix Packer debug mode by reading and printing each character from Packer instead of each line.
+## [1.1.0] - 2020-10-20
 
-Restrict AMI search to images owned by the same account to prevent a potential security flaw.
+Fixed Packer debug mode by reading and printing each character from Packer instead of each line.
+
+Restricted AMI search to images owned by the same account to prevent a potential security flaw.
 
 ## [1.0.0] - 2020-10-03
 
