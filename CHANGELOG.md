@@ -12,6 +12,10 @@ Fixed Packer debug mode by reading and printing each character from Packer inste
 
 Restricted AMI search to images owned by the same account to prevent a potential security flaw.
 
+Gitignored Gemfile.lock.
+
+Removed development dependency on bundler 1.
+
 ## [1.0.0] - 2020-10-03
 
 First official version.
