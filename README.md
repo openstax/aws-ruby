@@ -922,6 +922,21 @@ your changes.
 
 Don't forget to delete your stack (from the console) when you are finished!
 
+## Gem Release Process
+
+When making a PR with a new feature or bug fix, add a changelog describing the change in
+CHANGELOG.md, under the Unreleased section.
+
+When releasing a new version, update lib/openstax/aws/version.rb, following semantic versioning.
+Then rename the Unreleased section on the changelog to the same version,
+adding the current date next to it.
+Finally, create a new Unreleased section at the top of the changelog.
+These steps can either be performed in a separate PR or in the same PR,
+if a new version is due for immediate release.
+
+After the PR is merged, pull the master branch, run tests to confirm that everything looks OK,
+then run `rake release` to push aws-ruby to rubygems.
+
 ## README Todos
 
 1. Discuss use of multiple secrets objects

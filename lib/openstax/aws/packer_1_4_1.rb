@@ -53,10 +53,20 @@ module OpenStax::Aws
         ami = ""
 
         Open3.popen2e(command) do |stdin, stdout_err, wait_thr|
-          while line=stdout_err.gets do
-            STDERR.puts(line)
+          stdout_err.sync = true
+
+          line = ''
+
+          while char = stdout_err.getc do
+            line << char
+            print char
+
+            next unless char == "\n"
+
             matchami = line.match(/AMI: (ami-[0-9\-a-z]*)/i)
             ami = matchami.captures[0] if matchami
+
+            line = ''
           end
         end
 
