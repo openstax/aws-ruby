@@ -53,24 +53,43 @@ module OpenStax::Aws
         ami = ""
 
         Open3.popen2e(command) do |stdin, stdout_err, wait_thr|
-          stdout_err.sync = true
+          begin
+            previous_interrupt_handler = Signal.trap 'INT' do
+              # Interrupt Packer
+              Process.kill 'INT', wait_thr.pid
 
-          line = ''
+              # Restore previous interrupt handler so we don't interrupt Packer again
+              Signal.trap 'INT', previous_interrupt_handler
 
-          while char = stdout_err.getc do
-            line << char
-            print char
+              # Disable other code that restores previous interrupt
+              previous_interrupt_handler = nil
+            end
 
-            next unless char == "\n"
-
-            matchami = line.match(/AMI: (ami-[0-9\-a-z]*)/i)
-            ami = matchami.captures[0] if matchami
+            stdout_err.sync = true
 
             line = ''
-          end
-        end
 
-        puts ami
+            while char = stdout_err.getc do
+              line << char
+              print char
+
+              next unless char == "\n"
+
+              matchami = line.match(/AMI: (ami-[0-9\-a-z]*)/i)
+              ami = matchami.captures[0] if matchami
+
+              line = ''
+            end
+          ensure
+            # Restore previous interrupt unless we did so already
+            Signal.trap 'INT', previous_interrupt_handler unless previous_interrupt_handler.nil?
+          end
+
+          puts ami
+
+          # Return Packer's exit status wrapped in a Process::Status object
+          wait_thr.value
+        end
       end
     end
 
