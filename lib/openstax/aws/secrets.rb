@@ -146,7 +146,7 @@ module OpenStax::Aws
 
     def process_individual_spec_value(spec_value, substitutions)
       generated = false
-      type = "String"
+      type = "SecureString"
 
       value = case spec_value
       when /^random\(hex,(\d+)\)$/
@@ -158,7 +158,6 @@ module OpenStax::Aws
         num_characters = $1.to_i
         SecureRandom.urlsafe_base64(num_characters)[0..num_characters-1]
       when /^rsa\((\d+)\)$/
-        type = "SecureString"
         generated = true
         key_length = $1.to_i
         OpenSSL::PKey::RSA.new(key_length).to_s
