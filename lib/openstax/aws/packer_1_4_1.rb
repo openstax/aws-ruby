@@ -71,7 +71,7 @@ module OpenStax::Aws
 
             while char = stdout_err.getc do
               line << char
-              print char
+              STDERR.print char
 
               next unless char == "\n"
 
