@@ -26,8 +26,20 @@ module OpenStax::Aws
       File.basename(absolute_file_path)
     end
 
+    def extname
+      File.extname(absolute_file_path)
+    end
+
+    def erb?
+      extname == '.erb'
+    end
+
     def body
-      @body ||= File.read(absolute_file_path)
+      return @body unless @body.nil?
+
+      @body = File.read(absolute_file_path)
+      @body = ERB.new(@body).tap { |erb| erb.filename = absolute_file_path }.result if erb?
+      @body
     end
 
     def hash

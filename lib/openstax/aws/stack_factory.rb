@@ -52,9 +52,13 @@ module OpenStax::Aws
         path = File.join(base_directory, "#{@id}.yml")
 
         if !File.file?(path)
-          path = File.join(base_directory, "#{@id}.json")
+          path = File.join(base_directory, "#{@id}.yml.erb")
+
           if !File.file?(path)
-            raise "Couldn't infer an existing template file for stack #{@id}"
+            path = File.join(base_directory, "#{@id}.json")
+            if !File.file?(path)
+              raise "Couldn't infer an existing template file for stack #{@id}"
+            end
           end
         end
       end
