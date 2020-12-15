@@ -1,6 +1,6 @@
 # aws-ruby
 
-[![Build Status](https://travis-ci.org/openstax/aws-ruby.svg?branch=master)](https://travis-ci.org/openstax/aws-ruby)
+[![Tests](https://github.com/openstax/aws-ruby/workflows/Tests/badge.svg)](https://github.com/openstax/aws-ruby/actions?query=workflow:Tests)
 
 The `openstax_aws` gem helps you deploy your applications to AWS using CloudFormation.  It provides a layer on top of
 the AWS SDKs to help coordinate common deployment steps and configurations.
