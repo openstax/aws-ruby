@@ -55,7 +55,7 @@ module OpenStax::Aws
           stdout_err.sync = true
 
           while char = stdout_err.getc do
-            print char
+            STDERR.print char
           end
         end
       end
