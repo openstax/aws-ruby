@@ -15,7 +15,7 @@ module OpenStax::Aws
     end
 
     def sorted_bootstrap_broker_string
-      self.bootstrap_broker_string.split(',').sort.join(',')
+      bootstrap_broker_string.split(',').sort.join(',')
     end
 
   end
