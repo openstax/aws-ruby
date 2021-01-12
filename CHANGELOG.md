@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Added additional method to msk stack, to return sorted list of bootstrap brokers
 
+Replaced Travis with GH Actions
+
+All secret types now default to SecureString, not just the RSA keys
+
+Added CloudFormation ERB templates (cfn files that end in .yml.erb)
+
+Gracefully handle interrupts while running Packer and return Packer's exit status from the call
+
 ## [1.1.0] - 2020-10-20
 
 Fixed Packer debug mode by reading and printing each character from Packer instead of each line.
