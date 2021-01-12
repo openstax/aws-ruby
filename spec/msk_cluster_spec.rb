@@ -15,4 +15,9 @@ RSpec.describe OpenStax::Aws::MskCluster, vcr: VCR_OPTS do
     expect(instance.client).to receive(:get_bootstrap_brokers).with(cluster_arn: ACTUAL_MSK_ARN).and_call_original
     instance.bootstrap_broker_string
   end
+
+  it 'retrieves a sorted csv string listing bootstrap hosts' do
+    expect(instance.client).to receive(:get_bootstrap_brokers).with(cluster_arn: ACTUAL_MSK_ARN).and_call_original
+    instance.sorted_bootstrap_broker_string
+  end
 end
