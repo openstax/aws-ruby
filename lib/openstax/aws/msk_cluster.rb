@@ -14,6 +14,10 @@ module OpenStax::Aws
       client.get_bootstrap_brokers(cluster_arn: cluster_arn).bootstrap_broker_string
     end
 
+    def sorted_bootstrap_broker_string
+      bootstrap_broker_string.split(',').sort.join(',')
+    end
+
   end
 end
 
