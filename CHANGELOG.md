@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Added additional method to msk stack, to return sorted list of bootstrap brokers
+
 ## [1.1.0] - 2020-10-20
 
 Fixed Packer debug mode by reading and printing each character from Packer instead of each line.
