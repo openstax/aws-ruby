@@ -8,8 +8,11 @@ module OpenStax::Aws
       ::Git.ls_remote("https://github.com/#{org_slash_repo}")["branches"][branch][:sha]
     end
 
-    def self.file_content_at_sha(org_slash_repo:, sha:, path:)
-      location = "https://raw.githubusercontent.com/#{org_slash_repo}/#{sha}/#{path}"
+    def self.file_content_at_sha(org_slash_repo:, sha:, path:, github_token:)
+      if github_token.blank?
+        location = "https://raw.githubusercontent.com/#{org_slash_repo}/#{sha}/#{path}"
+      else
+        location = "https://raw.githubusercontent.com/#{org_slash_repo}/#{sha}/#{path}?token=#{github_token}"
       file = open(location)
       file.read
     end

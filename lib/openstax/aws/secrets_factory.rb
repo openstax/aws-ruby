@@ -39,6 +39,7 @@ module OpenStax::Aws
             org_slash_repo: attributes[:org_slash_repo],
             sha: attributes[:sha],
             path: attributes[:path],
+            github_token: attributes[:github_token],
             format: attributes[:format].to_sym,
             top_key: attributes[:top_key].to_sym,
             preparser: attributes[:preparser]

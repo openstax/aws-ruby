@@ -13,11 +13,12 @@ module OpenStax::Aws
       new(content: content, format: format, top_key: top_key, preparser: preparser)
     end
 
-    def self.from_git(org_slash_repo:, sha:, path:, format:, top_key: nil, preparser: nil)
+    def self.from_git(org_slash_repo:, sha:, path:, github_token:, format:, top_key: nil, preparser: nil)
       content = OpenStax::Aws::GitHelper.file_content_at_sha(
                   org_slash_repo: org_slash_repo,
                   sha: sha,
                   path: path
+                  github_token: github_token
                 )
       new(content: content, format: format, top_key: top_key, preparser: preparser)
     end
