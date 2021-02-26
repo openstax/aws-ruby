@@ -13,17 +13,16 @@ module OpenStax::Aws
       byebug
       if github_token.blank?
         location = "https://raw.githubusercontent.com/#{org_slash_repo}/#{sha}/#{path}"
+        file = open(location)
+        file.read
       else
         Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |http|
           request = Net::HTTP::Get.new uri.request_uri
            request.basic_auth 'token', github_token
            response = http.request request
-           location = response.body
+           response.body
         end
       end
-      file = open(location)
-      file.read
     end
-
   end
 end
