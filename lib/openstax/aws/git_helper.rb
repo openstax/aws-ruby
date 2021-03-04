@@ -1,6 +1,5 @@
 require 'git'
 require 'open-uri'
-require 'byebug'
 
 module OpenStax::Aws
   module GitHelper
@@ -10,7 +9,6 @@ module OpenStax::Aws
     end
 
     def self.file_content_at_sha(org_slash_repo:, sha:, path:, github_token: nil )
-      byebug
       if github_token.blank?
         location = "https://raw.githubusercontent.com/#{org_slash_repo}/#{sha}/#{path}"
         file = open(location)
