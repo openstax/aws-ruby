@@ -16,6 +16,7 @@ module OpenStax::Aws
         file = open(location)
         file.read
       else
+        uri = URI("https://raw.githubusercontent.com/#{org_slash_repo}/#{sha}/#{path}")
         Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |http|
           request = Net::HTTP::Get.new uri.request_uri
            request.basic_auth 'token', github_token
