@@ -34,7 +34,8 @@ module OpenStax::Aws
       begin
         Aws::CloudFront::Waiters::InvalidationCompleted.new(
           client: client,
-          before_attempt: ->(*) { wait_message.say_it }
+          before_attempt: ->(*) { wait_message.say_it },
+          max_attempts: 60
         ).wait(
           distribution_id: id,
           id: invalidation_id
