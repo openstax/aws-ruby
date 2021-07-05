@@ -100,7 +100,7 @@ module OpenStax::Aws
     end
 
     def is_sam?
-      body.match(/Transform: AWS::Serverless/).present?
+      body.match(/Transform: .?AWS::Serverless/).present?
     end
 
   protected
