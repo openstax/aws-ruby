@@ -32,9 +32,12 @@ module OpenStax::Aws
             dry_run: dry_run)
     end
 
-    def build
+    def build(debug: false, env_vars: {})
       # SAM doesn't have an API or SDK - we have to make calls to its CLI
+      env_vars_prefix = env_vars.map { |variable, value| "#{variable}=#{value}" }.join(' ')
       command = "sam build -t #{absolute_template_path} -b #{build_directory}"
+      command += ' --debug' if debug
+      command = "#{env_vars_prefix} #{command}" if env_vars_prefix.present?
       System.call(command, logger: logger, dry_run: dry_run)
     end
 
