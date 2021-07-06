@@ -28,6 +28,22 @@ RSpec.describe OpenStax::Aws::SamStack do
 
       stack.build
     end
+
+    it "can set the --debug flag" do
+      expect(OpenStax::Aws::System).to receive(:call).with(
+        "sam build -t #{stack.absolute_template_path} -b /tmp --debug", any_args
+      )
+
+      stack.build(debug: true)
+    end
+
+    it "can set environment variables" do
+      expect(OpenStax::Aws::System).to receive(:call).with(
+        "FOO=bar sam build -t #{stack.absolute_template_path} -b /tmp", any_args
+      )
+
+      stack.build(env_vars: { FOO: 'bar' })
+    end
   end
 
   context "#deploy" do
