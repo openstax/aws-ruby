@@ -71,7 +71,8 @@ RSpec.describe OpenStax::Aws::SamStack do
           " --capabilities CAPABILITY_IAM" \
           " --s3-bucket some-bucket" \
           " --s3-prefix stackname" \
-          " --stack-name stackname",
+          " --stack-name stackname" \
+          " --region #{SPEC_DEFAULT_REGION}",
           any_args
         )
 

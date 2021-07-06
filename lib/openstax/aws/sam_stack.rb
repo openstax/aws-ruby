@@ -50,7 +50,8 @@ module OpenStax::Aws
                 " --capabilities CAPABILITY_IAM" \
                 " --s3-bucket #{bucket_name}" \
                 " --s3-prefix #{name}" \
-                " --stack-name #{name}"
+                " --stack-name #{name}" \
+                " --region #{region}"
 
       if params.any?
         command += " --parameter-overrides #{self.class.format_hash_as_cli_stack_parameters(params)}"
