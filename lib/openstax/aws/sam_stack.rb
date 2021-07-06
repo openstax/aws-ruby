@@ -32,9 +32,10 @@ module OpenStax::Aws
             dry_run: dry_run)
     end
 
-    def build
+    def build(debug: false)
       # SAM doesn't have an API or SDK - we have to make calls to its CLI
       command = "sam build -t #{absolute_template_path} -b #{build_directory}"
+      command += ' --debug' if debug
       System.call(command, logger: logger, dry_run: dry_run)
     end
 
