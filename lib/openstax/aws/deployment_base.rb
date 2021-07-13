@@ -368,5 +368,44 @@ module OpenStax::Aws
             "prefixed by the environment name and suffixed with the secret name."
     end
 
+    def failed_statuses_table
+      rows = []
+
+      stacks.each do |stack|
+        stack.status(reload: false).failed_events_since_last_user_event.each do |event|
+          rows.push([stack.name, event.status_text, event.status_reason])
+        end if stack.status.failed?
+      end
+
+      column_widths = [
+        2 + rows.reduce(0) { |result, rowdata| [result, rowdata[0].length].max },
+        2 + rows.reduce(0) { |result, rowdata| [result, rowdata[1].length].max },
+        0
+      ]
+
+      output = []
+
+      output.push(["Stack", "Status", "Reason"].each_with_index.map { |header, index| header.ljust(column_widths[index]) }.join(''))
+
+      rows.each { |rowdata|
+        output.push(rowdata.each_with_index.map { |value, index| value.ljust(column_widths[index]) }.join(''))
+      }
+
+      output.join("\r")
+    end
+
+    def log_and_exit_if_failed_status
+      begin
+        yield
+      rescue
+        if status.failed?
+          logger.fatal("The following errors have occurred: \n#{failed_statuses_table}")
+          exit(1)
+        else
+          raise
+        end
+      end
+    end
+
   end
 end
