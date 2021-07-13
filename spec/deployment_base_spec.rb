@@ -378,4 +378,51 @@ RSpec.describe OpenStax::Aws::DeploymentBase do
     end
   end
 
+  context "#failed_statuses_table" do
+    it "includes a header row" do
+      allow_any_instance_of(OpenStax::Aws::Stack).to receive(:status) {
+        OpenStruct.new(failed_events_since_last_user_event: [
+                         OpenStruct.new(status_text: 'status', status_reason: 'reason')
+                        ],
+                       :failed? => true)
+      }
+
+      deployment_class = Class.new(described_class) do
+        template_directory __dir__, 'support/templates'
+        stack :simple
+      end
+
+      instance = deployment_class.new(env_name: "howdy", name: "spec", region: "some-region")
+      table = instance.failed_statuses_table
+      expect(table).to match /Stack\s+Status\s+Reason\nhowdy-spec-simple\s+status\s+reason/
+    end
+  end
+
+  context "#log_and_exit_if_failed_status" do
+    it "prints the whole error table" do
+      deployment_class = Class.new(described_class) do
+        template_directory __dir__, 'support/templates'
+        stack :simple
+
+        def something
+          log_and_exit_if_failed_status do
+            raise
+          end
+        end
+      end
+
+      instance = deployment_class.new(env_name: "howdy", name: "spec", region: "some-region")
+
+      allow(instance.simple_stack).to receive(:status) {
+        OpenStruct.new(failed_events_since_last_user_event: [
+                         OpenStruct.new(status_text: 'status', status_reason: 'reason')
+                        ],
+                       :failed? => true)
+      }
+      allow(instance).to receive(:status) { OpenStruct.new(:failed? => true) }
+      expect(instance.logger).to receive(:fatal).with(/The following.*\nStack\s+Status\s+Reason\nhowdy-spec-simple\s+status\s+reason/)
+      instance.something
+    end
+  end
+
 end
