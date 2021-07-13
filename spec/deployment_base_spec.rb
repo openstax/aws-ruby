@@ -421,7 +421,7 @@ RSpec.describe OpenStax::Aws::DeploymentBase do
       }
       allow(instance).to receive(:status) { OpenStruct.new(:failed? => true) }
       expect(instance.logger).to receive(:fatal).with(/The following.*\nStack\s+Status\s+Reason\nhowdy-spec-simple\s+status\s+reason/)
-      instance.something
+      expect{instance.something}.to raise_error SystemExit
     end
   end
 
