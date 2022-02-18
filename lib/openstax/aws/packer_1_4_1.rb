@@ -41,54 +41,80 @@ module OpenStax::Aws
       cmd = "PACKER_LOG=1 #{cmd}" if @verbose
       cmd = "#{cmd} --debug" if @debug
 
-      cmd = "#{cmd} #{@absolute_file_path}"
+      cmd
     end
 
     def run
       @logger.info("**** DRY RUN ****") if @dry_run
-      @logger.info("Running: #{command}")
+      @logger.info("Running: #{command} #{@absolute_file_path}")
 
       if !@dry_run
         @logger.info("Printing stderr for desired verbosity")
-        ami = ""
 
-        Open3.popen2e(command) do |stdin, stdout_err, wait_thr|
-          begin
-            previous_interrupt_handler = Signal.trap 'INT' do
-              # Interrupt Packer
-              Process.kill 'INT', wait_thr.pid
+        tmpdir = nil
 
-              # Restore previous interrupt handler so we don't interrupt Packer again
-              Signal.trap 'INT', previous_interrupt_handler
+        begin
+          config_path = @absolute_file_path
 
-              # Disable other code that restores previous interrupt
-              previous_interrupt_handler = nil
+          # Can't handle modifying HCL2 templates yet
+          if config_path.ends_with?('.json')
+            config = JSON.parse(File.read(config_path))
+            config['post-processors'] ||= []
+            manifest_config = (config['post-processors']).find do |processor|
+              processor['type'] == 'manifest'
             end
 
-            stdout_err.sync = true
+            # Configure a manifest post-processor if not already configured
+            if manifest_config.nil?
+              tmpdir = Dir.mktmpdir
 
-            line = ''
+              manifest_config = { 'type' => 'manifest', 'output' => "#{tmpdir}/manifest.json" }
 
-            while char = stdout_err.getc do
-              line << char
-              STDERR.print char
+              config['post-processors'] << manifest_config
 
-              next unless char == "\n"
+              config_path = "#{tmpdir}/packer.json"
 
-              matchami = line.match(/AMI: (ami-[0-9\-a-z]*)/i)
-              ami = matchami.captures[0] if matchami
-
-              line = ''
+              File.write(config_path, JSON.dump(config))
             end
-          ensure
-            # Restore previous interrupt unless we did so already
-            Signal.trap 'INT', previous_interrupt_handler unless previous_interrupt_handler.nil?
           end
 
-          puts ami
+          Open3.popen2e("#{command} #{config_path}") do |stdin, stdout_err, wait_thr|
+            begin
+              previous_interrupt_handler = Signal.trap 'INT' do
+                # Interrupt Packer
+                Process.kill 'INT', wait_thr.pid
 
-          # Return Packer's exit status wrapped in a Process::Status object
-          wait_thr.value
+                # Restore previous interrupt handler so we don't interrupt Packer again
+                Signal.trap 'INT', previous_interrupt_handler
+
+                # Disable other code that restores previous interrupt
+                previous_interrupt_handler = nil
+              end
+
+              stdout_err.sync = true
+
+              # Send all packer output to STDERR
+              while char = stdout_err.getc do
+                STDERR.print char
+              end
+            ensure
+              # Restore previous interrupt unless we did so already
+              Signal.trap 'INT', previous_interrupt_handler unless previous_interrupt_handler.nil?
+            end
+
+            # Read the AMI ID from the manifest file and output it to STDOUT
+            unless manifest_config.nil?
+              manifest = File.read(manifest_config['output']) rescue nil
+
+              puts JSON.parse(manifest)['builds'].last['artifact_id'].split(':', 2).last \
+                unless manifest.nil?
+            end
+
+            # Return Packer's exit status wrapped in a Process::Status object
+            wait_thr.value
+          end
+        ensure
+          FileUtils.remove_entry(tmpdir) unless tmpdir.nil?
         end
       end
     end
