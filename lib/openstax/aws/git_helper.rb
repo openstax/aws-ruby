@@ -11,7 +11,7 @@ module OpenStax::Aws
     def self.file_content_at_sha(org_slash_repo:, sha:, path:, github_token: nil )
       if github_token.blank?
         location = "https://raw.githubusercontent.com/#{org_slash_repo}/#{sha}/#{path}"
-        file = open(location)
+        file = URI.open(location)
         file.read
       else
         uri = URI("https://raw.githubusercontent.com/#{org_slash_repo}/#{sha}/#{path}")
