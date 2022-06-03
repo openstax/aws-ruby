@@ -32,6 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "aws-sdk-autoscaling", "~> 1"
   spec.add_dependency "aws-sdk-cloudformation", "~> 1"
   spec.add_dependency "aws-sdk-cloudfront", "~> 1"
+  spec.add_dependency "aws-sdk-cloudwatch", "~> 1"
   spec.add_dependency "aws-sdk-ec2", "~> 1"
   spec.add_dependency "aws-sdk-kafka", "~> 1"
   spec.add_dependency "aws-sdk-rds", "~> 1"

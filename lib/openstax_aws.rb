@@ -1,6 +1,7 @@
 require "aws-sdk-autoscaling"
 require "aws-sdk-cloudformation"
 require "aws-sdk-cloudfront"
+require "aws-sdk-cloudwatch"
 require "aws-sdk-ec2"
 require "aws-sdk-kafka"
 require "aws-sdk-rds"
