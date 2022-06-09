@@ -66,6 +66,7 @@ module OpenStax::Aws
 
       if skip_if_exists && exists?
         logger.info("Skipping #{name} stack - exists...")
+        tag_alarms_and_rules
         return
       end
 
@@ -86,9 +87,12 @@ module OpenStax::Aws
       }
 
       logger.info("Creating #{name} stack...")
-      client.create_stack(options) if !dry_run
 
-      wait_for_creation if wait
+      if !dry_run
+        client.create_stack(options)
+        wait_for_creation
+        tag_alarms_and_rules
+      end
     end
 
     def parameters_for_update(overrides: {})
@@ -218,26 +222,48 @@ module OpenStax::Aws
           logger.info("Executing change set")
           change_set.execute
           reset_cached_remote_state
-        end
 
-        wait_for_update if wait
+          if wait
+            wait_for_update
+            tag_alarms_and_rules
+          end
+        end
+      else
+        tag_alarms_and_rules
       end
 
       change_set
     end
 
-    def tag_alarms
+    def cloudwatch_client
+      @cloudwatch_client ||= Aws::CloudWatch::Client.new region: region
+    end
+
+    def eventbridge_client
+      @eventbridge_client ||= Aws::EventBridge::Client.new region: region
+    end
+
+    def tag_alarms_and_rules
       account_id = Aws::STS::Client.new.get_caller_identity.account
-      cloudwatch_client = Aws::CloudWatch::Client.new
       stack_tags = self.class.format_hash_as_tag_parameters @tags
 
       client.list_stack_resources(stack_name: name).each do |response|
-        response.stack_resource_summaries.filter do |stack_resource_summary|
-          stack_resource_summary.resource_type == 'AWS::CloudWatch::Alarm'
-        end.each do |stack_resource_summary|
+        response.stack_resource_summaries.each do |stack_resource_summary|
           resource_id = stack_resource_summary.physical_resource_id
-          resource_arn = "arn:aws:cloudwatch:#{region}:#{account_id}:alarm:#{resource_id}"
-          resource_tags = cloudwatch_client.list_tags_for_resource(
+
+          case stack_resource_summary.resource_type
+          when 'AWS::CloudWatch::Alarm'
+            resource_arn = "arn:aws:cloudwatch:#{region}:#{account_id}:alarm:#{resource_id}"
+            resource_client = cloudwatch_client
+
+          when 'AWS::Events::Rule'
+            resource_arn = "arn:aws:events:#{region}:#{account_id}:rule/#{resource_id}"
+            resource_client = eventbridge_client
+          else
+            next
+          end
+
+          resource_tags = resource_client.list_tags_for_resource(
             resource_arn: resource_arn
           ).tags.map(&:to_h)
           missing_tags = stack_tags - resource_tags
@@ -247,7 +273,7 @@ module OpenStax::Aws
           logger.debug("Tagging #{resource_id}...")
           attempt = 1
           begin
-            cloudwatch_client.tag_resource resource_arn: resource_arn, tags: missing_tags
+            resource_client.tag_resource resource_arn: resource_arn, tags: missing_tags
           rescue
             retry_in = attempt**2
             logger.debug("Tagging #{resource_id} failed... retrying in #{retry_in} seconds")
