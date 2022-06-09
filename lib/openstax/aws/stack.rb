@@ -248,7 +248,7 @@ module OpenStax::Aws
     end
 
     def tag_alarms_and_rules
-      account_id = Aws::STS::Client.new.get_caller_identity.account
+      account_id = Aws::STS::Client.new(region: region).get_caller_identity.account
       stack_tags = self.class.format_hash_as_tag_parameters @tags
 
       client.list_stack_resources(stack_name: name).each do |response|
