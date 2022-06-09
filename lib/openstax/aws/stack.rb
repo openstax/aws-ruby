@@ -235,6 +235,10 @@ module OpenStax::Aws
       change_set
     end
 
+    def autoscaling_client
+      @autoscaling_client ||= Aws::AutoScaling::Client.new region: region
+    end
+
     def cloudwatch_client
       @cloudwatch_client ||= Aws::CloudWatch::Client.new region: region
     end
@@ -253,33 +257,40 @@ module OpenStax::Aws
 
           case stack_resource_summary.resource_type
           when 'AWS::CloudWatch::Alarm'
-            resource_arn = "arn:aws:cloudwatch:#{region}:#{account_id}:alarm:#{resource_id}"
+            resource_arns = [ "arn:aws:cloudwatch:#{region}:#{account_id}:alarm:#{resource_id}" ]
             resource_client = cloudwatch_client
 
           when 'AWS::Events::Rule'
-            resource_arn = "arn:aws:events:#{region}:#{account_id}:rule/#{resource_id}"
+            resource_arns = [ "arn:aws:events:#{region}:#{account_id}:rule/#{resource_id}" ]
             resource_client = eventbridge_client
+          when 'AWS::AutoScaling::AutoScalingGroup'
+            resource_arns = autoscaling_client.describe_policies(
+              auto_scaling_group_name: resource_id
+            ).flat_map(&:scaling_policies).flat_map(&:alarms).map(&:alarm_arn)
+            resource_client = cloudwatch_client
           else
             next
           end
 
-          resource_tags = resource_client.list_tags_for_resource(
-            resource_arn: resource_arn
-          ).tags.map(&:to_h)
-          missing_tags = stack_tags - resource_tags
+          resource_arns.each do |resource_arn|
+            resource_tags = resource_client.list_tags_for_resource(
+              resource_arn: resource_arn
+            ).tags.map(&:to_h)
+            missing_tags = stack_tags - resource_tags
 
-          next if missing_tags.empty?
+            next if missing_tags.empty?
 
-          logger.debug("Tagging #{resource_id}...")
-          attempt = 1
-          begin
-            resource_client.tag_resource resource_arn: resource_arn, tags: missing_tags
-          rescue
-            retry_in = attempt**2
-            logger.debug("Tagging #{resource_id} failed... retrying in #{retry_in} seconds")
-            sleep retry_in
-            attempt += 1
-            retry
+            logger.debug("Tagging #{resource_arn}...")
+            attempt = 1
+            begin
+              resource_client.tag_resource resource_arn: resource_arn, tags: missing_tags
+            rescue
+              retry_in = attempt**2
+              logger.debug("Tagging #{resource_id} failed... retrying in #{retry_in} seconds")
+              sleep retry_in
+              attempt += 1
+              retry
+            end
           end
         end
       end
@@ -352,7 +363,7 @@ module OpenStax::Aws
       case stack_resource.resource_type
       when "AWS::AutoScaling::AutoScalingGroup"
         name = stack_resource.physical_resource_id
-        client = Aws::AutoScaling::Client.new(region: region)
+        client = autoscaling_client
         Aws::AutoScaling::AutoScalingGroup.new(name: name, client: client)
       when "AWS::RDS::DBInstance"
         db_instance_identifier = stack_resource.physical_resource_id
