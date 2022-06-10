@@ -27,7 +27,7 @@ module OpenStax::Aws
 
       return if missing_tags.empty?
 
-      logger.debug "Tagging #{name}..."
+      OpenStax::Aws.configuration.logger.debug "Tagging #{name}..."
       tag_resource missing_tags
     end
   end

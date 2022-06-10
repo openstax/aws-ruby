@@ -1,6 +1,6 @@
 module OpenStax::Aws
   class AutoScalingGroup
-    attr_reader :raw_asg
+    attr_reader :raw_asg, :region
 
     delegate_missing_to :@raw_asg
 
@@ -13,6 +13,7 @@ module OpenStax::Aws
         name: name,
         client: Aws::AutoScaling::Client.new(region: region)
       )
+      @region = region
     end
 
     def increase_desired_capacity(by:)
@@ -30,8 +31,10 @@ module OpenStax::Aws
     end
 
     def alarms
-      raw_asg.describe_policies.flat_map(&:scaling_policies).flat_map(&:alarms).map do |raw_alarm|
-        OpenStax::Aws::CloudwatchAlarm.new region: region, raw_alarm: raw_alarm
+      client.describe_policies(
+        auto_scaling_group_name: raw_asg.name
+      ).flat_map(&:scaling_policies).flat_map(&:alarms).map do |alarm|
+        OpenStax::Aws::Alarm.new region: region, name: alarm.alarm_name
       end
     end
 

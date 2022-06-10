@@ -8,10 +8,8 @@ module OpenStax::Aws
       :name
     end
 
-    def initialize(region:, raw_alarm: nil, name: nil)
-      raise ArgumentError, 'Must provide either raw_alarm or name' if raw_alarm.nil? && name.nil?
-
-      @raw_alarm = raw_alarm || ::Aws::CloudWatch::Alarm.new(
+    def initialize(region:, name:)
+      @raw_alarm = ::Aws::CloudWatch::Alarm.new(
         name: name,
         client: Aws::CloudWatch::Client.new(region: region)
       )
@@ -25,13 +23,26 @@ module OpenStax::Aws
       client.tag_resource resource_arn: raw_alarm.alarm_arn, tags: new_tags
     end
 
+    def logger
+      OpenStax::Aws.configuration.logger
+    end
+
     def add_tags_not_handled_by_cloudformation(stack_tags)
       missing_tags = stack_tags.map(&:to_h) - tags.map(&:to_h)
 
       return if missing_tags.empty?
 
       logger.debug "Tagging #{name}..."
-      tag_resource missing_tags
+      attempt = 1
+      begin
+        tag_resource missing_tags
+      rescue Aws::CloudWatch::Errors::Throttling
+        retry_in = attempt**2
+        logger.debug "Tagging #{name} failed... retrying in #{retry_in} seconds"
+        sleep retry_in
+        attempt += 1
+        retry
+      end
     end
   end
 end
