@@ -66,7 +66,6 @@ module OpenStax::Aws
 
       if skip_if_exists && exists?
         logger.info("Skipping #{name} stack - exists...")
-        tag_alarms_and_rules
         return
       end
 
@@ -90,9 +89,10 @@ module OpenStax::Aws
 
       if !dry_run
         client.create_stack(options)
-        wait_for_creation
-        tag_alarms_and_rules
+        wait_for_creation if wait
       end
+
+      tag_resources_not_handled_by_cloudformation if wait
     end
 
     def parameters_for_update(overrides: {})
@@ -223,75 +223,36 @@ module OpenStax::Aws
           change_set.execute
           reset_cached_remote_state
 
-          if wait
-            wait_for_update
-            tag_alarms_and_rules
-          end
+          wait_for_update if wait
         end
-      else
-        tag_alarms_and_rules
       end
+
+      tag_resources_not_handled_by_cloudformation if wait
 
       change_set
     end
 
-    def autoscaling_client
-      @autoscaling_client ||= Aws::AutoScaling::Client.new region: region
+    # This method is intended to be used on OpenStax::Aws::CloudwatchAlarm and
+    # OpenStax::Aws::EventRule, both of which implement the :name, :tags and :tag_resource methods
+    def tag_alarm_or_rule(resource, tags)
+      resource_tags = resource.tags.map(&:to_h)
+      missing_tags = tags - resource_tags
+
+      return if missing_tags.empty?
+
+      logger.debug("Tagging #{resource.name}...")
+      resource.tag_resource(missing_tags) unless dry_run
     end
 
-    def cloudwatch_client
-      @cloudwatch_client ||= Aws::CloudWatch::Client.new region: region
-    end
-
-    def eventbridge_client
-      @eventbridge_client ||= Aws::EventBridge::Client.new region: region
-    end
-
-    def tag_alarms_and_rules
-      account_id = Aws::STS::Client.new(region: region).get_caller_identity.account
+    def tag_resources_not_handled_by_cloudformation
       stack_tags = self.class.format_hash_as_tag_parameters @tags
-
-      client.list_stack_resources(stack_name: name).each do |response|
-        response.stack_resource_summaries.each do |stack_resource_summary|
-          resource_id = stack_resource_summary.physical_resource_id
-
-          case stack_resource_summary.resource_type
-          when 'AWS::CloudWatch::Alarm'
-            resource_arns = [ "arn:aws:cloudwatch:#{region}:#{account_id}:alarm:#{resource_id}" ]
-            resource_client = cloudwatch_client
-
-          when 'AWS::Events::Rule'
-            resource_arns = [ "arn:aws:events:#{region}:#{account_id}:rule/#{resource_id}" ]
-            resource_client = eventbridge_client
-          when 'AWS::AutoScaling::AutoScalingGroup'
-            resource_arns = autoscaling_client.describe_policies(
-              auto_scaling_group_name: resource_id
-            ).flat_map(&:scaling_policies).flat_map(&:alarms).map(&:alarm_arn)
-            resource_client = cloudwatch_client
-          else
-            next
-          end
-
-          resource_arns.each do |resource_arn|
-            resource_tags = resource_client.list_tags_for_resource(
-              resource_arn: resource_arn
-            ).tags.map(&:to_h)
-            missing_tags = stack_tags - resource_tags
-
-            next if missing_tags.empty?
-
-            logger.debug("Tagging #{resource_arn}...")
-            attempt = 1
-            begin
-              resource_client.tag_resource resource_arn: resource_arn, tags: missing_tags
-            rescue
-              retry_in = attempt**2
-              logger.debug("Tagging #{resource_id} failed... retrying in #{retry_in} seconds")
-              sleep retry_in
-              attempt += 1
-              retry
-            end
-          end
+      resources(
+        [ 'AWS::CloudWatch::Alarm', 'AWS::Events::Rule', 'AWS::AutoScaling::AutoScalingGroup' ]
+      ).each do |resource|
+        if resource.is_a? OpenStax::Aws::AutoScalingGroup
+          resource.alarms.each { |alarm| tag_alarm_or_rule alarm, stack_tags }
+        else
+          tag_alarm_or_rule resource, stack_tags
         end
       end
     end
@@ -359,20 +320,20 @@ module OpenStax::Aws
 
     def resource(logical_id)
       stack_resource = aws_stack.resource(logical_id)
+      resource_factory = OpenStax::Aws::ResourceFactory.new region: region
+      resource_factory.from_stack_resource_or_summary! stack_resource
+    end
 
-      case stack_resource.resource_type
-      when "AWS::AutoScaling::AutoScalingGroup"
-        name = stack_resource.physical_resource_id
-        client = autoscaling_client
-        Aws::AutoScaling::AutoScalingGroup.new(name: name, client: client)
-      when "AWS::RDS::DBInstance"
-        db_instance_identifier = stack_resource.physical_resource_id
-        OpenStax::Aws::RdsInstance.new(db_instance_identifier: db_instance_identifier, region: region)
-      when "AWS::MSK::Cluster"
-        msk_cluster_arn = stack_resource.physical_resource_id
-        OpenStax::Aws::MskCluster.new(cluster_arn: msk_cluster_arn, region: region)
-      else
-        raise "'#{stack_resource.resource_type}' is not yet implemented in `Stack#resource`"
+    def resources(types = nil)
+      resource_factory = OpenStax::Aws::ResourceFactory.new region: region, types: types
+
+      Enumerator.new do |yielder|
+        client.list_stack_resources(stack_name: name).each do |response|
+          response.stack_resource_summaries.each do |stack_resource_summary|
+            resource = resource_factory.from_stack_resource_or_summary stack_resource_summary
+            yielder << resource unless resource.nil?
+          end
+        end
       end
     end
 

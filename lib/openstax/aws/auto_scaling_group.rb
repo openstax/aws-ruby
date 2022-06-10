@@ -4,6 +4,10 @@ module OpenStax::Aws
 
     delegate_missing_to :@raw_asg
 
+    def self.physical_resource_id_attribute
+      :name
+    end
+
     def initialize(name:, region:)
       @raw_asg = Aws::AutoScaling::AutoScalingGroup.new(
         name: name,
@@ -23,6 +27,12 @@ module OpenStax::Aws
 
     def desired_capacity
       raw_asg.desired_capacity
+    end
+
+    def alarms
+      raw_asg.describe_policies.flat_map(&:scaling_policies).flat_map(&:alarms).map do |raw_alarm|
+        OpenStax::Aws::CloudwatchAlarm.new region: region, raw_alarm: raw_alarm
+      end
     end
   end
 end

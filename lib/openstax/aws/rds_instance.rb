@@ -5,6 +5,10 @@ module OpenStax::Aws
 
     delegate_missing_to :@raw
 
+    def self.physical_resource_id_attribute
+      :db_instance_identifier
+    end
+
     def initialize(db_instance_identifier:, region:)
       @raw = Aws::RDS::DBInstance.new(
         db_instance_identifier,
@@ -14,12 +18,11 @@ module OpenStax::Aws
 
     def set_master_password(password:)
       raw.modify({
-        apply_immediately: true, 
+        apply_immediately: true,
         master_user_password: password
       })
-  
+
     end
 
   end
 end
-
