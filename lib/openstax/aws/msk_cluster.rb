@@ -5,6 +5,10 @@ module OpenStax::Aws
 
     delegate_missing_to :@client
 
+    def self.physical_resource_id_attribute
+      :cluster_arn
+    end
+
     def initialize(cluster_arn:, region:)
       @cluster_arn = cluster_arn
       @client = ::Aws::Kafka::Client.new(region: region)
@@ -20,4 +24,3 @@ module OpenStax::Aws
 
   end
 end
-

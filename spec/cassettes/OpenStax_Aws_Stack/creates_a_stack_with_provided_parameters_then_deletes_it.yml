@@ -7,21 +7,24 @@ http_interactions:
       encoding: UTF-8
       string: Action=ValidateTemplate&TemplateBody=Description%3A%20%3E%0A%20%20Test%20template%20one%0A%0AParameters%3A%0A%0A%20%20BucketName%3A%0A%20%20%20%20Type%3A%20String%0A%0A%20%20TagValue%3A%0A%20%20%20%20Type%3A%20String%0A%0AResources%3A%0A%0A%20%20S3Bucket%3A%0A%20%20%20%20Type%3A%20AWS%3A%3AS3%3A%3ABucket%0A%20%20%20%20Properties%3A%0A%20%20%20%20%20%20BucketName%3A%20%21Ref%20%27BucketName%27%0A%20%20%20%20%20%20Tags%3A%0A%20%20%20%20%20%20%20%20-%20Key%3A%20Tag1%0A%20%20%20%20%20%20%20%20%20%20Value%3A%20%21Ref%20%27TagValue%27%0A%0AOutputs%3A%0A%0A%20%20BucketArn%3A%0A%20%20%20%20Value%3A%20%21GetAtt%20%27S3Bucket.Arn%27%0A%20%20%20%20Export%3A%0A%20%20%20%20%20%20Name%3A%20%21Sub%20%27%24%7BAWS%3A%3AStackName%7D-BucketArn%27%0A&Version=2010-05-15
     headers:
-      Content-Type:
-      - application/x-www-form-urlencoded; charset=utf-8
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.20.0
+      - aws-sdk-ruby3/3.127.0 ruby/2.7.2 x86_64-darwin20 aws-sdk-cloudformation/1.63.0
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
       Host:
       - cloudformation.us-west-2.amazonaws.com
       X-Amz-Date:
-      - 20191108T193242Z
+      - 20220610T195829Z
+      X-Amz-Security-Token:
+      - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
       - 4c4130d6d8ee21d1264dded763ed8d1415f408345990e0ea0c57bac79465bafc
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20191108/us-west-2/cloudformation/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20220610/us-west-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,
+        Signature=<SignatureValue>
       Content-Length:
       - '759'
       Accept:
@@ -32,13 +35,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 946baa33-a761-4326-b1a6-f7d04bc384ea
+      - c81f14a6-f623-4638-bfcb-0bff1037eafc
       Content-Type:
       - text/xml
       Content-Length:
       - '580'
       Date:
-      - Fri, 08 Nov 2019 19:32:42 GMT
+      - Fri, 10 Jun 2022 19:58:29 GMT
     body:
       encoding: UTF-8
       string: |
@@ -48,21 +51,20 @@ http_interactions:
         </Description>
             <Parameters>
               <member>
-                <ParameterKey>BucketName</ParameterKey>
                 <NoEcho>false</NoEcho>
+                <ParameterKey>BucketName</ParameterKey>
               </member>
               <member>
-                <ParameterKey>TagValue</ParameterKey>
                 <NoEcho>false</NoEcho>
+                <ParameterKey>TagValue</ParameterKey>
               </member>
             </Parameters>
           </ValidateTemplateResult>
           <ResponseMetadata>
-            <RequestId>946baa33-a761-4326-b1a6-f7d04bc384ea</RequestId>
+            <RequestId>c81f14a6-f623-4638-bfcb-0bff1037eafc</RequestId>
           </ResponseMetadata>
         </ValidateTemplateResponse>
-    http_version: 
-  recorded_at: Fri, 08 Nov 2019 19:32:42 GMT
+  recorded_at: Fri, 10 Jun 2022 19:58:29 GMT
 - request:
     method: put
     uri: https://openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com/cfn_templates/spec-templates/template_one.yml
@@ -97,12 +99,10 @@ http_interactions:
             Export:
               Name: !Sub '${AWS::StackName}-BucketArn'
     headers:
-      Content-Type:
-      - ''
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-s3/1.37.0
+      - aws-sdk-ruby3/3.127.0 ruby/2.7.2 x86_64-darwin20 aws-sdk-s3/1.113.0
       Expect:
       - 100-continue
       Content-Md5:
@@ -110,12 +110,14 @@ http_interactions:
       Host:
       - openstax-sandbox-cfn-templates.s3.us-west-2.amazonaws.com
       X-Amz-Date:
-      - 20191108T193242Z
+      - 20220610T195829Z
+      X-Amz-Security-Token:
+      - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
       - 44820f5081bfdd4c387cf15b34f8f70367dbba4e87e0c51380353e1b3b436eab
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20191108/us-west-2/s3/aws4_request,
-        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20220610/us-west-2/s3/aws4_request,
+        SignedHeaders=content-md5;host;user-agent;x-amz-content-sha256;x-amz-date;x-amz-security-token,
         Signature=<SignatureValue>
       Content-Length:
       - '395'
@@ -127,50 +129,52 @@ http_interactions:
       message: OK
     headers:
       X-Amz-Id-2:
-      - Aee6CHQyuPNT5aPOarvlHhYCu6qcpe8VgtY2wkWSrPoh7RVeCRdfUd0KbY0JWllN044q0B2Y7uY=
+      - 9wogq7y1j/YDL3nLjsvVd+TNSGCYgagNy+NGAI6MM9EVh7B+xnKdzEwMig7Bs0AvuHxjC8PoNug=
       X-Amz-Request-Id:
-      - 783BE4AF1C6337CC
+      - ZZZD6YV8KKVWVSCD
       Date:
-      - Fri, 08 Nov 2019 19:32:43 GMT
+      - Fri, 10 Jun 2022 19:58:31 GMT
       X-Amz-Version-Id:
-      - VPcF2VjtyFLuYChfuTtTQnaMgaIbjHwx
+      - Y43VFb96pKt1g2_1cA1QHdeeY8cRrROw
       X-Amz-Server-Side-Encryption:
       - AES256
       Etag:
       - '"8b04505eeb9d79fc62b989eecbf00a60"'
-      Content-Length:
-      - '0'
       Server:
       - AmazonS3
+      Content-Length:
+      - '0'
     body:
       encoding: UTF-8
       string: ''
-    http_version: 
-  recorded_at: Fri, 08 Nov 2019 19:32:42 GMT
+  recorded_at: Fri, 10 Jun 2022 19:58:30 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
     body:
       encoding: UTF-8
-      string: Action=CreateStack&Capabilities=&EnableTerminationProtection=false&Parameters.member.1.ParameterKey=BucketName&Parameters.member.1.ParameterValue=aws-ruby-rspec-bucket&Parameters.member.2.ParameterKey=TagValue&Parameters.member.2.ParameterValue=howdy&StackName=spec-aws-ruby-stack-create-delete&TemplateURL=https%3A%2F%2Fs3.amazonaws.com%2Fopenstax-sandbox-cfn-templates%2Fcfn_templates%2Fspec-templates%2Ftemplate_one.yml&Version=2010-05-15
+      string: Action=CreateStack&Capabilities=&EnableTerminationProtection=false&Parameters.member.1.ParameterKey=BucketName&Parameters.member.1.ParameterValue=aws-ruby-rspec-bucket&Parameters.member.2.ParameterKey=TagValue&Parameters.member.2.ParameterValue=howdy&StackName=spec-aws-ruby-stack-create-delete&Tags=&TemplateURL=https%3A%2F%2Fs3.amazonaws.com%2Fopenstax-sandbox-cfn-templates%2Fcfn_templates%2Fspec-templates%2Ftemplate_one.yml&Version=2010-05-15
     headers:
-      Content-Type:
-      - application/x-www-form-urlencoded; charset=utf-8
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.20.0
+      - aws-sdk-ruby3/3.127.0 ruby/2.7.2 x86_64-darwin20 aws-sdk-cloudformation/1.63.0
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20191108T193242Z
+      - 20220610T195830Z
+      X-Amz-Security-Token:
+      - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
-      - d96f9db22351387d01bdad7a3363cb84a84097f682c5a8f8826bc6d50f14e46c
+      - 7deaec87774188d407b6451dbdc156a4bb24e6018f3523e36ff1eee017502537
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20191108/us-east-2/cloudformation/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20220610/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,
+        Signature=<SignatureValue>
       Content-Length:
-      - '441'
+      - '447'
       Accept:
       - "*/*"
   response:
@@ -179,26 +183,25 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - ed898648-94ce-4e7c-8a86-08ba669f425a
+      - df51935e-02d6-485e-a884-51616e805737
       Content-Type:
       - text/xml
       Content-Length:
       - '403'
       Date:
-      - Fri, 08 Nov 2019 19:32:43 GMT
+      - Fri, 10 Jun 2022 19:58:31 GMT
     body:
       encoding: UTF-8
       string: |
         <CreateStackResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
           <CreateStackResult>
-            <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/88bb0240-025e-11ea-bde8-02402ec64522</StackId>
+            <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/b351ee60-e8f7-11ec-a6a2-0af5b7d4fa76</StackId>
           </CreateStackResult>
           <ResponseMetadata>
-            <RequestId>ed898648-94ce-4e7c-8a86-08ba669f425a</RequestId>
+            <RequestId>df51935e-02d6-485e-a884-51616e805737</RequestId>
           </ResponseMetadata>
         </CreateStackResponse>
-    http_version: 
-  recorded_at: Fri, 08 Nov 2019 19:32:43 GMT
+  recorded_at: Fri, 10 Jun 2022 19:58:31 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -206,21 +209,24 @@ http_interactions:
       encoding: UTF-8
       string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-create-delete&Version=2010-05-15
     headers:
-      Content-Type:
-      - application/x-www-form-urlencoded; charset=utf-8
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.20.0
+      - aws-sdk-ruby3/3.127.0 ruby/2.7.2 x86_64-darwin20 aws-sdk-cloudformation/1.63.0
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20191108T193243Z
+      - 20220610T195831Z
+      X-Amz-Security-Token:
+      - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
       - ea945a7b4b47d3e449ec9123418c50c224920cc7f8e9ccfe3e4d186165f3fe11
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20191108/us-east-2/cloudformation/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20220610/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,
+        Signature=<SignatureValue>
       Content-Length:
       - '84'
       Accept:
@@ -231,13 +237,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 0d4c861f-1414-49c2-a578-a0ba4dfd2f0e
+      - 40e8a22a-46ad-4f4d-82a2-fd1b7ae4fffc
       Content-Type:
       - text/xml
       Content-Length:
       - '1428'
       Date:
-      - Fri, 08 Nov 2019 19:32:44 GMT
+      - Fri, 10 Jun 2022 19:58:31 GMT
     body:
       encoding: UTF-8
       string: |
@@ -245,9 +251,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2019-11-08T19:32:43.843Z</CreationTime>
+                <CreationTime>2022-06-10T19:58:31.120Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/88bb0240-025e-11ea-bde8-02402ec64522</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/b351ee60-e8f7-11ec-a6a2-0af5b7d4fa76</StackId>
                 <StackName>spec-aws-ruby-stack-create-delete</StackName>
                 <Description>Test template one
         </Description>
@@ -274,11 +280,10 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>0d4c861f-1414-49c2-a578-a0ba4dfd2f0e</RequestId>
+            <RequestId>40e8a22a-46ad-4f4d-82a2-fd1b7ae4fffc</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
-    http_version: 
-  recorded_at: Fri, 08 Nov 2019 19:32:44 GMT
+  recorded_at: Fri, 10 Jun 2022 19:58:31 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -286,21 +291,24 @@ http_interactions:
       encoding: UTF-8
       string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-create-delete&Version=2010-05-15
     headers:
-      Content-Type:
-      - application/x-www-form-urlencoded; charset=utf-8
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.20.0
+      - aws-sdk-ruby3/3.127.0 ruby/2.7.2 x86_64-darwin20 aws-sdk-cloudformation/1.63.0
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20191108T193244Z
+      - 20220610T195831Z
+      X-Amz-Security-Token:
+      - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
       - ea945a7b4b47d3e449ec9123418c50c224920cc7f8e9ccfe3e4d186165f3fe11
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20191108/us-east-2/cloudformation/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20220610/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,
+        Signature=<SignatureValue>
       Content-Length:
       - '84'
       Accept:
@@ -311,13 +319,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 19821717-722a-435c-894c-5ead607c88b5
+      - 8c91a0c7-a0e6-42fd-86b0-b0b45279b06d
       Content-Type:
       - text/xml
       Content-Length:
-      - '1366'
+      - '1428'
       Date:
-      - Fri, 08 Nov 2019 19:32:44 GMT
+      - Fri, 10 Jun 2022 19:58:31 GMT
     body:
       encoding: UTF-8
       string: |
@@ -325,9 +333,91 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2019-11-08T19:32:43.843Z</CreationTime>
+                <CreationTime>2022-06-10T19:58:31.120Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/88bb0240-025e-11ea-bde8-02402ec64522</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/b351ee60-e8f7-11ec-a6a2-0af5b7d4fa76</StackId>
+                <StackName>spec-aws-ruby-stack-create-delete</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>CREATE_IN_PROGRESS</StackStatus>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <StackStatusReason>User Initiated</StackStatusReason>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>8c91a0c7-a0e6-42fd-86b0-b0b45279b06d</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+  recorded_at: Fri, 10 Jun 2022 19:58:31 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-create-delete&Version=2010-05-15
+    headers:
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.127.0 ruby/2.7.2 x86_64-darwin20 aws-sdk-cloudformation/1.63.0
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20220610T195836Z
+      X-Amz-Security-Token:
+      - AWS_SESSION_TOKEN
+      X-Amz-Content-Sha256:
+      - ea945a7b4b47d3e449ec9123418c50c224920cc7f8e9ccfe3e4d186165f3fe11
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20220610/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,
+        Signature=<SignatureValue>
+      Content-Length:
+      - '84'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 01de2d0f-2b03-4e4d-bdd9-8c6f9121fd91
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1366'
+      Date:
+      - Fri, 10 Jun 2022 19:58:36 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <CreationTime>2022-06-10T19:58:31.120Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/b351ee60-e8f7-11ec-a6a2-0af5b7d4fa76</StackId>
                 <StackName>spec-aws-ruby-stack-create-delete</StackName>
                 <Description>Test template one
         </Description>
@@ -353,11 +443,10 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>19821717-722a-435c-894c-5ead607c88b5</RequestId>
+            <RequestId>01de2d0f-2b03-4e4d-bdd9-8c6f9121fd91</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
-    http_version: 
-  recorded_at: Fri, 08 Nov 2019 19:32:44 GMT
+  recorded_at: Fri, 10 Jun 2022 19:58:36 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -365,21 +454,24 @@ http_interactions:
       encoding: UTF-8
       string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-create-delete&Version=2010-05-15
     headers:
-      Content-Type:
-      - application/x-www-form-urlencoded; charset=utf-8
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.20.0
+      - aws-sdk-ruby3/3.127.0 ruby/2.7.2 x86_64-darwin20 aws-sdk-cloudformation/1.63.0
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20191108T193249Z
+      - 20220610T195842Z
+      X-Amz-Security-Token:
+      - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
       - ea945a7b4b47d3e449ec9123418c50c224920cc7f8e9ccfe3e4d186165f3fe11
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20191108/us-east-2/cloudformation/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20220610/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,
+        Signature=<SignatureValue>
       Content-Length:
       - '84'
       Accept:
@@ -390,13 +482,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 1203bf97-47ce-4fb1-af57-8f3f2091de47
+      - 87862e75-926f-43f2-bf6e-472ed8d4d3f4
       Content-Type:
       - text/xml
       Content-Length:
       - '1366'
       Date:
-      - Fri, 08 Nov 2019 19:32:49 GMT
+      - Fri, 10 Jun 2022 19:58:41 GMT
     body:
       encoding: UTF-8
       string: |
@@ -404,9 +496,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2019-11-08T19:32:43.843Z</CreationTime>
+                <CreationTime>2022-06-10T19:58:31.120Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/88bb0240-025e-11ea-bde8-02402ec64522</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/b351ee60-e8f7-11ec-a6a2-0af5b7d4fa76</StackId>
                 <StackName>spec-aws-ruby-stack-create-delete</StackName>
                 <Description>Test template one
         </Description>
@@ -432,11 +524,10 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>1203bf97-47ce-4fb1-af57-8f3f2091de47</RequestId>
+            <RequestId>87862e75-926f-43f2-bf6e-472ed8d4d3f4</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
-    http_version: 
-  recorded_at: Fri, 08 Nov 2019 19:32:50 GMT
+  recorded_at: Fri, 10 Jun 2022 19:58:42 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -444,21 +535,24 @@ http_interactions:
       encoding: UTF-8
       string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-create-delete&Version=2010-05-15
     headers:
-      Content-Type:
-      - application/x-www-form-urlencoded; charset=utf-8
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.20.0
+      - aws-sdk-ruby3/3.127.0 ruby/2.7.2 x86_64-darwin20 aws-sdk-cloudformation/1.63.0
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20191108T193255Z
+      - 20220610T195847Z
+      X-Amz-Security-Token:
+      - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
       - ea945a7b4b47d3e449ec9123418c50c224920cc7f8e9ccfe3e4d186165f3fe11
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20191108/us-east-2/cloudformation/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20220610/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,
+        Signature=<SignatureValue>
       Content-Length:
       - '84'
       Accept:
@@ -469,13 +563,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - f68cd773-2f11-4c08-92e2-8e2f1e7ce1ca
+      - ad4abd0b-d059-4b25-a1c4-50d010000b5e
       Content-Type:
       - text/xml
       Content-Length:
       - '1366'
       Date:
-      - Fri, 08 Nov 2019 19:32:55 GMT
+      - Fri, 10 Jun 2022 19:58:47 GMT
     body:
       encoding: UTF-8
       string: |
@@ -483,9 +577,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2019-11-08T19:32:43.843Z</CreationTime>
+                <CreationTime>2022-06-10T19:58:31.120Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/88bb0240-025e-11ea-bde8-02402ec64522</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/b351ee60-e8f7-11ec-a6a2-0af5b7d4fa76</StackId>
                 <StackName>spec-aws-ruby-stack-create-delete</StackName>
                 <Description>Test template one
         </Description>
@@ -511,11 +605,10 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>f68cd773-2f11-4c08-92e2-8e2f1e7ce1ca</RequestId>
+            <RequestId>ad4abd0b-d059-4b25-a1c4-50d010000b5e</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
-    http_version: 
-  recorded_at: Fri, 08 Nov 2019 19:32:55 GMT
+  recorded_at: Fri, 10 Jun 2022 19:58:47 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -523,21 +616,24 @@ http_interactions:
       encoding: UTF-8
       string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-create-delete&Version=2010-05-15
     headers:
-      Content-Type:
-      - application/x-www-form-urlencoded; charset=utf-8
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.20.0
+      - aws-sdk-ruby3/3.127.0 ruby/2.7.2 x86_64-darwin20 aws-sdk-cloudformation/1.63.0
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20191108T193300Z
+      - 20220610T195852Z
+      X-Amz-Security-Token:
+      - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
       - ea945a7b4b47d3e449ec9123418c50c224920cc7f8e9ccfe3e4d186165f3fe11
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20191108/us-east-2/cloudformation/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20220610/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,
+        Signature=<SignatureValue>
       Content-Length:
       - '84'
       Accept:
@@ -548,13 +644,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 24d46cb6-ec30-4f93-a25b-87e2ee38e262
+      - e922d99c-d18c-4e66-832e-c210d14be204
       Content-Type:
       - text/xml
       Content-Length:
       - '1366'
       Date:
-      - Fri, 08 Nov 2019 19:32:59 GMT
+      - Fri, 10 Jun 2022 19:58:51 GMT
     body:
       encoding: UTF-8
       string: |
@@ -562,9 +658,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2019-11-08T19:32:43.843Z</CreationTime>
+                <CreationTime>2022-06-10T19:58:31.120Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/88bb0240-025e-11ea-bde8-02402ec64522</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/b351ee60-e8f7-11ec-a6a2-0af5b7d4fa76</StackId>
                 <StackName>spec-aws-ruby-stack-create-delete</StackName>
                 <Description>Test template one
         </Description>
@@ -590,11 +686,10 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>24d46cb6-ec30-4f93-a25b-87e2ee38e262</RequestId>
+            <RequestId>e922d99c-d18c-4e66-832e-c210d14be204</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
-    http_version: 
-  recorded_at: Fri, 08 Nov 2019 19:33:00 GMT
+  recorded_at: Fri, 10 Jun 2022 19:58:52 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -602,21 +697,24 @@ http_interactions:
       encoding: UTF-8
       string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-create-delete&Version=2010-05-15
     headers:
-      Content-Type:
-      - application/x-www-form-urlencoded; charset=utf-8
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.20.0
+      - aws-sdk-ruby3/3.127.0 ruby/2.7.2 x86_64-darwin20 aws-sdk-cloudformation/1.63.0
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20191108T193305Z
+      - 20220610T195857Z
+      X-Amz-Security-Token:
+      - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
       - ea945a7b4b47d3e449ec9123418c50c224920cc7f8e9ccfe3e4d186165f3fe11
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20191108/us-east-2/cloudformation/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20220610/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,
+        Signature=<SignatureValue>
       Content-Length:
       - '84'
       Accept:
@@ -627,13 +725,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 9610d527-dad3-4a37-b56f-f048f587dfcd
+      - 3e40ee9f-84dc-4628-9a3c-8a9037559991
       Content-Type:
       - text/xml
       Content-Length:
       - '1366'
       Date:
-      - Fri, 08 Nov 2019 19:33:05 GMT
+      - Fri, 10 Jun 2022 19:58:57 GMT
     body:
       encoding: UTF-8
       string: |
@@ -641,9 +739,9 @@ http_interactions:
           <DescribeStacksResult>
             <Stacks>
               <member>
-                <CreationTime>2019-11-08T19:32:43.843Z</CreationTime>
+                <CreationTime>2022-06-10T19:58:31.120Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/88bb0240-025e-11ea-bde8-02402ec64522</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/b351ee60-e8f7-11ec-a6a2-0af5b7d4fa76</StackId>
                 <StackName>spec-aws-ruby-stack-create-delete</StackName>
                 <Description>Test template one
         </Description>
@@ -669,11 +767,10 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>9610d527-dad3-4a37-b56f-f048f587dfcd</RequestId>
+            <RequestId>3e40ee9f-84dc-4628-9a3c-8a9037559991</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
-    http_version: 
-  recorded_at: Fri, 08 Nov 2019 19:33:06 GMT
+  recorded_at: Fri, 10 Jun 2022 19:58:57 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -681,21 +778,24 @@ http_interactions:
       encoding: UTF-8
       string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-create-delete&Version=2010-05-15
     headers:
-      Content-Type:
-      - application/x-www-form-urlencoded; charset=utf-8
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.20.0
+      - aws-sdk-ruby3/3.127.0 ruby/2.7.2 x86_64-darwin20 aws-sdk-cloudformation/1.63.0
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20191108T193311Z
+      - 20220610T195902Z
+      X-Amz-Security-Token:
+      - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
       - ea945a7b4b47d3e449ec9123418c50c224920cc7f8e9ccfe3e4d186165f3fe11
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20191108/us-east-2/cloudformation/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20220610/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,
+        Signature=<SignatureValue>
       Content-Length:
       - '84'
       Accept:
@@ -706,13 +806,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 697975c5-e94b-4a6f-8f27-3bab95c013c3
+      - 4edbf51c-688f-4cc4-b965-c86b732147da
       Content-Type:
       - text/xml
       Content-Length:
       - '1639'
       Date:
-      - Fri, 08 Nov 2019 19:33:11 GMT
+      - Fri, 10 Jun 2022 19:59:02 GMT
     body:
       encoding: UTF-8
       string: |
@@ -722,14 +822,14 @@ http_interactions:
               <member>
                 <Outputs>
                   <member>
-                    <ExportName>spec-aws-ruby-stack-create-delete-BucketArn</ExportName>
                     <OutputKey>BucketArn</OutputKey>
                     <OutputValue>arn:aws:s3:::aws-ruby-rspec-bucket</OutputValue>
+                    <ExportName>spec-aws-ruby-stack-create-delete-BucketArn</ExportName>
                   </member>
                 </Outputs>
-                <CreationTime>2019-11-08T19:32:43.843Z</CreationTime>
+                <CreationTime>2022-06-10T19:58:31.120Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/88bb0240-025e-11ea-bde8-02402ec64522</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/b351ee60-e8f7-11ec-a6a2-0af5b7d4fa76</StackId>
                 <StackName>spec-aws-ruby-stack-create-delete</StackName>
                 <Description>Test template one
         </Description>
@@ -755,35 +855,98 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>697975c5-e94b-4a6f-8f27-3bab95c013c3</RequestId>
+            <RequestId>4edbf51c-688f-4cc4-b965-c86b732147da</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
-    http_version: 
-  recorded_at: Fri, 08 Nov 2019 19:33:11 GMT
+  recorded_at: Fri, 10 Jun 2022 19:59:03 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=ListStackResources&StackName=spec-aws-ruby-stack-create-delete&Version=2010-05-15
+    headers:
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.127.0 ruby/2.7.2 x86_64-darwin20 aws-sdk-cloudformation/1.63.0
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20220610T195903Z
+      X-Amz-Security-Token:
+      - AWS_SESSION_TOKEN
+      X-Amz-Content-Sha256:
+      - 94cefd33a675d18e7f2f303e930d89827a262702d55a2fed25ff45de6cd8c1c9
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20220610/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,
+        Signature=<SignatureValue>
+      Content-Length:
+      - '88'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - f89e65d6-5972-4f6c-bbe7-0b5d0fa862b9
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '820'
+      Date:
+      - Fri, 10 Jun 2022 19:59:02 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <ListStackResourcesResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <ListStackResourcesResult>
+            <StackResourceSummaries>
+              <member>
+                <LastUpdatedTimestamp>2022-06-10T19:58:56.966Z</LastUpdatedTimestamp>
+                <PhysicalResourceId>aws-ruby-rspec-bucket</PhysicalResourceId>
+                <ResourceStatus>CREATE_COMPLETE</ResourceStatus>
+                <DriftInformation>
+                  <StackResourceDriftStatus>NOT_CHECKED</StackResourceDriftStatus>
+                </DriftInformation>
+                <LogicalResourceId>S3Bucket</LogicalResourceId>
+                <ResourceType>AWS::S3::Bucket</ResourceType>
+              </member>
+            </StackResourceSummaries>
+          </ListStackResourcesResult>
+          <ResponseMetadata>
+            <RequestId>f89e65d6-5972-4f6c-bbe7-0b5d0fa862b9</RequestId>
+          </ResponseMetadata>
+        </ListStackResourcesResponse>
+  recorded_at: Fri, 10 Jun 2022 19:59:03 GMT
 - request:
     method: get
     uri: https://aws-ruby-rspec-bucket.s3.us-east-2.amazonaws.com/?tagging
     body:
-      encoding: UTF-8
+      encoding: US-ASCII
       string: ''
     headers:
-      Content-Type:
-      - ''
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-s3/1.37.0
+      - aws-sdk-ruby3/3.127.0 ruby/2.7.2 x86_64-darwin20 aws-sdk-s3/1.113.0
       Host:
       - aws-ruby-rspec-bucket.s3.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20191108T193311Z
+      - 20220610T195903Z
+      X-Amz-Security-Token:
+      - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20191108/us-east-2/s3/aws4_request,
-        SignedHeaders=host;user-agent;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
-      Content-Length:
-      - '0'
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20220610/us-east-2/s3/aws4_request,
+        SignedHeaders=host;user-agent;x-amz-content-sha256;x-amz-date;x-amz-security-token,
+        Signature=<SignatureValue>
       Accept:
       - "*/*"
   response:
@@ -792,11 +955,11 @@ http_interactions:
       message: OK
     headers:
       X-Amz-Id-2:
-      - JlmKe/l3WRAEMCg6MFMba2XD0wT72TGeER+1ZDWb4ryGXntHMTSN1Zp2mcD147+BL7+OUyoRWlI=
+      - 9W6XGqJxJzXwLPOO+QDZvhmrjUOYtlhN3+ZPRLhDziPsrhrj/nq+ou+8qIlMqhHDvh2AwNADnMI=
       X-Amz-Request-Id:
-      - 98848B787C6E845F
+      - NPZ7QWWYCKGG78PS
       Date:
-      - Fri, 08 Nov 2019 19:33:12 GMT
+      - Fri, 10 Jun 2022 19:59:04 GMT
       Transfer-Encoding:
       - chunked
       Server:
@@ -805,9 +968,8 @@ http_interactions:
       encoding: UTF-8
       string: |-
         <?xml version="1.0" encoding="UTF-8"?>
-        <Tagging xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><TagSet><Tag><Key>Tag1</Key><Value>howdy</Value></Tag><Tag><Key>aws:cloudformation:stack-name</Key><Value>spec-aws-ruby-stack-create-delete</Value></Tag><Tag><Key>aws:cloudformation:logical-id</Key><Value>S3Bucket</Value></Tag><Tag><Key>aws:cloudformation:stack-id</Key><Value>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/88bb0240-025e-11ea-bde8-02402ec64522</Value></Tag></TagSet></Tagging>
-    http_version: 
-  recorded_at: Fri, 08 Nov 2019 19:33:11 GMT
+        <Tagging xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><TagSet><Tag><Key>Tag1</Key><Value>howdy</Value></Tag><Tag><Key>aws:cloudformation:stack-name</Key><Value>spec-aws-ruby-stack-create-delete</Value></Tag><Tag><Key>aws:cloudformation:logical-id</Key><Value>S3Bucket</Value></Tag><Tag><Key>aws:cloudformation:stack-id</Key><Value>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/b351ee60-e8f7-11ec-a6a2-0af5b7d4fa76</Value></Tag></TagSet></Tagging>
+  recorded_at: Fri, 10 Jun 2022 19:59:03 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -815,21 +977,24 @@ http_interactions:
       encoding: UTF-8
       string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-create-delete&Version=2010-05-15
     headers:
-      Content-Type:
-      - application/x-www-form-urlencoded; charset=utf-8
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.20.0
+      - aws-sdk-ruby3/3.127.0 ruby/2.7.2 x86_64-darwin20 aws-sdk-cloudformation/1.63.0
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20191108T193311Z
+      - 20220610T195903Z
+      X-Amz-Security-Token:
+      - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
       - ea945a7b4b47d3e449ec9123418c50c224920cc7f8e9ccfe3e4d186165f3fe11
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20191108/us-east-2/cloudformation/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20220610/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,
+        Signature=<SignatureValue>
       Content-Length:
       - '84'
       Accept:
@@ -840,13 +1005,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 8a6ff6bb-8ac1-4498-bfb1-793f83abea5f
+      - 15cc4f47-1750-4eb6-abe3-fa63535bb747
       Content-Type:
       - text/xml
       Content-Length:
       - '1639'
       Date:
-      - Fri, 08 Nov 2019 19:33:11 GMT
+      - Fri, 10 Jun 2022 19:59:03 GMT
     body:
       encoding: UTF-8
       string: |
@@ -856,14 +1021,14 @@ http_interactions:
               <member>
                 <Outputs>
                   <member>
-                    <ExportName>spec-aws-ruby-stack-create-delete-BucketArn</ExportName>
                     <OutputKey>BucketArn</OutputKey>
                     <OutputValue>arn:aws:s3:::aws-ruby-rspec-bucket</OutputValue>
+                    <ExportName>spec-aws-ruby-stack-create-delete-BucketArn</ExportName>
                   </member>
                 </Outputs>
-                <CreationTime>2019-11-08T19:32:43.843Z</CreationTime>
+                <CreationTime>2022-06-10T19:58:31.120Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/88bb0240-025e-11ea-bde8-02402ec64522</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/b351ee60-e8f7-11ec-a6a2-0af5b7d4fa76</StackId>
                 <StackName>spec-aws-ruby-stack-create-delete</StackName>
                 <Description>Test template one
         </Description>
@@ -889,35 +1054,37 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>8a6ff6bb-8ac1-4498-bfb1-793f83abea5f</RequestId>
+            <RequestId>15cc4f47-1750-4eb6-abe3-fa63535bb747</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
-    http_version: 
-  recorded_at: Fri, 08 Nov 2019 19:33:12 GMT
+  recorded_at: Fri, 10 Jun 2022 19:59:03 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
     body:
       encoding: UTF-8
-      string: Action=DeleteStack&StackName=spec-aws-ruby-stack-create-delete&Version=2010-05-15
+      string: Action=DeleteStack&RetainResources=&StackName=spec-aws-ruby-stack-create-delete&Version=2010-05-15
     headers:
-      Content-Type:
-      - application/x-www-form-urlencoded; charset=utf-8
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.20.0
+      - aws-sdk-ruby3/3.127.0 ruby/2.7.2 x86_64-darwin20 aws-sdk-cloudformation/1.63.0
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20191108T193312Z
+      - 20220610T195903Z
+      X-Amz-Security-Token:
+      - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
-      - b38bcc9ee05550ea52f9b299c7e0a41cf3dd788caedb0960fee80b6c73d30347
+      - 4121da0f656bb0a07c27d26b72231b5cea99e366899515a1b9923ec3b359b076
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20191108/us-east-2/cloudformation/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20220610/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,
+        Signature=<SignatureValue>
       Content-Length:
-      - '81'
+      - '98'
       Accept:
       - "*/*"
   response:
@@ -926,23 +1093,22 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - a51eb308-ec87-488b-a5d2-522c97cd87b7
+      - 4a0d36ef-72ce-4226-9126-eb0113f051a5
       Content-Type:
       - text/xml
       Content-Length:
       - '212'
       Date:
-      - Fri, 08 Nov 2019 19:33:12 GMT
+      - Fri, 10 Jun 2022 19:59:03 GMT
     body:
       encoding: UTF-8
       string: |
         <DeleteStackResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
           <ResponseMetadata>
-            <RequestId>a51eb308-ec87-488b-a5d2-522c97cd87b7</RequestId>
+            <RequestId>4a0d36ef-72ce-4226-9126-eb0113f051a5</RequestId>
           </ResponseMetadata>
         </DeleteStackResponse>
-    http_version: 
-  recorded_at: Fri, 08 Nov 2019 19:33:12 GMT
+  recorded_at: Fri, 10 Jun 2022 19:59:04 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -950,21 +1116,24 @@ http_interactions:
       encoding: UTF-8
       string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-create-delete&Version=2010-05-15
     headers:
-      Content-Type:
-      - application/x-www-form-urlencoded; charset=utf-8
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.20.0
+      - aws-sdk-ruby3/3.127.0 ruby/2.7.2 x86_64-darwin20 aws-sdk-cloudformation/1.63.0
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20191108T193312Z
+      - 20220610T195904Z
+      X-Amz-Security-Token:
+      - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
       - ea945a7b4b47d3e449ec9123418c50c224920cc7f8e9ccfe3e4d186165f3fe11
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20191108/us-east-2/cloudformation/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20220610/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,
+        Signature=<SignatureValue>
       Content-Length:
       - '84'
       Accept:
@@ -975,13 +1144,13 @@ http_interactions:
       message: OK
     headers:
       X-Amzn-Requestid:
-      - 372b2151-b88a-4e80-b5c8-60d00d200f16
+      - 6e130d1c-e972-4349-a322-3e986f9014be
       Content-Type:
       - text/xml
       Content-Length:
-      - '1704'
+      - '1766'
       Date:
-      - Fri, 08 Nov 2019 19:33:12 GMT
+      - Fri, 10 Jun 2022 19:59:04 GMT
     body:
       encoding: UTF-8
       string: |
@@ -991,19 +1160,109 @@ http_interactions:
               <member>
                 <Outputs>
                   <member>
-                    <ExportName>spec-aws-ruby-stack-create-delete-BucketArn</ExportName>
                     <OutputKey>BucketArn</OutputKey>
                     <OutputValue>arn:aws:s3:::aws-ruby-rspec-bucket</OutputValue>
+                    <ExportName>spec-aws-ruby-stack-create-delete-BucketArn</ExportName>
                   </member>
                 </Outputs>
-                <CreationTime>2019-11-08T19:32:43.843Z</CreationTime>
+                <CreationTime>2022-06-10T19:58:31.120Z</CreationTime>
                 <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/88bb0240-025e-11ea-bde8-02402ec64522</StackId>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/b351ee60-e8f7-11ec-a6a2-0af5b7d4fa76</StackId>
                 <StackName>spec-aws-ruby-stack-create-delete</StackName>
                 <Description>Test template one
         </Description>
                 <StackStatus>DELETE_IN_PROGRESS</StackStatus>
-                <DeletionTime>2019-11-08T19:33:12.734Z</DeletionTime>
+                <DeletionTime>2022-06-10T19:59:04.149Z</DeletionTime>
+                <DisableRollback>false</DisableRollback>
+                <Tags/>
+                <RollbackConfiguration/>
+                <DriftInformation>
+                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
+                </DriftInformation>
+                <EnableTerminationProtection>false</EnableTerminationProtection>
+                <StackStatusReason>User Initiated</StackStatusReason>
+                <Parameters>
+                  <member>
+                    <ParameterKey>BucketName</ParameterKey>
+                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
+                  </member>
+                  <member>
+                    <ParameterKey>TagValue</ParameterKey>
+                    <ParameterValue>howdy</ParameterValue>
+                  </member>
+                </Parameters>
+              </member>
+            </Stacks>
+          </DescribeStacksResult>
+          <ResponseMetadata>
+            <RequestId>6e130d1c-e972-4349-a322-3e986f9014be</RequestId>
+          </ResponseMetadata>
+        </DescribeStacksResponse>
+  recorded_at: Fri, 10 Jun 2022 19:59:04 GMT
+- request:
+    method: post
+    uri: https://cloudformation.us-east-2.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-create-delete&Version=2010-05-15
+    headers:
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.127.0 ruby/2.7.2 x86_64-darwin20 aws-sdk-cloudformation/1.63.0
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Host:
+      - cloudformation.us-east-2.amazonaws.com
+      X-Amz-Date:
+      - 20220610T195904Z
+      X-Amz-Security-Token:
+      - AWS_SESSION_TOKEN
+      X-Amz-Content-Sha256:
+      - ea945a7b4b47d3e449ec9123418c50c224920cc7f8e9ccfe3e4d186165f3fe11
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20220610/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,
+        Signature=<SignatureValue>
+      Content-Length:
+      - '84'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amzn-Requestid:
+      - 506ae515-3af9-4ad6-aa4f-b7b6a3d32ec7
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1704'
+      Date:
+      - Fri, 10 Jun 2022 19:59:04 GMT
+    body:
+      encoding: UTF-8
+      string: |
+        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+          <DescribeStacksResult>
+            <Stacks>
+              <member>
+                <Outputs>
+                  <member>
+                    <OutputKey>BucketArn</OutputKey>
+                    <OutputValue>arn:aws:s3:::aws-ruby-rspec-bucket</OutputValue>
+                    <ExportName>spec-aws-ruby-stack-create-delete-BucketArn</ExportName>
+                  </member>
+                </Outputs>
+                <CreationTime>2022-06-10T19:58:31.120Z</CreationTime>
+                <NotificationARNs/>
+                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/b351ee60-e8f7-11ec-a6a2-0af5b7d4fa76</StackId>
+                <StackName>spec-aws-ruby-stack-create-delete</StackName>
+                <Description>Test template one
+        </Description>
+                <StackStatus>DELETE_IN_PROGRESS</StackStatus>
+                <DeletionTime>2022-06-10T19:59:04.149Z</DeletionTime>
                 <DisableRollback>false</DisableRollback>
                 <Tags/>
                 <RollbackConfiguration/>
@@ -1025,11 +1284,10 @@ http_interactions:
             </Stacks>
           </DescribeStacksResult>
           <ResponseMetadata>
-            <RequestId>372b2151-b88a-4e80-b5c8-60d00d200f16</RequestId>
+            <RequestId>506ae515-3af9-4ad6-aa4f-b7b6a3d32ec7</RequestId>
           </ResponseMetadata>
         </DescribeStacksResponse>
-    http_version: 
-  recorded_at: Fri, 08 Nov 2019 19:33:13 GMT
+  recorded_at: Fri, 10 Jun 2022 19:59:04 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -1037,108 +1295,24 @@ http_interactions:
       encoding: UTF-8
       string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-create-delete&Version=2010-05-15
     headers:
-      Content-Type:
-      - application/x-www-form-urlencoded; charset=utf-8
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.20.0
-      Host:
-      - cloudformation.us-east-2.amazonaws.com
-      X-Amz-Date:
-      - 20191108T193313Z
-      X-Amz-Content-Sha256:
-      - ea945a7b4b47d3e449ec9123418c50c224920cc7f8e9ccfe3e4d186165f3fe11
-      Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20191108/us-east-2/cloudformation/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
-      Content-Length:
-      - '84'
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      X-Amzn-Requestid:
-      - 840ecbc8-b471-4983-9a88-4c576ffd5a2f
-      Content-Type:
-      - text/xml
-      Content-Length:
-      - '1704'
-      Date:
-      - Fri, 08 Nov 2019 19:33:12 GMT
-    body:
-      encoding: UTF-8
-      string: |
-        <DescribeStacksResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
-          <DescribeStacksResult>
-            <Stacks>
-              <member>
-                <Outputs>
-                  <member>
-                    <ExportName>spec-aws-ruby-stack-create-delete-BucketArn</ExportName>
-                    <OutputKey>BucketArn</OutputKey>
-                    <OutputValue>arn:aws:s3:::aws-ruby-rspec-bucket</OutputValue>
-                  </member>
-                </Outputs>
-                <CreationTime>2019-11-08T19:32:43.843Z</CreationTime>
-                <NotificationARNs/>
-                <StackId>arn:aws:cloudformation:us-east-2:373045849756:stack/spec-aws-ruby-stack-create-delete/88bb0240-025e-11ea-bde8-02402ec64522</StackId>
-                <StackName>spec-aws-ruby-stack-create-delete</StackName>
-                <Description>Test template one
-        </Description>
-                <StackStatus>DELETE_IN_PROGRESS</StackStatus>
-                <DeletionTime>2019-11-08T19:33:12.734Z</DeletionTime>
-                <DisableRollback>false</DisableRollback>
-                <Tags/>
-                <RollbackConfiguration/>
-                <DriftInformation>
-                  <StackDriftStatus>NOT_CHECKED</StackDriftStatus>
-                </DriftInformation>
-                <EnableTerminationProtection>false</EnableTerminationProtection>
-                <Parameters>
-                  <member>
-                    <ParameterKey>BucketName</ParameterKey>
-                    <ParameterValue>aws-ruby-rspec-bucket</ParameterValue>
-                  </member>
-                  <member>
-                    <ParameterKey>TagValue</ParameterKey>
-                    <ParameterValue>howdy</ParameterValue>
-                  </member>
-                </Parameters>
-              </member>
-            </Stacks>
-          </DescribeStacksResult>
-          <ResponseMetadata>
-            <RequestId>840ecbc8-b471-4983-9a88-4c576ffd5a2f</RequestId>
-          </ResponseMetadata>
-        </DescribeStacksResponse>
-    http_version: 
-  recorded_at: Fri, 08 Nov 2019 19:33:13 GMT
-- request:
-    method: post
-    uri: https://cloudformation.us-east-2.amazonaws.com/
-    body:
-      encoding: UTF-8
-      string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-create-delete&Version=2010-05-15
-    headers:
+      - aws-sdk-ruby3/3.127.0 ruby/2.7.2 x86_64-darwin20 aws-sdk-cloudformation/1.63.0
       Content-Type:
       - application/x-www-form-urlencoded; charset=utf-8
-      Accept-Encoding:
-      - ''
-      User-Agent:
-      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.20.0
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20191108T193318Z
+      - 20220610T195909Z
+      X-Amz-Security-Token:
+      - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
       - ea945a7b4b47d3e449ec9123418c50c224920cc7f8e9ccfe3e4d186165f3fe11
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20191108/us-east-2/cloudformation/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20220610/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,
+        Signature=<SignatureValue>
       Content-Length:
       - '84'
       Accept:
@@ -1149,13 +1323,13 @@ http_interactions:
       message: Bad Request
     headers:
       X-Amzn-Requestid:
-      - 1ce1de2c-ae12-404f-8fac-bab93667ece7
+      - b2340c3c-aed0-48e8-92c0-d489216253fe
       Content-Type:
       - text/xml
       Content-Length:
       - '319'
       Date:
-      - Fri, 08 Nov 2019 19:33:18 GMT
+      - Fri, 10 Jun 2022 19:59:09 GMT
       Connection:
       - close
     body:
@@ -1167,10 +1341,9 @@ http_interactions:
             <Code>ValidationError</Code>
             <Message>Stack with id spec-aws-ruby-stack-create-delete does not exist</Message>
           </Error>
-          <RequestId>1ce1de2c-ae12-404f-8fac-bab93667ece7</RequestId>
+          <RequestId>b2340c3c-aed0-48e8-92c0-d489216253fe</RequestId>
         </ErrorResponse>
-    http_version: 
-  recorded_at: Fri, 08 Nov 2019 19:33:19 GMT
+  recorded_at: Fri, 10 Jun 2022 19:59:09 GMT
 - request:
     method: post
     uri: https://cloudformation.us-east-2.amazonaws.com/
@@ -1178,21 +1351,24 @@ http_interactions:
       encoding: UTF-8
       string: Action=DescribeStacks&StackName=spec-aws-ruby-stack-create-delete&Version=2010-05-15
     headers:
-      Content-Type:
-      - application/x-www-form-urlencoded; charset=utf-8
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby3/3.52.0 ruby/2.5.0 x86_64-darwin17 aws-sdk-cloudformation/1.20.0
+      - aws-sdk-ruby3/3.127.0 ruby/2.7.2 x86_64-darwin20 aws-sdk-cloudformation/1.63.0
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
       Host:
       - cloudformation.us-east-2.amazonaws.com
       X-Amz-Date:
-      - 20191108T193319Z
+      - 20220610T195909Z
+      X-Amz-Security-Token:
+      - AWS_SESSION_TOKEN
       X-Amz-Content-Sha256:
       - ea945a7b4b47d3e449ec9123418c50c224920cc7f8e9ccfe3e4d186165f3fe11
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20191108/us-east-2/cloudformation/aws4_request,
-        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=<SignatureValue>
+      - AWS4-HMAC-SHA256 Credential=AWS_ACCESS_KEY_ID/20220610/us-east-2/cloudformation/aws4_request,
+        SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,
+        Signature=<SignatureValue>
       Content-Length:
       - '84'
       Accept:
@@ -1203,13 +1379,13 @@ http_interactions:
       message: Bad Request
     headers:
       X-Amzn-Requestid:
-      - c0729748-317d-4649-9bef-ca8621ed3047
+      - '0925385d-b251-46c5-9c59-539d9bf2bb95'
       Content-Type:
       - text/xml
       Content-Length:
       - '319'
       Date:
-      - Fri, 08 Nov 2019 19:33:18 GMT
+      - Fri, 10 Jun 2022 19:59:09 GMT
       Connection:
       - close
     body:
@@ -1221,8 +1397,7 @@ http_interactions:
             <Code>ValidationError</Code>
             <Message>Stack with id spec-aws-ruby-stack-create-delete does not exist</Message>
           </Error>
-          <RequestId>c0729748-317d-4649-9bef-ca8621ed3047</RequestId>
+          <RequestId>0925385d-b251-46c5-9c59-539d9bf2bb95</RequestId>
         </ErrorResponse>
-    http_version: 
-  recorded_at: Fri, 08 Nov 2019 19:33:19 GMT
-recorded_with: VCR 4.0.0
+  recorded_at: Fri, 10 Jun 2022 19:59:10 GMT
+recorded_with: VCR 6.0.0

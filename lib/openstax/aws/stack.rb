@@ -86,9 +86,15 @@ module OpenStax::Aws
       }
 
       logger.info("Creating #{name} stack...")
-      client.create_stack(options) if !dry_run
 
-      wait_for_creation if wait
+      if !dry_run
+        client.create_stack(options)
+
+        if wait
+          wait_for_creation
+          tag_resources_not_handled_by_cloudformation
+        end
+      end
     end
 
     def parameters_for_update(overrides: {})
@@ -218,12 +224,22 @@ module OpenStax::Aws
           logger.info("Executing change set")
           change_set.execute
           reset_cached_remote_state
-        end
 
-        wait_for_update if wait
+          wait_for_update if wait
+        end
       end
 
+      # We can still tag resources even if there are no changes according to CloudFormation
+      tag_resources_not_handled_by_cloudformation if wait && !dry_run
+
       change_set
+    end
+
+    def tag_resources_not_handled_by_cloudformation
+      stack_tags = self.class.format_hash_as_tag_parameters @tags
+      resources(
+        [ 'AWS::CloudWatch::Alarm', 'AWS::Events::Rule', 'AWS::AutoScaling::AutoScalingGroup' ]
+      ).each { |resource| resource.add_tags_not_handled_by_cloudformation(stack_tags) }
     end
 
     def delete(retain_resources: [], wait: false)
@@ -289,20 +305,20 @@ module OpenStax::Aws
 
     def resource(logical_id)
       stack_resource = aws_stack.resource(logical_id)
+      resource_factory = OpenStax::Aws::ResourceFactory.new region: region
+      resource_factory.from_stack_resource_or_summary! stack_resource
+    end
 
-      case stack_resource.resource_type
-      when "AWS::AutoScaling::AutoScalingGroup"
-        name = stack_resource.physical_resource_id
-        client = Aws::AutoScaling::Client.new(region: region)
-        Aws::AutoScaling::AutoScalingGroup.new(name: name, client: client)
-      when "AWS::RDS::DBInstance"
-        db_instance_identifier = stack_resource.physical_resource_id
-        OpenStax::Aws::RdsInstance.new(db_instance_identifier: db_instance_identifier, region: region)
-      when "AWS::MSK::Cluster"
-        msk_cluster_arn = stack_resource.physical_resource_id
-        OpenStax::Aws::MskCluster.new(cluster_arn: msk_cluster_arn, region: region)
-      else
-        raise "'#{stack_resource.resource_type}' is not yet implemented in `Stack#resource`"
+    def resources(types = nil)
+      resource_factory = OpenStax::Aws::ResourceFactory.new region: region, types: types
+
+      Enumerator.new do |yielder|
+        client.list_stack_resources(stack_name: name).each do |response|
+          response.stack_resource_summaries.each do |stack_resource_summary|
+            resource = resource_factory.from_stack_resource_or_summary stack_resource_summary
+            yielder << resource unless resource.nil?
+          end
+        end
       end
     end
 
