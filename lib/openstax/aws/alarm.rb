@@ -24,5 +24,14 @@ module OpenStax::Aws
     def tag_resource(new_tags)
       client.tag_resource resource_arn: raw_alarm.alarm_arn, tags: new_tags
     end
+
+    def add_tags_not_handled_by_cloudformation(stack_tags)
+      missing_tags = stack_tags.map(&:to_h) - tags.map(&:to_h)
+
+      return if missing_tags.empty?
+
+      logger.debug "Tagging #{name}..."
+      tag_resource missing_tags
+    end
   end
 end

@@ -237,7 +237,7 @@ module OpenStax::Aws
 
     # This method is intended to be used on OpenStax::Aws::CloudwatchAlarm and
     # OpenStax::Aws::EventRule, both of which implement the :name, :tags and :tag_resource methods
-    def tag_alarm_or_rule(resource, tags)
+    def add_tags_not_handled_by_cloudformation(resource, tags)
       resource_tags = resource.tags.map(&:to_h)
       missing_tags = tags - resource_tags
 
@@ -251,13 +251,7 @@ module OpenStax::Aws
       stack_tags = self.class.format_hash_as_tag_parameters @tags
       resources(
         [ 'AWS::CloudWatch::Alarm', 'AWS::Events::Rule', 'AWS::AutoScaling::AutoScalingGroup' ]
-      ).each do |resource|
-        if resource.is_a? OpenStax::Aws::AutoScalingGroup
-          resource.alarms.each { |alarm| tag_alarm_or_rule alarm, stack_tags }
-        else
-          tag_alarm_or_rule resource, stack_tags
-        end
-      end
+      ).each { |resource| resource.add_tags_not_handled_by_cloudformation(stack_tags) }
     end
 
     def delete(retain_resources: [], wait: false)

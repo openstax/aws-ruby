@@ -34,5 +34,9 @@ module OpenStax::Aws
         OpenStax::Aws::CloudwatchAlarm.new region: region, raw_alarm: raw_alarm
       end
     end
+
+    def add_tags_not_handled_by_cloudformation(stack_tags)
+      alarms.each { |alarm| alarm.add_tags_not_handled_by_cloudformation stack_tags }
+    end
   end
 end
