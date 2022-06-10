@@ -89,10 +89,12 @@ module OpenStax::Aws
 
       if !dry_run
         client.create_stack(options)
-        wait_for_creation if wait
-      end
 
-      tag_resources_not_handled_by_cloudformation if wait
+        if wait
+          wait_for_creation
+          tag_resources_not_handled_by_cloudformation
+        end
+      end
     end
 
     def parameters_for_update(overrides: {})
@@ -227,7 +229,8 @@ module OpenStax::Aws
         end
       end
 
-      tag_resources_not_handled_by_cloudformation if wait
+      # We can still tag resources even if there are no changes according to CloudFormation
+      tag_resources_not_handled_by_cloudformation if wait && !dry_run
 
       change_set
     end
@@ -241,7 +244,7 @@ module OpenStax::Aws
       return if missing_tags.empty?
 
       logger.debug("Tagging #{resource.name}...")
-      resource.tag_resource(missing_tags) unless dry_run
+      resource.tag_resource(missing_tags)
     end
 
     def tag_resources_not_handled_by_cloudformation
