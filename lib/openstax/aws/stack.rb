@@ -235,18 +235,6 @@ module OpenStax::Aws
       change_set
     end
 
-    # This method is intended to be used on OpenStax::Aws::CloudwatchAlarm and
-    # OpenStax::Aws::EventRule, both of which implement the :name, :tags and :tag_resource methods
-    def add_tags_not_handled_by_cloudformation(resource, tags)
-      resource_tags = resource.tags.map(&:to_h)
-      missing_tags = tags - resource_tags
-
-      return if missing_tags.empty?
-
-      logger.debug("Tagging #{resource.name}...")
-      resource.tag_resource(missing_tags)
-    end
-
     def tag_resources_not_handled_by_cloudformation
       stack_tags = self.class.format_hash_as_tag_parameters @tags
       resources(
