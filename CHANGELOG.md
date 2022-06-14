@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2022-06-14
+- Automatically tag CloudWatch alarms and EventBridge rules after stacks are created or updated
+
+## [1.4.0] - 2022-05-11
+- ???
+
+## [1.3.0] - 2021-03-23
+- ???
+
 ## [1.2.0] - 2021-01-12
 
 - Added additional method to MskCluster resource, to return sorted list of bootstrap brokers
