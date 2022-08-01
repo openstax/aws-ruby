@@ -25,9 +25,12 @@ module OpenStax::Aws
       get_tag(key: "sha")
     end
 
-    def self.find_by_sha(sha:, region:)
+    def self.find_by_sha(sha:, region:, deployment_sha: nil)
+      filters = [{name: "tag:sha", values: [sha]}]
+      filters << {name: "tag:deployment_sha", values: [deployment_sha]} unless deployment_sha.nil?
+
       Aws::EC2::Client.new(region: region).describe_images({
-        owners: ['self'], filters: [{name: "tag:sha", values: [sha]}]
+        owners: ['self'], filters: filters
       }).images.map{|aws_image| new(aws_image: aws_image)}
     end
   end
