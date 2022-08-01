@@ -7,6 +7,7 @@ module OpenStax
       def initialize(ami_name_base:, region:,
                      verbose: false, debug: false,
                      github_org:, repo:, branch: nil, sha: nil,
+                     deployment_sha: nil,
                      packer_absolute_file_path: , playbook_absolute_file_path:,
                      dry_run: true)
         if sha.nil?
@@ -17,6 +18,8 @@ module OpenStax
                   branch: branch
                 )
         end
+
+        deployment_sha ||= OpenStax::Aws::GitHelper.current_sha
 
         ami_name = "#{ami_name_base}@#{sha[0..6]} #{Time.now.utc.strftime("%y%m%d%H%MZ")}"
 
@@ -30,9 +33,11 @@ module OpenStax
         @packer.var("region", region)
         @packer.var("ami_name", ami_name)
         @packer.var("sha", sha)
+        @packer.var("deployment_sha", deployment_sha)
         @packer.var("playbook_file", playbook_absolute_file_path)
         @packer.var("ami_description", {
           sha: sha,
+          deployment_sha: deployment_sha,
           github_org: github_org,
           repo: repo
         }.to_json)

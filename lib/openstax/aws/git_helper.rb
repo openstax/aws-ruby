@@ -3,7 +3,6 @@ require 'open-uri'
 
 module OpenStax::Aws
   module GitHelper
-
     def self.sha_for_branch_name(org_slash_repo:, branch:)
       ::Git.ls_remote("https://github.com/#{org_slash_repo}")["branches"][branch][:sha]
     end
@@ -22,6 +21,10 @@ module OpenStax::Aws
            response.body
         end
       end
+    end
+
+    def self.current_sha
+      ::Git.revparse('HEAD')
     end
   end
 end
