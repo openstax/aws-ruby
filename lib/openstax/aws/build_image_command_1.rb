@@ -19,8 +19,6 @@ module OpenStax
                 )
         end
 
-        deployment_sha ||= OpenStax::Aws::GitHelper.current_sha
-
         ami_name = "#{ami_name_base}@#{sha[0..6]} #{Time.now.utc.strftime("%y%m%d%H%MZ")}"
 
         @packer = OpenStax::Aws::PackerFactory.new_packer(
@@ -33,7 +31,7 @@ module OpenStax
         @packer.var("region", region)
         @packer.var("ami_name", ami_name)
         @packer.var("sha", sha)
-        @packer.var("deployment_sha", deployment_sha)
+        @packer.var("deployment_sha", deployment_sha) unless deployment_sha.nil?
         @packer.var("playbook_file", playbook_absolute_file_path)
         @packer.var("ami_description", {
           sha: sha,
