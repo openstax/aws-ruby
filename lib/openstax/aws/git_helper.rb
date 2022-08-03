@@ -22,10 +22,5 @@ module OpenStax::Aws
         end
       end
     end
-
-    def self.current_sha
-      # Git.open('.').revparse('HEAD') does not work on sub-folders, unlike `git rev-parse HEAD`
-      `git rev-parse HEAD`.chomp
-    end
   end
 end
