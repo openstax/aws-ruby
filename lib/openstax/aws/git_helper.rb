@@ -22,5 +22,10 @@ module OpenStax::Aws
         end
       end
     end
+
+    def self.local_repo_sha(path: nil)
+      path ||= Dir.pwd
+      ::Git.open(path).revparse('HEAD')
+    end
   end
 end
