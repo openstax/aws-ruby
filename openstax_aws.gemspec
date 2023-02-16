@@ -40,15 +40,16 @@ Gem::Specification.new do |spec|
   spec.add_dependency "aws-sdk-s3", "~> 1"
   spec.add_dependency "aws-sdk-ssm", "~> 1"
 
-  spec.add_dependency 'git'
   spec.add_dependency "activesupport"
+  spec.add_dependency "git"
+  spec.add_dependency "ox"
 
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "byebug"
   spec.add_development_dependency "awesome_print"
-  spec.add_development_dependency "vcr"
+  spec.add_development_dependency "vcr", ">= 6.1"
   spec.add_development_dependency "webmock"
   spec.add_development_dependency "dotenv"
 end

@@ -39,7 +39,7 @@ SPEC_DEFAULT_REGION = "us-east-2"
 
 def new_stack(name:, filename:, region: SPEC_DEFAULT_REGION, overrides: {})
   OpenStax::Aws::Stack.new(
-    {
+    **{
       name: name,
       region: region,
       absolute_template_path: File.join(__dir__, "support/#{filename}"),
