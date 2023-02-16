@@ -42,7 +42,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "activesupport"
   spec.add_dependency "git"
-  spec.add_dependency "nokogiri"
+  spec.add_dependency "ox"
 
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake", "~> 13.0"
