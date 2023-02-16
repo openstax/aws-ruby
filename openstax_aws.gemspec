@@ -40,8 +40,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency "aws-sdk-s3", "~> 1"
   spec.add_dependency "aws-sdk-ssm", "~> 1"
 
-  spec.add_dependency 'git'
   spec.add_dependency "activesupport"
+  spec.add_dependency "git"
+  spec.add_dependency "nokogiri"
 
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake", "~> 13.0"
