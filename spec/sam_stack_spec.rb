@@ -106,7 +106,7 @@ RSpec.describe OpenStax::Aws::SamStack do
 
   def new_sam_stack(name: "stackname", filename: "sam_simple.yml", region: SPEC_DEFAULT_REGION, overrides: {})
     OpenStax::Aws::SamStack.new(
-      {
+      **{
         name: name,
         region: region,
         absolute_template_path: File.join(__dir__, "support/#{filename}"),
