@@ -27,9 +27,16 @@ module OpenStax
       begin
         ::Aws::S3::Client.new(region: configuration.cfn_template_bucket_region)
                        .head_bucket(bucket: configuration.cfn_template_bucket_name)
-      rescue ::Aws::S3::Errors::Forbidden => ee
-        raise "The provided AWS credentials cannot access the template bucket. Please " \
-              "verify that you are using the correct credentials for the targeted AWS account."
+      rescue ::Aws::S3::Errors::Forbidden
+        # If get_caller_identity throws, that is fine, we get a nice error message from it
+        id = ::Aws::STS::Client.new(
+          region: configuration.cfn_template_bucket_region
+        ).get_caller_identity
+
+        raise "Your current role or user, \"#{id.arn}\", cannot access the CFN template bucket \"#{
+          configuration.cfn_template_bucket_name}\" in the \"#{
+          configuration.cfn_template_bucket_region}\" region. " \
+          "Please verify that you are using the correct role and account."
       end
     end
 
