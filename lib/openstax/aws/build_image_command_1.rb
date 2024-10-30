@@ -11,7 +11,7 @@ module OpenStax
                      packer_absolute_file_path: , playbook_absolute_file_path:,
                      dry_run: true)
         if sha.nil?
-          branch ||= 'master'
+          branch ||= 'main'
 
           sha = OpenStax::Aws::GitHelper.sha_for_branch_name(
                   org_slash_repo: "#{github_org}/#{repo}",
