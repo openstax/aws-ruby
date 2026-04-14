@@ -1,6 +1,7 @@
 require "bundler/setup"
-require 'dotenv/load'
 require "byebug"
+require "dotenv/load"
+require "ostruct"
 
 require_relative "../lib/openstax_aws"
 
