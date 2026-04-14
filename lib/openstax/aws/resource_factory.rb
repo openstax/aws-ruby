@@ -6,6 +6,7 @@ module OpenStax::Aws
       'AWS::CloudWatch::Alarm' => OpenStax::Aws::Alarm,
       'AWS::Events::Rule' => OpenStax::Aws::EventRule,
       'AWS::RDS::DBInstance' => OpenStax::Aws::RdsInstance,
+      'AWS::RDS::DBCluster' => OpenStax::Aws::RdsCluster,
       'AWS::MSK::Cluster' => OpenStax::Aws::MskCluster
     }
 
